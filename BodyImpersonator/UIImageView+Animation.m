@@ -37,11 +37,11 @@
     // NSUserDefaultsから画像を取得
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     // NSDataとして情報を取得
-    NSData *imageData = [defaults objectForKey:@"KEY_editedImage"];
+    NSData *imageData = [defaults objectForKey:@"KEY_selectedImage"];
     // NSDataからUIImageを作成
-    UIImage *editedImage = [UIImage imageWithData:imageData];
+    UIImage *selectedImage = [UIImage imageWithData:imageData];
     // selectedImageをUIImageviewの画像に設定
-    [self setImage:editedImage];
+    [self setImage:selectedImage];
     [self setHidden:0];
     
     float scale = sqrtf(sqrtf(10));

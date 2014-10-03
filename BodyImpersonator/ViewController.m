@@ -28,13 +28,13 @@
     NSArray *animationSeq;
     
     UIImagePickerController *_imagePicker;
-    UIPopoverController *imagePopController;
+    UIPopoverController *_imagePopController;
 }
 
 @property (weak, nonatomic) IBOutlet UIButton *ctrlBtn;
 @property (weak, nonatomic) IBOutlet UIButton *backgroundBtn;
 @property (weak, nonatomic) IBOutlet UIImageView *selectedPhotoImage; // ctrlBtnをそのまま同様のアニメーションをさせると、ctrlBtnをギュンギュンアニメーションさせている都合で、タイミングによって結果がとても大きくなることがあるため、本イメージビューをアニメーション用として準備
-@property (weak, nonatomic) IBOutlet UIImageView *altCtrlBtnForScaleUp;
+
 
 @property (weak, nonatomic) IBOutlet UIImageView *imgLightL;
 
@@ -588,12 +588,12 @@
                               delay:0
                             options:UIViewAnimationOptionCurveEaseIn
                          animations:^{
-                             self.view.backgroundColor = [UIColor colorWithRed:0.17 green:0.24 blue:0.31 alpha:1.0];
+                             self.view.backgroundColor = [UIColor blackColor];// midnightblue [UIColor colorWithRed:0.17 green:0.24 blue:0.31 alpha:1.0];
                          } completion:nil];
         
         // flashAnimation開始
         _flashAnimationTimer =
-        [NSTimer scheduledTimerWithTimeInterval:1.2f
+        [NSTimer scheduledTimerWithTimeInterval:0.9f
                                          target:self.imgLightL
                                        selector:@selector(flashAnimation)
                                        userInfo:nil
@@ -688,19 +688,19 @@
         else{
             NSLog(@"iPadの処理");
             // Popoverの確認・開かれている場合は一度閉じる
-            if (imagePopController) {
-                if ([imagePopController isPopoverVisible]) {
-                    [imagePopController dismissPopoverAnimated:YES];
+            if (_imagePopController) {
+                if ([_imagePopController isPopoverVisible]) {
+                    [_imagePopController dismissPopoverAnimated:YES];
                 }
             }
             
             // popoverを開く
             UIBarButtonItem *btn = sender;
             //            imagePicker.preferredContentSize = CGSizeMake(768, 1024);
-            imagePopController = [[UIPopoverController alloc] initWithContentViewController:_imagePicker];
+            _imagePopController = [[UIPopoverController alloc] initWithContentViewController:_imagePicker];
             
-            // フォトライブラリから画像を選ぶ
-            [imagePopController presentPopoverFromBarButtonItem:btn permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+            // popoverをバーボタンから表示
+            [_imagePopController presentPopoverFromBarButtonItem:btn permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
             
         }
     }
@@ -836,8 +836,8 @@
     
     // 選択した画像をNSUserDefaultsに保存
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSData *selectedImage = UIImagePNGRepresentation(self.selectedPhotoImage.image);
-    [defaults setObject:selectedImage forKey:@"KEY_selectedImage"];
+    NSData *tmpImage = UIImagePNGRepresentation(self.selectedPhotoImage.image);
+    [defaults setObject:tmpImage forKey:@"KEY_tmpImage"];
     [defaults synchronize];
     
     
@@ -855,7 +855,7 @@
     }
     else{
         NSLog(@"iPadの処理");
-        [imagePopController dismissPopoverAnimated:YES];
+        [_imagePopController dismissPopoverAnimated:YES];
         // secondVCを表示
         secondVC *sVC = [self.storyboard instantiateViewControllerWithIdentifier:@"secondVC"];
         [self presentViewController:sVC animated:YES completion:nil];
@@ -869,8 +869,8 @@
     
     // 選択した画像をNSUserDefaultsのKEY_editedImageに保存
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSData *selectedImage = UIImagePNGRepresentation(self.selectedPhotoImage.image);
-    [defaults setObject:selectedImage forKey:@"KEY_editedImage"];
+    NSData *tmpImage = UIImagePNGRepresentation(self.selectedPhotoImage.image);
+    [defaults setObject:tmpImage forKey:@"KEY_selectedImage"];
     [defaults synchronize];
     
     
@@ -882,7 +882,7 @@
     }
     else{
         NSLog(@"iPadの処理");
-        [imagePopController dismissPopoverAnimated:YES];
+        [_imagePopController dismissPopoverAnimated:YES];
     }
 }
 
@@ -946,7 +946,7 @@
     }
     else{
         NSLog(@"iPadの処理");
-        [imagePopController dismissPopoverAnimated:YES];
+        [_imagePopController dismissPopoverAnimated:YES];
     }
 }
 

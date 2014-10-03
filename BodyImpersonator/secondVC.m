@@ -9,15 +9,18 @@
 #import "secondVC.h"
 #import "ViewController.h"
 
-@interface secondVC ()
+@interface secondVC (){
+    UIActionSheet *_actionSheetAlert;
+}
 - (IBAction)tapCancelBarBtn:(UIBarButtonItem *)sender;
-- (IBAction)saveBtn:(UIBarButtonItem *)sender;
 - (IBAction)tapDoneBarBtn:(UIBarButtonItem *)sender;
 - (IBAction)dragging:(UIPanGestureRecognizer *)sender;
 @property (weak, nonatomic) IBOutlet UIScrollView *imageScrollView;
 @property (weak, nonatomic) IBOutlet UIImageView *editImageView;
 @property (weak, nonatomic) IBOutlet UIToolbar *toolBar;
 @property (weak, nonatomic) IBOutlet UINavigationBar *navigationBar;
+
+
 
 @end
 
@@ -41,8 +44,8 @@
     // scrollViewのデリゲート先になる
     _imageScrollView.delegate = self;
     // ズームの最小値/最大値を設定する
-    _imageScrollView.minimumZoomScale = 0.8;
-    _imageScrollView.maximumZoomScale = 4;
+    _imageScrollView.minimumZoomScale = 0.5;
+    _imageScrollView.maximumZoomScale = 8;
     
     // スクローラを表示する
     _imageScrollView.scrollEnabled = YES;
@@ -58,10 +61,10 @@
     // NSUserDefaultsから画像を取得
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     // NSDataとして情報を取得
-    NSData *imageData = [defaults objectForKey:@"KEY_selectedImage"];
+    NSData *imageData = [defaults objectForKey:@"KEY_tmpImage"];
     // NSDataからUIImageを作成
-    UIImage *selectedImage = [UIImage imageWithData:imageData];
-    [self.editImageView setImage:selectedImage];
+    UIImage *tmpImage = [UIImage imageWithData:imageData];
+    [self.editImageView setImage:tmpImage];
     
     // navigationBarとtoolBarを表示する
     [_navigationBar setHidden:0];
@@ -122,6 +125,19 @@
     return zoomRect;
 }
 
+- (IBAction)dragging:(UIPanGestureRecognizer *)sender {
+    // ドラッグ移動したベクトル
+    CGPoint translation = [sender translationInView:self.view];
+    // editImageViewの座標をドラッグした量だけ加算する
+    CGPoint homeLoc = _editImageView.center;
+    homeLoc.x += translation.x;
+    homeLoc.y += translation.y;
+    _editImageView.center = homeLoc;
+    // ドラッグ開始位置をリセットする
+    [sender setTranslation:CGPointZero inView:self.view];
+    
+}
+
 
 - (IBAction)tapCancelBarBtn:(UIBarButtonItem *)sender {
     NSLog(@"cancel tapped");
@@ -129,44 +145,6 @@
 
 }
 
-- (IBAction)saveBtn:(UIBarButtonItem *)sender {
-    // スナップショットを保存するのでナビゲーションバーとツールバーを非表示にする
-    [_navigationBar setHidden:1];
-    [_toolBar setHidden:1];
-    //現在のeditImageViewの画像を取得する
-    //描画領域の設定
-    CGSize cropSize = CGSizeMake(self.view.frame.size.width, self.view.frame.size.height);
-    UIGraphicsBeginImageContext(cropSize);
-    //グラフィックコンテキストの取得
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    
-    // コンテキストの位置を切り取り開始位置に合わせる
-    //    CGPoint point = _editImageView.frame.origin;
-    //    CGAffineTransform affineMoveLeftTop
-    //    = CGAffineTransformMakeTranslation(
-    //                                       -(int)point.x ,
-    //                                       -(int)point.y );
-    //    CGContextConcatCTM(context , affineMoveLeftTop );
-    
-    // viewから切り取る
-    [(CALayer*)self.view.layer renderInContext:context];
-    
-    // 切り取った内容をUIImageとして保存
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    
-    // 現在のビューに表示されている画像をNSUserDefaultsに保存
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSData *editedImage = UIImagePNGRepresentation(image);
-    [defaults setObject:editedImage forKey:@"KEY_editedImage"];
-    [defaults synchronize];
-    
-    UIImageWriteToSavedPhotosAlbum(image, self, @selector(savingImageIsFinished:didFinishSavingWithError:contextInfo:), nil);
-    
-    UIGraphicsEndImageContext();
-    
-    // UIAlertControllerのOKボタンで閉じる　
-
-}
 // カメラロール保存完了を知らせる
 - (void) savingImageIsFinished:(UIImage *)_image didFinishSavingWithError:(NSError *)_error contextInfo:(void *)_contextInfo
 {
@@ -181,12 +159,12 @@
             UIAlertController *actionController =
             [UIAlertController alertControllerWithTitle:@"Error"
                                                 message:@"Save failed"
-                                         preferredStyle:UIAlertControllerStyleActionSheet];
+                                         preferredStyle:UIAlertControllerStyleAlert];
             [actionController addAction:[UIAlertAction actionWithTitle:@"OK"
                                                                  style:UIAlertActionStyleDefault
                                                                handler:^(UIAlertAction *action) {
                                                                    // Show editro タップ時の処理
-                                                   
+                                                                  [self performSegueWithIdentifier:@"myUnwindSegue" sender:self];
                                                                    
                                                                }]];
             // アクションコントローラーを表示
@@ -213,12 +191,12 @@
             UIAlertController *actionController =
             [UIAlertController alertControllerWithTitle:@"Save succeed"
                                                 message:@"Message"
-                                         preferredStyle:UIAlertControllerStyleActionSheet];
+                                         preferredStyle:UIAlertControllerStyleAlert];
             [actionController addAction:[UIAlertAction actionWithTitle:@"OK"
                                                                  style:UIAlertActionStyleDefault
                                                                handler:^(UIAlertAction *action) {
                                                                    // Show editro タップ時の処理
-
+                                                                  [self performSegueWithIdentifier:@"myUnwindSegue" sender:self];
                                                                    
                                                                }]];
             // アクションコントローラーを表示
@@ -227,50 +205,106 @@
             // iOS7の処理
             
             // UIActionSheetを生成
-            UIActionSheet *actionSheet = [[UIActionSheet alloc]init];
-            actionSheet.delegate = self;
-            actionSheet.title = @"Save succeed";
-            [actionSheet addButtonWithTitle:@"OK"];
+            _actionSheetAlert = [[UIActionSheet alloc]init];
+            _actionSheetAlert.delegate = self;
+            _actionSheetAlert.title = @"Save succeed";
+            [_actionSheetAlert addButtonWithTitle:@"OK"];
             // アクションシートを表示
-            [actionSheet showInView:self.view];
+            [_actionSheetAlert showInView:self.view];
             
         }
 
-//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"成功" // @"Succeed"
-//                                                        message:@"カメラロールに保存しました。" // @"Save succeeded"
-//                                                       delegate:nil
-//                                              cancelButtonTitle:nil
-//                                              otherButtonTitles:@"OK", nil
-//                              ];
-//        [alert show];
-        
-        
-        return;
     }
 }
-// アクションシートでOKボタンが押された時の処理
-- (void)actionOK{
-    // sVcを消す
-    //    [self dismissViewControllerAnimated:YES completion:nil]; // unwindSegueでExitと接続してるのでこの行は不要
 
-}
-
-// iOS 7でアクションシートのボタンが押された時の処理
--(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    switch (buttonIndex) {
-        case 0:
-            // firstViewControllerに戻った時にpickerを閉じるためにUnwindSegueで戻る
-             [self performSegueWithIdentifier:@"myUnwindSegue" sender:self];
-
-            break;
-        default:
-            break;
-    }
-}
 
 
 - (IBAction)tapDoneBarBtn:(UIBarButtonItem *)sender {
+
+        Class class = NSClassFromString(@"UIAlertController"); // iOS8/7の切り分けフラグに使用
+    if (class) {
+        // アクションコントローラー生成
+        UIAlertController *actionController =
+        [UIAlertController alertControllerWithTitle:@"Save this image?"
+                                            message:@"Message"
+                                     preferredStyle:UIAlertControllerStyleActionSheet];
+        [actionController addAction:[UIAlertAction actionWithTitle:@"Save to Cameraroll"
+                                                             style:UIAlertActionStyleDefault
+                                                           handler:^(UIAlertAction *action) {
+                                                               // Show editro タップ時の処理
+                                                               [self action1];
+                                                               
+                                                           }]];
+        [actionController addAction:[UIAlertAction actionWithTitle:@"Save to this App only"
+                                                             style:UIAlertActionStyleDefault
+                                                           handler:^(UIAlertAction *action) {
+                                                               // Use this Image タップ時の処理
+                                                               [self action2];
+                                                               
+                                                           }]];
+        [actionController addAction:[UIAlertAction actionWithTitle:@"Cancel"
+                                                             style:UIAlertActionStyleCancel
+                                                           handler:^(UIAlertAction *action) {
+                                                               // Cancel タップ時の処理
+                                                           }]];
+        // iOS8の処理
+        // デバイスがiphoneであるかそうでないかで分岐
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
+            NSLog(@"iPhoneの処理");
+            // アクションコントローラーを表示
+            [self presentViewController:actionController animated:YES completion:nil];
+        }
+        else{
+            NSLog(@"iPadの処理");
+            // popoverを開く
+            UIBarButtonItem *btn = sender;
+
+            actionController.popoverPresentationController.sourceView = self.view;
+            actionController.popoverPresentationController.sourceRect = CGRectMake(100.0, 100.0, 20.0, 20.0);
+            actionController.popoverPresentationController.barButtonItem = btn;
+            // アクションコントローラーを表示
+            [self presentViewController:actionController animated:YES completion:nil];
+
+        }
+
+
+    } else{
+        // iOS7の処理
+        
+        // UIActionSheetを生成
+        UIActionSheet *actionSheet = [[UIActionSheet alloc]init];
+        actionSheet.delegate = self;
+        actionSheet.title = @"Save this Image?";
+        [actionSheet addButtonWithTitle:@"Save to Cameraroll"];
+        [actionSheet addButtonWithTitle:@"Save to this App only"];
+        [actionSheet addButtonWithTitle:@"Cancel"];
+        //        actionSheet.destructiveButtonIndex = 0;
+        actionSheet.cancelButtonIndex = 2;
+//            [actionSheet showInView:self.view];
+        
+        // デバイスがiphoneであるかそうでないかで分岐
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
+            NSLog(@"iPhoneの処理");
+            // アクションシートを表示
+            [actionSheet showInView:self.view];
+        }
+        else{
+            NSLog(@"iPadの処理");
+            // アクションシートをpopoverで表示
+            UIBarButtonItem *btn = sender;
+            [actionSheet showFromBarButtonItem:btn animated:YES];
+
+        }
+
+        
+    }
+
+}
+
+// action1ボタンが押された時の処理
+- (void)action1
+{
+    // Save to Cameraroll タップ時の処理
     // スナップショットを保存するのでナビゲーションバーとツールバーを非表示にする
     [_navigationBar setHidden:1];
     [_toolBar setHidden:1];
@@ -281,13 +315,38 @@
     //グラフィックコンテキストの取得
     CGContextRef context = UIGraphicsGetCurrentContext();
     
-    // コンテキストの位置を切り取り開始位置に合わせる
-//    CGPoint point = _editImageView.frame.origin;
-//    CGAffineTransform affineMoveLeftTop
-//    = CGAffineTransformMakeTranslation(
-//                                       -(int)point.x ,
-//                                       -(int)point.y );
-//    CGContextConcatCTM(context , affineMoveLeftTop );
+    // viewから切り取る
+    [(CALayer*)self.view.layer renderInContext:context];
+    
+    // 現在ビューに表示されている内容をUIImageとして保存
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    
+    // 上記imageをNSUserDefaultsに保存
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSData *editedImage = UIImagePNGRepresentation(image);
+    [defaults setObject:editedImage forKey:@"KEY_selectedImage"];
+    [defaults synchronize];
+    // 上記imageをカメラロールにも保存
+    UIImageWriteToSavedPhotosAlbum(image, self, @selector(savingImageIsFinished:didFinishSavingWithError:contextInfo:), nil);
+    
+    UIGraphicsEndImageContext();
+    
+    // カメラロール保存成功失敗アラートのUIAlertControllerのOKボタンで最初の画面に戻る
+}
+
+// action2ボタンが押された時の処理
+- (void)action2
+{
+    // Save to this App only タップ時の処理
+    // スナップショットを保存するのでナビゲーションバーとツールバーを非表示にする
+    [_navigationBar setHidden:1];
+    [_toolBar setHidden:1];
+    //現在のeditImageViewの画像を取得する
+    //描画領域の設定
+    CGSize cropSize = CGSizeMake(self.view.frame.size.width, self.view.frame.size.height);
+    UIGraphicsBeginImageContext(cropSize);
+    //グラフィックコンテキストの取得
+    CGContextRef context = UIGraphicsGetCurrentContext();
     
     // viewから切り取る
     [(CALayer*)self.view.layer renderInContext:context];
@@ -298,27 +357,51 @@
     // 現在のビューに表示されている画像をNSUserDefaultsに保存
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSData *editedImage = UIImagePNGRepresentation(image);
-    [defaults setObject:editedImage forKey:@"KEY_editedImage"];
+    [defaults setObject:editedImage forKey:@"KEY_selectedImage"];
     [defaults synchronize];
     
     UIGraphicsEndImageContext();
     [self performSegueWithIdentifier:@"myUnwindSegue" sender:self];
-//    [self dismissViewControllerAnimated:YES completion:nil]; // unwindSegueでExitと接続してるのでこの行は不要
 }
 
-
-
-
-- (IBAction)dragging:(UIPanGestureRecognizer *)sender {
-    // ドラッグ移動したベクトル
-    CGPoint translation = [sender translationInView:self.view];
-    // editImageViewの座標をドラッグした量だけ加算する
-    CGPoint homeLoc = _editImageView.center;
-    homeLoc.x += translation.x;
-    homeLoc.y += translation.y;
-    _editImageView.center = homeLoc;
-    // ドラッグ開始位置をリセットする
-    [sender setTranslation:CGPointZero inView:self.view];
+// action3ボタンが押された時の処理
+- (void)action3
+{
     
 }
+// iOS 7でアクションシートのボタンが押された時の処理
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (actionSheet == _actionSheetAlert) {
+        switch (buttonIndex) {
+            case 0:
+                // firstViewControllerに戻った時にpickerを閉じるためにUnwindSegueで戻る
+                [self performSegueWithIdentifier:@"myUnwindSegue" sender:self];
+                
+                break;
+            default:
+                break;
+        }
+    }else{
+        switch (buttonIndex) {
+            case 0:
+                [self action1];
+                break;
+            case 1:
+                [self action2];
+                break;
+            case 2:
+                [self action3];
+                break;
+            default:
+                break;
+        }
+    }
+
+}
+
+
+
+
+
 @end
