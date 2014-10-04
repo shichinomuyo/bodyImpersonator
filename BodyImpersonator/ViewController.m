@@ -38,7 +38,6 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *imgLightL;
 
-
 - (IBAction)touchUpInsideCtrlBtn:(UIButton *)sender;
 - (IBAction)touchDownCtrlBtn:(UIButton *)sender;
 - (IBAction)touchDragExitCtrlBtn:(UIButton *)sender;
@@ -46,10 +45,18 @@
 
 - (IBAction)touchDownBackgroundBtn:(UIButton *)sender;
 - (IBAction)touchUpInsideBackgroundBtn:(UIButton *)sender;
+- (IBAction)previewSelectedImageBtn:(UIBarButtonItem *)sender;
 
 - (IBAction)selectPhoto:(UIBarButtonItem *)sender;
 
+
 @property (weak, nonatomic) IBOutlet UIToolbar *toolBar; // hiddenプロパティを弄るために宣言
+
+// previewImageViewの表示をコントールするために宣言
+@property (weak, nonatomic) IBOutlet UIButton *previewImageControllBtn;
+- (IBAction)previewImageControllBtn:(UIButton *)sender;
+@property (weak, nonatomic) IBOutlet UIImageView *previewImage;
+@property (weak, nonatomic) IBOutlet UIView *nestView;
 
 @end
 #pragma mark -
@@ -522,84 +529,84 @@
 #pragma mark touchAction
 // ctrlBtnのtouchUpInside時に実行される処理を実装
 - (IBAction)touchUpInsideCtrlBtn:(UIButton *)sender {
-    
-    if (_rollPlayerTmp.isPlaying || _rollPlayerAlt.isPlaying) {
-        // ドラムロール再生中にctrlBtnが押されたときクラッシュ再生
-        
-        // crash再生する度に再生回数を+1してNSUserDefaultsに保存
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        NSInteger i = [defaults integerForKey:@"KEY_countUpCrashPlayed"];
-        i = i +1;
-        [defaults setInteger:i forKey:@"KEY_countUpCrashPlayed"];
-        [defaults synchronize];
-        
-        // ドラムロールを止めcrash再生
-        [_crashPlayer playCrashStopRolls:_rollPlayerTmp :_rollPlayerAlt];
-        
-        // プレイヤータイマーを破棄する
-        [_playTimer invalidate];
-        
-        // アニメーションタイマーを破棄する
-        [self animationTimerInvalidate];
-        
-        // viewのバックグラウンドカラーを白にする
-        [UIView animateWithDuration:0.25
-                         animations:^{
-                             self.view.backgroundColor = [UIColor whiteColor];
-                             
-                             // ctrlBtnのテキストの中身を書く
-                             [self.ctrlBtn setTitle:@"Tap or Shake to Start!" forState:UIControlStateNormal];
-                             
-                         } completion:nil];
-        
-        
-        // touchDown時のtransformとdisabelにしたのを戻す
-        [self.ctrlBtn clearTransformBtnSetEnable];
-        [self.ctrlBtn setHidden:1];  // selectedPhotoImageをそのまま拡大アニメーションすると拡大されすぎる問題があったのでctrlBtn.aphaを0にする。hiddenにするとviewDidAppearでの拡大アニメーションが再生されてしまう問題あり
-        
-        // selectedPhotoImageの画像が回転しながら大きくなってくるアニメーション
-        [self.selectedPhotoImage appearWithScaleUp]; // (1.09sec)ctrlBtnをそのまま同様のアニメーションをさせると、ctrlBtnをギュンギュンアニメーションさせている都合で、タイミングによって結果がとても大きくなることがあるため、本イメージビューをアニメーション用として準備
-        // backgroundBtnを表示しタップ可能にする
-        [self.backgroundBtn setHidden:0];
-        
-        
-    } else {
-        // ドラムロール停止中にctrlBtnが押されたとき
-        
-        // ドラムロールを再生する
-        [_rollPlayerTmp playRollStopCrash:_crashPlayer setVolumeZero:_rollPlayerAlt ];
-        // playerControllを一定間隔で呼び出すタイマーを作る
-        [self playerControll];
-        
-        // アニメーションタイマーを破棄する
-        [self animationTimerInvalidate];
-        
-        // toolBarを非表示にする
-        [self.toolBar setHidden:1];
-        
-        // touchDown時のtransformとdisabelにしたのを戻す
-        [self.ctrlBtn clearTransformBtnSetEnable];
-        
-        // 画像が表示されるまでctrlBtnのテキストを隠す
-        [self.ctrlBtn setTitle:nil forState:UIControlStateNormal];
-        
-        // viewのバックグラウンドカラーをmidnightblueにする
-        [UIView animateWithDuration:0.25
-                              delay:0
-                            options:UIViewAnimationOptionCurveEaseIn
-                         animations:^{
-                             self.view.backgroundColor = [UIColor blackColor];// midnightblue [UIColor colorWithRed:0.17 green:0.24 blue:0.31 alpha:1.0];
-                         } completion:nil];
-        
-        // flashAnimation開始
-        _flashAnimationTimer =
-        [NSTimer scheduledTimerWithTimeInterval:0.9f
-                                         target:self.imgLightL
-                                       selector:@selector(flashAnimation)
-                                       userInfo:nil
-                                        repeats:YES];
-        
-    }
+
+        if (_rollPlayerTmp.isPlaying || _rollPlayerAlt.isPlaying) {
+            // ドラムロール再生中にctrlBtnが押されたときクラッシュ再生
+            
+            // crash再生する度に再生回数を+1してNSUserDefaultsに保存
+            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+            NSInteger i = [defaults integerForKey:@"KEY_countUpCrashPlayed"];
+            i = i +1;
+            [defaults setInteger:i forKey:@"KEY_countUpCrashPlayed"];
+            [defaults synchronize];
+            
+            // ドラムロールを止めcrash再生
+            [_crashPlayer playCrashStopRolls:_rollPlayerTmp :_rollPlayerAlt];
+            
+            // プレイヤータイマーを破棄する
+            [_playTimer invalidate];
+            
+            // アニメーションタイマーを破棄する
+            [self animationTimerInvalidate];
+            
+            // viewのバックグラウンドカラーを白にする
+            [UIView animateWithDuration:0.25
+                             animations:^{
+                                 self.view.backgroundColor = [UIColor whiteColor];
+                                 
+                                 // ctrlBtnのテキストの中身を書く
+                                 [self.ctrlBtn setTitle:@"Tap or Shake to Start!" forState:UIControlStateNormal];
+                                 
+                             } completion:nil];
+            
+            
+            // touchDown時のtransformとdisabelにしたのを戻す
+            [self.ctrlBtn clearTransformBtnSetEnable];
+            [self.ctrlBtn setHidden:1];  // selectedPhotoImageをそのまま拡大アニメーションすると拡大されすぎる問題があったのでctrlBtn.aphaを0にする。hiddenにするとviewDidAppearでの拡大アニメーションが再生されてしまう問題あり
+            
+            // selectedPhotoImageの画像が回転しながら大きくなってくるアニメーション
+            [self.selectedPhotoImage appearWithScaleUp]; // (1.09sec)ctrlBtnをそのまま同様のアニメーションをさせると、ctrlBtnをギュンギュンアニメーションさせている都合で、タイミングによって結果がとても大きくなることがあるため、本イメージビューをアニメーション用として準備
+            // backgroundBtnを表示しタップ可能にする
+            [self.backgroundBtn setHidden:0];
+            
+            
+        } else {
+            // ドラムロール停止中にctrlBtnが押されたとき
+            
+            // ドラムロールを再生する
+            [_rollPlayerTmp playRollStopCrash:_crashPlayer setVolumeZero:_rollPlayerAlt ];
+            // playerControllを一定間隔で呼び出すタイマーを作る
+            [self playerControll];
+            
+            // アニメーションタイマーを破棄する
+            [self animationTimerInvalidate];
+            
+            // toolBarを非表示にする
+            [self.toolBar setHidden:1];
+            
+            // touchDown時のtransformとdisabelにしたのを戻す
+            [self.ctrlBtn clearTransformBtnSetEnable];
+            
+            // 画像が表示されるまでctrlBtnのテキストを隠す
+            [self.ctrlBtn setTitle:nil forState:UIControlStateNormal];
+            
+            // viewのバックグラウンドカラーをmidnightblueにする
+            [UIView animateWithDuration:0.25
+                                  delay:0
+                                options:UIViewAnimationOptionCurveEaseIn
+                             animations:^{
+                                 self.view.backgroundColor = [UIColor blackColor];// midnightblue [UIColor colorWithRed:0.17 green:0.24 blue:0.31 alpha:1.0];
+                             } completion:nil];
+            
+            // flashAnimation開始
+            _flashAnimationTimer =
+            [NSTimer scheduledTimerWithTimeInterval:0.9f
+                                             target:self.imgLightL
+                                           selector:@selector(flashAnimation)
+                                           userInfo:nil
+                                            repeats:YES];
+            
+        }
     
 }
 
@@ -647,6 +654,40 @@
         
         
     }
+}
+
+- (IBAction)previewSelectedImageBtn:(UIBarButtonItem *)sender {
+    if (self.nestView.hidden) {
+        
+        // NSUserDefaultsから画像を取得
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        // NSDataとして情報を取得
+        NSData *imageData = [defaults objectForKey:@"KEY_selectedImage"];
+        // NSDataからUIImageを作成
+        UIImage *selectedImage = [UIImage imageWithData:imageData];
+        CGSize finalSize;
+
+        finalSize = CGSizeMake(self.view.frame.size.width/2, self.view.frame.size.height/2);
+
+        [self.nestView setFrame:CGRectMake(self.view.center.x-5, self.view.center.y-50, self.view.frame.size.width/2, self.view.frame.size.height/2)];
+        // imageviewのpreviewImageに画像を設定
+//        [self.previewImage setFrame:CGRectMake(self.view.center.x-5, self.view.center.y-50, self.view.frame.size.width/2, self.view.frame.size.height/2)];
+        
+        [self.previewImage setImage:[self imageWithImage:selectedImage CovertToSize:finalSize]];
+        self.nestView.layer.borderWidth = 2.0f;
+        self.nestView.layer.borderColor = [UIColor grayColor].CGColor;
+        [self.nestView setHidden:0];
+        [self.previewImageControllBtn setHidden:0];
+    } else{
+        [self.nestView setHidden:1];
+        [self.previewImageControllBtn setHidden:1];
+    }
+}
+
+// previewImageの表示を消す
+- (IBAction)previewImageControllBtn:(UIButton *)sender {
+    [self.nestView setHidden:1];
+    [self.previewImageControllBtn setHidden:1];
 }
 
 #pragma mark -
