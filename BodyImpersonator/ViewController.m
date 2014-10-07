@@ -29,6 +29,7 @@
     
     UIImagePickerController *_imagePicker;
     UIPopoverController *_imagePopController;
+    UIPopoverController *_previewPopController;
 }
 
 @property (weak, nonatomic) IBOutlet UIButton *ctrlBtn;
@@ -45,7 +46,7 @@
 
 - (IBAction)touchDownBackgroundBtn:(UIButton *)sender;
 - (IBAction)touchUpInsideBackgroundBtn:(UIButton *)sender;
-- (IBAction)previewSelectedImageBtn:(UIBarButtonItem *)sender;
+- (IBAction)previewBtn:(UIBarButtonItem *)sender;
 
 - (IBAction)selectPhoto:(UIBarButtonItem *)sender;
 
@@ -53,9 +54,9 @@
 @property (weak, nonatomic) IBOutlet UIToolbar *toolBar; // hiddenプロパティを弄るために宣言
 
 // previewImageViewの表示をコントールするために宣言
-@property (weak, nonatomic) IBOutlet UIButton *previewImageControllBtn;
-- (IBAction)previewImageControllBtn:(UIButton *)sender;
-@property (weak, nonatomic) IBOutlet UIImageView *previewImage;
+@property (weak, nonatomic) IBOutlet UIButton *nestViewCtrlBtn;
+- (IBAction)nestViewCtrlBtn:(UIButton *)sender;
+@property (weak, nonatomic) IBOutlet UIImageView *previewImageView;
 @property (weak, nonatomic) IBOutlet UIView *nestView;
 
 @end
@@ -656,38 +657,49 @@
     }
 }
 
-- (IBAction)previewSelectedImageBtn:(UIBarButtonItem *)sender {
-    if (self.nestView.hidden) {
-        
-        // NSUserDefaultsから画像を取得
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        // NSDataとして情報を取得
-        NSData *imageData = [defaults objectForKey:@"KEY_selectedImage"];
-        // NSDataからUIImageを作成
-        UIImage *selectedImage = [UIImage imageWithData:imageData];
-        CGSize finalSize;
+// previewBtnをおした時の処理
+- (IBAction)previewBtn:(UIBarButtonItem *)sender {
 
-        finalSize = CGSizeMake(self.view.frame.size.width/2, self.view.frame.size.height/2);
-
-        [self.nestView setFrame:CGRectMake(self.view.center.x-5, self.view.center.y-50, self.view.frame.size.width/2, self.view.frame.size.height/2)];
-        // imageviewのpreviewImageに画像を設定
-//        [self.previewImage setFrame:CGRectMake(self.view.center.x-5, self.view.center.y-50, self.view.frame.size.width/2, self.view.frame.size.height/2)];
-        
-        [self.previewImage setImage:[self imageWithImage:selectedImage CovertToSize:finalSize]];
-        self.nestView.layer.borderWidth = 2.0f;
-        self.nestView.layer.borderColor = [UIColor grayColor].CGColor;
-        [self.nestView setHidden:0];
-        [self.previewImageControllBtn setHidden:0];
-    } else{
-        [self.nestView setHidden:1];
-        [self.previewImageControllBtn setHidden:1];
+    // デバイスがiphoneであるかそうでないかで分岐
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
+        // iPhoneの処理
+        // nestViewが非表示のときにnestViewを表示。nestViewが表示されているときはnestViewを非表示。
+        if (self.nestView.hidden) {
+            // NSUserDefaultsから画像を取得
+            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+            // NSDataとして情報を取得
+            NSData *imageData = [defaults objectForKey:@"KEY_selectedImage"];
+            // NSDataからUIImageを作成
+            UIImage *selectedImage = [UIImage imageWithData:imageData];
+            CGSize finalSize;
+            
+            finalSize = CGSizeMake(self.view.frame.size.width/2, self.view.frame.size.height/2);
+            
+            [self.nestView setFrame:CGRectMake(self.view.center.x-5, self.view.center.y-50, self.view.frame.size.width/2, self.view.frame.size.height/2)];
+            // previewImageViewの位置とサイズをnestViewに合わせる
+            [self.previewImageView setFrame:CGRectMake(0, 0, self.view.frame.size.width/2, self.view.frame.size.height/2)];
+            // imageviewのpreviewImageViewに画像を設定
+            [self.previewImageView setImage:[self imageWithImage:selectedImage ConvertToSize:finalSize]];
+            self.nestView.layer.borderWidth = 2.0f;
+            self.nestView.layer.borderColor = [UIColor grayColor].CGColor;
+            [self.nestView setHidden:0];
+            [self.nestViewCtrlBtn setHidden:0];
+        } else{
+            [self.nestView setHidden:1];
+            [self.nestViewCtrlBtn setHidden:1];
+        }
     }
+    else{
+        // iPadの処理
+        // storyboard上でポップアップ表示処理は完結。画像表示処理をpreviewVCで実装。
+    }
+
 }
 
-// previewImageの表示を消す
-- (IBAction)previewImageControllBtn:(UIButton *)sender {
+// previewImageViewが乗ったnestViewの表示を消す
+- (IBAction)nestViewCtrlBtn:(UIButton *)sender {
     [self.nestView setHidden:1];
-    [self.previewImageControllBtn setHidden:1];
+    [self.nestViewCtrlBtn setHidden:1];
 }
 
 #pragma mark -
@@ -767,19 +779,14 @@
     NSLog(@"corpRect %@", NSStringFromCGRect(cropRect));
     //corpRect 80.000000 216.000000 1280.000000 1280.000000
     
+    // 端末ごとに対応不要にするためスクリーンサイズを取得
+    CGRect screenRect = [[UIScreen mainScreen] bounds];
     CGSize finalSize;
-    // デバイスがiphoneであるかそうでないかで分岐
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
-        NSLog(@"iPhoneの処理");
-        finalSize = CGSizeMake(320, 768);
-    }
-    else{
-        NSLog(@"iPadの処理");
-        finalSize = CGSizeMake(768, 1024);
-    }
+    finalSize = CGSizeMake(screenRect.size.width, screenRect.size.height);
+    NSLog(@"finalSize (%.1f,%.1f)", finalSize.width,finalSize.height);
     
     // selectedPhotoImageに画像を設定
-    [self.selectedPhotoImage setImage:[self imageWithImage:imagePicked CovertToSize:finalSize]];
+    [self.selectedPhotoImage setImage:[self imageWithImage:imagePicked ConvertToSize:finalSize]];
     Class class = NSClassFromString(@"UIAlertController"); // iOS8/7の切り分けフラグに使用
     if (class) {
         // iOS8の処理
@@ -951,7 +958,7 @@
 }
 
 // 縦横長い方に合わせて縮小する
--(UIImage *)imageWithImage:(UIImage *)image CovertToSize:(CGSize)size {
+-(UIImage *)imageWithImage:(UIImage *)image ConvertToSize:(CGSize)size {
     // ビューとイメージの比率を計算する
     CGFloat widthRatio  = size.width  / image.size.width;
     CGFloat heightRatio = size.height / image.size.height;
@@ -959,13 +966,14 @@
     CGFloat ratio = (widthRatio < heightRatio) ? widthRatio : heightRatio;
     //
     if (ratio >= 1.0) {
+                NSLog(@"image.size (%.2f,%.2f)", image.size.width,image.size.height);
         return image;
     }
     
     CGRect rect = CGRectMake(0, 0,
                              image.size.width  * ratio,
                              image.size.height * ratio);
-    
+        NSLog(@"rect.size (%.2f,%.2f)", rect.size.width,rect.size.height);
     UIGraphicsBeginImageContext(rect.size);
     
     [image drawInRect:rect];

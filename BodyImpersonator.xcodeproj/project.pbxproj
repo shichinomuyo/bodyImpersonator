@@ -57,6 +57,7 @@
 		56427ECF19AB923C00B516A0 /* libAdapterNend_readme.txt in Resources */ = {isa = PBXBuildFile; fileRef = 56427ECD19AB923C00B516A0 /* libAdapterNend_readme.txt */; };
 		56427ED119AB98F900B516A0 /* 41tSp5ic8NL.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 56427ED019AB98F900B516A0 /* 41tSp5ic8NL.jpg */; };
 		56427EE519B85A7600B516A0 /* LightsFromCenter.png in Resources */ = {isa = PBXBuildFile; fileRef = 56427EE419B85A7600B516A0 /* LightsFromCenter.png */; };
+		564AD77B19E3B4FB0069901D /* previewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 564AD77A19E3B4FB0069901D /* previewVC.m */; };
 		5686757B19BED3C900AF524A /* secondVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5686757A19BED3C900AF524A /* secondVC.m */; };
 /* End PBXBuildFile section */
 
@@ -147,6 +148,8 @@
 		56427ECD19AB923C00B516A0 /* libAdapterNend_readme.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = libAdapterNend_readme.txt; sourceTree = "<group>"; };
 		56427ED019AB98F900B516A0 /* 41tSp5ic8NL.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 41tSp5ic8NL.jpg; sourceTree = "<group>"; };
 		56427EE419B85A7600B516A0 /* LightsFromCenter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LightsFromCenter.png; sourceTree = "<group>"; };
+		564AD77919E3B4FB0069901D /* previewVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = previewVC.h; sourceTree = "<group>"; };
+		564AD77A19E3B4FB0069901D /* previewVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = previewVC.m; sourceTree = "<group>"; };
 		5686757919BED3C900AF524A /* secondVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = secondVC.h; sourceTree = "<group>"; };
 		5686757A19BED3C900AF524A /* secondVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = secondVC.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -252,6 +255,8 @@
 				56427E2F19AB823200B516A0 /* ViewController.m */,
 				5686757919BED3C900AF524A /* secondVC.h */,
 				5686757A19BED3C900AF524A /* secondVC.m */,
+				564AD77919E3B4FB0069901D /* previewVC.h */,
+				564AD77A19E3B4FB0069901D /* previewVC.m */,
 				56427E3119AB823200B516A0 /* Images.xcassets */,
 				56427E1D19AB823200B516A0 /* Supporting Files */,
 			);
@@ -524,6 +529,7 @@
 				56427E2719AB823200B516A0 /* AppDelegate.m in Sources */,
 				56427EA919AB897500B516A0 /* ImageViewCircle.m in Sources */,
 				56427E2319AB823200B516A0 /* main.m in Sources */,
+				564AD77B19E3B4FB0069901D /* previewVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

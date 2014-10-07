@@ -231,14 +231,14 @@
         [actionController addAction:[UIAlertAction actionWithTitle:@"Save to Cameraroll"
                                                              style:UIAlertActionStyleDefault
                                                            handler:^(UIAlertAction *action) {
-                                                               // Show editro タップ時の処理
+                                                               // Save this image? タップ時の処理
                                                                [self action1];
                                                                
                                                            }]];
         [actionController addAction:[UIAlertAction actionWithTitle:@"Save to this App only"
                                                              style:UIAlertActionStyleDefault
                                                            handler:^(UIAlertAction *action) {
-                                                               // Use this Image タップ時の処理
+                                                               // Save to this App only タップ時の処理
                                                                [self action2];
                                                                
                                                            }]];

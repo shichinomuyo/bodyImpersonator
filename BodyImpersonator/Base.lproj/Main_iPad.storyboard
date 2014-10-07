@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="vXZ-lx-hvc">
     <dependencies>
-        <deployment defaultVersion="1808" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
     </dependencies>
     <scenes>
@@ -47,11 +46,11 @@
                                     <action selector="touchUpInsideCtrlBtn:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Pi4-Ss-vUB"/>
                                 </connections>
                             </button>
-                            <view hidden="YES" contentMode="scaleToFill" id="x8R-5O-1S4" userLabel="previewImageControllView">
+                            <view hidden="YES" contentMode="scaleToFill" id="x8R-5O-1S4" userLabel="nestView">
                                 <rect key="frame" x="160" y="160" width="160" height="284"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="v9w-6V-fkw" userLabel="previewImage">
+                                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="v9w-6V-fkw" userLabel="previewImageView">
                                         <rect key="frame" x="0.0" y="0.0" width="160" height="284"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -66,14 +65,14 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="J2f-Zl-dsq" userLabel="previewImageControllBtn">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="J2f-Zl-dsq" userLabel="nestViewCtrlBtn">
                                 <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="previewImageControllBtn:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="oFp-lg-gDS"/>
+                                    <action selector="nestViewCtrlBtn:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="zD9-WI-DoK"/>
                                 </connections>
                             </button>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="vtL-UZ-vbz">
@@ -88,7 +87,10 @@
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="P9n-nb-OfM"/>
                                     <barButtonItem title="Preview" id="1HN-HY-6WL">
                                         <connections>
-                                            <action selector="previewSelectedImageBtn:" destination="vXZ-lx-hvc" id="odK-Jr-rsJ"/>
+                                            <action selector="previewBtn:" destination="vXZ-lx-hvc" id="tvh-qG-1Ke"/>
+                                            <segue destination="n5M-dy-Prk" kind="popover" popoverAnchorBarButtonItem="1HN-HY-6WL" id="SAu-P2-Ufp">
+                                                <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                            </segue>
                                         </connections>
                                     </barButtonItem>
                                 </items>
@@ -101,14 +103,45 @@
                         <outlet property="ctrlBtn" destination="fRx-QP-7Su" id="IfP-0K-7sf"/>
                         <outlet property="imgLightL" destination="02z-tB-FhH" id="rdL-A2-iOy"/>
                         <outlet property="nestView" destination="x8R-5O-1S4" id="K74-46-uoy"/>
-                        <outlet property="previewImage" destination="v9w-6V-fkw" id="Lcu-Vi-ay1"/>
-                        <outlet property="previewImageControllBtn" destination="J2f-Zl-dsq" id="mbF-7j-QNM"/>
+                        <outlet property="nestViewCtrlBtn" destination="J2f-Zl-dsq" id="7wu-Rh-TeP"/>
+                        <outlet property="previewImageView" destination="v9w-6V-fkw" id="hOy-3l-7Mz"/>
                         <outlet property="selectedPhotoImage" destination="Lsf-vS-kYr" id="xXc-3K-5ak"/>
                         <outlet property="toolBar" destination="vtL-UZ-vbz" id="kA1-Rq-jfh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
+        </scene>
+        <!--previewVC-->
+        <scene sceneID="D5L-el-5IX">
+            <objects>
+                <viewController storyboardIdentifier="previewVC" id="n5M-dy-Prk" userLabel="previewVC" customClass="previewVC" sceneMemberID="viewController">
+                    <view key="view" contentMode="center" id="vt0-rx-hJJ">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="c2Y-L2-BEg" userLabel="previewImageView">
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </imageView>
+                            <navigationBar alpha="0.60000002384185791" contentMode="scaleToFill" id="SIe-jD-3U9">
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <items>
+                                    <navigationItem title="1/2 Scale" id="Puw-UE-iDL"/>
+                                </items>
+                            </navigationBar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="previewImageView" destination="c2Y-L2-BEg" id="7Wc-iB-te8"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0hH-AY-3nL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="524" y="1628"/>
         </scene>
         <!--secondVC-->
         <scene sceneID="mlm-lC-vBS">
@@ -175,7 +208,7 @@
                     </connections>
                 </panGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="866" y="-3"/>
+            <point key="canvasLocation" x="980" y="136"/>
         </scene>
     </scenes>
     <resources>
