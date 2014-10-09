@@ -18,12 +18,15 @@
 #import "GADInterstitial.h"
 #import "NADView.h"
 #import "AppDelegate.h"
+#import "secondVC.h"
+#import "previewVC.h"
+
 
 
 //#define MY_BANNER_UNIT_ID @"ca-app-pub-5959590649595305/5220821270"
 //#define MY_INTERSTITIAL_UNIT_ID @"ca-app-pub-5959590649595305/4941619672"
 
-@interface ViewController : UIViewController<GADBannerViewDelegate,GADInterstitialDelegate,NADViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>{
+@interface ViewController : UIViewController<GADBannerViewDelegate,GADInterstitialDelegate,NADViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIPopoverControllerDelegate,UIPopoverPresentationControllerDelegate>{
     //【Ad】AdMobバナー：インスタンス変数として1つ宣言
     GADBannerView *bannerView_;
     

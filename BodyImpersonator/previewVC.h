@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface previewVC : UIViewController
+@interface previewVC : UIViewController<UIPopoverControllerDelegate,UIPopoverPresentationControllerDelegate>
 
 @end

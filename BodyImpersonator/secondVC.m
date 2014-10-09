@@ -20,8 +20,6 @@
 @property (weak, nonatomic) IBOutlet UIToolbar *toolBar;
 @property (weak, nonatomic) IBOutlet UINavigationBar *navigationBar;
 
-
-
 @end
 
 @implementation secondVC

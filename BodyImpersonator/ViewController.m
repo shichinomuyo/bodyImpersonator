@@ -7,7 +7,7 @@
 //
 
 #import "ViewController.h"
-#import "secondVC.h"
+
 
 @interface ViewController ()<AVAudioPlayerDelegate>
 {
@@ -29,7 +29,7 @@
     
     UIImagePickerController *_imagePicker;
     UIPopoverController *_imagePopController;
-    UIPopoverController *_previewPopController;
+
 }
 
 @property (weak, nonatomic) IBOutlet UIButton *ctrlBtn;
@@ -657,36 +657,71 @@
     }
 }
 
+//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+//    // Assuming you've hooked this all up in a Storyboard with a popover presentation style
+//    if ([segue.identifier isEqualToString:@"showPopover"]) {
+//        UINavigationController *destNav = segue.destinationViewController;
+//        previewVC *previewController = [self.storyboard instantiateViewControllerWithIdentifier:@"previewVC"];
+//        previewController = destNav.viewControllers.firstObject;
+//        
+//        // This is the important part
+//        UIPopoverPresentationController *popPC = destNav.popoverPresentationController;
+//        popPC.delegate = self;
+//    }
+//}
+//
+//- (UIModalPresentationStyle)adaptivePresentationStyleForPresentationController:(UIPresentationController *)controller {
+//    return UIModalPresentationNone;
+//}
+
 // previewBtnをおした時の処理
 - (IBAction)previewBtn:(UIBarButtonItem *)sender {
 
     // デバイスがiphoneであるかそうでないかで分岐
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
         // iPhoneの処理
-        // nestViewが非表示のときにnestViewを表示。nestViewが表示されているときはnestViewを非表示。
-        if (self.nestView.hidden) {
-            // NSUserDefaultsから画像を取得
-            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-            // NSDataとして情報を取得
-            NSData *imageData = [defaults objectForKey:@"KEY_selectedImage"];
-            // NSDataからUIImageを作成
-            UIImage *selectedImage = [UIImage imageWithData:imageData];
-            CGSize finalSize;
+        Class class = NSClassFromString(@"UIPopoverPresentationController"); // iOS8/7の切り分けフラグに使用
+        if (class) {
+            // iOS8の処理
+        previewVC *previewController = [self.storyboard instantiateViewControllerWithIdentifier:@"previewVC"];//[[previewVC alloc]init];
+        previewController.modalPresentationStyle = UIModalPresentationPopover;
+        
             
-            finalSize = CGSizeMake(self.view.frame.size.width/2, self.view.frame.size.height/2);
+            [self presentViewController:previewController animated:YES completion:nil ];
+        
+        UIPopoverPresentationController *popoverCtrl = [previewController popoverPresentationController];
+        popoverCtrl.permittedArrowDirections = UIPopoverArrowDirectionAny;
+        
+        popoverCtrl.sourceView = self.view;
+        popoverCtrl.sourceRect = CGRectMake(0, 0, 200, 200);
+
+        }else{
+            // iOS7の時の処理
+            // nestViewが非表示のときにnestViewを表示。nestViewが表示されているときはnestViewを非表示。
+                    if (self.nestView.hidden) {
+                        // NSUserDefaultsから画像を取得
+                        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+                        // NSDataとして情報を取得
+                        NSData *imageData = [defaults objectForKey:@"KEY_selectedImage"];
+                        // NSDataからUIImageを作成
+                        UIImage *selectedImage = [UIImage imageWithData:imageData];
+                        CGSize finalSize;
             
-            [self.nestView setFrame:CGRectMake(self.view.center.x-5, self.view.center.y-50, self.view.frame.size.width/2, self.view.frame.size.height/2)];
-            // previewImageViewの位置とサイズをnestViewに合わせる
-            [self.previewImageView setFrame:CGRectMake(0, 0, self.view.frame.size.width/2, self.view.frame.size.height/2)];
-            // imageviewのpreviewImageViewに画像を設定
-            [self.previewImageView setImage:[self imageWithImage:selectedImage ConvertToSize:finalSize]];
-            self.nestView.layer.borderWidth = 2.0f;
-            self.nestView.layer.borderColor = [UIColor grayColor].CGColor;
-            [self.nestView setHidden:0];
-            [self.nestViewCtrlBtn setHidden:0];
-        } else{
-            [self.nestView setHidden:1];
-            [self.nestViewCtrlBtn setHidden:1];
+                        finalSize = CGSizeMake(self.view.frame.size.width/2, self.view.frame.size.height/2);
+            
+                        [self.nestView setFrame:CGRectMake(self.view.center.x-5, self.view.center.y-50, self.view.frame.size.width/2, self.view.frame.size.height/2)];
+                        // previewImageViewの位置とサイズをnestViewに合わせる
+                        [self.previewImageView setFrame:CGRectMake(0, 0, self.view.frame.size.width/2, self.view.frame.size.height/2)];
+                        // imageviewのpreviewImageViewに画像を設定
+                        [self.previewImageView setImage:[self imageWithImage:selectedImage ConvertToSize:finalSize]];
+                        self.nestView.layer.borderWidth = 2.0f;
+                        self.nestView.layer.borderColor = [UIColor grayColor].CGColor;
+                        [self.nestView setHidden:0];
+                        [self.nestViewCtrlBtn setHidden:0];
+                    } else{
+                        [self.nestView setHidden:1];
+                        [self.nestViewCtrlBtn setHidden:1];
+                    }
         }
     }
     else{
@@ -695,6 +730,8 @@
     }
 
 }
+
+
 
 // previewImageViewが乗ったnestViewの表示を消す
 - (IBAction)nestViewCtrlBtn:(UIButton *)sender {
@@ -892,11 +929,6 @@
     // デバイスがiphoneであるかそうでないかで分岐
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
         NSLog(@"iPhoneの処理");
-        // secondVCを表示
-        //        secondVC *sVC = [self.storyboard instantiateViewControllerWithIdentifier:@"secondVC"];
-        //        [self dismissViewControllerAnimated:YES completion:^{
-        //            [self presentViewController:sVC animated:YES completion:nil];
-        //        }];
         
         secondVC *sVC = [self.storyboard instantiateViewControllerWithIdentifier:@"secondVC"];
         [_imagePicker presentViewController:sVC animated:YES completion:nil];
