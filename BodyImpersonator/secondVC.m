@@ -97,8 +97,8 @@
 - (void)doubleTap:(UITapGestureRecognizer *)gesture{
     // 最大倍率でなければ拡大する
     if (_imageScrollView.zoomScale < _imageScrollView.maximumZoomScale) {
-        // 現在の1.25倍の倍率にする
-        float newScale = _imageScrollView.zoomScale * 1.25;
+        // 現在の2.25倍の倍率にする
+        float newScale = _imageScrollView.zoomScale * 2.25; // iPhoneの縦撮り写真を2.25倍するとちょうどフルスクリーンサイズになる
         // 拡大する領域を決める
         CGRect zoomRect = [self zoomRectForScale:newScale];
         // タップした位置を拡大する
@@ -356,6 +356,7 @@
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSData *editedImage = UIImagePNGRepresentation(image);
     [defaults setObject:editedImage forKey:@"KEY_selectedImage"];
+        
     [defaults synchronize];
     
     UIGraphicsEndImageContext();

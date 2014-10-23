@@ -45,12 +45,12 @@
     [self setHidden:0];
     
     float scale = sqrtf(sqrtf(10));
-    float adjustX = (self.bounds.size.width - self.frame.size.width) / 2;
-    float adjustY = (self.bounds.size.height - self.frame.size.height) / 2;
+//    float adjustX = (self.bounds.size.width - self.frame.size.width) / 2;
+  //  float adjustY = (self.bounds.size.height - self.frame.size.height) / 2;
     
-    CGAffineTransform t1 = CGAffineTransformMakeRotation(M_PI_2); // M_PI 180度 M_PI_2 90度 回転
+ //   CGAffineTransform t1 = CGAffineTransformMakeRotation(M_PI_2); // M_PI 180度 M_PI_2 90度 回転
     CGAffineTransform t2 = CGAffineTransformMakeScale(scale, scale); // 拡大
-    CGAffineTransform t3 = CGAffineTransformMakeTranslation(adjustX, adjustY); // 拡大の際に発生する中心座標の調整
+   // CGAffineTransform t3 = CGAffineTransformMakeTranslation(adjustX, adjustY); // 拡大の際に発生する中心座標の調整
 //    CGAffineTransform concat = CGAffineTransformConcat(CGAffineTransformConcat(t1, t2), t3); //  回転　+ 拡大 + 座標調整
     // CGAffineTransform concat = CGAffineTransformConcat(t1, t2); //　回転 + 拡大
     // 中心座標の調整するための座標。以下をsetCenterすると位置がずれない。

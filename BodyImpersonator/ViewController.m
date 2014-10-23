@@ -31,35 +31,40 @@
     UIPopoverController *_imagePopController;
 
 }
-
+// IBOutlet Btn
 @property (weak, nonatomic) IBOutlet UIButton *ctrlBtn;
 @property (weak, nonatomic) IBOutlet UIButton *backgroundBtn;
+// IBOutlet Image
 @property (weak, nonatomic) IBOutlet UIImageView *selectedPhotoImage; // ctrlBtnをそのまま同様のアニメーションをさせると、ctrlBtnをギュンギュンアニメーションさせている都合で、タイミングによって結果がとても大きくなることがあるため、本イメージビューをアニメーション用として準備
+@property (weak, nonatomic) IBOutlet UIImageView *lightEffectImage;
+// IBOutlet NavigationBar
+@property (weak, nonatomic) IBOutlet UINavigationBar *navigationBarMain;
 
 
-@property (weak, nonatomic) IBOutlet UIImageView *imgLightL;
+// previewImageViewの表示をコントールするために宣言
+@property (weak, nonatomic) IBOutlet UIButton *nestViewCtrlBtn;
+@property (weak, nonatomic) IBOutlet UIImageView *previewImageView;
+@property (weak, nonatomic) IBOutlet UIView *nestView;
 
+// IBAction Btn
+- (IBAction)previewBtn:(UIBarButtonItem *)sender;
+- (IBAction)camBtn:(UIBarButtonItem *)sender;
+- (IBAction)orgBtn:(UIBarButtonItem *)sender;
+
+// IBAction CtrlBtn
 - (IBAction)touchUpInsideCtrlBtn:(UIButton *)sender;
 - (IBAction)touchDownCtrlBtn:(UIButton *)sender;
 - (IBAction)touchDragExitCtrlBtn:(UIButton *)sender;
 - (IBAction)touchDragEnterCtrlBtn:(UIButton *)sender;
-
+// IBAction BackgroundBtn
 - (IBAction)touchDownBackgroundBtn:(UIButton *)sender;
 - (IBAction)touchUpInsideBackgroundBtn:(UIButton *)sender;
-- (IBAction)previewBtn:(UIBarButtonItem *)sender;
-
-- (IBAction)selectPhoto:(UIBarButtonItem *)sender;
-
-
-@property (weak, nonatomic) IBOutlet UIToolbar *toolBar; // hiddenプロパティを弄るために宣言
-
-// previewImageViewの表示をコントールするために宣言
-@property (weak, nonatomic) IBOutlet UIButton *nestViewCtrlBtn;
+// IBAction プレビューウィンドウをポップアップの子ビューにするときの非表示ボタン
 - (IBAction)nestViewCtrlBtn:(UIButton *)sender;
-@property (weak, nonatomic) IBOutlet UIImageView *previewImageView;
-@property (weak, nonatomic) IBOutlet UIView *nestView;
+@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 
 @end
+
 #pragma mark -
 @implementation ViewController
 #pragma mark audioControlls
@@ -70,11 +75,15 @@
     [appDefaults setObject:@"NO" forKey:@"KEY_ADMOBinterstitialRecieved"]; // インタースティシャル広告受信状況
     NSData *defaultImageData = UIImagePNGRepresentation([UIImage imageNamed:@"41tSp5ic8NL.jpg"]);
     [appDefaults setObject:defaultImageData forKey:@"KEY_selectedPhotoImage"];
+    // collectionViewに表示する画像を保存する配列の作成・初期化
+    NSMutableArray *arrayImages = [NSMutableArray array];
+    NSArray *array = [arrayImages copy];
+    [appDefaults setObject:array forKey:@"KEY_arrayImages"];
+    // collectionViewに表示する画像に番号を振るために整数値を作成・初期化
+    [appDefaults setObject:@"0" forKey:@"KEY_imageCount"];
     // ユーザーデフォルトの初期値に設定する
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    //    [userDefaults setObject:defaultImageData forKey:@"KEY_selectedPhotoImage"];
     [userDefaults registerDefaults:appDefaults];
-    
 }
 
 - (void)initializeAVAudioPlayers{
@@ -384,6 +393,81 @@
 
 #pragma mark -
 
+// NavigationBarに画像を配置 高さを32pxに調整
+- (void)pushImageOnNavigationBar:(UINavigationBar *)navi Image:(UIImage *)image Height:(CGFloat)height
+{
+    // navigationBarMainに画像を設定
+    // イメージのサイズを調節
+    CGSize imageSize = CGSizeMake(image.size.width,image.size.height);
+    CGSize size = CGSizeMake(imageSize.width * (height / imageSize.height), height);
+
+    NSLog(@"imagesize(%.2f,%.2f)",image.size.width,image.size.height);
+    UIImageView *imgView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, size.width, height)];
+    imgView.image = image;
+
+    [imgView setContentMode:UIViewContentModeScaleAspectFit];
+    // navigationItemに設定
+    UINavigationItem *navigationItemIcon = [[UINavigationItem alloc]init];
+    navigationItemIcon.titleView = imgView;
+    [navi pushNavigationItem:navigationItemIcon animated:YES];
+
+}
+
+// NavigationBarに画像を配置 高さ調整なし
+- (void)pushImageOnNavigationBar:(UINavigationBar *)navi :(UIImage *)image
+{
+    // navigationBarMainに画像を設定
+    // イメージのサイズを調節
+    CGSize imageSize = CGSizeMake(image.size.width,image.size.height);
+   
+    NSLog(@"imagesize(%.2f,%.2f)",image.size.width,image.size.height);
+    UIImageView *imgView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, imageSize.width, imageSize.height)];
+    imgView.image = image;
+    
+    [imgView setContentMode:UIViewContentModeScaleAspectFit];
+    // navigationItemに設定
+    UINavigationItem *navigationItemIcon = [[UINavigationItem alloc]init];
+    navigationItemIcon.titleView = imgView;
+    [navi pushNavigationItem:navigationItemIcon animated:YES];
+}
+
+// 画像を横に連結
+- (UIImage *)combineImageHorizontal:(NSArray *)array{
+    
+    UIImage *image = nil;
+    CGSize combinedSize = CGSizeZero;
+    for (id item in array) {
+        if (![item isKindOfClass:[UIImage class]]) {
+            continue;
+        }
+        UIImage *img = item;
+        combinedSize.width += img.size.width;
+        combinedSize.height = (combinedSize.height > img.size.height) ? combinedSize.height: img.size.height;
+    }
+    
+    UIView *combinedView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, combinedSize.width, combinedSize.height)];
+
+    CGFloat marginWidth = 0;
+    for (id item in array) {
+        if (![item isKindOfClass:[UIImage class]]) {
+            continue;
+        }
+
+        UIImage *img = item;
+        UIImageView *imgView = [[UIImageView alloc]initWithImage:img];
+        imgView.frame = CGRectMake(marginWidth, 0, img.size.width, img.size.height);
+        NSLog(@"margin:%.2f",marginWidth);
+        [combinedView addSubview:imgView];
+        marginWidth += img.size.width;
+        
+    }
+    UIGraphicsBeginImageContextWithOptions(combinedView.bounds.size, 0, 0.0);
+    [combinedView.layer renderInContext:UIGraphicsGetCurrentContext()];
+
+    image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return image;
+}
 
 - (void)viewDidLoad
 {
@@ -429,34 +513,20 @@
     
     // (audioplayer)再生する効果音のパスを取得しインスタンス生成
     [self initializeAVAudioPlayers];
-    
-    //    // 【アニメーション】ロール再生中の各コマのイメージを配列に入れる
-    //    animationSeq = @[[UIImage imageNamed:@"hitR2.png"],
-    //                     [UIImage imageNamed:@"hitR1.png"],
-    //                     [UIImage imageNamed:@"hitR2.png"],
-    //
-    //                     [UIImage imageNamed:@"hitL2.png"],
-    //                     [UIImage imageNamed:@"hitL1.png"],
-    //                     [UIImage imageNamed:@"hitL2.png"]
-    //
-    //                     ];
-    
-    
-    //    // ボタンのイメージビューにアニメーションの配列を設定する
-    //    self.ctrlBtn.imageView.animationImages = animationSeq;
-    //    // アニメーションの長さを設定する
-    //    self.ctrlBtn.imageView.animationDuration = 1.2;//1.35
-    //    // 無限の繰り返し回数
-    //    self.ctrlBtn.imageView.animationRepeatCount = 0;
-    
-    
-    
-    // ctrlBtnを起動時だけ回転拡大で出現するために隠す
-    //    [self.ctrlBtn setAlpha:0];
-    //    [self.ctrlBtn setHidden:0];
-    //    [self.ctrlBtn setEnabled:0];
+    // selectedPhotoImageを非表示に設定
     [self.selectedPhotoImage setHidden:1];
     
+
+    // Iconとロゴの２つの画像を横に連結させる
+    NSArray *images = @[[UIImage imageNamed:@"AppIconInApp01.png"],
+                        [UIImage imageNamed:@"Logo.png"]
+                        ];
+    // 連結した画像をUIImageで定義
+    UIImage *combineIconLogo = [self combineImageHorizontal:images];
+    // ナビゲーションバーに連結した画像を配置
+    [self pushImageOnNavigationBar:self.navigationBarMain Image:combineIconLogo Height:32];
+    
+
 }
 
 
@@ -487,7 +557,7 @@
         [self interstitialLoad];
     }
     
-    if (((i % 5) == 0) && (b == YES)) {
+    if (((i % 3) == 0) && (b == YES)) {
         [interstitial_ presentFromRootViewController:self];
     }
     
@@ -524,6 +594,54 @@
 
 - (void)appWillEnterForeground:(NSNotification *)notification{
     [self viewDidAppear:1];
+}
+
+#pragma mark -
+#pragma mark collectionView
+
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *) collectionView{
+    return 1;
+}
+
+- (NSInteger)collectionView:(UICollectionView *) collectionView numberOfItemsInSection:(NSInteger)section{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSArray *array = [defaults objectForKey:@"KEY_arrayImages"];
+    int count = (int)[array count];
+    NSLog(@"arrayCount%d",count);
+    // userdefaultsの中身確認(デバッグ用)
+    NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
+    NSDictionary *dic = [defaults persistentDomainForName:appDomain];
+    NSLog(@"defualts:%@", dic);
+
+    return count;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+    NSLog(@"入ってる？");
+    UICollectionViewCell *cell;
+    cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
+    
+    UIImageView *imageView = (UIImageView *)[cell viewWithTag:1];
+
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSArray *array = [defaults objectForKey:@"KEY_arrayImages"];
+    NSLog(@"indexPath.row:%d",(int)indexPath.row);
+    NSString *imageName = [array objectAtIndex:(int)(indexPath.row)];
+    NSString *filePath = [NSString stringWithFormat:@"%@%@",[NSHomeDirectory() stringByAppendingString:@"/Documents"],imageName];
+
+    
+//    NSString *path = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
+    
+    // NSDataからUIImageを作成
+    UIImage *image = [UIImage imageWithContentsOfFile:filePath];
+//    UIImage *image = [UIImage imageNamed:path];
+    NSLog(@"path:%@",filePath);
+//    NSString *imagename = [NSString stringWithFormat:@"image%d.png", (int)(indexPath.row + 1)];
+//    UIImage *image = [UIImage imageNamed:imagename];
+//    UIImage *image = nil;
+    [imageView setImage:image];
+    
+    return cell;
 }
 
 #pragma mark -
@@ -581,28 +699,27 @@
             
             // アニメーションタイマーを破棄する
             [self animationTimerInvalidate];
-            
-            // toolBarを非表示にする
-            [self.toolBar setHidden:1];
+
             
             // touchDown時のtransformとdisabelにしたのを戻す
             [self.ctrlBtn clearTransformBtnSetEnable];
             
             // 画像が表示されるまでctrlBtnのテキストを隠す
             [self.ctrlBtn setTitle:nil forState:UIControlStateNormal];
+            // Btn,Icon,Logoを非表示にする
             
-            // viewのバックグラウンドカラーをmidnightblueにする
+            // viewのバックグラウンドカラーをnearlyBlackにする
             [UIView animateWithDuration:0.25
                                   delay:0
                                 options:UIViewAnimationOptionCurveEaseIn
                              animations:^{
-                                 self.view.backgroundColor = [UIColor blackColor];// midnightblue [UIColor colorWithRed:0.17 green:0.24 blue:0.31 alpha:1.0];
+                                 self.view.backgroundColor = RGB(17, 34, 48);//nearlyBlack
                              } completion:nil];
             
             // flashAnimation開始
             _flashAnimationTimer =
             [NSTimer scheduledTimerWithTimeInterval:0.9f
-                                             target:self.imgLightL
+                                             target:self.lightEffectImage
                                            selector:@selector(flashAnimation)
                                            userInfo:nil
                                             repeats:YES];
@@ -610,7 +727,10 @@
         }
     
 }
-
+// Btn,Icon,Logoを非表示にする
+- (void)hideAllImages{
+    
+}
 
 /* ctrlBtnのハイライト処理 */
 // タッチしたとき
@@ -650,7 +770,7 @@
         [self.selectedPhotoImage setHidden:1];
         [self.backgroundBtn setHidden:1];
         [self.ctrlBtn setHidden:0];
-        [self.toolBar setHidden:0];
+        self.view.backgroundColor = RGB(17, 34, 48);//nearlyBlack
         [self viewDidAppear:1];
         
         
@@ -674,64 +794,6 @@
 //    return UIModalPresentationNone;
 //}
 
-// previewBtnをおした時の処理
-- (IBAction)previewBtn:(UIBarButtonItem *)sender {
-
-    // デバイスがiphoneであるかそうでないかで分岐
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
-        // iPhoneの処理
-        Class class = NSClassFromString(@"UIPopoverPresentationController"); // iOS8/7の切り分けフラグに使用
-        if (class) {
-            // iOS8の処理
-        previewVC *previewController = [self.storyboard instantiateViewControllerWithIdentifier:@"previewVC"];//[[previewVC alloc]init];
-        previewController.modalPresentationStyle = UIModalPresentationPopover;
-        
-            
-            [self presentViewController:previewController animated:YES completion:nil ];
-        
-        UIPopoverPresentationController *popoverCtrl = [previewController popoverPresentationController];
-        popoverCtrl.permittedArrowDirections = UIPopoverArrowDirectionAny;
-        
-        popoverCtrl.sourceView = self.view;
-        popoverCtrl.sourceRect = CGRectMake(0, 0, 200, 200);
-
-        }else{
-            // iOS7の時の処理
-            // nestViewが非表示のときにnestViewを表示。nestViewが表示されているときはnestViewを非表示。
-                    if (self.nestView.hidden) {
-                        // NSUserDefaultsから画像を取得
-                        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-                        // NSDataとして情報を取得
-                        NSData *imageData = [defaults objectForKey:@"KEY_selectedImage"];
-                        // NSDataからUIImageを作成
-                        UIImage *selectedImage = [UIImage imageWithData:imageData];
-                        CGSize finalSize;
-            
-                        finalSize = CGSizeMake(self.view.frame.size.width/2, self.view.frame.size.height/2);
-            
-                        [self.nestView setFrame:CGRectMake(self.view.center.x-5, self.view.center.y-50, self.view.frame.size.width/2, self.view.frame.size.height/2)];
-                        // previewImageViewの位置とサイズをnestViewに合わせる
-                        [self.previewImageView setFrame:CGRectMake(0, 0, self.view.frame.size.width/2, self.view.frame.size.height/2)];
-                        // imageviewのpreviewImageViewに画像を設定
-                        [self.previewImageView setImage:[self imageWithImage:selectedImage ConvertToSize:finalSize]];
-                        self.nestView.layer.borderWidth = 2.0f;
-                        self.nestView.layer.borderColor = [UIColor grayColor].CGColor;
-                        [self.nestView setHidden:0];
-                        [self.nestViewCtrlBtn setHidden:0];
-                    } else{
-                        [self.nestView setHidden:1];
-                        [self.nestViewCtrlBtn setHidden:1];
-                    }
-        }
-    }
-    else{
-        // iPadの処理
-        // storyboard上でポップアップ表示処理は完結。画像表示処理をpreviewVCで実装。
-    }
-
-}
-
-
 
 // previewImageViewが乗ったnestViewの表示を消す
 - (IBAction)nestViewCtrlBtn:(UIButton *)sender {
@@ -747,62 +809,26 @@
     if ([segue.identifier isEqualToString:@"BackToFirstViewFromLastViewSegue"]) {
         // ここに必要な処理を記述
         [_imagePicker dismissViewControllerAnimated:YES completion:nil];
+
         NSLog(@"Back to first from last.");
     }
-    
+//    // collectionViewの更新
+//    [self.collectionView reloadData];
     NSLog(@"First view return action invoked.");
+    NSLog(@"kukoke");
 }
 
-// 写真を選ぶメソッド
-- (IBAction)selectPhoto:(UIBarButtonItem *)sender {
-    // イメージピッカーコントローラを初期化する
-    // フォトライブラリを利用できるかどうかチェックする
-    if(([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary])){
-        // イメージピッカーコントローラを作る
-        _imagePicker = [[UIImagePickerController alloc] init];
-        
-        // UIImagePickerのデリゲートになる
-        _imagePicker.delegate = self;
-        _imagePicker.allowsEditing = NO;
-        
-        // フォトライブラリから画像を取り込む設定にする
-        _imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-        
-        
-        // デバイスがiphoneであるかそうでないかで分岐
-        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
-            NSLog(@"iPhoneの処理");
-            // フォトライブラリから画像を選ぶ
-            [self presentViewController:_imagePicker animated:YES completion:nil];
-        }
-        else{
-            NSLog(@"iPadの処理");
-            // Popoverの確認・開かれている場合は一度閉じる
-            if (_imagePopController) {
-                if ([_imagePopController isPopoverVisible]) {
-                    [_imagePopController dismissPopoverAnimated:YES];
-                }
-            }
-            
-            // popoverを開く
-            UIBarButtonItem *btn = sender;
-            //            imagePicker.preferredContentSize = CGSizeMake(768, 1024);
-            _imagePopController = [[UIPopoverController alloc] initWithContentViewController:_imagePicker];
-            
-            // popoverをバーボタンから表示
-            [_imagePopController presentPopoverFromBarButtonItem:btn permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-            
-        }
-    }
-    
-}
 
 // chooseボタンのデリゲートメソッド
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
     //   NSString *mediaType = [info objectForKey:UIImagePickerControllerMediaType];
     //    UIImage *imageEdited = [info objectForKey:UIImagePickerControllerEditedImage];
-    UIImage *imagePicked = [info objectForKey:UIImagePickerControllerOriginalImage];
     
+    UIImage *imagePicked = [info objectForKey:UIImagePickerControllerOriginalImage];
+    if (picker.sourceType == UIImagePickerControllerSourceTypeCamera) {
+//        UIImageWriteToSavedPhotosAlbum(imagePicked, nil, nil, nil);
+
+    }
     
     CGRect cropRect;
     cropRect = [[info valueForKey:@"UIImagePickerControllerCropRect"] CGRectValue];
@@ -837,6 +863,7 @@
                                                              style:UIAlertActionStyleDefault
                                                            handler:^(UIAlertAction *action) {
                                                                // Show editro タップ時の処理
+
                                                                [self action1];
                                                                
                                                            }]];
@@ -851,6 +878,8 @@
                                                              style:UIAlertActionStyleCancel
                                                            handler:^(UIAlertAction *action) {
                                                                // Cancel タップ時の処理
+
+
                                                            }]];
         // アクションコントローラーを表示
         [picker presentViewController:actionController animated:YES completion:nil];
@@ -866,6 +895,7 @@
         [actionSheet addButtonWithTitle:@"Cancel"];
         //        actionSheet.destructiveButtonIndex = 0;
         actionSheet.cancelButtonIndex = 2;
+
         // アクションシートを表示
         [actionSheet showInView:picker.view];
         
@@ -922,7 +952,8 @@
     // 選択した画像をNSUserDefaultsに保存
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSData *tmpImage = UIImagePNGRepresentation(self.selectedPhotoImage.image);
-    [defaults setObject:tmpImage forKey:@"KEY_tmpImage"];
+    [defaults setObject:tmpImage forKey:@"KEY_tmpImage"]; // Editor画面へ受け渡し用
+
     [defaults synchronize];
     
     
@@ -951,6 +982,27 @@
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSData *tmpImage = UIImagePNGRepresentation(self.selectedPhotoImage.image);
     [defaults setObject:tmpImage forKey:@"KEY_selectedImage"];
+    {
+    // コレクションビューのデータソースとして保存
+    NSArray *array = [defaults objectForKey:@"KEY_arrayImages"];
+    NSMutableArray *tmpArray = [array mutableCopy];
+    
+    // 同じ画像をアプリケーションのDocumentsフォルダ内に保存
+    NSInteger imageCount = [defaults integerForKey:@"KEY_imageCount"];
+    imageCount ++;
+    NSString *path = [NSString stringWithFormat:@"%@/image%@.png",[NSHomeDirectory() stringByAppendingString:@"/Documents"],[NSString stringWithFormat:@"%d",(int)imageCount]];
+    NSString *pathShort = [NSString stringWithFormat:@"/image%@.png",[NSString stringWithFormat:@"%d",(int)imageCount]];
+        
+    [tmpImage writeToFile:path atomically:YES];
+    [defaults setInteger:imageCount forKey:@"KEY_imageCount"];
+
+    [tmpArray addObject:pathShort];
+    // [tmpArray addObject:[NSString stringWithFormat:@"../Documents/image%@.png",[NSString stringWithFormat:@"%d",(int)imageCount]]];
+    array = [tmpArray copy];
+    [defaults setObject:array forKey:@"KEY_arrayImages"];
+    NSLog(@"path:%@",path);
+    NSLog(@"tmpArrayCount:%d",(int)[tmpArray count]);
+    }
     [defaults synchronize];
     
     
@@ -968,6 +1020,7 @@
 
 // action3ボタンが押された時の処理
 - (void)action3
+    
 {
     
 }
@@ -983,6 +1036,7 @@
             break;
         case 2:
             [self action3];
+            
             break;
         default:
             break;
@@ -1239,4 +1293,113 @@
 }
 
 
+- (IBAction)previewBtn:(UIBarButtonItem *)sender {
+    // デバイスがiphoneであるかそうでないかで分岐
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
+        // iPhoneの処理
+        // storyboard上でポップアップ表示処理は完結。画像表示処理をpreviewVCで実装。
+        
+        //        Class class = NSClassFromString(@"UIPopoverPresentationController"); // iOS8/7の切り分けフラグに使用
+        //        if (class) {
+        //            // iOS8の処理
+        //        previewVC *previewController = [self.storyboard instantiateViewControllerWithIdentifier:@"previewVC"];//[[previewVC alloc]init];
+        //        previewController.modalPresentationStyle = UIModalPresentationPopover;
+        //
+        //
+        //            [self presentViewController:previewController animated:YES completion:nil ];
+        //
+        //        UIPopoverPresentationController *popoverCtrl = [previewController popoverPresentationController];
+        //        popoverCtrl.permittedArrowDirections = UIPopoverArrowDirectionAny;
+        //
+        //        popoverCtrl.sourceView = self.view;
+        //        popoverCtrl.sourceRect = CGRectMake(0, 0, 200, 200);
+        //
+        //        }else{
+        //            // iOS7の時の処理
+        //            // nestViewが非表示のときにnestViewを表示。nestViewが表示されているときはnestViewを非表示。
+        //                    if (self.nestView.hidden) {
+        //                        // NSUserDefaultsから画像を取得
+        //                        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        //                        // NSDataとして情報を取得
+        //                        NSData *imageData = [defaults objectForKey:@"KEY_selectedImage"];
+        //                        // NSDataからUIImageを作成
+        //                        UIImage *selectedImage = [UIImage imageWithData:imageData];
+        //                        CGSize finalSize;
+        //
+        //                        finalSize = CGSizeMake(self.view.frame.size.width/2, self.view.frame.size.height/2);
+        //
+        //                        [self.nestView setFrame:CGRectMake(self.view.center.x-5, self.view.center.y-50, self.view.frame.size.width/2, self.view.frame.size.height/2)];
+        //                        // previewImageViewの位置とサイズをnestViewに合わせる
+        //                        [self.previewImageView setFrame:CGRectMake(0, 0, self.view.frame.size.width/2, self.view.frame.size.height/2)];
+        //                        // imageviewのpreviewImageViewに画像を設定
+        //                        [self.previewImageView setImage:[self imageWithImage:selectedImage ConvertToSize:finalSize]];
+        //                        self.nestView.layer.borderWidth = 2.0f;
+        //                        self.nestView.layer.borderColor = [UIColor grayColor].CGColor;
+        //                        [self.nestView setHidden:0];
+        //                        [self.nestViewCtrlBtn setHidden:0];
+        //                    } else{
+        //                        [self.nestView setHidden:1];
+        //                        [self.nestViewCtrlBtn setHidden:1];
+        //                    }
+        //        }
+    }
+    else{
+        // iPadの処理
+        // storyboard上でポップアップ表示処理は完結。画像表示処理をpreviewVCで実装。
+    }
+
+}
+// 写真撮影する
+- (IBAction)camBtn:(UIBarButtonItem *)sender {
+    _imagePicker = [[UIImagePickerController alloc]init];
+    _imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+    _imagePicker.delegate = self;
+    [self presentViewController:_imagePicker
+                       animated:YES completion:nil];
+}
+
+- (IBAction)orgBtn:(UIBarButtonItem *)sender {
+    // イメージピッカーコントローラを初期化する
+    // フォトライブラリを利用できるかどうかチェックする
+    if(([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary])){
+        // イメージピッカーコントローラを作る
+        _imagePicker = [[UIImagePickerController alloc] init];
+        
+        // UIImagePickerのデリゲートになる
+        _imagePicker.delegate = self;
+        _imagePicker.allowsEditing = NO;
+        
+        // フォトライブラリから画像を取り込む設定にする
+        _imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        
+        
+        // デバイスがiphoneであるかそうでないかで分岐
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
+            NSLog(@"iPhoneの処理");
+            // フォトライブラリから画像を選ぶ
+            [self presentViewController:_imagePicker animated:YES completion:nil];
+        }
+        else{
+            NSLog(@"iPadの処理");
+            // Popoverの確認・開かれている場合は一度閉じる
+            if (_imagePopController) {
+                if ([_imagePopController isPopoverVisible]) {
+                    [_imagePopController dismissPopoverAnimated:YES];
+                }
+            }
+            
+            // popoverを開く
+            _imagePicker.preferredContentSize = CGSizeMake(768, 1024);
+            _imagePopController = [[UIPopoverController alloc] initWithContentViewController:_imagePicker];
+            
+            // popoverをバーボタンから表示
+                        [_imagePopController presentPopoverFromBarButtonItem:sender permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+            
+//           [_imagePopController presentPopoverFromRect:sender.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+            
+        }
+    }
+    
+
+}
 @end

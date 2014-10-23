@@ -4,6 +4,51 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>BIImageTest01.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
+		<key>BIImageTest02.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
+		</dict>
+		<key>BIImageTest03.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>3</integer>
+		</dict>
+		<key>BIImageTest04.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>4</integer>
+		</dict>
+		<key>BIImageTest05.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>5</integer>
+		</dict>
+		<key>BIImageTest07.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>6</integer>
+		</dict>
+		<key>BIImageTest08.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>7</integer>
+		</dict>
+		<key>BIImageTest09.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>8</integer>
+		</dict>
+		<key>BIImageTest10.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>9</integer>
+		</dict>
 		<key>BodyImpersonator.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -18,6 +63,51 @@
 			<true/>
 		</dict>
 		<key>56427E3619AB823200B516A0</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>564AD7F619EF8F760069901D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>564AD82E19F0C8FF0069901D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>564AD86619F0CC930069901D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>564AD89E19F0D20E0069901D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>564AD8D619F0D9320069901D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>564AD90E19F0E32E0069901D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>564AD94619F0E4520069901D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>564AD97E19F0E8410069901D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>564AD9B619F0E9630069901D</key>
 		<dict>
 			<key>primary</key>
 			<true/>

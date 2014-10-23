@@ -12,7 +12,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LightsFromCenter.png" id="02z-tB-FhH" userLabel="imgLightL">
+                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LightsFromCenter.png" id="02z-tB-FhH" userLabel="imgLight">
                                 <rect key="frame" x="0.0" y="228" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                             </imageView>
@@ -75,38 +75,51 @@
                                     <action selector="nestViewCtrlBtn:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="zD9-WI-DoK"/>
                                 </connections>
                             </button>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="vtL-UZ-vbz">
-                                <rect key="frame" x="0.0" y="980" width="768" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                <items>
-                                    <barButtonItem systemItem="organize" id="QJo-rZ-JMh">
-                                        <connections>
-                                            <action selector="selectPhoto:" destination="vXZ-lx-hvc" id="WoD-1g-frI"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="P9n-nb-OfM"/>
-                                    <barButtonItem title="Preview" id="1HN-HY-6WL">
-                                        <connections>
-                                            <action selector="previewBtn:" destination="vXZ-lx-hvc" id="tvh-qG-1Ke"/>
-                                            <segue destination="n5M-dy-Prk" kind="popover" popoverAnchorBarButtonItem="1HN-HY-6WL" id="SAu-P2-Ufp">
-                                                <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
-                                            </segue>
-                                        </connections>
-                                    </barButtonItem>
-                                </items>
-                            </toolbar>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="QGk-0t-LyA" userLabel="PreviewBtn">
+                                <rect key="frame" x="433" y="656" width="68" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Preview">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="previewBtn:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="7sU-Be-QZj"/>
+                                    <segue destination="n5M-dy-Prk" kind="popover" popoverAnchorView="QGk-0t-LyA" id="ftQ-t2-x8U">
+                                        <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                    </segue>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="ZSH-PX-4Gq">
+                                <rect key="frame" x="336" y="656" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Org">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="orgBtn:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Sop-XJ-Cdn"/>
+                                    <action selector="selectImage:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Kmo-R0-DJy"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="H1O-OG-sBU">
+                                <rect key="frame" x="208" y="656" width="86" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Camera">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="camBtn:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="dd2-yp-dn6"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
                         <outlet property="backgroundBtn" destination="am5-zJ-4lf" id="jG7-sP-IsC"/>
                         <outlet property="ctrlBtn" destination="fRx-QP-7Su" id="IfP-0K-7sf"/>
-                        <outlet property="imgLightL" destination="02z-tB-FhH" id="rdL-A2-iOy"/>
+                        <outlet property="imgLight" destination="02z-tB-FhH" id="uoY-2g-Uwd"/>
                         <outlet property="nestView" destination="x8R-5O-1S4" id="K74-46-uoy"/>
                         <outlet property="nestViewCtrlBtn" destination="J2f-Zl-dsq" id="7wu-Rh-TeP"/>
                         <outlet property="previewImageView" destination="v9w-6V-fkw" id="hOy-3l-7Mz"/>
                         <outlet property="selectedPhotoImage" destination="Lsf-vS-kYr" id="xXc-3K-5ak"/>
-                        <outlet property="toolBar" destination="vtL-UZ-vbz" id="kA1-Rq-jfh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
@@ -129,17 +142,25 @@
                                 <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <items>
-                                    <navigationItem title="1/2 Scale" id="Puw-UE-iDL"/>
+                                    <navigationItem title="Preview" id="Puw-UE-iDL">
+                                        <barButtonItem key="rightBarButtonItem" systemItem="cancel" id="mAz-fb-u1s">
+                                            <connections>
+                                                <segue destination="0Cq-y7-5Jy" kind="unwind" unwindAction="firstViewReturnActionForSegue:" id="83L-9W-fmq"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
                                 </items>
                             </navigationBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
+                        <outlet property="nav" destination="Puw-UE-iDL" id="WAI-vX-h91"/>
                         <outlet property="previewImageView" destination="c2Y-L2-BEg" id="7Wc-iB-te8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0hH-AY-3nL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="0Cq-y7-5Jy" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="524" y="1628"/>
         </scene>

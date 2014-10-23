@@ -13,6 +13,8 @@
 
 
 @property (weak, nonatomic) IBOutlet UIImageView *previewImageView;
+@property (weak, nonatomic) IBOutlet UINavigationItem *nav;
+- (IBAction)removeImage:(UIBarButtonItem *)sender;
 
 @end
 
@@ -32,7 +34,7 @@
     // デバイスがiphoneであるかそうでないかで分岐
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
         NSLog(@"iPhoneの処理");
-            self.contentSizeForViewInPopover = CGSizeMake(220, 340);
+//            self.contentSizeForViewInPopover = CGSizeMake(220, 340);
     }
     else{
         NSLog(@"iPadの処理");
@@ -41,11 +43,27 @@
 
 - (void)viewWillAppear:(BOOL)animated{
 
+    // デバイスがiphoneであるかそうでないかで分岐
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
+        NSLog(@"iPhoneの処理");
+        // Modalなので縮小しない
+        [self viewSizeMake:1.0];
+    }
+    else{
+        NSLog(@"iPadの処理");
+        // popoverなので縮小する
+        [self viewSizeMake:0.5];
+        self.nav.title = @"1/2 Scale";
+    }
+
+    
+}
+
+- (void)viewSizeMake:(CGFloat)scale{
     // スクリーンサイズを取得
     CGRect screenRect = [[UIScreen mainScreen] bounds];
     CGSize screenSize = CGSizeMake(screenRect.size.width, screenRect.size.height);
     // popoverするサイズを決定
-    CGFloat scale = 0.5; // 対スクリーンpopoverサイズ
     CGSize popoverSize = CGSizeMake(screenRect.size.width*scale, screenRect.size.height*scale); // size of view in popover
     // popoverするサイズを設定
     self.preferredContentSize = popoverSize;
@@ -63,10 +81,10 @@
     
     // previewImageViewの位置とサイズを親ビューに合わせる
     [self.previewImageView setFrame:CGRectMake(0, 0,popoverSize.width, popoverSize.height)];
- 
-//    NSLog(@"popoverSize (%.1f,%.1f)", popoverSize.width,popoverSize.height);
-//    NSLog(@"self.view.frame (%.1f,%.1f,%.1f,%.1f)", self.view.frame.origin.x,self.view.frame.origin.y,self.view.frame.size.width,self.view.frame.size.height);
-//    NSLog(@"previewImageView.frame (%.1f,%.1f,%.1f,%.1f)", self.previewImageView.frame.origin.x,self.previewImageView.frame.origin.y,self.previewImageView.frame.size.width,self.previewImageView.frame.size.height);
+    
+    //    NSLog(@"popoverSize (%.1f,%.1f)", popoverSize.width,popoverSize.height);
+    //    NSLog(@"self.view.frame (%.1f,%.1f,%.1f,%.1f)", self.view.frame.origin.x,self.view.frame.origin.y,self.view.frame.size.width,self.view.frame.size.height);
+    //    NSLog(@"previewImageView.frame (%.1f,%.1f,%.1f,%.1f)", self.previewImageView.frame.origin.x,self.previewImageView.frame.origin.y,self.previewImageView.frame.size.width,self.previewImageView.frame.size.height);
     
 }
 
@@ -121,4 +139,24 @@
 }
 */
 
+- (IBAction)removeImage:(UIBarButtonItem *)sender {
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+//    NSData *arrayData = [defaults objectForKey:@"arrayImages"];
+//    NSMutableArray *tmpArray = [NSKeyedUnarchiver unarchiveObjectWithData:arrayData];
+//    [tmpArray removeAllObjects];
+//    arrayData = [NSKeyedArchiver archivedDataWithRootObject:tmpArray];
+//    [defaults setObject:arrayData forKey:@"arrayImages"];
+    
+    // usserdefaultsからarrayImagesとimageCountを削除
+//    NSString *path = [NSHomeDirectory() stringByAppendingString:@"/Documents/"];
+//    NSFileManager *fileManager = [NSFileManager defaultManager];
+//    NSError *error;
+//    [fileManager removeItemAtPath:path error:&error];
+    [defaults removeObjectForKey:@"KEY_arrayImages"];
+    [defaults removeObjectForKey:@"KEY_imageCount"];
+        [defaults removeObjectForKey:@"imageCount"];
+    [defaults synchronize];
+
+}
 @end
