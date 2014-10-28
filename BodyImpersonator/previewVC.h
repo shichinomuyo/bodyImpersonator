@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface previewVC : UIViewController<UIPopoverControllerDelegate,UIPopoverPresentationControllerDelegate>
-
+@property NSIndexPath *receiveIndexPath;
 @end

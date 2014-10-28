@@ -140,23 +140,55 @@
 */
 
 - (IBAction)removeImage:(UIBarButtonItem *)sender {
-    
+
+    [self actionRemoveItem:self.receiveIndexPath];
+    // 最初の画面に戻る
+    [self performSegueWithIdentifier:@"unwindToFirstView" sender:self];
+
+
+}
+
+- (void)actionRemoveItem:(NSIndexPath *)indexPath{
+    NSLog(@"indexPath_:%d",(int)indexPath);
+    // データソースから項目を削除する
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-//    NSData *arrayData = [defaults objectForKey:@"arrayImages"];
-//    NSMutableArray *tmpArray = [NSKeyedUnarchiver unarchiveObjectWithData:arrayData];
-//    [tmpArray removeAllObjects];
-//    arrayData = [NSKeyedArchiver archivedDataWithRootObject:tmpArray];
-//    [defaults setObject:arrayData forKey:@"arrayImages"];
+    NSArray *array = [defaults objectForKey:@"KEY_arrayImages"];
+    NSMutableArray *mArray = [array mutableCopy];
+    NSLog(@"indexPath.row:%d",(int)indexPath.row);
+    NSString *imageName = [mArray objectAtIndex:(int)(indexPath.row)];
+    NSString *filePath = [NSString stringWithFormat:@"%@%@",[NSHomeDirectory() stringByAppendingString:@"/Documents"],imageName];
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSError *error;
+    [fileManager removeItemAtPath:filePath error:&error];
+    [mArray removeObjectAtIndex:indexPath.row];
+    array = [mArray copy];
+    [defaults setObject:array forKey:@"KEY_arrayImages"];
+    [defaults synchronize];
+    NSLog(@"RemoveThisPathItem:%@",filePath);
+    
+    
+//    [self.collectionView performBatchUpdates:^{
+//        // コレクションビューから項目を削除する
+//        [self.collectionView deleteItemsAtIndexPaths:[self.collectionView indexPathsForSelectedItems]];
+//    } completion:nil];
+}
+
+- (void)removeAllDocumentsFiles{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    //    NSData *arrayData = [defaults objectForKey:@"arrayImages"];
+    //    NSMutableArray *tmpArray = [NSKeyedUnarchiver unarchiveObjectWithData:arrayData];
+    //    [tmpArray removeAllObjects];
+    //    arrayData = [NSKeyedArchiver archivedDataWithRootObject:tmpArray];
+    //    [defaults setObject:arrayData forKey:@"arrayImages"];
     
     // usserdefaultsからarrayImagesとimageCountを削除
-//    NSString *path = [NSHomeDirectory() stringByAppendingString:@"/Documents/"];
-//    NSFileManager *fileManager = [NSFileManager defaultManager];
-//    NSError *error;
-//    [fileManager removeItemAtPath:path error:&error];
+    //    NSString *path = [NSHomeDirectory() stringByAppendingString:@"/Documents/"];
+    //    NSFileManager *fileManager = [NSFileManager defaultManager];
+    //    NSError *error;
+    //    [fileManager removeItemAtPath:path error:&error];
     [defaults removeObjectForKey:@"KEY_arrayImages"];
     [defaults removeObjectForKey:@"KEY_imageCount"];
-        [defaults removeObjectForKey:@"imageCount"];
+    [defaults removeObjectForKey:@"imageCount"];
     [defaults synchronize];
-
 }
 @end

@@ -38,8 +38,6 @@
 		56427E9D19AB88F700B516A0 /* pause.png in Resources */ = {isa = PBXBuildFile; fileRef = 56427E9319AB88F700B516A0 /* pause.png */; };
 		56427EA119AB895300B516A0 /* UIImageView+Animation.m in Sources */ = {isa = PBXBuildFile; fileRef = 56427EA019AB895300B516A0 /* UIImageView+Animation.m */; };
 		56427EA819AB897500B516A0 /* AVAudioPlayer+CustomControllers.m in Sources */ = {isa = PBXBuildFile; fileRef = 56427EA319AB897500B516A0 /* AVAudioPlayer+CustomControllers.m */; };
-		56427EA919AB897500B516A0 /* ImageViewCircle.m in Sources */ = {isa = PBXBuildFile; fileRef = 56427EA519AB897500B516A0 /* ImageViewCircle.m */; };
-		56427EAA19AB897500B516A0 /* UIButton+Animation.m in Sources */ = {isa = PBXBuildFile; fileRef = 56427EA719AB897500B516A0 /* UIButton+Animation.m */; };
 		56427EAC19AB8FC900B516A0 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EAB19AB8FC900B516A0 /* AVFoundation.framework */; };
 		56427EAE19AB8FE200B516A0 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EAD19AB8FE200B516A0 /* iAd.framework */; };
 		56427EB019AB904400B516A0 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EAF19AB904400B516A0 /* QuartzCore.framework */; };
@@ -59,12 +57,10 @@
 		56427EE519B85A7600B516A0 /* LightsFromCenter.png in Resources */ = {isa = PBXBuildFile; fileRef = 56427EE419B85A7600B516A0 /* LightsFromCenter.png */; };
 		564AD77B19E3B4FB0069901D /* previewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 564AD77A19E3B4FB0069901D /* previewVC.m */; };
 		564AD7F819EF8F760069901D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56427E2F19AB823200B516A0 /* ViewController.m */; };
-		564AD7F919EF8F760069901D /* UIButton+Animation.m in Sources */ = {isa = PBXBuildFile; fileRef = 56427EA719AB897500B516A0 /* UIButton+Animation.m */; };
 		564AD7FA19EF8F760069901D /* secondVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5686757A19BED3C900AF524A /* secondVC.m */; };
 		564AD7FB19EF8F760069901D /* AVAudioPlayer+CustomControllers.m in Sources */ = {isa = PBXBuildFile; fileRef = 56427EA319AB897500B516A0 /* AVAudioPlayer+CustomControllers.m */; };
 		564AD7FC19EF8F760069901D /* UIImageView+Animation.m in Sources */ = {isa = PBXBuildFile; fileRef = 56427EA019AB895300B516A0 /* UIImageView+Animation.m */; };
 		564AD7FD19EF8F760069901D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 56427E2619AB823200B516A0 /* AppDelegate.m */; };
-		564AD7FE19EF8F760069901D /* ImageViewCircle.m in Sources */ = {isa = PBXBuildFile; fileRef = 56427EA519AB897500B516A0 /* ImageViewCircle.m */; };
 		564AD7FF19EF8F760069901D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 56427E2219AB823200B516A0 /* main.m */; };
 		564AD80019EF8F760069901D /* previewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 564AD77A19E3B4FB0069901D /* previewVC.m */; };
 		564AD80219EF8F760069901D /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EBF19AB91BE00B516A0 /* StoreKit.framework */; };
@@ -106,12 +102,10 @@
 		564AD82719EF8F760069901D /* crash01.png in Resources */ = {isa = PBXBuildFile; fileRef = 56427E8F19AB88F700B516A0 /* crash01.png */; };
 		564AD82819EF8F760069901D /* ctrlBtnDF.png in Resources */ = {isa = PBXBuildFile; fileRef = 56427E8919AB88F700B516A0 /* ctrlBtnDF.png */; };
 		564AD83019F0C8FF0069901D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56427E2F19AB823200B516A0 /* ViewController.m */; };
-		564AD83119F0C8FF0069901D /* UIButton+Animation.m in Sources */ = {isa = PBXBuildFile; fileRef = 56427EA719AB897500B516A0 /* UIButton+Animation.m */; };
 		564AD83219F0C8FF0069901D /* secondVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5686757A19BED3C900AF524A /* secondVC.m */; };
 		564AD83319F0C8FF0069901D /* AVAudioPlayer+CustomControllers.m in Sources */ = {isa = PBXBuildFile; fileRef = 56427EA319AB897500B516A0 /* AVAudioPlayer+CustomControllers.m */; };
 		564AD83419F0C8FF0069901D /* UIImageView+Animation.m in Sources */ = {isa = PBXBuildFile; fileRef = 56427EA019AB895300B516A0 /* UIImageView+Animation.m */; };
 		564AD83519F0C8FF0069901D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 56427E2619AB823200B516A0 /* AppDelegate.m */; };
-		564AD83619F0C8FF0069901D /* ImageViewCircle.m in Sources */ = {isa = PBXBuildFile; fileRef = 56427EA519AB897500B516A0 /* ImageViewCircle.m */; };
 		564AD83719F0C8FF0069901D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 56427E2219AB823200B516A0 /* main.m */; };
 		564AD83819F0C8FF0069901D /* previewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 564AD77A19E3B4FB0069901D /* previewVC.m */; };
 		564AD83A19F0C8FF0069901D /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EBF19AB91BE00B516A0 /* StoreKit.framework */; };
@@ -153,12 +147,10 @@
 		564AD85F19F0C8FF0069901D /* crash01.png in Resources */ = {isa = PBXBuildFile; fileRef = 56427E8F19AB88F700B516A0 /* crash01.png */; };
 		564AD86019F0C8FF0069901D /* ctrlBtnDF.png in Resources */ = {isa = PBXBuildFile; fileRef = 56427E8919AB88F700B516A0 /* ctrlBtnDF.png */; };
 		564AD86819F0CC930069901D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56427E2F19AB823200B516A0 /* ViewController.m */; };
-		564AD86919F0CC930069901D /* UIButton+Animation.m in Sources */ = {isa = PBXBuildFile; fileRef = 56427EA719AB897500B516A0 /* UIButton+Animation.m */; };
 		564AD86A19F0CC930069901D /* secondVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5686757A19BED3C900AF524A /* secondVC.m */; };
 		564AD86B19F0CC930069901D /* AVAudioPlayer+CustomControllers.m in Sources */ = {isa = PBXBuildFile; fileRef = 56427EA319AB897500B516A0 /* AVAudioPlayer+CustomControllers.m */; };
 		564AD86C19F0CC930069901D /* UIImageView+Animation.m in Sources */ = {isa = PBXBuildFile; fileRef = 56427EA019AB895300B516A0 /* UIImageView+Animation.m */; };
 		564AD86D19F0CC930069901D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 56427E2619AB823200B516A0 /* AppDelegate.m */; };
-		564AD86E19F0CC930069901D /* ImageViewCircle.m in Sources */ = {isa = PBXBuildFile; fileRef = 56427EA519AB897500B516A0 /* ImageViewCircle.m */; };
 		564AD86F19F0CC930069901D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 56427E2219AB823200B516A0 /* main.m */; };
 		564AD87019F0CC930069901D /* previewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 564AD77A19E3B4FB0069901D /* previewVC.m */; };
 		564AD87219F0CC930069901D /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EBF19AB91BE00B516A0 /* StoreKit.framework */; };
@@ -200,12 +192,10 @@
 		564AD89719F0CC930069901D /* crash01.png in Resources */ = {isa = PBXBuildFile; fileRef = 56427E8F19AB88F700B516A0 /* crash01.png */; };
 		564AD89819F0CC930069901D /* ctrlBtnDF.png in Resources */ = {isa = PBXBuildFile; fileRef = 56427E8919AB88F700B516A0 /* ctrlBtnDF.png */; };
 		564AD8A019F0D20E0069901D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56427E2F19AB823200B516A0 /* ViewController.m */; };
-		564AD8A119F0D20E0069901D /* UIButton+Animation.m in Sources */ = {isa = PBXBuildFile; fileRef = 56427EA719AB897500B516A0 /* UIButton+Animation.m */; };
 		564AD8A219F0D20E0069901D /* secondVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5686757A19BED3C900AF524A /* secondVC.m */; };
 		564AD8A319F0D20E0069901D /* AVAudioPlayer+CustomControllers.m in Sources */ = {isa = PBXBuildFile; fileRef = 56427EA319AB897500B516A0 /* AVAudioPlayer+CustomControllers.m */; };
 		564AD8A419F0D20E0069901D /* UIImageView+Animation.m in Sources */ = {isa = PBXBuildFile; fileRef = 56427EA019AB895300B516A0 /* UIImageView+Animation.m */; };
 		564AD8A519F0D20E0069901D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 56427E2619AB823200B516A0 /* AppDelegate.m */; };
-		564AD8A619F0D20E0069901D /* ImageViewCircle.m in Sources */ = {isa = PBXBuildFile; fileRef = 56427EA519AB897500B516A0 /* ImageViewCircle.m */; };
 		564AD8A719F0D20E0069901D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 56427E2219AB823200B516A0 /* main.m */; };
 		564AD8A819F0D20E0069901D /* previewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 564AD77A19E3B4FB0069901D /* previewVC.m */; };
 		564AD8AA19F0D20E0069901D /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EBF19AB91BE00B516A0 /* StoreKit.framework */; };
@@ -247,12 +237,10 @@
 		564AD8CF19F0D20E0069901D /* crash01.png in Resources */ = {isa = PBXBuildFile; fileRef = 56427E8F19AB88F700B516A0 /* crash01.png */; };
 		564AD8D019F0D20E0069901D /* ctrlBtnDF.png in Resources */ = {isa = PBXBuildFile; fileRef = 56427E8919AB88F700B516A0 /* ctrlBtnDF.png */; };
 		564AD8D819F0D9320069901D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56427E2F19AB823200B516A0 /* ViewController.m */; };
-		564AD8D919F0D9320069901D /* UIButton+Animation.m in Sources */ = {isa = PBXBuildFile; fileRef = 56427EA719AB897500B516A0 /* UIButton+Animation.m */; };
 		564AD8DA19F0D9320069901D /* secondVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5686757A19BED3C900AF524A /* secondVC.m */; };
 		564AD8DB19F0D9320069901D /* AVAudioPlayer+CustomControllers.m in Sources */ = {isa = PBXBuildFile; fileRef = 56427EA319AB897500B516A0 /* AVAudioPlayer+CustomControllers.m */; };
 		564AD8DC19F0D9320069901D /* UIImageView+Animation.m in Sources */ = {isa = PBXBuildFile; fileRef = 56427EA019AB895300B516A0 /* UIImageView+Animation.m */; };
 		564AD8DD19F0D9320069901D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 56427E2619AB823200B516A0 /* AppDelegate.m */; };
-		564AD8DE19F0D9320069901D /* ImageViewCircle.m in Sources */ = {isa = PBXBuildFile; fileRef = 56427EA519AB897500B516A0 /* ImageViewCircle.m */; };
 		564AD8DF19F0D9320069901D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 56427E2219AB823200B516A0 /* main.m */; };
 		564AD8E019F0D9320069901D /* previewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 564AD77A19E3B4FB0069901D /* previewVC.m */; };
 		564AD8E219F0D9320069901D /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EBF19AB91BE00B516A0 /* StoreKit.framework */; };
@@ -294,12 +282,10 @@
 		564AD90719F0D9320069901D /* crash01.png in Resources */ = {isa = PBXBuildFile; fileRef = 56427E8F19AB88F700B516A0 /* crash01.png */; };
 		564AD90819F0D9320069901D /* ctrlBtnDF.png in Resources */ = {isa = PBXBuildFile; fileRef = 56427E8919AB88F700B516A0 /* ctrlBtnDF.png */; };
 		564AD91019F0E32E0069901D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56427E2F19AB823200B516A0 /* ViewController.m */; };
-		564AD91119F0E32E0069901D /* UIButton+Animation.m in Sources */ = {isa = PBXBuildFile; fileRef = 56427EA719AB897500B516A0 /* UIButton+Animation.m */; };
 		564AD91219F0E32E0069901D /* secondVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5686757A19BED3C900AF524A /* secondVC.m */; };
 		564AD91319F0E32E0069901D /* AVAudioPlayer+CustomControllers.m in Sources */ = {isa = PBXBuildFile; fileRef = 56427EA319AB897500B516A0 /* AVAudioPlayer+CustomControllers.m */; };
 		564AD91419F0E32E0069901D /* UIImageView+Animation.m in Sources */ = {isa = PBXBuildFile; fileRef = 56427EA019AB895300B516A0 /* UIImageView+Animation.m */; };
 		564AD91519F0E32E0069901D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 56427E2619AB823200B516A0 /* AppDelegate.m */; };
-		564AD91619F0E32E0069901D /* ImageViewCircle.m in Sources */ = {isa = PBXBuildFile; fileRef = 56427EA519AB897500B516A0 /* ImageViewCircle.m */; };
 		564AD91719F0E32E0069901D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 56427E2219AB823200B516A0 /* main.m */; };
 		564AD91819F0E32E0069901D /* previewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 564AD77A19E3B4FB0069901D /* previewVC.m */; };
 		564AD91A19F0E32E0069901D /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EBF19AB91BE00B516A0 /* StoreKit.framework */; };
@@ -341,12 +327,10 @@
 		564AD93F19F0E32E0069901D /* crash01.png in Resources */ = {isa = PBXBuildFile; fileRef = 56427E8F19AB88F700B516A0 /* crash01.png */; };
 		564AD94019F0E32E0069901D /* ctrlBtnDF.png in Resources */ = {isa = PBXBuildFile; fileRef = 56427E8919AB88F700B516A0 /* ctrlBtnDF.png */; };
 		564AD94819F0E4520069901D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56427E2F19AB823200B516A0 /* ViewController.m */; };
-		564AD94919F0E4520069901D /* UIButton+Animation.m in Sources */ = {isa = PBXBuildFile; fileRef = 56427EA719AB897500B516A0 /* UIButton+Animation.m */; };
 		564AD94A19F0E4520069901D /* secondVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5686757A19BED3C900AF524A /* secondVC.m */; };
 		564AD94B19F0E4520069901D /* AVAudioPlayer+CustomControllers.m in Sources */ = {isa = PBXBuildFile; fileRef = 56427EA319AB897500B516A0 /* AVAudioPlayer+CustomControllers.m */; };
 		564AD94C19F0E4520069901D /* UIImageView+Animation.m in Sources */ = {isa = PBXBuildFile; fileRef = 56427EA019AB895300B516A0 /* UIImageView+Animation.m */; };
 		564AD94D19F0E4520069901D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 56427E2619AB823200B516A0 /* AppDelegate.m */; };
-		564AD94E19F0E4520069901D /* ImageViewCircle.m in Sources */ = {isa = PBXBuildFile; fileRef = 56427EA519AB897500B516A0 /* ImageViewCircle.m */; };
 		564AD94F19F0E4520069901D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 56427E2219AB823200B516A0 /* main.m */; };
 		564AD95019F0E4520069901D /* previewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 564AD77A19E3B4FB0069901D /* previewVC.m */; };
 		564AD95219F0E4520069901D /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EBF19AB91BE00B516A0 /* StoreKit.framework */; };
@@ -388,12 +372,10 @@
 		564AD97719F0E4520069901D /* crash01.png in Resources */ = {isa = PBXBuildFile; fileRef = 56427E8F19AB88F700B516A0 /* crash01.png */; };
 		564AD97819F0E4520069901D /* ctrlBtnDF.png in Resources */ = {isa = PBXBuildFile; fileRef = 56427E8919AB88F700B516A0 /* ctrlBtnDF.png */; };
 		564AD98019F0E8410069901D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56427E2F19AB823200B516A0 /* ViewController.m */; };
-		564AD98119F0E8410069901D /* UIButton+Animation.m in Sources */ = {isa = PBXBuildFile; fileRef = 56427EA719AB897500B516A0 /* UIButton+Animation.m */; };
 		564AD98219F0E8410069901D /* secondVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5686757A19BED3C900AF524A /* secondVC.m */; };
 		564AD98319F0E8410069901D /* AVAudioPlayer+CustomControllers.m in Sources */ = {isa = PBXBuildFile; fileRef = 56427EA319AB897500B516A0 /* AVAudioPlayer+CustomControllers.m */; };
 		564AD98419F0E8410069901D /* UIImageView+Animation.m in Sources */ = {isa = PBXBuildFile; fileRef = 56427EA019AB895300B516A0 /* UIImageView+Animation.m */; };
 		564AD98519F0E8410069901D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 56427E2619AB823200B516A0 /* AppDelegate.m */; };
-		564AD98619F0E8410069901D /* ImageViewCircle.m in Sources */ = {isa = PBXBuildFile; fileRef = 56427EA519AB897500B516A0 /* ImageViewCircle.m */; };
 		564AD98719F0E8410069901D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 56427E2219AB823200B516A0 /* main.m */; };
 		564AD98819F0E8410069901D /* previewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 564AD77A19E3B4FB0069901D /* previewVC.m */; };
 		564AD98A19F0E8410069901D /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EBF19AB91BE00B516A0 /* StoreKit.framework */; };
@@ -435,12 +417,10 @@
 		564AD9AF19F0E8410069901D /* crash01.png in Resources */ = {isa = PBXBuildFile; fileRef = 56427E8F19AB88F700B516A0 /* crash01.png */; };
 		564AD9B019F0E8410069901D /* ctrlBtnDF.png in Resources */ = {isa = PBXBuildFile; fileRef = 56427E8919AB88F700B516A0 /* ctrlBtnDF.png */; };
 		564AD9B819F0E9630069901D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56427E2F19AB823200B516A0 /* ViewController.m */; };
-		564AD9B919F0E9630069901D /* UIButton+Animation.m in Sources */ = {isa = PBXBuildFile; fileRef = 56427EA719AB897500B516A0 /* UIButton+Animation.m */; };
 		564AD9BA19F0E9630069901D /* secondVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5686757A19BED3C900AF524A /* secondVC.m */; };
 		564AD9BB19F0E9630069901D /* AVAudioPlayer+CustomControllers.m in Sources */ = {isa = PBXBuildFile; fileRef = 56427EA319AB897500B516A0 /* AVAudioPlayer+CustomControllers.m */; };
 		564AD9BC19F0E9630069901D /* UIImageView+Animation.m in Sources */ = {isa = PBXBuildFile; fileRef = 56427EA019AB895300B516A0 /* UIImageView+Animation.m */; };
 		564AD9BD19F0E9630069901D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 56427E2619AB823200B516A0 /* AppDelegate.m */; };
-		564AD9BE19F0E9630069901D /* ImageViewCircle.m in Sources */ = {isa = PBXBuildFile; fileRef = 56427EA519AB897500B516A0 /* ImageViewCircle.m */; };
 		564AD9BF19F0E9630069901D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 56427E2219AB823200B516A0 /* main.m */; };
 		564AD9C019F0E9630069901D /* previewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 564AD77A19E3B4FB0069901D /* previewVC.m */; };
 		564AD9C219F0E9630069901D /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EBF19AB91BE00B516A0 /* StoreKit.framework */; };
@@ -509,6 +489,7 @@
 		56A4B1FC19FB2DB10009CC37 /* CollectionViewCellFrame188x188.png in Resources */ = {isa = PBXBuildFile; fileRef = 56A4B1FB19FB2DB10009CC37 /* CollectionViewCellFrame188x188.png */; };
 		56A4B1FF19FB70C40009CC37 /* NSArray+IndexHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 56A4B1FE19FB70C40009CC37 /* NSArray+IndexHelper.m */; };
 		56E14FFA19FD26DB0029B81D /* AddImage188x188.png in Resources */ = {isa = PBXBuildFile; fileRef = 56E14FF919FD26DB0029B81D /* AddImage188x188.png */; };
+		56E14FFD19FF38930029B81D /* playVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 56E14FFC19FF38930029B81D /* playVC.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -572,10 +553,6 @@
 		56427EA019AB895300B516A0 /* UIImageView+Animation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+Animation.m"; sourceTree = "<group>"; };
 		56427EA219AB897500B516A0 /* AVAudioPlayer+CustomControllers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AVAudioPlayer+CustomControllers.h"; sourceTree = "<group>"; };
 		56427EA319AB897500B516A0 /* AVAudioPlayer+CustomControllers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AVAudioPlayer+CustomControllers.m"; sourceTree = "<group>"; };
-		56427EA419AB897500B516A0 /* ImageViewCircle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageViewCircle.h; sourceTree = "<group>"; };
-		56427EA519AB897500B516A0 /* ImageViewCircle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageViewCircle.m; sourceTree = "<group>"; };
-		56427EA619AB897500B516A0 /* UIButton+Animation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Animation.h"; sourceTree = "<group>"; };
-		56427EA719AB897500B516A0 /* UIButton+Animation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Animation.m"; sourceTree = "<group>"; };
 		56427EAB19AB8FC900B516A0 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		56427EAD19AB8FE200B516A0 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		56427EAF19AB904400B516A0 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -648,6 +625,8 @@
 		56A4B1FD19FB70C40009CC37 /* NSArray+IndexHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+IndexHelper.h"; sourceTree = "<group>"; };
 		56A4B1FE19FB70C40009CC37 /* NSArray+IndexHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+IndexHelper.m"; sourceTree = "<group>"; };
 		56E14FF919FD26DB0029B81D /* AddImage188x188.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AddImage188x188.png; sourceTree = "<group>"; };
+		56E14FFB19FF38930029B81D /* playVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = playVC.h; sourceTree = "<group>"; };
+		56E14FFC19FF38930029B81D /* playVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = playVC.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -971,20 +950,18 @@
 				56427E8219AB887E00B516A0 /* Assets */,
 				56427EA219AB897500B516A0 /* AVAudioPlayer+CustomControllers.h */,
 				56427EA319AB897500B516A0 /* AVAudioPlayer+CustomControllers.m */,
-				56427EA419AB897500B516A0 /* ImageViewCircle.h */,
-				56427EA519AB897500B516A0 /* ImageViewCircle.m */,
-				56427EA619AB897500B516A0 /* UIButton+Animation.h */,
-				56427EA719AB897500B516A0 /* UIButton+Animation.m */,
 				56427E9F19AB895300B516A0 /* UIImageView+Animation.h */,
 				56427EA019AB895300B516A0 /* UIImageView+Animation.m */,
 				56427E2519AB823200B516A0 /* AppDelegate.h */,
 				56427E2619AB823200B516A0 /* AppDelegate.m */,
 				56427E2819AB823200B516A0 /* Main_iPhone.storyboard */,
 				56427E2B19AB823200B516A0 /* Main_iPad.storyboard */,
-				56427E2E19AB823200B516A0 /* ViewController.h */,
-				56427E2F19AB823200B516A0 /* ViewController.m */,
 				56A4B1FD19FB70C40009CC37 /* NSArray+IndexHelper.h */,
 				56A4B1FE19FB70C40009CC37 /* NSArray+IndexHelper.m */,
+				56427E2E19AB823200B516A0 /* ViewController.h */,
+				56427E2F19AB823200B516A0 /* ViewController.m */,
+				56E14FFB19FF38930029B81D /* playVC.h */,
+				56E14FFC19FF38930029B81D /* playVC.m */,
 				5686757919BED3C900AF524A /* secondVC.h */,
 				5686757A19BED3C900AF524A /* secondVC.m */,
 				564AD77919E3B4FB0069901D /* previewVC.h */,
@@ -1739,14 +1716,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				56427E3019AB823200B516A0 /* ViewController.m in Sources */,
-				56427EAA19AB897500B516A0 /* UIButton+Animation.m in Sources */,
 				5686757B19BED3C900AF524A /* secondVC.m in Sources */,
 				56427EA819AB897500B516A0 /* AVAudioPlayer+CustomControllers.m in Sources */,
 				56427EA119AB895300B516A0 /* UIImageView+Animation.m in Sources */,
 				56427E2719AB823200B516A0 /* AppDelegate.m in Sources */,
-				56427EA919AB897500B516A0 /* ImageViewCircle.m in Sources */,
 				56427E2319AB823200B516A0 /* main.m in Sources */,
 				564AD77B19E3B4FB0069901D /* previewVC.m in Sources */,
+				56E14FFD19FF38930029B81D /* playVC.m in Sources */,
 				56A4B1FF19FB70C40009CC37 /* NSArray+IndexHelper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1764,12 +1740,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				564AD7F819EF8F760069901D /* ViewController.m in Sources */,
-				564AD7F919EF8F760069901D /* UIButton+Animation.m in Sources */,
 				564AD7FA19EF8F760069901D /* secondVC.m in Sources */,
 				564AD7FB19EF8F760069901D /* AVAudioPlayer+CustomControllers.m in Sources */,
 				564AD7FC19EF8F760069901D /* UIImageView+Animation.m in Sources */,
 				564AD7FD19EF8F760069901D /* AppDelegate.m in Sources */,
-				564AD7FE19EF8F760069901D /* ImageViewCircle.m in Sources */,
 				564AD7FF19EF8F760069901D /* main.m in Sources */,
 				564AD80019EF8F760069901D /* previewVC.m in Sources */,
 			);
@@ -1780,12 +1754,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				564AD83019F0C8FF0069901D /* ViewController.m in Sources */,
-				564AD83119F0C8FF0069901D /* UIButton+Animation.m in Sources */,
 				564AD83219F0C8FF0069901D /* secondVC.m in Sources */,
 				564AD83319F0C8FF0069901D /* AVAudioPlayer+CustomControllers.m in Sources */,
 				564AD83419F0C8FF0069901D /* UIImageView+Animation.m in Sources */,
 				564AD83519F0C8FF0069901D /* AppDelegate.m in Sources */,
-				564AD83619F0C8FF0069901D /* ImageViewCircle.m in Sources */,
 				564AD83719F0C8FF0069901D /* main.m in Sources */,
 				564AD83819F0C8FF0069901D /* previewVC.m in Sources */,
 			);
@@ -1796,12 +1768,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				564AD86819F0CC930069901D /* ViewController.m in Sources */,
-				564AD86919F0CC930069901D /* UIButton+Animation.m in Sources */,
 				564AD86A19F0CC930069901D /* secondVC.m in Sources */,
 				564AD86B19F0CC930069901D /* AVAudioPlayer+CustomControllers.m in Sources */,
 				564AD86C19F0CC930069901D /* UIImageView+Animation.m in Sources */,
 				564AD86D19F0CC930069901D /* AppDelegate.m in Sources */,
-				564AD86E19F0CC930069901D /* ImageViewCircle.m in Sources */,
 				564AD86F19F0CC930069901D /* main.m in Sources */,
 				564AD87019F0CC930069901D /* previewVC.m in Sources */,
 			);
@@ -1812,12 +1782,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				564AD8A019F0D20E0069901D /* ViewController.m in Sources */,
-				564AD8A119F0D20E0069901D /* UIButton+Animation.m in Sources */,
 				564AD8A219F0D20E0069901D /* secondVC.m in Sources */,
 				564AD8A319F0D20E0069901D /* AVAudioPlayer+CustomControllers.m in Sources */,
 				564AD8A419F0D20E0069901D /* UIImageView+Animation.m in Sources */,
 				564AD8A519F0D20E0069901D /* AppDelegate.m in Sources */,
-				564AD8A619F0D20E0069901D /* ImageViewCircle.m in Sources */,
 				564AD8A719F0D20E0069901D /* main.m in Sources */,
 				564AD8A819F0D20E0069901D /* previewVC.m in Sources */,
 			);
@@ -1828,12 +1796,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				564AD8D819F0D9320069901D /* ViewController.m in Sources */,
-				564AD8D919F0D9320069901D /* UIButton+Animation.m in Sources */,
 				564AD8DA19F0D9320069901D /* secondVC.m in Sources */,
 				564AD8DB19F0D9320069901D /* AVAudioPlayer+CustomControllers.m in Sources */,
 				564AD8DC19F0D9320069901D /* UIImageView+Animation.m in Sources */,
 				564AD8DD19F0D9320069901D /* AppDelegate.m in Sources */,
-				564AD8DE19F0D9320069901D /* ImageViewCircle.m in Sources */,
 				564AD8DF19F0D9320069901D /* main.m in Sources */,
 				564AD8E019F0D9320069901D /* previewVC.m in Sources */,
 			);
@@ -1844,12 +1810,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				564AD91019F0E32E0069901D /* ViewController.m in Sources */,
-				564AD91119F0E32E0069901D /* UIButton+Animation.m in Sources */,
 				564AD91219F0E32E0069901D /* secondVC.m in Sources */,
 				564AD91319F0E32E0069901D /* AVAudioPlayer+CustomControllers.m in Sources */,
 				564AD91419F0E32E0069901D /* UIImageView+Animation.m in Sources */,
 				564AD91519F0E32E0069901D /* AppDelegate.m in Sources */,
-				564AD91619F0E32E0069901D /* ImageViewCircle.m in Sources */,
 				564AD91719F0E32E0069901D /* main.m in Sources */,
 				564AD91819F0E32E0069901D /* previewVC.m in Sources */,
 			);
@@ -1860,12 +1824,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				564AD94819F0E4520069901D /* ViewController.m in Sources */,
-				564AD94919F0E4520069901D /* UIButton+Animation.m in Sources */,
 				564AD94A19F0E4520069901D /* secondVC.m in Sources */,
 				564AD94B19F0E4520069901D /* AVAudioPlayer+CustomControllers.m in Sources */,
 				564AD94C19F0E4520069901D /* UIImageView+Animation.m in Sources */,
 				564AD94D19F0E4520069901D /* AppDelegate.m in Sources */,
-				564AD94E19F0E4520069901D /* ImageViewCircle.m in Sources */,
 				564AD94F19F0E4520069901D /* main.m in Sources */,
 				564AD95019F0E4520069901D /* previewVC.m in Sources */,
 			);
@@ -1876,12 +1838,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				564AD98019F0E8410069901D /* ViewController.m in Sources */,
-				564AD98119F0E8410069901D /* UIButton+Animation.m in Sources */,
 				564AD98219F0E8410069901D /* secondVC.m in Sources */,
 				564AD98319F0E8410069901D /* AVAudioPlayer+CustomControllers.m in Sources */,
 				564AD98419F0E8410069901D /* UIImageView+Animation.m in Sources */,
 				564AD98519F0E8410069901D /* AppDelegate.m in Sources */,
-				564AD98619F0E8410069901D /* ImageViewCircle.m in Sources */,
 				564AD98719F0E8410069901D /* main.m in Sources */,
 				564AD98819F0E8410069901D /* previewVC.m in Sources */,
 			);
@@ -1892,12 +1852,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				564AD9B819F0E9630069901D /* ViewController.m in Sources */,
-				564AD9B919F0E9630069901D /* UIButton+Animation.m in Sources */,
 				564AD9BA19F0E9630069901D /* secondVC.m in Sources */,
 				564AD9BB19F0E9630069901D /* AVAudioPlayer+CustomControllers.m in Sources */,
 				564AD9BC19F0E9630069901D /* UIImageView+Animation.m in Sources */,
 				564AD9BD19F0E9630069901D /* AppDelegate.m in Sources */,
-				564AD9BE19F0E9630069901D /* ImageViewCircle.m in Sources */,
 				564AD9BF19F0E9630069901D /* main.m in Sources */,
 				564AD9C019F0E9630069901D /* previewVC.m in Sources */,
 			);

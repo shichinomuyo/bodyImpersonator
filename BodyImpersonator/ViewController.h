@@ -7,13 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <AVFoundation/AVFoundation.h>
-#import <AudioToolbox/AudioToolbox.h>
-#import <QuartzCore/QuartzCore.h>
-#import "ImageViewCircle.h"
-#import "UIButton+Animation.h"
-#import "UIImageView+Animation.h"
-#import "AVAudioPlayer+CustomControllers.h"
+#import <AVFoundation/AVFoundation.h> // import済み
+#import <AudioToolbox/AudioToolbox.h>// import済み
+#import <QuartzCore/QuartzCore.h>// import済み
+#import "AVAudioPlayer+CustomControllers.h"// import済み
 #import "NSArray+IndexHelper.h"
 #import "GADBannerView.h"
 #import "GADInterstitial.h"
@@ -21,6 +18,7 @@
 #import "AppDelegate.h"
 #import "secondVC.h"
 #import "previewVC.h"
+#import "playVC.h" // indexpath受け渡し用にインポート
 
 #define RGB(r, g, b)[UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:1]
 #define RGBA(r, g, b, a)[UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:a]

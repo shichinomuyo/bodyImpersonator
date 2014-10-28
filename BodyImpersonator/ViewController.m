@@ -9,21 +9,8 @@
 #import "ViewController.h"
 
 
-@interface ViewController ()<AVAudioPlayerDelegate>
+@interface ViewController ()
 {
-    AVAudioPlayer *_rollPlayerTmp;
-    AVAudioPlayer *_rollPlayerAlt;
-    AVAudioPlayer *_crashPlayer;
-    ImageViewCircle *greenCircle;
-    ImageViewCircle *redCircle;
-    // タイマー
-    NSTimer *_playTimer; // AVAudioPlayerコントロール用
-    // アニメーションタイマー
-    NSTimer *_rippleAnimationTimer; // rippleアニメーションコントロール用
-    NSTimer *_ctrlBtnAnimationTimer; // ctrlBtnアニメーションコントロール用
-    NSTimer *_animationWaitTimer; // 拡大/縮小アニメーション終了待ちタイマー
-    NSTimer *_flashAnimationTimer; // flashAnimation用タイマー
-    
     // 【アニメーション】ロール再生中のコマを入れる配列
     NSArray *animationSeq;
     
@@ -33,7 +20,6 @@
 }
 // IBOutlet Btn
 @property (weak, nonatomic) IBOutlet UIButton *ctrlBtn;
-@property (weak, nonatomic) IBOutlet UIButton *backgroundBtn;
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *camIcon;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *orgIcon;
@@ -41,7 +27,7 @@
 
 // IBOutlet Image
 @property (weak, nonatomic) IBOutlet UIImageView *selectedPhotoImage; // ctrlBtnをそのまま同様のアニメーションをさせると、ctrlBtnをギュンギュンアニメーションさせている都合で、タイミングによって結果がとても大きくなることがあるため、本イメージビューをアニメーション用として準備
-@property (weak, nonatomic) IBOutlet UIImageView *lightEffectImage;
+
 // IBOutlet NavigationBar
 @property (weak, nonatomic) IBOutlet UINavigationBar *navigationBarMain;
 
@@ -61,9 +47,7 @@
 - (IBAction)touchDownCtrlBtn:(UIButton *)sender;
 - (IBAction)touchDragExitCtrlBtn:(UIButton *)sender;
 - (IBAction)touchDragEnterCtrlBtn:(UIButton *)sender;
-// IBAction BackgroundBtn
-- (IBAction)touchDownBackgroundBtn:(UIButton *)sender;
-- (IBAction)touchUpInsideBackgroundBtn:(UIButton *)sender;
+
 // IBAction プレビューウィンドウをポップアップの子ビューにするときの非表示ボタン
 - (IBAction)nestViewCtrlBtn:(UIButton *)sender;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
@@ -72,7 +56,7 @@
 
 #pragma mark -
 @implementation ViewController
-#pragma mark audioControlls
+#pragma mark initialize
 + (void) initialize{
     // 初回起動時の初期データ
     NSMutableDictionary *appDefaults = [[NSMutableDictionary alloc] init];
@@ -86,259 +70,13 @@
     [appDefaults setObject:array forKey:@"KEY_arrayImages"];
     // collectionViewに表示する画像に番号を振るために整数値を作成・初期化
     [appDefaults setObject:@"0" forKey:@"KEY_imageCount"];
+
     // ユーザーデフォルトの初期値に設定する
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     [userDefaults registerDefaults:appDefaults];
 }
 
-- (void)initializeAVAudioPlayers{
-    // (audioplayer)再生する効果音のパスを取得する
-    // ロールtmp
-    NSString *path_roll = [[NSBundle mainBundle] pathForResource:@"roll13" ofType:@"mp3"];
-    NSURL *url_roll = [NSURL fileURLWithPath:path_roll];
-    _rollPlayerTmp = [[AVAudioPlayer alloc] initWithContentsOfURL:url_roll error:NULL];
-    
-    // ロールalt
-    _rollPlayerAlt = [[AVAudioPlayer alloc] initWithContentsOfURL:url_roll error:NULL];
-    
-    // クラッシュ
-    NSString *path_clash = [[NSBundle mainBundle] pathForResource:@"crash13" ofType:@"mp3"];
-    NSURL *url_clash = [NSURL fileURLWithPath:path_clash];
-    _crashPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:url_clash error:NULL];
-    
-    // プレイヤーを準備
-    [_rollPlayerTmp prepareToPlay];
-    [_rollPlayerAlt prepareToPlay];
-    [_crashPlayer prepareToPlay];
-}
 
-// タイマー生成
-- (void)playerControll{
-    // playerControllをrollPlayerTmp.duration - 2秒の間隔で呼び出すタイマーを作る
-    _playTimer = [NSTimer scheduledTimerWithTimeInterval:((float)_rollPlayerTmp.duration - 2.0f)
-                                                  target:self
-                                                selector:@selector(playerControllTimer)
-                                                userInfo:nil
-                                                 repeats:YES];
-}
-
-// _playTimerから呼び出すメソッドでプレイヤーの交換、フェードイン・アウトをコントロール
-- (void)playerControllTimer{
-    NSTimer *timer;
-    // playerの開始位置を以下で　2.0にしているためdurfation -3 にしないと、pleyerが再生完了してしまう
-    if (_rollPlayerTmp.playing) {
-        // altを代替プレイヤーとして再生
-        [_rollPlayerAlt startAltPlayerSetStartTime:1.0 setVolume:0.4];
-        
-        // クロスフェード処理
-        timer = [NSTimer scheduledTimerWithTimeInterval:0.1
-                                                 target:self
-                                               selector:@selector(crossFadePlayerTmpToAlt:)
-                                               userInfo:nil
-                                                repeats:YES];
-    } else if(_rollPlayerAlt.playing) {
-        // tmpを代替プレイヤーとして再生
-        [_rollPlayerTmp startAltPlayerSetStartTime:1.0 setVolume:0.4];
-        
-        // クロスフェード処理
-        timer = [NSTimer scheduledTimerWithTimeInterval:0.1
-                                                 target:self
-                                               selector:@selector(crossFadePlayerAltToTmp:)
-                                               userInfo:nil
-                                                repeats:YES];
-    }
-}
-
-// 2つのロールプレイヤーをtmp→altへクロスフェードさせるメソッド
-- (void)crossFadePlayerTmpToAlt:(NSTimer *)timer{
-    // tmpPlayerとaltPlayerのボリュームを0.1ずつ上げ下げ
-    _rollPlayerTmp.volume = _rollPlayerTmp.volume - 0.1;
-    _rollPlayerAlt.volume = _rollPlayerAlt.volume + 0.1;
-    
-    NSLog(@"tmp.volume %.2f",_rollPlayerTmp.volume);
-    NSLog(@"alt.volume %.2f",_rollPlayerAlt.volume);
-    
-    if ((int)_rollPlayerAlt.volume == 1) {
-        [timer invalidate];
-        // tmpPlayerの再生を止めてcurrentTimeを0.0にセット
-        [_rollPlayerTmp stopPlayer];
-    }
-}
-
-// 2つのロールプレイヤーをalt→tmpへクロスフェードさせるメソッド
-- (void)crossFadePlayerAltToTmp:(NSTimer *)timer{
-    // tmpPlayerとaltPlayerのボリュームを0.1ずつ上げ下げ
-    _rollPlayerTmp.volume = _rollPlayerTmp.volume + 0.1;
-    _rollPlayerAlt.volume = _rollPlayerAlt.volume - 0.1;
-    
-    NSLog(@"tmp.volume %.2f",_rollPlayerTmp.volume);
-    NSLog(@"alt.volume %.2f",_rollPlayerAlt.volume);
-    
-    if ((int)_rollPlayerTmp.volume == 1) {
-        [timer invalidate];
-        // altPlayerの再生を止めてcurrentTimeを0.0にセット
-        [_rollPlayerAlt stopPlayer];
-    }
-}
-
-
-#pragma mark rippleSetUp
-- (void) greenRippleSetUp{
-    // デバイスがiphoneであるかそうでないかで分岐
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
-        NSLog(@"iPhoneの処理");
-        // ストロークカラーを緑に設定
-        UIColor *color = [UIColor colorWithRed:0.20 green:0.80 blue:0.40 alpha:1.0]; // EMERALD
-        // ストロークの太さを設定
-        CGFloat lineWidth = 2.5f;
-        // 半径を設定
-        CGFloat radius = (int)self.ctrlBtn.bounds.size.width * 0.95; //224
-        // インスタンスを生成
-        greenCircle = [[ImageViewCircle alloc] initWithFrame:CGRectMake(0, 0, radius, radius) withColor:color withLineWidth:lineWidth];
-    }
-    else{
-        NSLog(@"iPadの処理");
-        // ストロークカラーを緑に設定
-        UIColor *color = [UIColor colorWithRed:0.20 green:0.80 blue:0.40 alpha:1.0]; // EMERALD
-        // ストロークの太さを設定
-        CGFloat lineWidth = 10.0f;
-        // 半径を設定
-        CGFloat radius = (int)self.ctrlBtn.bounds.size.width * 0.95; // 448
-        // インスタンスを生成
-        greenCircle = [[ImageViewCircle alloc] initWithFrame:CGRectMake(0, 0, radius, radius) withColor:color withLineWidth:lineWidth];
-    }
-    
-    
-    [greenCircle setImage:[greenCircle imageFillEllipseInRect]];
-    
-    // イメージビューのセンターをctrlAudioPlayerBtn.centerと合わせる
-    [greenCircle setCenter:self.ctrlBtn.center];
-    // アニメーション再生まで隠しておく
-    [greenCircle setHidden:1];
-}
-
-- (void)redRippleSetUp{
-    
-    // デバイスがiphoneであるかそうでないかで分岐
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
-        NSLog(@"iPhoneの処理");
-        // ストロークカラーを赤に設定
-        UIColor *color = [UIColor colorWithRed:0.80 green:0.20 blue:0.00 alpha:1]; // ALIZARIN
-        // ストロークの太さを設定
-        CGFloat lineWidth = 2.0f;
-        // 半径を設定
-        CGFloat radius = (int)self.ctrlBtn.bounds.size.width * 1.2; // 286
-        // インスタンスを生成
-        redCircle = [[ImageViewCircle alloc] initWithFrame:CGRectMake(0, 0, radius, radius) withColor:color withLineWidth:lineWidth];
-        
-    }
-    else{
-        NSLog(@"iPadの処理");
-        // ストロークカラーを赤に設定
-        UIColor *color = [UIColor colorWithRed:0.80 green:0.20 blue:0.00 alpha:1]; // ALIZARIN
-        // ストロークの太さを設定
-        CGFloat lineWidth = 10.0f;
-        // 半径を設定
-        CGFloat radius = (int)self.ctrlBtn.bounds.size.width * 1.2;// 542
-        // インスタンスを生成
-        redCircle = [[ImageViewCircle alloc] initWithFrame:CGRectMake(0, 0, radius, radius) withColor:color withLineWidth:lineWidth];
-    }
-    
-    
-    
-    [redCircle setImage:[redCircle imageFillEllipseInRect]];
-    
-    // 円をctrlBtn.centerと合わせる
-    [redCircle setCenter:self.ctrlBtn.center];
-    // ImageViewCircleをアニメーション開始までhiddenにする
-    [redCircle setHidden:1];
-}
-
-- (void) ctrlBtnGrennRippleAnimationStart{
-    // サークルアニメーションタイマーを破棄する
-    [self animationTimerInvalidate];
-    
-    // ctrlBtnの画像をnilに設定
-    self.ctrlBtn.imageView.image = nil;
-    
-    
-    // 円とctrlBtnのふわふわアニメーション
-    // 【アニメーション】円の拡大アニメーションを3.0秒間隔で呼び出すタイマーを作る
-    _rippleAnimationTimer = [NSTimer scheduledTimerWithTimeInterval:3.0f
-                                                             target:greenCircle
-                                                           selector:@selector(rippleAnimation)
-                                                           userInfo:nil
-                                                            repeats:YES];
-    _ctrlBtnAnimationTimer = [NSTimer scheduledTimerWithTimeInterval:3.0f
-                                                              target:self.ctrlBtn
-                                                            selector:@selector(scaleUpBtn)
-                                                            userInfo:nil
-                                                             repeats:YES];
-    
-}
-
-- (void) ctrlBtnRedRippleAnimationStart:(NSTimer *)timer{
-    
-    
-    
-    // 【アニメーション】円の縮小アニメーションを0.6秒間隔で呼び出すタイマーを作る
-    _rippleAnimationTimer = [NSTimer scheduledTimerWithTimeInterval:0.6f
-                                                             target:redCircle
-                                                           selector:@selector(rippleAnimationReverse)
-                                                           userInfo:nil
-                                                            repeats:YES];
-    _ctrlBtnAnimationTimer = [NSTimer scheduledTimerWithTimeInterval:0.6f
-                                                              target:self.ctrlBtn
-                                                            selector:@selector(scaleDownBtn)
-                                                            userInfo:nil
-                                                             repeats:YES];
-    
-    [timer invalidate];
-    
-}
-
-// ctrlBtnのハイライトアニメーション
-- (void)ctrlBtnHighlightedAnimationStart {
-    [self.ctrlBtn setEnabled:0];
-    
-    if (_rollPlayerTmp.isPlaying || _rollPlayerAlt.isPlaying) {
-        // ここにctrlBtnのぷるぷるアニメーション（強)を書く
-        [self.ctrlBtn highlightedAnimation];
-        _ctrlBtnAnimationTimer = [NSTimer scheduledTimerWithTimeInterval:0.5f
-                                                                  target:self.ctrlBtn
-                                                                selector:@selector(strongVibeAnimationKeepTransform)
-                                                                userInfo:nil
-                                                                 repeats:YES];
-    } else{
-        // ここにctrlBtnのぷるぷるアニメーション(弱)を書く
-        [self.ctrlBtn highlightedAnimation];
-        // ぷるぷるアニメーション(弱)はやめた
-        //        _ctrlBtnAnimationTimer = [NSTimer scheduledTimerWithTimeInterval:1.5f
-        //                                                                  target:self.ctrlBtn
-        //                                                                selector:@selector(vibeAnimationKeepTransform)
-        //                                                                userInfo:nil
-        //                                                                 repeats:YES];
-    }
-}
-
-// アニメーションタイマーをまとめて破棄
-- (void)animationTimerInvalidate {
-    
-    
-    // ctrl、rippleアニメーションタイマー破棄
-    if (_ctrlBtnAnimationTimer != nil) {
-        [_ctrlBtnAnimationTimer invalidate];
-    }
-    if (_rippleAnimationTimer != nil) {
-        [_rippleAnimationTimer invalidate];
-    }
-    if (_animationWaitTimer != nil) {
-        [_animationWaitTimer invalidate];
-    }
-    if (_flashAnimationTimer != nil) {
-        [_flashAnimationTimer invalidate];
-    }
-}
 
 - (void)viewAdBanners{
     //    // 【Ad】サイズを指定してAdMobインスタンスを生成
@@ -479,47 +217,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-    //バックグラウンド時の対応
-    
-    if (&UIApplicationDidEnterBackgroundNotification) {
-        
-        [[NSNotificationCenter defaultCenter]
-         
-         addObserver:self
-         
-         selector:@selector(appDidEnterBackground:)
-         
-         name:UIApplicationDidEnterBackgroundNotification
-         
-         object:[UIApplication sharedApplication]];
-        
-    }
-    
-    //フォアグラウンド時の対応
-    
-    if (&UIApplicationWillEnterForegroundNotification) {
-        
-        [[NSNotificationCenter defaultCenter]
-         
-         addObserver:self
-         
-         selector:@selector(appWillEnterForeground:)
-         
-         name:UIApplicationWillEnterForegroundNotification
-         
-         object:[UIApplication sharedApplication]];
-        
-    }
     
     
     // 広告表示
     //    [self viewAdBanners];
     
-    
-    // (audioplayer)再生する効果音のパスを取得しインスタンス生成
-    [self initializeAVAudioPlayers];
-    // selectedPhotoImageを非表示に設定
-    [self.selectedPhotoImage setHidden:1];
     
 
     // Iconとロゴの２つの画像を横に連結させる
@@ -555,7 +257,6 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     
-    [self animationTimerInvalidate];
     
     // 再生回数が3の倍数かつインタースティシャル広告の準備ができていればインタースティシャル広告表示
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -590,20 +291,6 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-- (void)appDidEnterBackground:(NSNotification *)notification{
-    [_rollPlayerTmp stop];
-    [_rollPlayerAlt stop];
-    [_crashPlayer stop];
-    
-    [_playTimer invalidate];
-    [self animationTimerInvalidate];
-    
-}
-
-- (void)appWillEnterForeground:(NSNotification *)notification{
-    [self viewDidAppear:1];
 }
 
 #pragma mark -
@@ -670,13 +357,6 @@
 }
 
 - (void)longPressCell:(UILongPressGestureRecognizer *)sender{
-
-//    if (sender.state == UIGestureRecognizerStateEnded) {
-//        NSLog(@"長押し終わった");
-//    } else if (sender.state == UIGestureRecognizerStateBegan){
-//        NSLog(@"長押し認識");
-//    }
-    
     
     UICollectionViewCell *cell = (UICollectionViewCell *)[sender view];
     NSIndexPath *indexPath = [self.collectionView indexPathForCell:cell];
@@ -741,8 +421,6 @@
         default:
             break;
     }
-
-    
 }
 
 
@@ -750,85 +428,7 @@
 #pragma mark touchAction
 // ctrlBtnのtouchUpInside時に実行される処理を実装
 - (IBAction)touchUpInsideCtrlBtn:(UIButton *)sender {
-
-        if (_rollPlayerTmp.isPlaying || _rollPlayerAlt.isPlaying) {
-            // ドラムロール再生中にctrlBtnが押されたときクラッシュ再生
-            
-            // crash再生する度に再生回数を+1してNSUserDefaultsに保存
-            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-            NSInteger i = [defaults integerForKey:@"KEY_countUpCrashPlayed"];
-            i = i +1;
-            [defaults setInteger:i forKey:@"KEY_countUpCrashPlayed"];
-            [defaults synchronize];
-            
-            // ドラムロールを止めcrash再生
-            [_crashPlayer playCrashStopRolls:_rollPlayerTmp :_rollPlayerAlt];
-            
-            // プレイヤータイマーを破棄する
-            [_playTimer invalidate];
-            
-            // アニメーションタイマーを破棄する
-            [self animationTimerInvalidate];
-            
-            // viewのバックグラウンドカラーを白にする
-            [UIView animateWithDuration:0.25
-                             animations:^{
-                                 self.view.backgroundColor = [UIColor whiteColor];
-                                 
-                                 // ctrlBtnのテキストの中身を書く
-                                 [self.ctrlBtn setTitle:@"Tap or Shake to Start!" forState:UIControlStateNormal];
-                                 
-                             } completion:nil];
-            
-            
-            // touchDown時のtransformとdisabelにしたのを戻す
-            [self.ctrlBtn clearTransformBtnSetEnable];
-            [self.ctrlBtn setHidden:1];  // selectedPhotoImageをそのまま拡大アニメーションすると拡大されすぎる問題があったのでctrlBtn.aphaを0にする。hiddenにするとviewDidAppearでの拡大アニメーションが再生されてしまう問題あり
-            
-            // selectedPhotoImageの画像が回転しながら大きくなってくるアニメーション
-            [self.selectedPhotoImage appearWithScaleUp]; // (1.09sec)ctrlBtnをそのまま同様のアニメーションをさせると、ctrlBtnをギュンギュンアニメーションさせている都合で、タイミングによって結果がとても大きくなることがあるため、本イメージビューをアニメーション用として準備
-            // backgroundBtnを表示しタップ可能にする
-            [self.backgroundBtn setHidden:0];
-            
-            
-        } else {
-            // ドラムロール停止中にctrlBtnが押されたとき
-            
-            // ドラムロールを再生する
-            [_rollPlayerTmp playRollStopCrash:_crashPlayer setVolumeZero:_rollPlayerAlt ];
-            // playerControllを一定間隔で呼び出すタイマーを作る
-            [self playerControll];
-            
-            // アニメーションタイマーを破棄する
-            [self animationTimerInvalidate];
-
-            
-            // touchDown時のtransformとdisabelにしたのを戻す
-            [self.ctrlBtn clearTransformBtnSetEnable];
-            
-            // 画像が表示されるまでctrlBtnのテキストを隠す
-            [self.ctrlBtn setTitle:nil forState:UIControlStateNormal];
-            // Btn,Icon,Logoを非表示にする
-            
-            // viewのバックグラウンドカラーをnearlyBlackにする
-            [UIView animateWithDuration:0.25
-                                  delay:0
-                                options:UIViewAnimationOptionCurveEaseIn
-                             animations:^{
-                                 self.view.backgroundColor = RGB(17, 34, 48);//nearlyBlack
-                             } completion:nil];
-            
-            // flashAnimation開始
-            _flashAnimationTimer =
-            [NSTimer scheduledTimerWithTimeInterval:0.9f
-                                             target:self.lightEffectImage
-                                           selector:@selector(flashAnimation)
-                                           userInfo:nil
-                                            repeats:YES];
-            
         }
-    
-}
 // Btn,Icon,Logoを非表示にする
 - (void)hideAllImages{
     
@@ -837,50 +437,34 @@
 /* ctrlBtnのハイライト処理 */
 // タッチしたとき
 - (IBAction)touchDownCtrlBtn:(UIButton *)sender {
-    [_ctrlBtnAnimationTimer invalidate];
-    [self ctrlBtnHighlightedAnimationStart]; // プルプルアニメーション
+
     
 }
 // ドラッグして外に出たとき
 - (IBAction)touchDragExitCtrlBtn:(UIButton *)sender {
-    [self.ctrlBtn clearTransformBtnSetEnable];
-    if (_rollPlayerTmp.isPlaying || _rollPlayerAlt.isPlaying) {
-        // あかを復活
-        [self ctrlBtnRedRippleAnimationStart:nil];
-    } else{
-        // みどりをふっかつ
-        [self ctrlBtnGrennRippleAnimationStart];
-    }
+
 }
 // ドラッグして中に入ったとき
 - (IBAction)touchDragEnterCtrlBtn:(UIButton *)sender {
-    [_ctrlBtnAnimationTimer invalidate];
-    [self ctrlBtnHighlightedAnimationStart];
+
     
 }
 
 
-
-- (IBAction)touchDownBackgroundBtn:(UIButton *)sender {
-    [_crashPlayer stopPlayer];
-    
-}
-
-- (IBAction)touchUpInsideBackgroundBtn:(UIButton *)sender {
-    // 最初の画面に戻す
-    if (self.selectedPhotoImage.hidden == NO) {
-        [self.selectedPhotoImage setHidden:1];
-        [self.backgroundBtn setHidden:1];
-        [self.ctrlBtn setHidden:0];
-        self.view.backgroundColor = RGB(17, 34, 48);//nearlyBlack
-        [self viewDidAppear:1];
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"moveToPreviewVC"]) {
         
+//        UICollectionViewCell *cell = (UICollectionViewCell *)[sender view];
+//        NSIndexPath *indexPath = [self.collectionView indexPathForCell:cell];
+//        NSLog(@"indexPath_longPress:%d",(int)indexPath);
+//        [self.collectionView selectItemAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
+//        UINavigationController *destNav = segue.destinationViewController;
+//        previewVC *pvc = [self.storyboard instantiateViewControllerWithIdentifier:@"previewVC"];;
+//        pvc.receiveIndexPath = indexPath;
+//        pvc = destNav.viewControllers.firstObject;
         
     }
-}
-
-//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-//    // Assuming you've hooked this all up in a Storyboard with a popover presentation style
+    // Assuming you've hooked this all up in a Storyboard with a popover presentation style
 //    if ([segue.identifier isEqualToString:@"showPopover"]) {
 //        UINavigationController *destNav = segue.destinationViewController;
 //        previewVC *previewController = [self.storyboard instantiateViewControllerWithIdentifier:@"previewVC"];
@@ -890,7 +474,8 @@
 //        UIPopoverPresentationController *popPC = destNav.popoverPresentationController;
 //        popPC.delegate = self;
 //    }
-//}
+    
+}
 //
 //- (UIModalPresentationStyle)adaptivePresentationStyleForPresentationController:(UIPresentationController *)controller {
 //    return UIModalPresentationNone;
@@ -918,6 +503,12 @@
             NSLog(@"back from preview01");
     }else if ([segue.identifier isEqualToString:@"testSegue02"]){
         NSLog(@"back from preview02");
+    }else if ([segue.identifier isEqualToString:@"backFromPreviewVC"]){
+            [self.collectionView performBatchUpdates:^{
+                // コレクションビューから項目を削除する
+                [self.collectionView deleteItemsAtIndexPaths:[self.collectionView indexPathsForSelectedItems]];
+            } completion:nil];
+        
     }
 
     [self.collectionView reloadData];
@@ -1320,7 +911,6 @@
         // コレクションビューから項目を削除する
         [self.collectionView deleteItemsAtIndexPaths:[self.collectionView indexPathsForSelectedItems]];
     } completion:nil];
-    
 }
 
 // 縦横長い方に合わせて縮小する
@@ -1480,23 +1070,6 @@
 //    return transform;
 //
 //}
-
-
-
-
-#pragma mark -
-#pragma mark motionAction
-- (void)motionBegan:(UIEventSubtype)motion withEvent:(UIEvent *)event{
-    // selectedPhotoImageが非表示(起動時の画面)のときにだけ反応
-    if (self.selectedPhotoImage.hidden == 1) {
-        // バイブレーションを動作させる
-        AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
-        // ctrlBtnをtouchUpInsideしたときと同じ処理をする
-        [self touchUpInsideCtrlBtn:self.ctrlBtn];
-    }
-    
-    
-}
 
 #pragma mark -
 #pragma mark interface rotated
