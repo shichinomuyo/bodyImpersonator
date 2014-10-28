@@ -17,9 +17,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="l2x-LE-N43">
-                                <rect key="frame" x="40" y="220" width="240" height="128"/>
-                            </scrollView>
                             <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="LightsFromCenter.png" translatesAutoresizingMaskIntoConstraints="NO" id="02z-tB-FhH" userLabel="lightEffectImage">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                             </imageView>
@@ -45,6 +42,7 @@
                                     <action selector="touchDragEnterCtrlBtn:" destination="vXZ-lx-hvc" eventType="touchDragEnter" id="sv6-v8-AYy"/>
                                     <action selector="touchDragExitCtrlBtn:" destination="vXZ-lx-hvc" eventType="touchDragExit" id="H3U-wL-U59"/>
                                     <action selector="touchUpInsideCtrlBtn:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Pi4-Ss-vUB"/>
+                                    <segue destination="xz1-qg-4jT" kind="replace" splitViewControllerTargetIndex="1" id="Job-bb-Sc4"/>
                                 </connections>
                             </button>
                             <imageView hidden="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lsf-vS-kYr" userLabel="selectedPhotoImage">
@@ -236,7 +234,7 @@
                     </connections>
                 </panGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="858" y="-203"/>
+            <point key="canvasLocation" x="864" y="-289"/>
         </scene>
         <!--previewVC-->
         <scene sceneID="iTF-UA-uhs">
@@ -296,7 +294,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="49u-XO-Twl" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="6gl-yu-fDZ" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="876" y="652"/>
+            <point key="canvasLocation" x="864" y="506"/>
+        </scene>
+        <!--playVC-->
+        <scene sceneID="Y7s-kr-IQK">
+            <objects>
+                <viewController title="playVC" id="xz1-qg-4jT" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="N1u-de-9Mv"/>
+                        <viewControllerLayoutGuide type="bottom" id="rA9-Rr-NRP"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Cc6-l8-xmX">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="RkU-2g-wA8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1262" y="136"/>
         </scene>
     </scenes>
     <resources>
