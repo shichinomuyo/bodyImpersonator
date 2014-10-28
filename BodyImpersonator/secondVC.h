@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface secondVC : UIViewController <UIScrollViewDelegate,UINavigationControllerDelegate>
+@interface secondVC : UIViewController <UIScrollViewDelegate,UINavigationControllerDelegate,UIActionSheetDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImage *selectedImage;
 @end

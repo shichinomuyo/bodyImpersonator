@@ -43,7 +43,7 @@
     _imageScrollView.delegate = self;
     // ズームの最小値/最大値を設定する
     _imageScrollView.minimumZoomScale = 0.5;
-    _imageScrollView.maximumZoomScale = 8;
+    _imageScrollView.maximumZoomScale = 4;
     
     // スクローラを表示する
     _imageScrollView.scrollEnabled = YES;
@@ -98,7 +98,7 @@
     // 最大倍率でなければ拡大する
     if (_imageScrollView.zoomScale < _imageScrollView.maximumZoomScale) {
         // 現在の2.25倍の倍率にする
-        float newScale = _imageScrollView.zoomScale * 2.25; // iPhoneの縦撮り写真を2.25倍するとちょうどフルスクリーンサイズになる
+        float newScale = _imageScrollView.zoomScale * 1.5;
         // 拡大する領域を決める
         CGRect zoomRect = [self zoomRectForScale:newScale];
         // タップした位置を拡大する
@@ -229,15 +229,19 @@
         [actionController addAction:[UIAlertAction actionWithTitle:@"Save to Cameraroll"
                                                              style:UIAlertActionStyleDefault
                                                            handler:^(UIAlertAction *action) {
-                                                               // Save this image? タップ時の処理
-                                                               [self action1];
+                                                               [self actionSaveToCameraroll];
                                                                
                                                            }]];
         [actionController addAction:[UIAlertAction actionWithTitle:@"Save to this App only"
                                                              style:UIAlertActionStyleDefault
                                                            handler:^(UIAlertAction *action) {
-                                                               // Save to this App only タップ時の処理
-                                                               [self action2];
+                                                               [self actionSaveToApp];
+                                                               
+                                                           }]];
+        [actionController addAction:[UIAlertAction actionWithTitle:@"Add this Image"
+                                                             style:UIAlertActionStyleDefault
+                                                           handler:^(UIAlertAction *action) {
+                                                               [self actionAddImage];
                                                                
                                                            }]];
         [actionController addAction:[UIAlertAction actionWithTitle:@"Cancel"
@@ -299,43 +303,8 @@
 
 }
 
-// action1ボタンが押された時の処理
-- (void)action1
+- (UIImage *)snapFullDisplay
 {
-    // Save to Cameraroll タップ時の処理
-    // スナップショットを保存するのでナビゲーションバーとツールバーを非表示にする
-    [_navigationBar setHidden:1];
-    [_toolBar setHidden:1];
-    //現在のeditImageViewの画像を取得する
-    //描画領域の設定
-    CGSize cropSize = CGSizeMake(self.view.frame.size.width, self.view.frame.size.height);
-    UIGraphicsBeginImageContext(cropSize);
-    //グラフィックコンテキストの取得
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    
-    // viewから切り取る
-    [(CALayer*)self.view.layer renderInContext:context];
-    
-    // 現在ビューに表示されている内容をUIImageとして保存
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    
-    // 上記imageをNSUserDefaultsに保存
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSData *editedImage = UIImagePNGRepresentation(image);
-    [defaults setObject:editedImage forKey:@"KEY_selectedImage"];
-    [defaults synchronize];
-    // 上記imageをカメラロールにも保存
-    UIImageWriteToSavedPhotosAlbum(image, self, @selector(savingImageIsFinished:didFinishSavingWithError:contextInfo:), nil);
-    
-    UIGraphicsEndImageContext();
-    
-    // カメラロール保存成功失敗アラートのUIAlertControllerのOKボタンで最初の画面に戻る
-}
-
-// action2ボタンが押された時の処理
-- (void)action2
-{
-    // Save to this App only タップ時の処理
     // スナップショットを保存するのでナビゲーションバーとツールバーを非表示にする
     [_navigationBar setHidden:1];
     [_toolBar setHidden:1];
@@ -352,14 +321,39 @@
     // 切り取った内容をUIImageとして保存
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     
+    UIGraphicsEndImageContext();
+    return image;
+}
+
+// actionSaveToCamerarollボタンが押された時の処理
+- (void)actionSaveToCameraroll
+{
+    // Save to Cameraroll タップ時の処理
+    UIImage *image = [self snapFullDisplay];
+    // 上記imageをNSUserDefaultsに保存
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSData *editedImage = UIImagePNGRepresentation(image);
+    [defaults setObject:editedImage forKey:@"KEY_selectedImage"];
+    [defaults synchronize];
+    // 上記imageをカメラロールにも保存
+    UIImageWriteToSavedPhotosAlbum(image, self, @selector(savingImageIsFinished:didFinishSavingWithError:contextInfo:), nil);
+    
+    // カメラロール保存成功失敗アラートのUIAlertControllerのOKボタンで最初の画面に戻る
+}
+
+
+
+// actionSaveToAppボタンが押された時の処理
+- (void)actionSaveToApp
+{
+    UIImage *image = [self snapFullDisplay];
     // 現在のビューに表示されている画像をNSUserDefaultsに保存
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSData *editedImage = UIImagePNGRepresentation(image);
     [defaults setObject:editedImage forKey:@"KEY_selectedImage"];
-        
-    [defaults synchronize];
     
-    UIGraphicsEndImageContext();
+    [defaults synchronize];
+    // 最初の画面に戻る
     [self performSegueWithIdentifier:@"myUnwindSegue" sender:self];
 }
 
@@ -367,6 +361,43 @@
 - (void)action3
 {
     
+}
+
+- (void)actionAddImage{
+    // Add this Image タップ時の処理
+    UIImage *image = [self snapFullDisplay];
+    // 選択した画像をNSUserDefaultsのKEY_selectedImageに保存
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSData *tmpImage = UIImagePNGRepresentation(image);
+    [defaults setObject:tmpImage forKey:@"KEY_selectedImage"];
+    
+    {
+        // コレクションビューのデータソースとして保存
+        NSArray *array = [defaults objectForKey:@"KEY_arrayImages"];
+        NSMutableArray *tmpArray = [array mutableCopy];
+        
+        // 同じ画像をアプリケーションのDocumentsフォルダ内に保存
+        NSInteger imageCount = [defaults integerForKey:@"KEY_imageCount"];
+        imageCount ++;
+        NSString *path = [NSString stringWithFormat:@"%@/image%@.png",[NSHomeDirectory() stringByAppendingString:@"/Documents"],[NSString stringWithFormat:@"%d",(int)imageCount]];
+        NSString *pathShort = [NSString stringWithFormat:@"/image%@.png",[NSString stringWithFormat:@"%d",(int)imageCount]];
+        
+        [tmpImage writeToFile:path atomically:YES];
+        [defaults setInteger:imageCount forKey:@"KEY_imageCount"];
+        
+        [tmpArray addObject:pathShort];
+        // [tmpArray addObject:[NSString stringWithFormat:@"../Documents/image%@.png",[NSString stringWithFormat:@"%d",(int)imageCount]]];
+        array = [tmpArray copy];
+        [defaults setObject:array forKey:@"KEY_arrayImages"];
+        NSLog(@"path:%@",path);
+        NSLog(@"tmpArrayCount:%d",(int)[tmpArray count]);
+    }
+    
+    [defaults synchronize];
+    
+    // 最初の画面に戻る
+    [self performSegueWithIdentifier:@"myUnwindSegue" sender:self];
+
 }
 // iOS 7でアクションシートのボタンが押された時の処理
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -384,10 +415,10 @@
     }else{
         switch (buttonIndex) {
             case 0:
-                [self action1];
+                [self actionSaveToCameraroll];
                 break;
             case 1:
-                [self action2];
+                [self actionSaveToApp];
                 break;
             case 2:
                 [self action3];

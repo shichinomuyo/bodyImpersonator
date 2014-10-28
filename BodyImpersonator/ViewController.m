@@ -34,6 +34,11 @@
 // IBOutlet Btn
 @property (weak, nonatomic) IBOutlet UIButton *ctrlBtn;
 @property (weak, nonatomic) IBOutlet UIButton *backgroundBtn;
+
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *camIcon;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *orgIcon;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *previewIcon;
+
 // IBOutlet Image
 @property (weak, nonatomic) IBOutlet UIImageView *selectedPhotoImage; // ctrlBtnをそのまま同様のアニメーションをさせると、ctrlBtnをギュンギュンアニメーションさせている都合で、タイミングによって結果がとても大きくなることがあるため、本イメージビューをアニメーション用として準備
 @property (weak, nonatomic) IBOutlet UIImageView *lightEffectImage;
@@ -393,7 +398,7 @@
 
 #pragma mark -
 
-// NavigationBarに画像を配置 高さを32pxに調整
+// NavigationBarに画像を配置 高さ調整
 - (void)pushImageOnNavigationBar:(UINavigationBar *)navi Image:(UIImage *)image Height:(CGFloat)height
 {
     // navigationBarMainに画像を設定
@@ -524,10 +529,15 @@
     // 連結した画像をUIImageで定義
     UIImage *combineIconLogo = [self combineImageHorizontal:images];
     // ナビゲーションバーに連結した画像を配置
-    [self pushImageOnNavigationBar:self.navigationBarMain Image:combineIconLogo Height:32];
+    [self pushImageOnNavigationBar:self.navigationBarMain Image:combineIconLogo Height:40];
     
 
+    // iOS7以上の場合はnavigationBarの高さを64pxにする
+    if (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_6_1) {
+        self.naviBarHeight.constant = 64;
+    }
 }
+
 
 
 - (void)viewWillDisappear:(BOOL)animated{
@@ -604,20 +614,25 @@
 }
 
 - (NSInteger)collectionView:(UICollectionView *) collectionView numberOfItemsInSection:(NSInteger)section{
+    // arrayにデータが入ってる配列数を返す
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSArray *array = [defaults objectForKey:@"KEY_arrayImages"];
     int count = (int)[array count];
-    NSLog(@"arrayCount%d",count);
+
     // userdefaultsの中身確認(デバッグ用)
     NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
     NSDictionary *dic = [defaults persistentDomainForName:appDomain];
     NSLog(@"defualts:%@", dic);
-
-    return count;
+    if (count < 9) {
+        return count+1;
+    } else {
+        return count;
+    }
+        NSLog(@"numberOfItemsInSection%d",count);
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-    NSLog(@"入ってる？");
+    // セルを作成する
     UICollectionViewCell *cell;
     cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
     
@@ -626,23 +641,110 @@
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSArray *array = [defaults objectForKey:@"KEY_arrayImages"];
     NSLog(@"indexPath.row:%d",(int)indexPath.row);
-    NSString *imageName = [array objectAtIndex:(int)(indexPath.row)];
-    NSString *filePath = [NSString stringWithFormat:@"%@%@",[NSHomeDirectory() stringByAppendingString:@"/Documents"],imageName];
+    
+    if ([array safeObjectAtIndex:(int)(indexPath.row)] == nil) {
+                NSLog(@"nilだ");
+        UIImage *image = [UIImage imageNamed:@"AddImage188x188.png"];
+        [imageView setImage:image];
 
-    
-//    NSString *path = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
-    
-    // NSDataからUIImageを作成
-    UIImage *image = [UIImage imageWithContentsOfFile:filePath];
-//    UIImage *image = [UIImage imageNamed:path];
-    NSLog(@"path:%@",filePath);
-//    NSString *imagename = [NSString stringWithFormat:@"image%d.png", (int)(indexPath.row + 1)];
-//    UIImage *image = [UIImage imageNamed:imagename];
-//    UIImage *image = nil;
-    [imageView setImage:image];
-    
+    } else{
+
+        // NSDataからUIImageを作成
+        NSLog(@"nilじゃない");
+        NSString *imageName = [array objectAtIndex:(int)(indexPath.row)];
+        NSString *filePath = [NSString stringWithFormat:@"%@%@",[NSHomeDirectory() stringByAppendingString:@"/Documents"],imageName];
+        UIImage *image = [UIImage imageWithContentsOfFile:filePath];
+        NSLog(@"path:%@",filePath);
+        [imageView setImage:image];
+        // gesturerecognizerを作成
+        UILongPressGestureRecognizer *longPressGesture = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(longPressCell:)];
+        [longPressGesture setDelegate:self];
+        // 長押しが認識される時間を設定
+        longPressGesture.minimumPressDuration = 1.0;
+        // 長押し中に動いても許容されるピクセル数を設定
+        longPressGesture.allowableMovement = 10.0;
+        cell.userInteractionEnabled = YES;
+        [cell addGestureRecognizer:longPressGesture];
+    }
     return cell;
 }
+
+- (void)longPressCell:(UILongPressGestureRecognizer *)sender{
+
+//    if (sender.state == UIGestureRecognizerStateEnded) {
+//        NSLog(@"長押し終わった");
+//    } else if (sender.state == UIGestureRecognizerStateBegan){
+//        NSLog(@"長押し認識");
+//    }
+    
+    
+    UICollectionViewCell *cell = (UICollectionViewCell *)[sender view];
+    NSIndexPath *indexPath = [self.collectionView indexPathForCell:cell];
+    NSLog(@"indexPath_longPress:%d",(int)indexPath);
+    [self.collectionView selectItemAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone]; // この行できっちりselectItemを明示しておかないとエラーになった。
+    
+    switch (sender.state) {
+        case UIGestureRecognizerStateEnded:
+             NSLog(@"長押し終わった");
+            break;
+        case UIGestureRecognizerStateBegan:
+        {// caseブロック始まり
+            NSLog(@"長押し認識");
+            // iOS8の処理
+
+
+            //処理
+            Class class = NSClassFromString(@"UIAlertController"); // iOS8/7の切り分けフラグに使用
+            if (class) {
+                // iOS8の処理
+                
+                // アクションコントローラー生成
+                UIAlertController *actionController =
+                [UIAlertController alertControllerWithTitle:@"Image selected"
+                                                    message:@"Message"
+                                             preferredStyle:UIAlertControllerStyleActionSheet];
+                [actionController addAction:[UIAlertAction actionWithTitle:@"Remove from monomane list"
+                                                                     style:UIAlertActionStyleDefault
+                                                                   handler:^(UIAlertAction *action) {
+                                                                       [self actionRemoveItem:indexPath];
+                                                                       
+                                                                   }]];
+                [actionController addAction:[UIAlertAction actionWithTitle:@"Cancel"
+                                                                     style:UIAlertActionStyleCancel
+                                                                   handler:^(UIAlertAction *action) {
+                                                                       // Cancel タップ時の処理
+                                                                       
+                                                                       
+                                                                   }]];
+                // アクションコントローラーを表示
+                [self presentViewController:actionController animated:YES completion:nil];
+            } else{
+                // iOS7の処理
+                
+                // UIActionSheetを生成
+                UIActionSheet *actionSheet = [[UIActionSheet alloc]init];
+                actionSheet.delegate = self;
+                actionSheet.title = @"Edit Image?";
+                [actionSheet addButtonWithTitle:@"Show Editor"];
+                [actionSheet addButtonWithTitle:@"Use this image"];
+                [actionSheet addButtonWithTitle:@"Cancel"];
+                //        actionSheet.destructiveButtonIndex = 0;
+                actionSheet.cancelButtonIndex = 2;
+                
+                // アクションシートを表示
+                [actionSheet showInView:self.view];
+                
+            }
+            break;
+        }// caseブロック終わり
+            
+        default:
+            break;
+    }
+
+    
+}
+
 
 #pragma mark -
 #pragma mark touchAction
@@ -806,16 +908,21 @@
 
 - (IBAction)firstViewReturnActionForSegue:(UIStoryboardSegue *)segue
 {
-    if ([segue.identifier isEqualToString:@"BackToFirstViewFromLastViewSegue"]) {
+    if ([segue.identifier isEqualToString:@"myUnwindSegue"]) {
         // ここに必要な処理を記述
-        [_imagePicker dismissViewControllerAnimated:YES completion:nil];
+      //  [_imagePicker dismissViewControllerAnimated:YES completion:nil];
+
 
         NSLog(@"Back to first from last.");
+    }else if ([segue.identifier isEqualToString:@"testSegue01"]){
+            NSLog(@"back from preview01");
+    }else if ([segue.identifier isEqualToString:@"testSegue02"]){
+        NSLog(@"back from preview02");
     }
-//    // collectionViewの更新
-//    [self.collectionView reloadData];
+
+    [self.collectionView reloadData];
     NSLog(@"First view return action invoked.");
-    NSLog(@"kukoke");
+
 }
 
 
@@ -859,19 +966,16 @@
         [UIAlertController alertControllerWithTitle:@"Edit image?"
                                             message:@"Message"
                                      preferredStyle:UIAlertControllerStyleActionSheet];
-        [actionController addAction:[UIAlertAction actionWithTitle:@"Show editor"
+        [actionController addAction:[UIAlertAction actionWithTitle:@"Edit this Image"
                                                              style:UIAlertActionStyleDefault
                                                            handler:^(UIAlertAction *action) {
-                                                               // Show editro タップ時の処理
-
-                                                               [self action1];
+                                                               [self actionShowEditor:self.selectedPhotoImage.image];
                                                                
                                                            }]];
-        [actionController addAction:[UIAlertAction actionWithTitle:@"Use this Image"
+        [actionController addAction:[UIAlertAction actionWithTitle:@"Add this Image"
                                                              style:UIAlertActionStyleDefault
                                                            handler:^(UIAlertAction *action) {
-                                                               // Use this Image タップ時の処理
-                                                               [self action2];
+                                                               [self actionAddImage:self.selectedPhotoImage.image];
                                                                
                                                            }]];
         [actionController addAction:[UIAlertAction actionWithTitle:@"Cancel"
@@ -890,8 +994,8 @@
         UIActionSheet *actionSheet = [[UIActionSheet alloc]init];
         actionSheet.delegate = self;
         actionSheet.title = @"Edit Image?";
-        [actionSheet addButtonWithTitle:@"Show Editor"];
-        [actionSheet addButtonWithTitle:@"Use this image"];
+        [actionSheet addButtonWithTitle:@"Edit this Image"];
+        [actionSheet addButtonWithTitle:@"Add this image"];
         [actionSheet addButtonWithTitle:@"Cancel"];
         //        actionSheet.destructiveButtonIndex = 0;
         actionSheet.cancelButtonIndex = 2;
@@ -944,11 +1048,10 @@
     
 }
 
-// action1ボタンが押された時の処理
-- (void)action1
+// actionShowEditorボタンが押された時の処理
+- (void)actionShowEditor:(UIImage *)image
 {
     // Show editor タップ時の処理
-    
     // 選択した画像をNSUserDefaultsに保存
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSData *tmpImage = UIImagePNGRepresentation(self.selectedPhotoImage.image);
@@ -973,15 +1076,16 @@
     }
 }
 
-// action2ボタンが押された時の処理
-- (void)action2
+// actionAddImageボタンが押された時の処理
+- (void)actionAddImage:(UIImage *)image
 {
-    // Use this Image タップ時の処理
+    // Add this Image タップ時の処理
     
-    // 選択した画像をNSUserDefaultsのKEY_editedImageに保存
+    // 選択した画像をNSUserDefaultsのKEY_selectedImageに保存
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSData *tmpImage = UIImagePNGRepresentation(self.selectedPhotoImage.image);
+    NSData *tmpImage = UIImagePNGRepresentation(image);
     [defaults setObject:tmpImage forKey:@"KEY_selectedImage"];
+
     {
     // コレクションビューのデータソースとして保存
     NSArray *array = [defaults objectForKey:@"KEY_arrayImages"];
@@ -1003,7 +1107,9 @@
     NSLog(@"path:%@",path);
     NSLog(@"tmpArrayCount:%d",(int)[tmpArray count]);
     }
+    
     [defaults synchronize];
+    [self.collectionView reloadData];
     
     
     // デバイスがiphoneであるかそうでないかで分岐
@@ -1029,10 +1135,10 @@
 {
     switch (buttonIndex) {
         case 0:
-            [self action1];
+            [self actionShowEditor:self.selectedPhotoImage.image];
             break;
         case 1:
-            [self action2];
+            [self actionAddImage:self.selectedPhotoImage.image];
             break;
         case 2:
             [self action3];
@@ -1041,6 +1147,180 @@
         default:
             break;
     }
+}
+
+// collectionView内のセルが押された時の処理
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSArray *array = [defaults objectForKey:@"KEY_arrayImages"];
+    if ([array safeObjectAtIndex:(int)indexPath.row] == nil) {
+        //処理
+        Class class = NSClassFromString(@"UIAlertController"); // iOS8/7の切り分けフラグに使用
+        if (class) {
+            // iOS8の処理
+            
+            // アクションコントローラー生成
+            UIAlertController *actionController =
+            [UIAlertController alertControllerWithTitle:@"Add Image"
+                                                message:@"Message"
+                                         preferredStyle:UIAlertControllerStyleActionSheet];
+            [actionController addAction:[UIAlertAction actionWithTitle:@"Open CameraRoll"
+                                                                 style:UIAlertActionStyleDefault
+                                                               handler:^(UIAlertAction *action) {
+                                                                   // Show editro タップ時の処理
+                                                                   [self launchOrg];
+                                                                   
+                                                               }]];
+            [actionController addAction:[UIAlertAction actionWithTitle:@"Take a Photo"
+                                                                 style:UIAlertActionStyleDefault
+                                                               handler:^(UIAlertAction *action) {
+                                                                   // Use this Image タップ時の処理
+                                                                   [self launchCam];
+                                                                   
+                                                               }]];
+            [actionController addAction:[UIAlertAction actionWithTitle:@"Cancel"
+                                                                 style:UIAlertActionStyleCancel
+                                                               handler:^(UIAlertAction *action) {
+                                                                   // Cancel タップ時の処理
+                                                                   
+                                                                   
+                                                               }]];
+            // アクションコントローラーを表示
+            [self presentViewController:actionController animated:YES completion:nil];
+        } else{
+            // iOS7の処理
+            
+            // UIActionSheetを生成
+            UIActionSheet *actionSheet = [[UIActionSheet alloc]init];
+            actionSheet.delegate = self;
+            actionSheet.title = @"Edit Image?";
+            [actionSheet addButtonWithTitle:@"Show Editor"];
+            [actionSheet addButtonWithTitle:@"Use this image"];
+            [actionSheet addButtonWithTitle:@"Cancel"];
+            //        actionSheet.destructiveButtonIndex = 0;
+            actionSheet.cancelButtonIndex = 2;
+            
+            // アクションシートを表示
+            [actionSheet showInView:self.view];
+            
+        }
+
+    } else{
+        //処理
+        Class class = NSClassFromString(@"UIAlertController"); // iOS8/7の切り分けフラグに使用
+        if (class) {
+            // iOS8の処理
+            
+            // アクションコントローラー生成
+            UIAlertController *actionController =
+            [UIAlertController alertControllerWithTitle:@"Image selected"
+                                                message:@"Message"
+                                         preferredStyle:UIAlertControllerStyleActionSheet];
+            [actionController addAction:[UIAlertAction actionWithTitle:@"Use this Image"
+                                                                 style:UIAlertActionStyleDefault
+                                                               handler:^(UIAlertAction *action) {
+                                                                   // Show editro タップ時の処理
+                                                                   [self actionSetSelectedImage:indexPath];
+                                                                   
+                                                               }]];
+            [actionController addAction:[UIAlertAction actionWithTitle:@"Remove from monomane list"
+                                                                 style:UIAlertActionStyleDefault
+                                                               handler:^(UIAlertAction *action) {
+                                                                   // Use this Image タップ時の処理
+                                                                   [self actionRemoveItem:indexPath];
+                                                                   
+                                                               }]];
+            [actionController addAction:[UIAlertAction actionWithTitle:@"Cancel"
+                                                                 style:UIAlertActionStyleCancel
+                                                               handler:^(UIAlertAction *action) {
+                                                                   // Cancel タップ時の処理
+                                                                   
+                                                                   
+                                                               }]];
+            // アクションコントローラーを表示
+            [self presentViewController:actionController animated:YES completion:nil];
+        } else{
+            // iOS7の処理
+            
+            // UIActionSheetを生成
+            UIActionSheet *actionSheet = [[UIActionSheet alloc]init];
+            actionSheet.delegate = self;
+            actionSheet.title = @"Edit Image?";
+            [actionSheet addButtonWithTitle:@"Show Editor"];
+            [actionSheet addButtonWithTitle:@"Use this image"];
+            [actionSheet addButtonWithTitle:@"Cancel"];
+            //        actionSheet.destructiveButtonIndex = 0;
+            actionSheet.cancelButtonIndex = 2;
+            
+            // アクションシートを表示
+            [actionSheet showInView:self.view];
+            
+        }
+
+    }
+    
+    
+}
+
+// 選択したセルの画像をセット
+- (void)actionSetSelectedImage:(NSIndexPath *)indexPath{
+    // 選択したセルの画像をselectedImageに保存
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSArray *array = [defaults objectForKey:@"KEY_arrayImages"];
+    NSLog(@"indexPath.row:%d",(int)indexPath.row);
+    NSString *imageName = [array objectAtIndex:(int)(indexPath.row)];
+    NSString *filePath = [NSString stringWithFormat:@"%@%@",[NSHomeDirectory() stringByAppendingString:@"/Documents"],imageName];
+    
+    
+    // NSDataからUIImageを作成
+    UIImage *image = [UIImage imageWithContentsOfFile:filePath];
+    NSLog(@"path:%@",filePath);
+    // 選択した画像をNSUserDefaultsのKEY_editedImageに保存
+    NSData *tmpImage = UIImagePNGRepresentation(image);
+    [defaults setObject:tmpImage forKey:@"KEY_selectedImage"];
+    
+    [defaults synchronize];
+    
+    
+    // デバイスがiphoneであるかそうでないかで分岐
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
+        NSLog(@"iPhoneの処理");
+        // 最初の画面に戻る
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
+    else{
+        NSLog(@"iPadの処理");
+        [_imagePopController dismissPopoverAnimated:YES];
+    }
+
+    
+}
+- (void)actionRemoveItem:(NSIndexPath *)indexPath{
+    NSLog(@"indexPath_:%d",(int)indexPath);
+    // データソースから項目を削除する
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSArray *array = [defaults objectForKey:@"KEY_arrayImages"];
+    NSMutableArray *mArray = [array mutableCopy];
+    NSLog(@"indexPath.row:%d",(int)indexPath.row);
+    NSString *imageName = [mArray objectAtIndex:(int)(indexPath.row)];
+    NSString *filePath = [NSString stringWithFormat:@"%@%@",[NSHomeDirectory() stringByAppendingString:@"/Documents"],imageName];
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSError *error;
+    [fileManager removeItemAtPath:filePath error:&error];
+    [mArray removeObjectAtIndex:indexPath.row];
+    array = [mArray copy];
+    [defaults setObject:array forKey:@"KEY_arrayImages"];
+    [defaults synchronize];
+    NSLog(@"RemoveThisPathItem:%@",filePath);
+
+    
+    [self.collectionView performBatchUpdates:^{
+        // コレクションビューから項目を削除する
+        [self.collectionView deleteItemsAtIndexPaths:[self.collectionView indexPathsForSelectedItems]];
+    } completion:nil];
+    
 }
 
 // 縦横長い方に合わせて縮小する
@@ -1349,16 +1629,16 @@
     }
 
 }
-// 写真撮影する
-- (IBAction)camBtn:(UIBarButtonItem *)sender {
+- (void)launchCam{
     _imagePicker = [[UIImagePickerController alloc]init];
-    _imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+    _imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;// シミュレーターだと'Source type 1 not available'のエラーが出るのは仕様。実機を使ってテストしてね。
     _imagePicker.delegate = self;
     [self presentViewController:_imagePicker
                        animated:YES completion:nil];
+    
 }
 
-- (IBAction)orgBtn:(UIBarButtonItem *)sender {
+- (void)launchOrg{
     // イメージピッカーコントローラを初期化する
     // フォトライブラリを利用できるかどうかチェックする
     if(([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary])){
@@ -1381,25 +1661,34 @@
         }
         else{
             NSLog(@"iPadの処理");
+            // フォトライブラリから画像を選ぶ
+            [self presentViewController:_imagePicker animated:YES completion:nil];
             // Popoverの確認・開かれている場合は一度閉じる
-            if (_imagePopController) {
-                if ([_imagePopController isPopoverVisible]) {
-                    [_imagePopController dismissPopoverAnimated:YES];
-                }
-            }
-            
-            // popoverを開く
-            _imagePicker.preferredContentSize = CGSizeMake(768, 1024);
-            _imagePopController = [[UIPopoverController alloc] initWithContentViewController:_imagePicker];
-            
-            // popoverをバーボタンから表示
-                        [_imagePopController presentPopoverFromBarButtonItem:sender permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-            
-//           [_imagePopController presentPopoverFromRect:sender.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+            //            if (_imagePopController) {
+            //                if ([_imagePopController isPopoverVisible]) {
+            //                    [_imagePopController dismissPopoverAnimated:YES];
+            //                }
+            //            }
+            //
+            //            // popoverを開く
+            //            _imagePicker.preferredContentSize = CGSizeMake(768, 1024);
+            //            _imagePopController = [[UIPopoverController alloc] initWithContentViewController:_imagePicker];
+            //
+            //            // popoverをバーボタンから表示
+            //            [_imagePopController presentPopoverFromBarButtonItem:sender permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
             
         }
     }
     
-
 }
+
+// 写真撮影する
+- (IBAction)camBtn:(UIBarButtonItem *)sender {
+    [self launchCam];
+}
+
+- (IBAction)orgBtn:(UIBarButtonItem *)sender {
+    [self launchOrg];
+}
+
 @end

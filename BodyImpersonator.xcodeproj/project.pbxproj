@@ -496,6 +496,19 @@
 		56A4B1D919F772260009CC37 /* image3.png in Resources */ = {isa = PBXBuildFile; fileRef = 56A4B1D519F772260009CC37 /* image3.png */; };
 		56A4B1DA19F772260009CC37 /* image4.png in Resources */ = {isa = PBXBuildFile; fileRef = 56A4B1D619F772260009CC37 /* image4.png */; };
 		56A4B1DE19F88D110009CC37 /* image5.png in Resources */ = {isa = PBXBuildFile; fileRef = 56A4B1DD19F88D110009CC37 /* image5.png */; };
+		56A4B1E219F93BAA0009CC37 /* CollectionViewCellFramex94.png in Resources */ = {isa = PBXBuildFile; fileRef = 56A4B1E119F93BAA0009CC37 /* CollectionViewCellFramex94.png */; };
+		56A4B1E419F93C800009CC37 /* PlayBtn02.png in Resources */ = {isa = PBXBuildFile; fileRef = 56A4B1E319F93C800009CC37 /* PlayBtn02.png */; };
+		56A4B1E819F93E6A0009CC37 /* BarButtonCamIconx40.png in Resources */ = {isa = PBXBuildFile; fileRef = 56A4B1E519F93E6A0009CC37 /* BarButtonCamIconx40.png */; };
+		56A4B1E919F93E6A0009CC37 /* BarButtonOrgIconx40.png in Resources */ = {isa = PBXBuildFile; fileRef = 56A4B1E619F93E6A0009CC37 /* BarButtonOrgIconx40.png */; };
+		56A4B1EA19F93E6A0009CC37 /* BarButtonPreviewIconx40.png in Resources */ = {isa = PBXBuildFile; fileRef = 56A4B1E719F93E6A0009CC37 /* BarButtonPreviewIconx40.png */; };
+		56A4B1ED19FA13C20009CC37 /* CollectionViewCellFramex94_midNightBlue.png in Resources */ = {isa = PBXBuildFile; fileRef = 56A4B1EB19FA13C20009CC37 /* CollectionViewCellFramex94_midNightBlue.png */; };
+		56A4B1EE19FA13C20009CC37 /* PlayBtn_iphone320x88.png in Resources */ = {isa = PBXBuildFile; fileRef = 56A4B1EC19FA13C20009CC37 /* PlayBtn_iphone320x88.png */; };
+		56A4B1F819FB2C950009CC37 /* CamIcon44x44.png in Resources */ = {isa = PBXBuildFile; fileRef = 56A4B1F519FB2C950009CC37 /* CamIcon44x44.png */; };
+		56A4B1F919FB2C950009CC37 /* OrgIcon44x44.png in Resources */ = {isa = PBXBuildFile; fileRef = 56A4B1F619FB2C950009CC37 /* OrgIcon44x44.png */; };
+		56A4B1FA19FB2C950009CC37 /* PreviewIcon44x44.png in Resources */ = {isa = PBXBuildFile; fileRef = 56A4B1F719FB2C950009CC37 /* PreviewIcon44x44.png */; };
+		56A4B1FC19FB2DB10009CC37 /* CollectionViewCellFrame188x188.png in Resources */ = {isa = PBXBuildFile; fileRef = 56A4B1FB19FB2DB10009CC37 /* CollectionViewCellFrame188x188.png */; };
+		56A4B1FF19FB70C40009CC37 /* NSArray+IndexHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 56A4B1FE19FB70C40009CC37 /* NSArray+IndexHelper.m */; };
+		56E14FFA19FD26DB0029B81D /* AddImage188x188.png in Resources */ = {isa = PBXBuildFile; fileRef = 56E14FF919FD26DB0029B81D /* AddImage188x188.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -621,6 +634,20 @@
 		56A4B1D519F772260009CC37 /* image3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image3.png; sourceTree = "<group>"; };
 		56A4B1D619F772260009CC37 /* image4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image4.png; sourceTree = "<group>"; };
 		56A4B1DD19F88D110009CC37 /* image5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image5.png; sourceTree = "<group>"; };
+		56A4B1E119F93BAA0009CC37 /* CollectionViewCellFramex94.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CollectionViewCellFramex94.png; sourceTree = "<group>"; };
+		56A4B1E319F93C800009CC37 /* PlayBtn02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PlayBtn02.png; sourceTree = "<group>"; };
+		56A4B1E519F93E6A0009CC37 /* BarButtonCamIconx40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BarButtonCamIconx40.png; sourceTree = "<group>"; };
+		56A4B1E619F93E6A0009CC37 /* BarButtonOrgIconx40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BarButtonOrgIconx40.png; sourceTree = "<group>"; };
+		56A4B1E719F93E6A0009CC37 /* BarButtonPreviewIconx40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BarButtonPreviewIconx40.png; sourceTree = "<group>"; };
+		56A4B1EB19FA13C20009CC37 /* CollectionViewCellFramex94_midNightBlue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CollectionViewCellFramex94_midNightBlue.png; sourceTree = "<group>"; };
+		56A4B1EC19FA13C20009CC37 /* PlayBtn_iphone320x88.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PlayBtn_iphone320x88.png; sourceTree = "<group>"; };
+		56A4B1F519FB2C950009CC37 /* CamIcon44x44.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CamIcon44x44.png; sourceTree = "<group>"; };
+		56A4B1F619FB2C950009CC37 /* OrgIcon44x44.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = OrgIcon44x44.png; sourceTree = "<group>"; };
+		56A4B1F719FB2C950009CC37 /* PreviewIcon44x44.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PreviewIcon44x44.png; sourceTree = "<group>"; };
+		56A4B1FB19FB2DB10009CC37 /* CollectionViewCellFrame188x188.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CollectionViewCellFrame188x188.png; sourceTree = "<group>"; };
+		56A4B1FD19FB70C40009CC37 /* NSArray+IndexHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+IndexHelper.h"; sourceTree = "<group>"; };
+		56A4B1FE19FB70C40009CC37 /* NSArray+IndexHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+IndexHelper.m"; sourceTree = "<group>"; };
+		56E14FF919FD26DB0029B81D /* AddImage188x188.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AddImage188x188.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -956,6 +983,8 @@
 				56427E2B19AB823200B516A0 /* Main_iPad.storyboard */,
 				56427E2E19AB823200B516A0 /* ViewController.h */,
 				56427E2F19AB823200B516A0 /* ViewController.m */,
+				56A4B1FD19FB70C40009CC37 /* NSArray+IndexHelper.h */,
+				56A4B1FE19FB70C40009CC37 /* NSArray+IndexHelper.m */,
 				5686757919BED3C900AF524A /* secondVC.h */,
 				5686757A19BED3C900AF524A /* secondVC.m */,
 				564AD77919E3B4FB0069901D /* previewVC.h */,
@@ -1113,6 +1142,18 @@
 		564AD9EE19F1F3E20069901D /* v0.2 */ = {
 			isa = PBXGroup;
 			children = (
+				56E14FF919FD26DB0029B81D /* AddImage188x188.png */,
+				56A4B1FB19FB2DB10009CC37 /* CollectionViewCellFrame188x188.png */,
+				56A4B1F519FB2C950009CC37 /* CamIcon44x44.png */,
+				56A4B1F619FB2C950009CC37 /* OrgIcon44x44.png */,
+				56A4B1F719FB2C950009CC37 /* PreviewIcon44x44.png */,
+				56A4B1EB19FA13C20009CC37 /* CollectionViewCellFramex94_midNightBlue.png */,
+				56A4B1EC19FA13C20009CC37 /* PlayBtn_iphone320x88.png */,
+				56A4B1E519F93E6A0009CC37 /* BarButtonCamIconx40.png */,
+				56A4B1E619F93E6A0009CC37 /* BarButtonOrgIconx40.png */,
+				56A4B1E719F93E6A0009CC37 /* BarButtonPreviewIconx40.png */,
+				56A4B1E319F93C800009CC37 /* PlayBtn02.png */,
+				56A4B1E119F93BAA0009CC37 /* CollectionViewCellFramex94.png */,
 				56A4B1D219F772260009CC37 /* collectionViewTestImages */,
 				56A4B1D019F619720009CC37 /* PlayBtn01.png */,
 				56A4B1CE19F4FB040009CC37 /* AppIconInApp01.png */,
@@ -1380,28 +1421,39 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				56A4B1EE19FA13C20009CC37 /* PlayBtn_iphone320x88.png in Resources */,
 				56427E4F19AB82C200B516A0 /* .gitignore in Resources */,
 				564AD9F819F1F3E20069901D /* OrgIcon.png in Resources */,
 				56427E9A19AB88F700B516A0 /* crash02.png in Resources */,
 				56A4B1D819F772260009CC37 /* image2.png in Resources */,
 				56427E9819AB88F700B516A0 /* hitR2.png in Resources */,
 				564AD9F919F1F3E20069901D /* PlayBtn.png in Resources */,
+				56A4B1EA19F93E6A0009CC37 /* BarButtonPreviewIconx40.png in Resources */,
 				56427E2D19AB823200B516A0 /* Main_iPad.storyboard in Resources */,
+				56A4B1F819FB2C950009CC37 /* CamIcon44x44.png in Resources */,
 				56427E3219AB823200B516A0 /* Images.xcassets in Resources */,
+				56A4B1E419F93C800009CC37 /* PlayBtn02.png in Resources */,
 				56427ECF19AB923C00B516A0 /* libAdapterNend_readme.txt in Resources */,
+				56A4B1ED19FA13C20009CC37 /* CollectionViewCellFramex94_midNightBlue.png in Resources */,
 				56A4B1DA19F772260009CC37 /* image4.png in Resources */,
+				56A4B1FA19FB2C950009CC37 /* PreviewIcon44x44.png in Resources */,
 				564AD9F619F1F3E20069901D /* CamIcon.png in Resources */,
 				56427E9C19AB88F700B516A0 /* crash03EMERALD.png in Resources */,
+				56A4B1E919F93E6A0009CC37 /* BarButtonOrgIconx40.png in Resources */,
 				56A4B1D919F772260009CC37 /* image3.png in Resources */,
 				56427E9B19AB88F700B516A0 /* crash03.png in Resources */,
 				56A4B1CF19F4FB040009CC37 /* AppIconInApp01.png in Resources */,
 				56427E2A19AB823200B516A0 /* Main_iPhone.storyboard in Resources */,
+				56E14FFA19FD26DB0029B81D /* AddImage188x188.png in Resources */,
+				56A4B1FC19FB2DB10009CC37 /* CollectionViewCellFrame188x188.png in Resources */,
 				56427E2119AB823200B516A0 /* InfoPlist.strings in Resources */,
 				56427E9719AB88F700B516A0 /* hitR1.png in Resources */,
 				56A4B1CB19F4F8200009CC37 /* AppIconInApp32.png in Resources */,
 				564AD9F719F1F3E20069901D /* Logo.png in Resources */,
 				56427E9519AB88F700B516A0 /* hitL1.png in Resources */,
 				56427EE519B85A7600B516A0 /* LightsFromCenter.png in Resources */,
+				56A4B1F919FB2C950009CC37 /* OrgIcon44x44.png in Resources */,
+				56A4B1E819F93E6A0009CC37 /* BarButtonCamIconx40.png in Resources */,
 				564AD9FA19F1F3E20069901D /* PreviewIcon.png in Resources */,
 				56A4B1CD19F4F8FD0009CC37 /* Logo32.png in Resources */,
 				56427E9619AB88F700B516A0 /* hitL2.png in Resources */,
@@ -1412,6 +1464,7 @@
 				56A4B1D719F772260009CC37 /* image1.png in Resources */,
 				56427ECA19AB923000B516A0 /* NADView_readme.txt in Resources */,
 				56A4B1DE19F88D110009CC37 /* image5.png in Resources */,
+				56A4B1E219F93BAA0009CC37 /* CollectionViewCellFramex94.png in Resources */,
 				56427ED119AB98F900B516A0 /* 41tSp5ic8NL.jpg in Resources */,
 				56427E9919AB88F700B516A0 /* crash01.png in Resources */,
 				56427E9419AB88F700B516A0 /* ctrlBtnDF.png in Resources */,
@@ -1694,6 +1747,7 @@
 				56427EA919AB897500B516A0 /* ImageViewCircle.m in Sources */,
 				56427E2319AB823200B516A0 /* main.m in Sources */,
 				564AD77B19E3B4FB0069901D /* previewVC.m in Sources */,
+				56A4B1FF19FB70C40009CC37 /* NSArray+IndexHelper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
