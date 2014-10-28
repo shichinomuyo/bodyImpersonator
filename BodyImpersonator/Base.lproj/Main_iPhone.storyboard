@@ -178,6 +178,9 @@
                                     </imageView>
                                 </subviews>
                             </scrollView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="EditorOutline320x568.png" translatesAutoresizingMaskIntoConstraints="NO" id="hkh-YD-ZA7" userLabel="editorOutline">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                            </imageView>
                             <navigationBar alpha="0.59999999999999998" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dpz-WH-ihO">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                 <items>
@@ -205,6 +208,7 @@
                     </view>
                     <connections>
                         <outlet property="editImageView" destination="L1f-VS-4Da" id="Iee-Ya-GOi"/>
+                        <outlet property="editorOutlineImageView" destination="hkh-YD-ZA7" id="uvk-Aj-jx1"/>
                         <outlet property="imageScrollView" destination="Brt-bK-omO" id="yGx-cS-py4"/>
                         <outlet property="navigationBar" destination="dpz-WH-ihO" id="1qL-Eu-XRA"/>
                         <outlet property="toolBar" destination="Mdg-Hj-rDV" id="N0f-Sl-9mh"/>
@@ -330,6 +334,7 @@
     <resources>
         <image name="CamIcon44x44.png" width="44" height="44"/>
         <image name="CollectionViewCellFrame188x188.png" width="188" height="188"/>
+        <image name="EditorOutline320x568.png" width="320" height="568"/>
         <image name="LightsFromCenter.png" width="320" height="504"/>
         <image name="OrgIcon44x44.png" width="44" height="44"/>
         <image name="PlayBtn_iphone320x88.png" width="320" height="88"/>

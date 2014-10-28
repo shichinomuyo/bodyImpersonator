@@ -60,7 +60,7 @@
     // collectionViewに表示する画像を保存する配列の作成・初期化
     NSMutableArray *arrayImages = [NSMutableArray array];
     NSArray *array = [arrayImages copy];
-    [appDefaults setObject:array forKey:@"KEY_arrayImages"];
+    [appDefaults setObject:array forKey:@"KEY_arrayImageNames"];
     // collectionViewに表示する画像に番号を振るために整数値を作成・初期化
     [appDefaults setObject:@"0" forKey:@"KEY_imageCount"];
 
@@ -296,7 +296,7 @@
 - (NSInteger)collectionView:(UICollectionView *) collectionView numberOfItemsInSection:(NSInteger)section{
     // arrayにデータが入ってる配列数を返す
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSArray *array = [defaults objectForKey:@"KEY_arrayImages"];
+    NSArray *array = [defaults objectForKey:@"KEY_arrayImageNames"];
     int count = (int)[array count];
 
     // userdefaultsの中身確認(デバッグ用)
@@ -319,7 +319,7 @@
     UIImageView *imageView = (UIImageView *)[cell viewWithTag:1];
 
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSArray *array = [defaults objectForKey:@"KEY_arrayImages"];
+    NSArray *array = [defaults objectForKey:@"KEY_arrayImageNames"];
     NSLog(@"indexPath.row:%d",(int)indexPath.row);
     
     if ([array safeObjectAtIndex:(int)(indexPath.row)] == nil) {
@@ -672,7 +672,7 @@
 
     {
     // コレクションビューのデータソースとして保存
-    NSArray *array = [defaults objectForKey:@"KEY_arrayImages"];
+    NSArray *array = [defaults objectForKey:@"KEY_arrayImageNames"];
     NSMutableArray *tmpArray = [array mutableCopy];
     
     // 同じ画像をアプリケーションのDocumentsフォルダ内に保存
@@ -687,7 +687,7 @@
     [tmpArray addObject:pathShort];
     // [tmpArray addObject:[NSString stringWithFormat:@"../Documents/image%@.png",[NSString stringWithFormat:@"%d",(int)imageCount]]];
     array = [tmpArray copy];
-    [defaults setObject:array forKey:@"KEY_arrayImages"];
+    [defaults setObject:array forKey:@"KEY_arrayImageNames"];
     NSLog(@"path:%@",path);
     NSLog(@"tmpArrayCount:%d",(int)[tmpArray count]);
     }
@@ -738,7 +738,7 @@
 {
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSArray *array = [defaults objectForKey:@"KEY_arrayImages"];
+    NSArray *array = [defaults objectForKey:@"KEY_arrayImageNames"];
     if ([array safeObjectAtIndex:(int)indexPath.row] == nil) {
         //処理
         Class class = NSClassFromString(@"UIAlertController"); // iOS8/7の切り分けフラグに使用
@@ -852,7 +852,7 @@
 - (void)actionSetSelectedImage:(NSIndexPath *)indexPath{
     // 選択したセルの画像をselectedImageに保存
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSArray *array = [defaults objectForKey:@"KEY_arrayImages"];
+    NSArray *array = [defaults objectForKey:@"KEY_arrayImageNames"];
     NSLog(@"indexPath.row:%d",(int)indexPath.row);
     NSString *imageName = [array objectAtIndex:(int)(indexPath.row)];
     NSString *filePath = [NSString stringWithFormat:@"%@%@",[NSHomeDirectory() stringByAppendingString:@"/Documents"],imageName];
@@ -885,7 +885,7 @@
     NSLog(@"indexPath_:%d",(int)indexPath);
     // データソースから項目を削除する
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSArray *array = [defaults objectForKey:@"KEY_arrayImages"];
+    NSArray *array = [defaults objectForKey:@"KEY_arrayImageNames"];
     NSMutableArray *mArray = [array mutableCopy];
     NSLog(@"indexPath.row:%d",(int)indexPath.row);
     NSString *imageName = [mArray objectAtIndex:(int)(indexPath.row)];
@@ -895,7 +895,7 @@
     [fileManager removeItemAtPath:filePath error:&error];
     [mArray removeObjectAtIndex:indexPath.row];
     array = [mArray copy];
-    [defaults setObject:array forKey:@"KEY_arrayImages"];
+    [defaults setObject:array forKey:@"KEY_arrayImageNames"];
     [defaults synchronize];
     NSLog(@"RemoveThisPathItem:%@",filePath);
 

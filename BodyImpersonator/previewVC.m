@@ -152,7 +152,7 @@
     NSLog(@"indexPath_:%d",(int)indexPath);
     // データソースから項目を削除する
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSArray *array = [defaults objectForKey:@"KEY_arrayImages"];
+    NSArray *array = [defaults objectForKey:@"KEY_arrayImageNames"];
     NSMutableArray *mArray = [array mutableCopy];
     NSLog(@"indexPath.row:%d",(int)indexPath.row);
     NSString *imageName = [mArray objectAtIndex:(int)(indexPath.row)];
@@ -162,7 +162,7 @@
     [fileManager removeItemAtPath:filePath error:&error];
     [mArray removeObjectAtIndex:indexPath.row];
     array = [mArray copy];
-    [defaults setObject:array forKey:@"KEY_arrayImages"];
+    [defaults setObject:array forKey:@"KEY_arrayImageNames"];
     [defaults synchronize];
     NSLog(@"RemoveThisPathItem:%@",filePath);
     
@@ -186,7 +186,7 @@
     //    NSFileManager *fileManager = [NSFileManager defaultManager];
     //    NSError *error;
     //    [fileManager removeItemAtPath:path error:&error];
-    [defaults removeObjectForKey:@"KEY_arrayImages"];
+    [defaults removeObjectForKey:@"KEY_arrayImageNames"];
     [defaults removeObjectForKey:@"KEY_imageCount"];
     [defaults removeObjectForKey:@"imageCount"];
     [defaults synchronize];

@@ -9,6 +9,7 @@
 #import "playVC.h"
 
 @interface playVC (){
+    // オーディオプレイヤー
     AVAudioPlayer *_rollPlayerTmp;
     AVAudioPlayer *_rollPlayerAlt;
     AVAudioPlayer *_crashPlayer;
@@ -17,9 +18,7 @@
     NSTimer *_playTimer; // AVAudioPlayerコントロール用
     
     // アニメーションタイマー
-    NSTimer *_rippleAnimationTimer; // rippleアニメーションコントロール用
-    NSTimer *_ctrlBtnAnimationTimer; // ctrlBtnアニメーションコントロール用
-    NSTimer *_animationWaitTimer; // 拡大/縮小アニメーション終了待ちタイマー
+
     NSTimer *_flashAnimationTimer; // flashAnimation用タイマー
 }
 
@@ -349,18 +348,6 @@
 
 // アニメーションタイマーをまとめて破棄
 - (void)animationTimerInvalidate {
-    
-    
-    // ctrl、rippleアニメーションタイマー破棄
-    if (_ctrlBtnAnimationTimer != nil) {
-        [_ctrlBtnAnimationTimer invalidate];
-    }
-    if (_rippleAnimationTimer != nil) {
-        [_rippleAnimationTimer invalidate];
-    }
-    if (_animationWaitTimer != nil) {
-        [_animationWaitTimer invalidate];
-    }
     if (_flashAnimationTimer != nil) {
         [_flashAnimationTimer invalidate];
     }

@@ -19,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *editImageView;
 @property (weak, nonatomic) IBOutlet UIToolbar *toolBar;
 @property (weak, nonatomic) IBOutlet UINavigationBar *navigationBar;
+@property (weak, nonatomic) IBOutlet UIImageView *editorOutlineImageView;
 
 @end
 
@@ -161,7 +162,6 @@
             [actionController addAction:[UIAlertAction actionWithTitle:@"OK"
                                                                  style:UIAlertActionStyleDefault
                                                                handler:^(UIAlertAction *action) {
-                                                                   // Show editro タップ時の処理
                                                                   [self performSegueWithIdentifier:@"myUnwindSegue" sender:self];
                                                                    
                                                                }]];
@@ -308,6 +308,8 @@
     // スナップショットを保存するのでナビゲーションバーとツールバーを非表示にする
     [_navigationBar setHidden:1];
     [_toolBar setHidden:1];
+    [_editorOutlineImageView setHidden:1];
+
     //現在のeditImageViewの画像を取得する
     //描画領域の設定
     CGSize cropSize = CGSizeMake(self.view.frame.size.width, self.view.frame.size.height);
@@ -373,7 +375,7 @@
     
     {
         // コレクションビューのデータソースとして保存
-        NSArray *array = [defaults objectForKey:@"KEY_arrayImages"];
+        NSArray *array = [defaults objectForKey:@"KEY_arrayImageNames"];
         NSMutableArray *tmpArray = [array mutableCopy];
         
         // 同じ画像をアプリケーションのDocumentsフォルダ内に保存
@@ -388,7 +390,7 @@
         [tmpArray addObject:pathShort];
         // [tmpArray addObject:[NSString stringWithFormat:@"../Documents/image%@.png",[NSString stringWithFormat:@"%d",(int)imageCount]]];
         array = [tmpArray copy];
-        [defaults setObject:array forKey:@"KEY_arrayImages"];
+        [defaults setObject:array forKey:@"KEY_arrayImageNames"];
         NSLog(@"path:%@",path);
         NSLog(@"tmpArrayCount:%d",(int)[tmpArray count]);
     }
