@@ -11,26 +11,20 @@
 
 @interface ViewController ()
 {
-    // 【アニメーション】ロール再生中のコマを入れる配列
-    NSArray *animationSeq;
-    
     UIImagePickerController *_imagePicker;
     UIPopoverController *_imagePopController;
-
 }
 // IBOutlet Btn
 @property (weak, nonatomic) IBOutlet UIButton *ctrlBtn;
-
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *camIcon;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *orgIcon;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *previewIcon;
-
 // IBOutlet Image
-@property (weak, nonatomic) IBOutlet UIImageView *selectedPhotoImage; // ctrlBtnをそのまま同様のアニメーションをさせると、ctrlBtnをギュンギュンアニメーションさせている都合で、タイミングによって結果がとても大きくなることがあるため、本イメージビューをアニメーション用として準備
-
+@property (weak, nonatomic) IBOutlet UIImageView *selectedPhotoImage; // secondVCへの画像データ渡し用
 // IBOutlet NavigationBar
 @property (weak, nonatomic) IBOutlet UINavigationBar *navigationBarMain;
-
+// IBOutlet collectionView
+@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 
 // previewImageViewの表示をコントールするために宣言
 @property (weak, nonatomic) IBOutlet UIButton *nestViewCtrlBtn;
@@ -50,7 +44,6 @@
 
 // IBAction プレビューウィンドウをポップアップの子ビューにするときの非表示ボタン
 - (IBAction)nestViewCtrlBtn:(UIButton *)sender;
-@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 
 @end
 
