@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface previewVC : UIViewController<UIPopoverControllerDelegate,UIPopoverPresentationControllerDelegate>
+@interface previewVC : UIViewController<UIPopoverControllerDelegate,UIPopoverPresentationControllerDelegate,UIActionSheetDelegate>
 @property NSIndexPath *receiveIndexPath;
 @end

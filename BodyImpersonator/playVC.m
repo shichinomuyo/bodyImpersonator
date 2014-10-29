@@ -255,84 +255,7 @@
                                     repeats:YES];
     
 }
--(void)playDrumRollOriginal{
-//    if (_rollPlayerTmp.isPlaying || _rollPlayerAlt.isPlaying) {
-//        // ドラムロール再生中にctrlBtnが押されたときクラッシュ再生
-//        
-//        // crash再生する度に再生回数を+1してNSUserDefaultsに保存
-//        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-//        NSInteger i = [defaults integerForKey:@"KEY_countUpCrashPlayed"];
-//        i = i +1;
-//        [defaults setInteger:i forKey:@"KEY_countUpCrashPlayed"];
-//        [defaults synchronize];
-//        
-//        // ドラムロールを止めcrash再生
-//        [_crashPlayer playCrashStopRolls:_rollPlayerTmp :_rollPlayerAlt];
-//        
-//        // プレイヤータイマーを破棄する
-//        [_playTimer invalidate];
-//        
-//        // アニメーションタイマーを破棄する
-//        [self animationTimerInvalidate];
-//        
-//        // viewのバックグラウンドカラーを白にする
-//        [UIView animateWithDuration:0.25
-//                         animations:^{
-//                             self.view.backgroundColor = [UIColor whiteColor];
-//                             
-//                             // ctrlBtnのテキストの中身を書く
-//                             [self.ctrlBtn setTitle:@"Tap or Shake to Start!" forState:UIControlStateNormal];
-//                             
-//                         } completion:nil];
-//        
-//        
-//        // touchDown時のtransformとdisabelにしたのを戻す
-//        [self.ctrlBtn clearTransformBtnSetEnable];
-//        [self.ctrlBtn setHidden:1];  // selectedPhotoImageをそのまま拡大アニメーションすると拡大されすぎる問題があったのでctrlBtn.aphaを0にする。hiddenにするとviewDidAppearでの拡大アニメーションが再生されてしまう問題あり
-//        
-//        // selectedPhotoImageの画像が回転しながら大きくなってくるアニメーション
-//        [self.selectedPhotoImage appearWithScaleUp]; // (1.09sec)ctrlBtnをそのまま同様のアニメーションをさせると、ctrlBtnをギュンギュンアニメーションさせている都合で、タイミングによって結果がとても大きくなることがあるため、本イメージビューをアニメーション用として準備
-//        // backgroundBtnを表示しタップ可能にする
-//        [self.backgroundBtn setHidden:0];
-//        
-//        
-//    } else {
-//        // ドラムロール停止中にctrlBtnが押されたとき
-//        
-//        // ドラムロールを再生する
-//        [_rollPlayerTmp playRollStopCrash:_crashPlayer setVolumeZero:_rollPlayerAlt ];
-//        // playerControllを一定間隔で呼び出すタイマーを作る
-//        [self playerControll];
-//        
-//        // アニメーションタイマーを破棄する
-//        [self animationTimerInvalidate];
-//        
-//        
-//        // touchDown時のtransformとdisabelにしたのを戻す
-//        [self.ctrlBtn clearTransformBtnSetEnable];
-//        
-//        // 画像が表示されるまでctrlBtnのテキストを隠す
-//        [self.ctrlBtn setTitle:nil forState:UIControlStateNormal];
-//        // Btn,Icon,Logoを非表示にする
-//        
-//        // viewのバックグラウンドカラーをnearlyBlackにする
-//        [UIView animateWithDuration:0.25
-//                              delay:0
-//                            options:UIViewAnimationOptionCurveEaseIn
-//                         animations:^{
-//                             self.view.backgroundColor = RGB(17, 34, 48);//nearlyBlack
-//                         } completion:nil];
-//        
-//        // flashAnimation開始
-//        _flashAnimationTimer =
-//        [NSTimer scheduledTimerWithTimeInterval:0.9f
-//                                         target:self.lightEffectImage
-//                                       selector:@selector(flashAnimation)
-//                                       userInfo:nil
-//                                        repeats:YES];
-//        
-//    }
-}
+
 
 #pragma mark -
 #pragma mark motionAction
@@ -360,11 +283,11 @@
     
     [_playTimer invalidate];
     [self animationTimerInvalidate];
-    
 }
 
 - (void)appWillEnterForeground:(NSNotification *)notification{
     [self viewDidAppear:1];
+    
 }
 
 @end

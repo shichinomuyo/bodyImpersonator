@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
-        <deployment defaultVersion="1808" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
     </dependencies>
     <scenes>
@@ -20,21 +19,6 @@
                             <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4Ch-Od-A9z" userLabel="selectedPhotoImage">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                             </imageView>
-                            <button tag="2" contentMode="scaleAspectFit" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fRx-QP-7Su" userLabel="ctrlBtn">
-                                <rect key="frame" x="0.0" y="386" width="320" height="88"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="27"/>
-                                <state key="normal" image="PlayBtn_iphone320x88.png">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="touchDownCtrlBtn:" destination="vXZ-lx-hvc" eventType="touchDown" id="ElU-rw-QE2"/>
-                                    <action selector="touchDragEnterCtrlBtn:" destination="vXZ-lx-hvc" eventType="touchDragEnter" id="sv6-v8-AYy"/>
-                                    <action selector="touchDragExitCtrlBtn:" destination="vXZ-lx-hvc" eventType="touchDragExit" id="H3U-wL-U59"/>
-                                    <action selector="touchUpInsideCtrlBtn:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Pi4-Ss-vUB"/>
-                                    <segue destination="xz1-qg-4jT" kind="modal" identifier="moveToPlayVC" modalTransitionStyle="crossDissolve" id="dnt-X1-NKi"/>
-                                </connections>
-                            </button>
                             <view hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="x8R-5O-1S4" userLabel="nestView">
                                 <rect key="frame" x="80" y="142" width="160" height="284"/>
                                 <subviews>
@@ -49,7 +33,7 @@
                                         </items>
                                     </navigationBar>
                                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J2f-Zl-dsq" userLabel="nestViewCtrlBtn">
-                                        <rect key="frame" x="-26" y="-82" width="320" height="568"/>
+                                        <rect key="frame" x="-26" y="-76" width="320" height="568"/>
                                         <state key="normal">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -60,34 +44,41 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="jjl-Ge-y0R">
-                                <rect key="frame" x="0.0" y="86" width="320" height="302"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="6" minimumInteritemSpacing="6" id="EgR-uf-nHg">
-                                    <size key="itemSize" width="94" height="94"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="jjl-Ge-y0R" customClass="BICollectionView">
+                                <rect key="frame" x="0.0" y="64" width="320" height="332"/>
+                                <color key="backgroundColor" red="0.92549020051956177" green="0.94117647409439087" blue="0.94509804248809814" alpha="1" colorSpace="calibratedRGB"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="EgR-uf-nHg" customClass="FrameOutCollectionViewFlowLayout">
+                                    <size key="itemSize" width="106" height="106"/>
+                                    <size key="headerReferenceSize" width="0.0" height="10"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="6" minY="6" maxX="6" maxY="6"/>
+                                    <inset key="sectionInset" minX="1" minY="4" maxX="1" maxY="4"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="hFx-rh-BcK">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="hFx-rh-BcK" customClass="BICollectionViewCell">
                                         <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="94" height="94"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="106" height="106"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Aa5-4K-1cF">
-                                                    <rect key="frame" x="0.0" y="0.0" width="94" height="94"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="106" height="106"/>
                                                 </imageView>
-                                                <imageView userInteractionEnabled="NO" tag="2" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="CollectionViewCellFrame188x188.png" translatesAutoresizingMaskIntoConstraints="NO" id="5Yw-Xt-wWv">
-                                                    <rect key="frame" x="0.0" y="0.0" width="94" height="94"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VHv-Cc-foY" userLabel="Image View Frame">
+                                                    <rect key="frame" x="-3" y="-7" width="112" height="120"/>
                                                 </imageView>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
+                                        <connections>
+                                            <outlet property="imageView" destination="Aa5-4K-1cF" id="aGS-tW-rNv"/>
+                                            <outlet property="imageViewFrame" destination="VHv-Cc-foY" id="LIu-SB-8PI"/>
+                                        </connections>
                                     </collectionViewCell>
                                 </cells>
+                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="IFT-3n-WwY">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </collectionReusableView>
                                 <connections>
                                     <outlet property="dataSource" destination="vXZ-lx-hvc" id="TAb-mE-1Wv"/>
                                     <outlet property="delegate" destination="vXZ-lx-hvc" id="A7G-aX-0pg"/>
@@ -135,12 +126,27 @@
                                     <offsetWrapper key="textShadowOffset" horizontal="0.0" vertical="0.0"/>
                                 </textAttributes>
                             </navigationBar>
+                            <button tag="2" contentMode="scaleAspectFit" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fRx-QP-7Su" userLabel="ctrlBtn">
+                                <rect key="frame" x="0.0" y="396" width="320" height="78"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="27"/>
+                                <state key="normal" image="PlayBtn_iphone320x88.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="touchDownCtrlBtn:" destination="vXZ-lx-hvc" eventType="touchDown" id="ElU-rw-QE2"/>
+                                    <action selector="touchDragEnterCtrlBtn:" destination="vXZ-lx-hvc" eventType="touchDragEnter" id="sv6-v8-AYy"/>
+                                    <action selector="touchDragExitCtrlBtn:" destination="vXZ-lx-hvc" eventType="touchDragExit" id="H3U-wL-U59"/>
+                                    <action selector="touchUpInsideCtrlBtn:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Pi4-Ss-vUB"/>
+                                    <segue destination="xz1-qg-4jT" kind="modal" identifier="moveToPlayVC" modalTransitionStyle="crossDissolve" id="dnt-X1-NKi"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.27121157109999999" green="0.57638888239999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <connections>
                         <outlet property="camIcon" destination="KJj-Le-eAO" id="qJr-Gw-d96"/>
-                        <outlet property="collectionView" destination="jjl-Ge-y0R" id="lLM-QS-sNs"/>
+                        <outlet property="collectionView" destination="jjl-Ge-y0R" id="TnM-m4-gac"/>
                         <outlet property="ctrlBtn" destination="fRx-QP-7Su" id="IfP-0K-7sf"/>
                         <outlet property="naviBarHeight" destination="gki-yL-UnS" id="HSP-jK-9iX"/>
                         <outlet property="navigationBarMain" destination="uGm-K8-646" id="ZMA-d6-ET2"/>
@@ -265,7 +271,17 @@
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Gd3-VV-hwc">
                                 <rect key="frame" x="0.0" y="524" width="320" height="44"/>
                                 <items>
-                                    <barButtonItem systemItem="save" id="Lwx-Vy-NvV"/>
+                                    <barButtonItem systemItem="action" id="WSd-Hs-AeH">
+                                        <connections>
+                                            <action selector="actionBtn:" destination="Ml1-cR-wrA" id="QBZ-wF-ex6"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="Thx-wV-hfG"/>
+                                    <barButtonItem systemItem="save" id="Lwx-Vy-NvV">
+                                        <connections>
+                                            <action selector="saveBtn:" destination="Ml1-cR-wrA" id="39h-Yu-NLQ"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="vFF-w6-9Pz"/>
                                     <barButtonItem systemItem="trash" id="jVY-O7-Qmf">
                                         <connections>
@@ -333,7 +349,6 @@
     </scenes>
     <resources>
         <image name="CamIcon44x44.png" width="44" height="44"/>
-        <image name="CollectionViewCellFrame188x188.png" width="188" height="188"/>
         <image name="EditorOutline320x568.png" width="320" height="568"/>
         <image name="LightsFromCenter.png" width="320" height="504"/>
         <image name="OrgIcon44x44.png" width="44" height="44"/>

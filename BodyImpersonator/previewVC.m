@@ -9,12 +9,15 @@
 #import "previewVC.h"
 
 @interface previewVC (){
+        UIActionSheet *_actionSheetAlert;
 }
 
 
 @property (weak, nonatomic) IBOutlet UIImageView *previewImageView;
 @property (weak, nonatomic) IBOutlet UINavigationItem *nav;
 - (IBAction)removeImage:(UIBarButtonItem *)sender;
+- (IBAction)saveBtn:(UIBarButtonItem *)sender;
+- (IBAction)actionBtn:(UIBarButtonItem *)sender;
 
 @end
 
@@ -139,15 +142,187 @@
 }
 */
 
-- (IBAction)removeImage:(UIBarButtonItem *)sender {
 
-    [self actionRemoveItem:self.receiveIndexPath];
-    // 最初の画面に戻る
-    [self performSegueWithIdentifier:@"unwindToFirstView" sender:self];
+// カメラロール保存完了を知らせる
+- (void) savingImageIsFinished:(UIImage *)_image didFinishSavingWithError:(NSError *)_error contextInfo:(void *)_contextInfo
+{
+    
+    if(_error){//エラーのとき
+        
+        Class class = NSClassFromString(@"UIAlertController"); // iOS8/7の切り分けフラグに使用
+        if (class) {
+            // iOS8の処理
+            
+            // アクションコントローラー生成
+            UIAlertController *actionController =
+            [UIAlertController alertControllerWithTitle:@"Error"
+                                                message:@"Save failed"
+                                         preferredStyle:UIAlertControllerStyleAlert];
+            [actionController addAction:[UIAlertAction actionWithTitle:@"OK"
+                                                                 style:UIAlertActionStyleDefault
+                                                               handler:^(UIAlertAction *action) {
+                                                                   [self performSegueWithIdentifier:@"testSegue01" sender:self];
+                                                                   
+                                                               }]];
+            // アクションコントローラーを表示
+            [self presentViewController:actionController animated:YES completion:nil];
+        } else{
+            // iOS7の処理
+            
+            // UIActionSheetを生成
+            UIActionSheet *actionSheet = [[UIActionSheet alloc]init];
+            actionSheet.delegate = self;
+            actionSheet.title = @"Error - Save failed";
+            [actionSheet addButtonWithTitle:@"OK"];
+            // アクションシートを表示
+            [actionSheet showInView:self.view];
+            
+        }
+        
+    }else{//保存できたとき
+        Class class = NSClassFromString(@"UIAlertController"); // iOS8/7の切り分けフラグに使用
+        if (class) {
+            // iOS8の処理
+            
+            // アクションコントローラー生成
+            UIAlertController *actionController =
+            [UIAlertController alertControllerWithTitle:@"Save succeed"
+                                                message:@"Message"
+                                         preferredStyle:UIAlertControllerStyleAlert];
+            [actionController addAction:[UIAlertAction actionWithTitle:@"OK"
+                                                                 style:UIAlertActionStyleDefault
+                                                               handler:^(UIAlertAction *action) {
+                                                                   // Show editro タップ時の処理
+                                                                   [self performSegueWithIdentifier:@"testSegue01" sender:self];
+                                                                   
+                                                               }]];
+            // アクションコントローラーを表示
+            [self presentViewController:actionController animated:YES completion:nil];
+        } else{
+            // iOS7の処理
+            
+            // UIActionSheetを生成
+            _actionSheetAlert = [[UIActionSheet alloc]init];
+            _actionSheetAlert.delegate = self;
+            _actionSheetAlert.title = @"Save succeed";
+            [_actionSheetAlert addButtonWithTitle:@"OK"];
+            // アクションシートを表示
+            [_actionSheetAlert showInView:self.view];
+            
+        }
+        
+    }
+}
 
+- (IBAction)saveBtn:(UIBarButtonItem *)sender {
+    // Save to Cameraroll タップ時の処理
+    Class class = NSClassFromString(@"UIAlertController"); // iOS8/7の切り分けフラグに使用
+    if (class) {
+        // アクションコントローラー生成
+        UIAlertController *actionController =
+        [UIAlertController alertControllerWithTitle:@"Save to Cameraroll?"
+                                            message:@"Message"
+                                     preferredStyle:UIAlertControllerStyleActionSheet];
+        [actionController addAction:[UIAlertAction actionWithTitle:@"OK"
+                                                             style:UIAlertActionStyleDefault
+                                                           handler:^(UIAlertAction *action) {
+                                                               [self actionSaveToCameraRoll];
+                                                               
+                                                           }]];
+
+        [actionController addAction:[UIAlertAction actionWithTitle:@"Cancel"
+                                                             style:UIAlertActionStyleCancel
+                                                           handler:^(UIAlertAction *action) {
+                                                               // Cancel タップ時の処理
+                                                           }]];
+        // iOS8の処理
+        // デバイスがiphoneであるかそうでないかで分岐
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
+            NSLog(@"iPhoneの処理");
+            // アクションコントローラーを表示
+            [self presentViewController:actionController animated:YES completion:nil];
+        }
+        else{
+            NSLog(@"iPadの処理");
+            // popoverを開く
+            UIBarButtonItem *btn = sender;
+            
+            actionController.popoverPresentationController.sourceView = self.view;
+            actionController.popoverPresentationController.sourceRect = CGRectMake(100.0, 100.0, 20.0, 20.0);
+            actionController.popoverPresentationController.barButtonItem = btn;
+            // アクションコントローラーを表示
+            [self presentViewController:actionController animated:YES completion:nil];
+            
+        }
+        
+        
+    } else{
+        // iOS7の処理
+        
+        // UIActionSheetを生成
+        UIActionSheet *actionSheet = [[UIActionSheet alloc]init];
+        actionSheet.delegate = self;
+        actionSheet.title = @"Save to CameraRoll?";
+        [actionSheet addButtonWithTitle:@"OK"];
+        [actionSheet addButtonWithTitle:@"Cancel"];
+        //        actionSheet.destructiveButtonIndex = 0;
+        actionSheet.cancelButtonIndex = 1;
+        //            [actionSheet showInView:self.view];
+        
+        // デバイスがiphoneであるかそうでないかで分岐
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
+            NSLog(@"iPhoneの処理");
+            // アクションシートを表示
+            [actionSheet showInView:self.view];
+        }
+        else{
+            NSLog(@"iPadの処理");
+            // アクションシートをpopoverで表示
+            UIBarButtonItem *btn = sender;
+            [actionSheet showFromBarButtonItem:btn animated:YES];
+            
+        }
+        
+        
+    }
 
 }
 
+- (IBAction)actionBtn:(UIBarButtonItem *)sender {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSData *imageData = [defaults objectForKey:@"KEY_selectedImage"];
+    UIImage *image = [UIImage imageWithData:imageData];
+    NSArray *activityItems = @[image];
+    // 連携できるアプリを取得する
+    UIActivity *activity = [[UIActivity alloc]init];
+    NSArray *activities = @[activity];
+    // アクティビティコントローラーを作る
+    UIActivityViewController *activityVC = [[UIActivityViewController alloc]initWithActivityItems:activityItems applicationActivities:activities];
+    // アクティビティコントローラーを表示する
+    [self presentViewController:activityVC animated:YES completion:nil];
+}
+
+- (void)actionSaveToCameraRoll{
+    // 上記imageをNSUserDefaultsに保存
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSData *imageData = [defaults objectForKey:@"KEY_selectedImage"];
+    UIImage *image = [UIImage imageWithData:imageData];
+    
+    // 上記imageをカメラロールにも保存
+    UIImageWriteToSavedPhotosAlbum(image, self, @selector(savingImageIsFinished:didFinishSavingWithError:contextInfo:), nil);
+    NSLog(@"saved");
+    // カメラロール保存成功失敗アラートのUIAlertControllerのOKボタンで最初の画面に戻る
+}
+
+- (IBAction)removeImage:(UIBarButtonItem *)sender {
+    
+    [self actionRemoveItem:self.receiveIndexPath];
+  //  [self removeAllDocumentsFiles];
+    // 最初の画面に戻る
+    [self performSegueWithIdentifier:@"backFromPreviewVC" sender:self];
+    
+    
+}
 - (void)actionRemoveItem:(NSIndexPath *)indexPath{
     NSLog(@"indexPath_:%d",(int)indexPath);
     // データソースから項目を削除する
@@ -186,9 +361,8 @@
     //    NSFileManager *fileManager = [NSFileManager defaultManager];
     //    NSError *error;
     //    [fileManager removeItemAtPath:path error:&error];
-    [defaults removeObjectForKey:@"KEY_arrayImageNames"];
-    [defaults removeObjectForKey:@"KEY_imageCount"];
-    [defaults removeObjectForKey:@"imageCount"];
+    [defaults removeObjectForKey:@"KEY_arrayImages"];
+//    [defaults removeObjectForKey:@"KEY_imageCount"];
     [defaults synchronize];
 }
 @end

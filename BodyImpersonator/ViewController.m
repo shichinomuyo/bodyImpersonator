@@ -15,6 +15,7 @@
     UIPopoverController *_imagePopController;
 }
 // IBOutlet Btn
+
 @property (weak, nonatomic) IBOutlet UIButton *ctrlBtn;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *camIcon;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *orgIcon;
@@ -24,7 +25,8 @@
 // IBOutlet NavigationBar
 @property (weak, nonatomic) IBOutlet UINavigationBar *navigationBarMain;
 // IBOutlet collectionView
-@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (weak, nonatomic) IBOutlet BICollectionView *collectionView;
+
 
 // previewImageViewの表示をコントールするために宣言
 @property (weak, nonatomic) IBOutlet UIButton *nestViewCtrlBtn;
@@ -300,9 +302,9 @@
     int count = (int)[array count];
 
     // userdefaultsの中身確認(デバッグ用)
-    NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
-    NSDictionary *dic = [defaults persistentDomainForName:appDomain];
-    NSLog(@"defualts:%@", dic);
+//    NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
+//    NSDictionary *dic = [defaults persistentDomainForName:appDomain];
+//    NSLog(@"defualts:%@", dic);
     if (count < 9) {
         return count+1;
     } else {
@@ -311,13 +313,17 @@
         NSLog(@"numberOfItemsInSection%d",count);
 }
 
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-    // セルを作成する
-    UICollectionViewCell *cell;
-    cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
-    
-    UIImageView *imageView = (UIImageView *)[cell viewWithTag:1];
 
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+    NSLog(@"-----------------------------------------");
+
+    NSString *selectedImageName = @"/image146.png";
+    
+    // セルを作成する
+    BICollectionViewCell *cell;
+    cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
+//    UIImageView *imageView = (UIImageView *)[cell viewWithTag:1]; // cell.imageViewで置き換え済み
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSArray *array = [defaults objectForKey:@"KEY_arrayImageNames"];
     NSLog(@"indexPath.row:%d",(int)indexPath.row);
@@ -325,7 +331,16 @@
     if ([array safeObjectAtIndex:(int)(indexPath.row)] == nil) {
                 NSLog(@"nilだ");
         UIImage *image = [UIImage imageNamed:@"AddImage188x188.png"];
-        [imageView setImage:image];
+        [cell.imageView setImage:image];
+        // frameをつける
+        CGSize frameSize = CGSizeMake(112, 120);
+        CGFloat adjustX = (frameSize.width - cell.frame.size.width)/2;
+        CGFloat adjustY = (frameSize.height - cell.frame.size.height)/2;
+        cell.backgroundColor = [UIColor whiteColor];
+       // cell.imageViewFrame = [[UIImageView alloc]initWithFrame:CGRectMake(-adjustX, -adjustY, frameSize.width, frameSize.height)];
+        UIImage *imageFrame = [UIImage imageNamed:@"CollectionViewCellFrame188x188.png"];
+        [cell.imageViewFrame setImage:imageFrame];
+        NSLog(@"黒いFrameつけるお");
 
     } else{
 
@@ -334,8 +349,26 @@
         NSString *imageName = [array objectAtIndex:(int)(indexPath.row)];
         NSString *filePath = [NSString stringWithFormat:@"%@%@",[NSHomeDirectory() stringByAppendingString:@"/Documents"],imageName];
         UIImage *image = [UIImage imageWithContentsOfFile:filePath];
-        NSLog(@"path:%@",filePath);
-        [imageView setImage:image];
+        NSLog(@"filePath:%@",filePath);
+        if ([imageName isEqualToString:selectedImageName]) {
+
+            cell.backgroundColor = [UIColor blackColor];
+
+   
+            // frameをつける
+            CGSize frameSize = CGSizeMake(112, 120);
+            CGFloat adjustX = (frameSize.width - cell.frame.size.width)/2;
+            CGFloat adjustY = (frameSize.height - cell.frame.size.height)/2;
+            cell.imageViewFrame = [[UIImageView alloc]initWithFrame:CGRectMake(-adjustX	, -adjustY, frameSize.width, frameSize.height)];
+            UIImage *imageFrame = [UIImage imageNamed:@"YelloFrameTransparentBack188x188.png"];
+            [cell.imageViewFrame setImage:imageFrame];
+         //   [collectionView addSubview:cell.imageViewFrame];
+            NSLog(@"選択中Frameつけるお");
+                    NSLog(@"imageviewSizeSelected:(%.2f,%.2f)",cell.imageView.frame.size.width,cell.imageView.frame.size.height);
+                    NSLog(@"imageviewFrameRect:(%.2f,%.2f,%.2f,%.2f)",cell.imageViewFrame.frame.origin.x, cell.imageViewFrame.frame.origin.y, cell.imageViewFrame.frame.size.width,cell.imageViewFrame.frame.size.height);
+        }
+
+        [cell.imageView setImage:image];
         // gesturerecognizerを作成
         UILongPressGestureRecognizer *longPressGesture = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(longPressCell:)];
         [longPressGesture setDelegate:self];
@@ -345,6 +378,9 @@
         longPressGesture.allowableMovement = 10.0;
         cell.userInteractionEnabled = YES;
         [cell addGestureRecognizer:longPressGesture];
+        
+
+        
     }
     return cell;
 }
@@ -588,48 +624,6 @@
         [actionSheet showInView:picker.view];
         
     }
-    
-    
-    //    self.selectedPhotoImage.contentMode = UIViewContentModeScaleAspectFit;
-    
-    
-    //    UIImage *finalImage =  [self cropImage:imagePicked cropRect:cropRect aspectFitBounds:finalSize fillColor:[UIColor grayColor]];
-    //
-    //    [self.selectedPhotoImage setImage:finalImage];
-    
-    // ここからが上記メソッドの内容と大方かぶる
-    //    CGImageRef imagePickedRef = imagePicked.CGImage;
-    //
-    //    CGRect transformedRect = transformCGRectForUIImageOrientation(cropRect, imagePicked.imageOrientation, imagePicked.size);
-    //    CGImageRef cropRectImage = CGImageCreateWithImageInRect(imagePickedRef, transformedRect);
-    //    CGColorSpaceRef colorspace = CGImageGetColorSpace(imagePickedRef);
-    //    CGContextRef context = CGBitmapContextCreate(NULL,
-    //                                                 finalSize.width,
-    //                                                 finalSize.height,
-    //                                                 CGImageGetBitsPerComponent(imagePickedRef),
-    //                                                 CGImageGetBytesPerRow(imagePickedRef),
-    //                                                 colorspace,
-    //                                                 CGImageGetAlphaInfo(imagePickedRef));
-    //
-    //    CGContextSetInterpolationQuality(context, kCGInterpolationHigh);
-    //    CGContextDrawImage(context, CGRectMake(0, 0, finalSize.width, finalSize.height), cropRectImage);
-    //    CGImageRelease(cropRectImage);
-    //
-    //    CGImageRef instaImage = CGBitmapContextCreateImage(context);
-    //
-    //    CGContextRelease(context);
-    //
-    //    //assign the image to an UIImage Control
-    //    UIImage *image = [UIImage imageWithCGImage:instaImage scale:imagePicked.scale orientation:imagePicked.imageOrientation];
-    //    self.selectedPhotoImage.contentMode = UIViewContentModeScaleAspectFit;
-    //    // 編集済みの画像をselectedPhotoImageに設定
-    ////       [self.selectedPhotoImage setImage:[info objectForKey:UIImagePickerControllerEditedImage]]; // crop範囲をそのまま表示
-    //    [self.selectedPhotoImage setImage:image];
-    // ここまでがメソッドとかぶってる内容
-    
-    
-    
-    
 }
 
 // actionShowEditorボタンが押された時の処理
@@ -753,14 +747,12 @@
             [actionController addAction:[UIAlertAction actionWithTitle:@"Open CameraRoll"
                                                                  style:UIAlertActionStyleDefault
                                                                handler:^(UIAlertAction *action) {
-                                                                   // Show editro タップ時の処理
                                                                    [self launchOrg];
                                                                    
                                                                }]];
             [actionController addAction:[UIAlertAction actionWithTitle:@"Take a Photo"
                                                                  style:UIAlertActionStyleDefault
                                                                handler:^(UIAlertAction *action) {
-                                                                   // Use this Image タップ時の処理
                                                                    [self launchCam];
                                                                    
                                                                }]];
@@ -802,17 +794,15 @@
             [UIAlertController alertControllerWithTitle:@"Image selected"
                                                 message:@"Message"
                                          preferredStyle:UIAlertControllerStyleActionSheet];
-            [actionController addAction:[UIAlertAction actionWithTitle:@"Use this Image"
+            [actionController addAction:[UIAlertAction actionWithTitle:@"Set this Image"
                                                                  style:UIAlertActionStyleDefault
                                                                handler:^(UIAlertAction *action) {
-                                                                   // Show editro タップ時の処理
                                                                    [self actionSetSelectedImage:indexPath];
                                                                    
                                                                }]];
             [actionController addAction:[UIAlertAction actionWithTitle:@"Remove from monomane list"
                                                                  style:UIAlertActionStyleDefault
                                                                handler:^(UIAlertAction *action) {
-                                                                   // Use this Image タップ時の処理
                                                                    [self actionRemoveItem:indexPath];
                                                                    
                                                                }]];
@@ -904,6 +894,7 @@
         // コレクションビューから項目を削除する
         [self.collectionView deleteItemsAtIndexPaths:[self.collectionView indexPathsForSelectedItems]];
     } completion:nil];
+
 }
 
 // 縦横長い方に合わせて縮小する
@@ -947,122 +938,6 @@
         [_imagePopController dismissPopoverAnimated:YES];
     }
 }
-
-//CGRect transformCGRectForUIImageOrientation(CGRect source, UIImageOrientation orientation, CGSize imageSize) {
-//    switch (orientation) {
-//        case UIImageOrientationLeft: { // EXIF #8
-//            CGAffineTransform txTranslate = CGAffineTransformMakeTranslation(imageSize.height, 0.0);
-//            CGAffineTransform txCompound = CGAffineTransformRotate(txTranslate,M_PI_2);
-//            return CGRectApplyAffineTransform(source, txCompound);
-//        }
-//        case UIImageOrientationDown: { // EXIF #3
-//            CGAffineTransform txTranslate = CGAffineTransformMakeTranslation(imageSize.width, imageSize.height);
-//            CGAffineTransform txCompound = CGAffineTransformRotate(txTranslate,M_PI);
-//            return CGRectApplyAffineTransform(source, txCompound);
-//        }
-//        case UIImageOrientationRight: { // EXIF #6
-//            CGAffineTransform txTranslate = CGAffineTransformMakeTranslation(0.0, imageSize.width);
-//            CGAffineTransform txCompound = CGAffineTransformRotate(txTranslate,M_PI + M_PI_2);
-//            return CGRectApplyAffineTransform(source, txCompound);
-//        }
-//        case UIImageOrientationUp: // EXIF #1 - do nothing
-//        default: // EXIF 2,4,5,7 - ignore
-//            return source;
-//    }
-//}
-//
-//// CropRect is assumed to be in UIImageOrientationUp, as it is delivered this way from the UIImagePickerController when using AllowsImageEditing is on.
-//// The sourceImage can be in any orientation, the crop will be transformed to match
-//// The output image bounds define the final size of the image, the image will be scaled to fit,(AspectFit) the bounds, the fill color will be
-//// used for areas that are not covered by the scaled image.
-//-(UIImage *)cropImage:(UIImage *)sourceImage cropRect:(CGRect)cropRect aspectFitBounds:(CGSize)finalImageSize fillColor:(UIColor *)fillColor {
-//
-//    CGImageRef sourceImageRef = sourceImage.CGImage;
-//
-//    //Since the crop rect is in UIImageOrientationUp we need to transform it to match the source image.
-//    CGAffineTransform rectTransform = [self transformSize:sourceImage.size orientation:sourceImage.imageOrientation];
-//    CGRect transformedRect = CGRectApplyAffineTransform(cropRect, rectTransform);
-//
-//    //Now we get just the region of the source image that we are interested in.
-//    CGImageRef cropRectImage = CGImageCreateWithImageInRect(sourceImageRef, transformedRect);
-//
-//
-//    //Figure out which dimension fits within our final size and calculate the aspect correct rect that will fit in our new bounds
-//    CGFloat horizontalRatio = finalImageSize.width / CGImageGetWidth(cropRectImage);
-//    CGFloat verticalRatio = finalImageSize.height / CGImageGetHeight(cropRectImage);
-//    CGFloat ratio = MIN(horizontalRatio, verticalRatio); //Aspect Fit
-//    CGSize aspectFitSize = CGSizeMake(CGImageGetWidth(cropRectImage) * ratio, CGImageGetHeight(cropRectImage) * ratio);
-//
-//
-//    CGContextRef context = CGBitmapContextCreate(NULL,
-//                                                 finalImageSize.width,
-//                                                 finalImageSize.height,
-//                                                 CGImageGetBitsPerComponent(cropRectImage),
-//                                                 0,
-//                                                 CGImageGetColorSpace(cropRectImage),
-//                                                 CGImageGetBitmapInfo(cropRectImage));
-//
-//    if (context == NULL) {
-//        NSLog(@"NULL CONTEXT!");
-//    }
-//
-//    //Fill with our background color
-//    CGContextSetFillColorWithColor(context, fillColor.CGColor);
-//    CGContextFillRect(context, CGRectMake(0, 0, finalImageSize.width, finalImageSize.height));
-//
-//    //We need to rotate and transform the context based on the orientation of the source image.
-//    CGAffineTransform contextTransform = [self transformSize:finalImageSize orientation:sourceImage.imageOrientation];
-//    CGContextConcatCTM(context, contextTransform);
-//
-//    //Give the context a hint that we want high quality during the scale
-//    CGContextSetInterpolationQuality(context, kCGInterpolationHigh);
-//
-//    //Draw our image centered vertically and horizontally in our context.
-//    CGContextDrawImage(context, CGRectMake((finalImageSize.width-aspectFitSize.width)/2, (finalImageSize.height-aspectFitSize.height)/2, aspectFitSize.width, aspectFitSize.height), cropRectImage);
-////    CGContextDrawImage(context, CGRectMake(0, 0, finalImageSize.width, finalImageSize.height), cropRectImage);
-//
-//    //Start cleaning up..
-//    CGImageRelease(cropRectImage);
-//
-//    CGImageRef finalImageRef = CGBitmapContextCreateImage(context);
-//    UIImage *finalImage = [UIImage imageWithCGImage:finalImageRef];
-//
-//    CGContextRelease(context);
-//    CGImageRelease(finalImageRef);
-//    return finalImage;
-//}
-//
-////Creates a transform that will correctly rotate and translate for the passed orientation.
-////Based on code from niftyBean.com
-//- (CGAffineTransform) transformSize:(CGSize)imageSize orientation:(UIImageOrientation)orientation {
-//
-//    CGAffineTransform transform = CGAffineTransformIdentity;
-//    switch (orientation) {
-//        case UIImageOrientationLeft: { // EXIF #8
-//            CGAffineTransform txTranslate = CGAffineTransformMakeTranslation(imageSize.height, 0.0);
-//            CGAffineTransform txCompound = CGAffineTransformRotate(txTranslate,M_PI_2);
-//            transform = txCompound;
-//            break;
-//        }
-//        case UIImageOrientationDown: { // EXIF #3
-//            CGAffineTransform txTranslate = CGAffineTransformMakeTranslation(imageSize.width, imageSize.height);
-//            CGAffineTransform txCompound = CGAffineTransformRotate(txTranslate,M_PI);
-//            transform = txCompound;
-//            break;
-//        }
-//        case UIImageOrientationRight: { // EXIF #6
-//            CGAffineTransform txTranslate = CGAffineTransformMakeTranslation(0.0, imageSize.width);
-//            CGAffineTransform txCompound = CGAffineTransformRotate(txTranslate,-M_PI_2);
-//            transform = txCompound;
-//            break;
-//        }
-//        case UIImageOrientationUp: // EXIF #1 - do nothing
-//        default: // EXIF 2,4,5,7 - ignore
-//            break;
-//    }
-//    return transform;
-//
-//}
 
 #pragma mark -
 #pragma mark interface rotated

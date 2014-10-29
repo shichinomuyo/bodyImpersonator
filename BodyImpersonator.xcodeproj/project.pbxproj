@@ -468,6 +468,13 @@
 		564AD9FA19F1F3E20069901D /* PreviewIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 564AD9F419F1F3E20069901D /* PreviewIcon.png */; };
 		5686757B19BED3C900AF524A /* secondVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5686757A19BED3C900AF524A /* secondVC.m */; };
 		569B431519FF79C400EF21EC /* EditorOutline320x568.png in Resources */ = {isa = PBXBuildFile; fileRef = 569B431419FF79C400EF21EC /* EditorOutline320x568.png */; };
+		569B43171A008F7100EF21EC /* YellowFrame188x188.png in Resources */ = {isa = PBXBuildFile; fileRef = 569B43161A008F7100EF21EC /* YellowFrame188x188.png */; };
+		569B43191A00902900EF21EC /* WhiteFrame188x188.png in Resources */ = {isa = PBXBuildFile; fileRef = 569B43181A00902900EF21EC /* WhiteFrame188x188.png */; };
+		569B431B1A0091F000EF21EC /* YellowCloudsFrame188x188.png in Resources */ = {isa = PBXBuildFile; fileRef = 569B431A1A0091F000EF21EC /* YellowCloudsFrame188x188.png */; };
+		569B431D1A009AB400EF21EC /* YelloFrameTransparentBack188x188.png in Resources */ = {isa = PBXBuildFile; fileRef = 569B431C1A009AB400EF21EC /* YelloFrameTransparentBack188x188.png */; };
+		569B43231A00A89300EF21EC /* FrameOutCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 569B43221A00A89300EF21EC /* FrameOutCollectionViewFlowLayout.m */; };
+		569B43291A00BCB700EF21EC /* BICollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 569B43281A00BCB700EF21EC /* BICollectionViewCell.m */; };
+		569B432F1A00D09C00EF21EC /* BICollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 569B432E1A00D09C00EF21EC /* BICollectionView.m */; };
 		56A4B1CB19F4F8200009CC37 /* AppIconInApp32.png in Resources */ = {isa = PBXBuildFile; fileRef = 56A4B1CA19F4F8200009CC37 /* AppIconInApp32.png */; };
 		56A4B1CD19F4F8FD0009CC37 /* Logo32.png in Resources */ = {isa = PBXBuildFile; fileRef = 56A4B1CC19F4F8FD0009CC37 /* Logo32.png */; };
 		56A4B1CF19F4FB040009CC37 /* AppIconInApp01.png in Resources */ = {isa = PBXBuildFile; fileRef = 56A4B1CE19F4FB040009CC37 /* AppIconInApp01.png */; };
@@ -604,6 +611,16 @@
 		5686757919BED3C900AF524A /* secondVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = secondVC.h; sourceTree = "<group>"; };
 		5686757A19BED3C900AF524A /* secondVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = secondVC.m; sourceTree = "<group>"; };
 		569B431419FF79C400EF21EC /* EditorOutline320x568.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = EditorOutline320x568.png; sourceTree = "<group>"; };
+		569B43161A008F7100EF21EC /* YellowFrame188x188.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = YellowFrame188x188.png; sourceTree = "<group>"; };
+		569B43181A00902900EF21EC /* WhiteFrame188x188.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WhiteFrame188x188.png; sourceTree = "<group>"; };
+		569B431A1A0091F000EF21EC /* YellowCloudsFrame188x188.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = YellowCloudsFrame188x188.png; sourceTree = "<group>"; };
+		569B431C1A009AB400EF21EC /* YelloFrameTransparentBack188x188.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = YelloFrameTransparentBack188x188.png; sourceTree = "<group>"; };
+		569B43211A00A89300EF21EC /* FrameOutCollectionViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FrameOutCollectionViewFlowLayout.h; sourceTree = "<group>"; };
+		569B43221A00A89300EF21EC /* FrameOutCollectionViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FrameOutCollectionViewFlowLayout.m; sourceTree = "<group>"; };
+		569B43271A00BCB700EF21EC /* BICollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BICollectionViewCell.h; sourceTree = "<group>"; };
+		569B43281A00BCB700EF21EC /* BICollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BICollectionViewCell.m; sourceTree = "<group>"; };
+		569B432D1A00D09C00EF21EC /* BICollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BICollectionView.h; sourceTree = "<group>"; };
+		569B432E1A00D09C00EF21EC /* BICollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BICollectionView.m; sourceTree = "<group>"; };
 		56A4B1CA19F4F8200009CC37 /* AppIconInApp32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppIconInApp32.png; sourceTree = "<group>"; };
 		56A4B1CC19F4F8FD0009CC37 /* Logo32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Logo32.png; sourceTree = "<group>"; };
 		56A4B1CE19F4FB040009CC37 /* AppIconInApp01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppIconInApp01.png; sourceTree = "<group>"; };
@@ -954,12 +971,18 @@
 				56427EA319AB897500B516A0 /* AVAudioPlayer+CustomControllers.m */,
 				56427E9F19AB895300B516A0 /* UIImageView+Animation.h */,
 				56427EA019AB895300B516A0 /* UIImageView+Animation.m */,
+				56A4B1FD19FB70C40009CC37 /* NSArray+IndexHelper.h */,
+				56A4B1FE19FB70C40009CC37 /* NSArray+IndexHelper.m */,
+				569B43211A00A89300EF21EC /* FrameOutCollectionViewFlowLayout.h */,
+				569B43221A00A89300EF21EC /* FrameOutCollectionViewFlowLayout.m */,
+				569B432D1A00D09C00EF21EC /* BICollectionView.h */,
+				569B432E1A00D09C00EF21EC /* BICollectionView.m */,
+				569B43271A00BCB700EF21EC /* BICollectionViewCell.h */,
+				569B43281A00BCB700EF21EC /* BICollectionViewCell.m */,
 				56427E2519AB823200B516A0 /* AppDelegate.h */,
 				56427E2619AB823200B516A0 /* AppDelegate.m */,
 				56427E2819AB823200B516A0 /* Main_iPhone.storyboard */,
 				56427E2B19AB823200B516A0 /* Main_iPad.storyboard */,
-				56A4B1FD19FB70C40009CC37 /* NSArray+IndexHelper.h */,
-				56A4B1FE19FB70C40009CC37 /* NSArray+IndexHelper.m */,
 				56427E2E19AB823200B516A0 /* ViewController.h */,
 				56427E2F19AB823200B516A0 /* ViewController.m */,
 				56E14FFB19FF38930029B81D /* playVC.h */,
@@ -1121,6 +1144,10 @@
 		564AD9EE19F1F3E20069901D /* v0.2 */ = {
 			isa = PBXGroup;
 			children = (
+				569B431C1A009AB400EF21EC /* YelloFrameTransparentBack188x188.png */,
+				569B431A1A0091F000EF21EC /* YellowCloudsFrame188x188.png */,
+				569B43181A00902900EF21EC /* WhiteFrame188x188.png */,
+				569B43161A008F7100EF21EC /* YellowFrame188x188.png */,
 				569B431419FF79C400EF21EC /* EditorOutline320x568.png */,
 				56E14FF919FD26DB0029B81D /* AddImage188x188.png */,
 				56A4B1FB19FB2DB10009CC37 /* CollectionViewCellFrame188x188.png */,
@@ -1401,6 +1428,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				569B43191A00902900EF21EC /* WhiteFrame188x188.png in Resources */,
 				56A4B1EE19FA13C20009CC37 /* PlayBtn_iphone320x88.png in Resources */,
 				56427E4F19AB82C200B516A0 /* .gitignore in Resources */,
 				564AD9F819F1F3E20069901D /* OrgIcon.png in Resources */,
@@ -1411,6 +1439,7 @@
 				56A4B1EA19F93E6A0009CC37 /* BarButtonPreviewIconx40.png in Resources */,
 				56427E2D19AB823200B516A0 /* Main_iPad.storyboard in Resources */,
 				56A4B1F819FB2C950009CC37 /* CamIcon44x44.png in Resources */,
+				569B43171A008F7100EF21EC /* YellowFrame188x188.png in Resources */,
 				56427E3219AB823200B516A0 /* Images.xcassets in Resources */,
 				56A4B1E419F93C800009CC37 /* PlayBtn02.png in Resources */,
 				56427ECF19AB923C00B516A0 /* libAdapterNend_readme.txt in Resources */,
@@ -1435,6 +1464,7 @@
 				56A4B1F919FB2C950009CC37 /* OrgIcon44x44.png in Resources */,
 				56A4B1E819F93E6A0009CC37 /* BarButtonCamIconx40.png in Resources */,
 				564AD9FA19F1F3E20069901D /* PreviewIcon.png in Resources */,
+				569B431D1A009AB400EF21EC /* YelloFrameTransparentBack188x188.png in Resources */,
 				569B431519FF79C400EF21EC /* EditorOutline320x568.png in Resources */,
 				56A4B1CD19F4F8FD0009CC37 /* Logo32.png in Resources */,
 				56427E9619AB88F700B516A0 /* hitL2.png in Resources */,
@@ -1442,6 +1472,7 @@
 				56427E8719AB88CB00B516A0 /* crash13.mp3 in Resources */,
 				56427E8819AB88CB00B516A0 /* roll13.mp3 in Resources */,
 				56A4B1D119F619720009CC37 /* PlayBtn01.png in Resources */,
+				569B431B1A0091F000EF21EC /* YellowCloudsFrame188x188.png in Resources */,
 				56A4B1D719F772260009CC37 /* image1.png in Resources */,
 				56427ECA19AB923000B516A0 /* NADView_readme.txt in Resources */,
 				56A4B1DE19F88D110009CC37 /* image5.png in Resources */,
@@ -1722,6 +1753,9 @@
 				56427E3019AB823200B516A0 /* ViewController.m in Sources */,
 				5686757B19BED3C900AF524A /* secondVC.m in Sources */,
 				56427EA819AB897500B516A0 /* AVAudioPlayer+CustomControllers.m in Sources */,
+				569B432F1A00D09C00EF21EC /* BICollectionView.m in Sources */,
+				569B43291A00BCB700EF21EC /* BICollectionViewCell.m in Sources */,
+				569B43231A00A89300EF21EC /* FrameOutCollectionViewFlowLayout.m in Sources */,
 				56427EA119AB895300B516A0 /* UIImageView+Animation.m in Sources */,
 				56427E2719AB823200B516A0 /* AppDelegate.m in Sources */,
 				56427E2319AB823200B516A0 /* main.m in Sources */,
