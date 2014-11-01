@@ -10,4 +10,5 @@
 
 @interface previewVC : UIViewController<UIPopoverControllerDelegate,UIPopoverPresentationControllerDelegate,UIActionSheetDelegate>
 @property NSIndexPath *receiveIndexPath;
+@property NSString *selectedImageName;
 @end

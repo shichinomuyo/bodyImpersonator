@@ -11,8 +11,9 @@
 
 @interface secondVC (){
     UIActionSheet *_actionSheetAlert;
+    CGPoint _startCenterPoint;
 }
-- (IBAction)tapCancelBarBtn:(UIBarButtonItem *)sender;
+
 - (IBAction)tapDoneBarBtn:(UIBarButtonItem *)sender;
 - (IBAction)dragging:(UIPanGestureRecognizer *)sender;
 @property (weak, nonatomic) IBOutlet UIScrollView *imageScrollView;
@@ -20,6 +21,7 @@
 @property (weak, nonatomic) IBOutlet UIToolbar *toolBar;
 @property (weak, nonatomic) IBOutlet UINavigationBar *navigationBar;
 @property (weak, nonatomic) IBOutlet UIImageView *editorOutlineImageView;
+- (IBAction)undo:(UIBarButtonItem *)sender;
 
 @end
 
@@ -64,7 +66,7 @@
     // NSDataからUIImageを作成
     UIImage *tmpImage = [UIImage imageWithData:imageData];
     [self.editImageView setImage:tmpImage];
-    
+    _startCenterPoint = _imageScrollView.center;
     // navigationBarとtoolBarを表示する
     [_navigationBar setHidden:0];
     [_toolBar setHidden:0];
@@ -87,7 +89,7 @@
 }
 */
 
-// 拡大写真をピンチイン/アウトできるようにする
+// 写真をピンチイン/アウトで拡大できるようにする
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView{
     return _editImageView;
 }
@@ -162,7 +164,7 @@
             [actionController addAction:[UIAlertAction actionWithTitle:@"OK"
                                                                  style:UIAlertActionStyleDefault
                                                                handler:^(UIAlertAction *action) {
-                                                                  [self performSegueWithIdentifier:@"myUnwindSegue" sender:self];
+                                                                  [self performSegueWithIdentifier:@"backFromSecondVC" sender:self];
                                                                    
                                                                }]];
             // アクションコントローラーを表示
@@ -194,7 +196,7 @@
                                                                  style:UIAlertActionStyleDefault
                                                                handler:^(UIAlertAction *action) {
                                                                    // Show editro タップ時の処理
-                                                                  [self performSegueWithIdentifier:@"myUnwindSegue" sender:self];
+                                                                  [self performSegueWithIdentifier:@"backFromSecondVC" sender:self];
                                                                    
                                                                }]];
             // アクションコントローラーを表示
@@ -223,21 +225,9 @@
     if (class) {
         // アクションコントローラー生成
         UIAlertController *actionController =
-        [UIAlertController alertControllerWithTitle:@"Save this image?"
+        [UIAlertController alertControllerWithTitle:@"Add this image?"
                                             message:@"Message"
                                      preferredStyle:UIAlertControllerStyleActionSheet];
-        [actionController addAction:[UIAlertAction actionWithTitle:@"Save to Cameraroll"
-                                                             style:UIAlertActionStyleDefault
-                                                           handler:^(UIAlertAction *action) {
-                                                               [self actionSaveToCameraroll];
-                                                               
-                                                           }]];
-        [actionController addAction:[UIAlertAction actionWithTitle:@"Save to this App only"
-                                                             style:UIAlertActionStyleDefault
-                                                           handler:^(UIAlertAction *action) {
-                                                               [self actionSaveToApp];
-                                                               
-                                                           }]];
         [actionController addAction:[UIAlertAction actionWithTitle:@"Add this Image"
                                                              style:UIAlertActionStyleDefault
                                                            handler:^(UIAlertAction *action) {
@@ -276,12 +266,11 @@
         // UIActionSheetを生成
         UIActionSheet *actionSheet = [[UIActionSheet alloc]init];
         actionSheet.delegate = self;
-        actionSheet.title = @"Save this Image?";
-        [actionSheet addButtonWithTitle:@"Save to Cameraroll"];
-        [actionSheet addButtonWithTitle:@"Save to this App only"];
+        actionSheet.title = @"Add this Image?";
+        [actionSheet addButtonWithTitle:@"OK"];
         [actionSheet addButtonWithTitle:@"Cancel"];
         //        actionSheet.destructiveButtonIndex = 0;
-        actionSheet.cancelButtonIndex = 2;
+        actionSheet.cancelButtonIndex = 1;
 //            [actionSheet showInView:self.view];
         
         // デバイスがiphoneであるかそうでないかで分岐
@@ -356,7 +345,7 @@
     
     [defaults synchronize];
     // 最初の画面に戻る
-    [self performSegueWithIdentifier:@"myUnwindSegue" sender:self];
+    [self performSegueWithIdentifier:@"backFromSecondVC" sender:self];
 }
 
 // action3ボタンが押された時の処理
@@ -398,7 +387,7 @@
     [defaults synchronize];
     
     // 最初の画面に戻る
-    [self performSegueWithIdentifier:@"myUnwindSegue" sender:self];
+    [self performSegueWithIdentifier:@"backFromSecondVC" sender:self];
 
 }
 // iOS 7でアクションシートのボタンが押された時の処理
@@ -408,7 +397,7 @@
         switch (buttonIndex) {
             case 0:
                 // firstViewControllerに戻った時にpickerを閉じるためにUnwindSegueで戻る
-                [self performSegueWithIdentifier:@"myUnwindSegue" sender:self];
+                [self performSegueWithIdentifier:@"backFromSecondVC" sender:self];
                 
                 break;
             default:
@@ -417,12 +406,9 @@
     }else{
         switch (buttonIndex) {
             case 0:
-                [self actionSaveToCameraroll];
+                [self actionAddImage];
                 break;
             case 1:
-                [self actionSaveToApp];
-                break;
-            case 2:
                 [self action3];
                 break;
             default:
@@ -436,4 +422,15 @@
 
 
 
+- (IBAction)undo:(UIBarButtonItem *)sender {
+    // 倍率１、センターに戻す
+    [_imageScrollView setZoomScale:1.0 animated:YES];
+    [UIView animateWithDuration:0.2
+                          delay:0
+                        options:UIViewAnimationOptionCurveEaseInOut
+                     animations:^{
+                          [_editImageView setCenter:_startCenterPoint];
+                     } completion:nil];
+   
+}
 @end

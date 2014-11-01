@@ -14,4 +14,5 @@
     _imageView.image = nil;
     _imageViewFrame.image = nil;
 }
+
 @end

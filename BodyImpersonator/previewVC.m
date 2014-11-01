@@ -13,10 +13,9 @@
 }
 
 
+@property (weak, nonatomic) IBOutlet UINavigationBar *navigationBar;
 @property (weak, nonatomic) IBOutlet UIImageView *previewImageView;
-@property (weak, nonatomic) IBOutlet UINavigationItem *nav;
 - (IBAction)removeImage:(UIBarButtonItem *)sender;
-- (IBAction)saveBtn:(UIBarButtonItem *)sender;
 - (IBAction)actionBtn:(UIBarButtonItem *)sender;
 
 @end
@@ -42,6 +41,9 @@
     else{
         NSLog(@"iPadの処理");
     }
+    //ナビゲーションコントロールを表示する
+    [self.navigationController setNavigationBarHidden:YES animated:NO];
+
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -56,10 +58,14 @@
         NSLog(@"iPadの処理");
         // popoverなので縮小する
         [self viewSizeMake:0.5];
-        self.nav.title = @"1/2 Scale";
     }
+    //ナビゲーションコントロールを表示する
 
-    
+}
+
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [self.navigationController setNavigationBarHidden:YES animated:YES]; // ナビゲーションバー非表示
 }
 
 - (void)viewSizeMake:(CGFloat)scale{
@@ -192,7 +198,6 @@
             [actionController addAction:[UIAlertAction actionWithTitle:@"OK"
                                                                  style:UIAlertActionStyleDefault
                                                                handler:^(UIAlertAction *action) {
-                                                                   // Show editro タップ時の処理
                                                                    [self performSegueWithIdentifier:@"testSegue01" sender:self];
                                                                    
                                                                }]];
@@ -214,79 +219,6 @@
     }
 }
 
-- (IBAction)saveBtn:(UIBarButtonItem *)sender {
-    // Save to Cameraroll タップ時の処理
-    Class class = NSClassFromString(@"UIAlertController"); // iOS8/7の切り分けフラグに使用
-    if (class) {
-        // アクションコントローラー生成
-        UIAlertController *actionController =
-        [UIAlertController alertControllerWithTitle:@"Save to Cameraroll?"
-                                            message:@"Message"
-                                     preferredStyle:UIAlertControllerStyleActionSheet];
-        [actionController addAction:[UIAlertAction actionWithTitle:@"OK"
-                                                             style:UIAlertActionStyleDefault
-                                                           handler:^(UIAlertAction *action) {
-                                                               [self actionSaveToCameraRoll];
-                                                               
-                                                           }]];
-
-        [actionController addAction:[UIAlertAction actionWithTitle:@"Cancel"
-                                                             style:UIAlertActionStyleCancel
-                                                           handler:^(UIAlertAction *action) {
-                                                               // Cancel タップ時の処理
-                                                           }]];
-        // iOS8の処理
-        // デバイスがiphoneであるかそうでないかで分岐
-        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
-            NSLog(@"iPhoneの処理");
-            // アクションコントローラーを表示
-            [self presentViewController:actionController animated:YES completion:nil];
-        }
-        else{
-            NSLog(@"iPadの処理");
-            // popoverを開く
-            UIBarButtonItem *btn = sender;
-            
-            actionController.popoverPresentationController.sourceView = self.view;
-            actionController.popoverPresentationController.sourceRect = CGRectMake(100.0, 100.0, 20.0, 20.0);
-            actionController.popoverPresentationController.barButtonItem = btn;
-            // アクションコントローラーを表示
-            [self presentViewController:actionController animated:YES completion:nil];
-            
-        }
-        
-        
-    } else{
-        // iOS7の処理
-        
-        // UIActionSheetを生成
-        UIActionSheet *actionSheet = [[UIActionSheet alloc]init];
-        actionSheet.delegate = self;
-        actionSheet.title = @"Save to CameraRoll?";
-        [actionSheet addButtonWithTitle:@"OK"];
-        [actionSheet addButtonWithTitle:@"Cancel"];
-        //        actionSheet.destructiveButtonIndex = 0;
-        actionSheet.cancelButtonIndex = 1;
-        //            [actionSheet showInView:self.view];
-        
-        // デバイスがiphoneであるかそうでないかで分岐
-        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
-            NSLog(@"iPhoneの処理");
-            // アクションシートを表示
-            [actionSheet showInView:self.view];
-        }
-        else{
-            NSLog(@"iPadの処理");
-            // アクションシートをpopoverで表示
-            UIBarButtonItem *btn = sender;
-            [actionSheet showFromBarButtonItem:btn animated:YES];
-            
-        }
-        
-        
-    }
-
-}
 
 - (IBAction)actionBtn:(UIBarButtonItem *)sender {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -294,10 +226,10 @@
     UIImage *image = [UIImage imageWithData:imageData];
     NSArray *activityItems = @[image];
     // 連携できるアプリを取得する
-    UIActivity *activity = [[UIActivity alloc]init];
-    NSArray *activities = @[activity];
+//    UIActivity *activity = [[UIActivity alloc]init]; // twitterとか外部に送信できると著作権的に問題ありなのでnil
+//    NSArray *activities = @[activity];
     // アクティビティコントローラーを作る
-    UIActivityViewController *activityVC = [[UIActivityViewController alloc]initWithActivityItems:activityItems applicationActivities:activities];
+    UIActivityViewController *activityVC = [[UIActivityViewController alloc]initWithActivityItems:activityItems applicationActivities:nil];
     // アクティビティコントローラーを表示する
     [self presentViewController:activityVC animated:YES completion:nil];
 }
@@ -324,28 +256,35 @@
     
 }
 - (void)actionRemoveItem:(NSIndexPath *)indexPath{
-    NSLog(@"indexPath_:%d",(int)indexPath);
+    NSLog(@"Preview:indexPath_:%d",(int)indexPath);
+
     // データソースから項目を削除する
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSArray *array = [defaults objectForKey:@"KEY_arrayImageNames"];
     NSMutableArray *mArray = [array mutableCopy];
-    NSLog(@"indexPath.row:%d",(int)indexPath.row);
-    NSString *imageName = [mArray objectAtIndex:(int)(indexPath.row)];
-    NSString *filePath = [NSString stringWithFormat:@"%@%@",[NSHomeDirectory() stringByAppendingString:@"/Documents"],imageName];
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSError *error;
-    [fileManager removeItemAtPath:filePath error:&error];
-    [mArray removeObjectAtIndex:indexPath.row];
-    array = [mArray copy];
-    [defaults setObject:array forKey:@"KEY_arrayImageNames"];
-    [defaults synchronize];
-    NSLog(@"RemoveThisPathItem:%@",filePath);
-    
-    
+    _selectedImageName = [defaults objectForKey:@"KEY_selectedImageName"];
+        NSLog(@"previewVC.selectedImageName:%@",_selectedImageName);
+    for (int i=0; i < (int)[mArray count]; i++) {
+        if ([_selectedImageName isEqualToString:[mArray objectAtIndex:i]]) {
+            NSString *imageName = [mArray objectAtIndex:(int)(indexPath.row)];
+            NSString *filePath = [NSString stringWithFormat:@"%@%@",[NSHomeDirectory() stringByAppendingString:@"/Documents"],imageName];
+            NSFileManager *fileManager = [NSFileManager defaultManager];
+            NSError *error;
+            [fileManager removeItemAtPath:filePath error:&error];
+            [mArray removeObjectAtIndex:i];
+            array = [mArray copy];
+            [defaults setObject:array forKey:@"KEY_arrayImageNames"];
+            [defaults synchronize];
+            NSLog(@"indexPath.row:%d",(int)indexPath.row);
+            NSLog(@"RemoveThisPathItem:%@",filePath);
+        }
+    }
+//    
 //    [self.collectionView performBatchUpdates:^{
 //        // コレクションビューから項目を削除する
 //        [self.collectionView deleteItemsAtIndexPaths:[self.collectionView indexPathsForSelectedItems]];
 //    } completion:nil];
+        [self performSegueWithIdentifier:@"backFromPreviewVC" sender:self];
 }
 
 - (void)removeAllDocumentsFiles{
@@ -364,5 +303,9 @@
     [defaults removeObjectForKey:@"KEY_arrayImages"];
 //    [defaults removeObjectForKey:@"KEY_imageCount"];
     [defaults synchronize];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    
 }
 @end

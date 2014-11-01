@@ -39,6 +39,8 @@
     // Do any additional setup after loading the view.
     //バックグラウンド時の対応
     
+
+    
     if (&UIApplicationDidEnterBackgroundNotification) {
         
         [[NSNotificationCenter defaultCenter]
@@ -75,6 +77,7 @@
     // selectedPhotoImageを非表示に設定
     [self.selectedImageView setHidden:1];
     [self playDrumRoll];
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -227,6 +230,7 @@
 }
 
 -(void)playDrumRoll{
+
     // ドラムロールを再生する
     [_rollPlayerTmp playRollStopCrash:_crashPlayer setVolumeZero:_rollPlayerAlt ];
     // playerControllを一定間隔で呼び出すタイマーを作る
@@ -288,6 +292,12 @@
 - (void)appWillEnterForeground:(NSNotification *)notification{
     [self viewDidAppear:1];
     
+}
+
+// statusBarを非表示にする
+- (BOOL)prefersStatusBarHidden
+{
+    return YES;
 }
 
 @end

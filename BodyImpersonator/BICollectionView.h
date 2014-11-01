@@ -10,6 +10,6 @@
 #import "BICollectionViewCell.h"
 #import "NSArray+IndexHelper.h"
 
-@interface BICollectionView : UICollectionView<UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
+@interface BICollectionView : UICollectionView
 
 @end
