@@ -8,13 +8,16 @@
 
 #import "ViewController.h"
 
+static const NSInteger kMAX_ITEM_NUMBER = 9;
 
 @interface ViewController ()
 {
     UIImagePickerController *_imagePicker;
     UIPopoverController *_imagePopController;
+    // collectionViewの最大アイテム数
+
 }
-// @property (nonatomic,assign) id<UICollectionViewDataSource> datasource;
+
 
 // IBOutlet Btn
 @property (weak, nonatomic) IBOutlet UIButton *ctrlBtn;
@@ -34,7 +37,6 @@
 
 // IBAction Btn
 - (IBAction)previewBtn:(UIBarButtonItem *)sender;
-
 - (IBAction)showOrgBtn:(UIBarButtonItem *)sender;
 
 
@@ -52,8 +54,8 @@
     [appDefaults setObject:@"0" forKey:@"KEY_countUpCrashPlayed"]; //　crash再生回数
     [appDefaults setObject:@"NO" forKey:@"KEY_ADMOBinterstitialRecieved"]; // インタースティシャル広告受信状況
     // collectionViewに表示する画像を保存する配列の作成・初期化
-    NSMutableArray *arrayImages = [NSMutableArray array];
-    NSArray *array = [arrayImages copy];
+    NSMutableArray *imageNames = [NSMutableArray array];
+    NSArray *array = [imageNames copy];
     [appDefaults setObject:array forKey:@"KEY_imageNames"];
     // collectionViewに表示する画像に番号を振るために整数値を作成・初期化
     [appDefaults setObject:@"0" forKey:@"KEY_imageCount"];
@@ -131,7 +133,7 @@
     [self.navigationController setNavigationBarHidden:YES animated:YES];
     // 広告表示
     //    [self viewAdBanners];
-    
+    NSLog(@"最初のviewDidLoad");
     
     // iOS7以上の場合はnavigationBarの高さを64pxにする
     if (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_6_1) {
@@ -250,7 +252,6 @@
 {
     if ([segue.identifier isEqualToString:@"backFromSecondVC"]) {
         // ここに必要な処理を記述
-        NSLog(@"Back to first from secondVC.");
         [self.collectionView reloadData];
     }else if ([segue.identifier isEqualToString:@"BackFromPreviewVCRemoveItemBtn"]){
         // _selectedIndexPathのアイテムを削除
@@ -270,14 +271,14 @@
 - (NSInteger)collectionView:(UICollectionView *) collectionView numberOfItemsInSection:(NSInteger)section{
     // arrayにデータが入ってる配列数を返す
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSArray *array = [defaults objectForKey:@"KEY_imageNames"];
-    int count = (int)[array count];
+    NSArray *imageNames = [defaults objectForKey:@"KEY_imageNames"];
+    int count = (int)[imageNames count];
     
     // userdefaultsの中身確認(デバッグ用)
     //    NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
     //    NSDictionary *dic = [defaults persistentDomainForName:appDomain];
     //    NSLog(@"defualts:%@", dic);
-    if (count < 9) {
+    if (count < kMAX_ITEM_NUMBER) {
         return count+1;
     } else {
         return count;
@@ -325,10 +326,8 @@
         NSLog(@"filePath:%@",filePath);
         NSLog(@"imageName:%@",imageName);
         if ([imageName isEqualToString:selectedImageName]) {
-            NSLog(@"[imageName isEqualToString:selectedImageName]");
             _selectedIndexPath = indexPath; // 画像追加時はうまく動く
             _selectedImage = image;
-            NSLog(@"selectedIndexPath:%d",(int)_selectedIndexPath);
             cell.backgroundColor = [UIColor blackColor];
         
             // frameをつける
@@ -434,6 +433,7 @@
 
 // アクションコントローラ表示
 - (IBAction)showOrgBtn:(UIBarButtonItem *)sender {
+
     [self actionShowOrg];
 }
 
@@ -576,7 +576,7 @@
         [actionController addAction:[UIAlertAction actionWithTitle:@"Add this Image"
                                                              style:UIAlertActionStyleDefault
                                                            handler:^(UIAlertAction *action) {
-                                                               [self actionAddImage:self.selectedPhotoImage.image];
+                                                               [self actionAddItem:self.selectedPhotoImage.image];
                                                                
                                                            }]];
         [actionController addAction:[UIAlertAction actionWithTitle:@"Cancel"
@@ -599,7 +599,7 @@
         actionSheet.delegate = self;
         actionSheet.title = @"Edit Image?";
         [actionSheet addButtonWithTitle:@"Edit this Image"];
-        [actionSheet addButtonWithTitle:@"Add this image"];
+        [actionSheet addButtonWithTitle:@"Add this Image"];
         [actionSheet addButtonWithTitle:@"Cancel"];
         //        actionSheet.destructiveButtonIndex = 0;
         actionSheet.cancelButtonIndex = 2;
@@ -634,22 +634,22 @@
     }
 }
 
-// actionAddImageボタンが押された時の処理
-- (void)actionAddImage:(UIImage *)image
+// actionAddItemボタンが押された時の処理
+- (void)actionAddItem:(UIImage *)image
 {
     // Add this Image タップ時の処理
+
     // ビューのselectedImageに保存
     _selectedImage = image;
     
     // 選択した画像をNSUserDefaultsのKEY_selectedImageに保存
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSData *tmpImage = UIImagePNGRepresentation(image);
-    [defaults setObject:tmpImage forKey:@"KEY_selectedImage"];
     
     {
         // コレクションビューのデータソースとして保存
-        NSArray *array = [defaults objectForKey:@"KEY_imageNames"];
-        NSMutableArray *tmpArray = [array mutableCopy];
+        NSArray *imageNames = [defaults objectForKey:@"KEY_imageNames"];
+        NSMutableArray *tmpArray = [imageNames mutableCopy];
         
         // 同じ画像をアプリケーションのDocumentsフォルダ内に保存
         NSInteger imageCount = [defaults integerForKey:@"KEY_imageCount"];
@@ -664,15 +664,11 @@
         
         [tmpArray addObject:pathShort];
         // [tmpArray addObject:[NSString stringWithFormat:@"../Documents/image%@.png",[NSString stringWithFormat:@"%d",(int)imageCount]]];
-        array = [tmpArray copy];
-        [defaults setObject:array forKey:@"KEY_imageNames"];
+        imageNames = [tmpArray copy];
+        [defaults setObject:imageNames forKey:@"KEY_imageNames"];
         
         // KEY_selectedImageNameを更新
         [defaults setObject:pathShort forKey:@"KEY_selectedImageName"];
-        
-        
-        NSLog(@"path:%@",path);
-        NSLog(@"tmpArrayCount:%d",(int)[tmpArray count]);
     }
     
     [defaults synchronize];
@@ -741,7 +737,7 @@
         // UIActionSheetを生成
         UIActionSheet *actionSheet = [[UIActionSheet alloc]init];
         actionSheet.delegate = self;
-        actionSheet.title = @"Edit Image?";
+        actionSheet.title = @"Add Image";
         [actionSheet addButtonWithTitle:@"Open CameraRoll"];
         [actionSheet addButtonWithTitle:@"Take a Photo"];
         [actionSheet addButtonWithTitle:@"Cancel"];
@@ -763,7 +759,14 @@
     }else if ([buttonTitle isEqualToString:@"Take a Photo"]){
         [self launchCam];
     }else if ([buttonTitle isEqualToString:@"Set this Image"]){
-
+        // タップされたセルのindexPathを取得
+        NSArray *selectedItems = [self.collectionView indexPathsForSelectedItems];
+        NSIndexPath *indexPath = [selectedItems objectAtIndex:0];
+        [self actionSetSelectedImage:indexPath];
+    }else if ([buttonTitle isEqualToString:@"Edit this Image"]){
+        [self actionShowEditor:self.selectedPhotoImage.image];
+    }else if ([buttonTitle isEqualToString:@"Add this Image"]){
+        [self actionAddItem:self.selectedPhotoImage.image];
     }
 }
 
@@ -771,19 +774,15 @@
 - (void)actionSetSelectedImage:(NSIndexPath *)indexPath{
     // 選択したセルの画像をselectedImageに保存
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSArray *array = [defaults objectForKey:@"KEY_imageNames"];
-    NSString *imageName = [array objectAtIndex:(int)(indexPath.row)];
+    NSArray *imageNames = [defaults objectForKey:@"KEY_imageNames"];
+    NSString *imageName = [imageNames objectAtIndex:(int)(indexPath.row)];
     NSString *filePath = [NSString stringWithFormat:@"%@%@",[NSHomeDirectory() stringByAppendingString:@"/Documents"],imageName];
-    NSLog(@"indexPath.row:%d",(int)indexPath.row);
-    NSLog(@"indexPath:%d",(int)indexPath);
     
     // NSDataからUIImageを作成
     UIImage *image = [UIImage imageWithContentsOfFile:filePath];
     // ビューのselectedImageに保存
     _selectedImage = image;
-    // 選択した画像をNSUserDefaultsのKEY_editedImageに保存
-    NSData *tmpImage = UIImagePNGRepresentation(image);
-    [defaults setObject:tmpImage forKey:@"KEY_selectedImage"];
+
     [defaults setObject:imageName forKey:@"KEY_selectedImageName"];
     _selectedIndexPath = indexPath;
     
@@ -805,46 +804,44 @@
     
 }
 - (void)actionRemoveItem:(NSIndexPath *)indexPath{
-    NSLog(@"indexPath_:%d",(int)indexPath);
     // データソースから項目を削除する
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSArray *array = [defaults objectForKey:@"KEY_imageNames"];
-    NSMutableArray *mArray = [array mutableCopy];
-    NSLog(@"indexPath.row:%d",(int)indexPath.row);
-    NSString *imageName = [mArray objectAtIndex:(int)(indexPath.row)];
+    NSMutableArray *imageNames = [array mutableCopy];
+    NSString *imageName = [imageNames objectAtIndex:(int)(indexPath.row)];
     // となりのセルを選択状態にする
     if ((int)(indexPath.row) == 0) { // 削除するのが配列の一番最初のアイテムだった場合
-        if ([mArray count] == 1) { // かつ最後のひとつのアイテムだった場合
+        if ([imageNames count] == 1) { // かつ最後のひとつのアイテムだった場合
             [defaults setObject:@"NO Images." forKey:@"KEY_selectedImageName"]; // No Images
         }else{// アイテムが2つ以上残っている場合
-            NSString *rightImageName = [mArray objectAtIndex:(int)(indexPath.row)+1];
+            NSString *rightImageName = [imageNames objectAtIndex:(int)(indexPath.row)+1];
             [defaults setObject:rightImageName forKey:@"KEY_selectedImageName"];
-            NSLog(@"rightImageName:%@",rightImageName);
         }
-
-    }else{ // 削除するのが配列の2番目以降のアイテムだった場合
-        NSString *leftImageName = [mArray objectAtIndex:(int)(indexPath.row)-1];
+        
+    }else if((int)(indexPath.row) == ([imageNames count]-1)){ // 削除するのが配列の最後のアイテムだった場合
+        NSString *leftImageName = [imageNames objectAtIndex:(int)(indexPath.row)-1];
         [defaults setObject:leftImageName forKey:@"KEY_selectedImageName"];
-          NSLog(@"leftImageName:%@",leftImageName);
+    }else { // 上記以外の場合
+        NSString *rightImageName = [imageNames objectAtIndex:(int)(indexPath.row)+1];
+        [defaults setObject:rightImageName forKey:@"KEY_selectedImageName"];
     }
-
+    
     NSString *filePath = [NSString stringWithFormat:@"%@%@",[NSHomeDirectory() stringByAppendingString:@"/Documents"],imageName];
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSError *error;
     [fileManager removeItemAtPath:filePath error:&error];
-    [mArray removeObjectAtIndex:indexPath.row];
-    array = [mArray copy];
+    [imageNames removeObjectAtIndex:indexPath.row];
+    array = [imageNames copy];
     [defaults setObject:array forKey:@"KEY_imageNames"];
     [defaults synchronize];
-    NSLog(@"RemoveThisPathItem:%@",filePath);
     
     [self.collectionView selectItemAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
     
     [self.collectionView performBatchUpdates:^{
-        // コレクションビューから項目を削除する
-        [self.collectionView deleteItemsAtIndexPaths:[self.collectionView indexPathsForSelectedItems]];
-    } completion:^(BOOL finish){
-        [self.collectionView reloadData]; // 明示的にreloadしてセルを再度生成
+            // コレクションビューから項目を削除する
+            [self.collectionView deleteItemsAtIndexPaths:[self.collectionView indexPathsForSelectedItems]];
+        } completion:^(BOOL finish){
+            [self.collectionView reloadData]; // 明示的にreloadしてセルを再度生成
     }];
 }
 
@@ -966,7 +963,7 @@
 
 // ステータスバーの文字色を設定
 - (UIStatusBarStyle)preferredStatusBarStyle {
-    return UIStatusBarStyleLightContent; //文字を白くする
-    //   return UIStatusBarStyleDefault; // デフォルト値（文字色は黒色）
+   // return UIStatusBarStyleLightContent; //文字を白くする
+       return UIStatusBarStyleDefault; // デフォルト値（文字色は黒色）
 }
 @end

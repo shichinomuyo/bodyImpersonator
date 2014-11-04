@@ -31,12 +31,12 @@
                      }];
 }
 
-// 回転しながら拡大してギザギザになるアニメーション　1.09sec
+// 拡大
 - (void)appearWithScaleUp{
     self.transform = CGAffineTransformIdentity;
     [self setHidden:0];
     
-    float scale = sqrtf(sqrtf(10));
+    float scale = sqrtf(sqrtf(10)); 
 //    float adjustX = (self.bounds.size.width - self.frame.size.width) / 2;
   //  float adjustY = (self.bounds.size.height - self.frame.size.height) / 2;
     

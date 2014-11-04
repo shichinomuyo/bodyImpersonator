@@ -7,6 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#ifdef DEBUG
+#define LOG(fmt,...) NSLog((@"%s %d "fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
+#else
+#define NSLog(...)
+#endif
 
 @interface secondVC : UIViewController <UIScrollViewDelegate,UINavigationControllerDelegate,UIActionSheetDelegate>
 

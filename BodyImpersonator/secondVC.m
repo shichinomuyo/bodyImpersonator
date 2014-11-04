@@ -14,13 +14,16 @@
     CGPoint _startCenterPoint;
 }
 
-- (IBAction)tapDoneBarBtn:(UIBarButtonItem *)sender;
-- (IBAction)dragging:(UIPanGestureRecognizer *)sender;
+// IBOutlet
 @property (weak, nonatomic) IBOutlet UIScrollView *imageScrollView;
 @property (weak, nonatomic) IBOutlet UIImageView *editImageView;
 @property (weak, nonatomic) IBOutlet UIToolbar *toolBar;
 @property (weak, nonatomic) IBOutlet UINavigationBar *navigationBar;
 @property (weak, nonatomic) IBOutlet UIImageView *editorOutlineImageView;
+// IBAction
+- (IBAction)cancelBtn:(UIBarButtonItem *)sender;
+- (IBAction)tapDoneBarBtn:(UIBarButtonItem *)sender;
+- (IBAction)dragging:(UIPanGestureRecognizer *)sender;
 - (IBAction)undo:(UIBarButtonItem *)sender;
 
 @end
@@ -140,66 +143,71 @@
 }
 
 
+
+- (IBAction)cancelBtn:(UIBarButtonItem *)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 // Doneタップ時のアクションコントローラーを作成
 - (IBAction)tapDoneBarBtn:(UIBarButtonItem *)sender {
-
-        Class class = NSClassFromString(@"UIAlertController"); // iOS8/7の切り分けフラグに使用
-    if (class) {
-        // アクションコントローラー生成
-        UIAlertController *actionController =
-        [UIAlertController alertControllerWithTitle:@"Add this image?"
-                                            message:@"Message"
-                                     preferredStyle:UIAlertControllerStyleActionSheet];
-        [actionController addAction:[UIAlertAction actionWithTitle:@"Add this Image"
-                                                             style:UIAlertActionStyleDefault
-                                                           handler:^(UIAlertAction *action) {
-                                                               [self actionAddImage];
-                                                               
-                                                           }]];
-        [actionController addAction:[UIAlertAction actionWithTitle:@"Cancel"
-                                                             style:UIAlertActionStyleCancel
-                                                           handler:^(UIAlertAction *action) {
-                                                               // Cancel タップ時の処理
-                                                           }]];
-        // iOS8の処理
-        // デバイスがiphoneであるかそうでないかで分岐
-        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
-            NSLog(@"iPhoneの処理");
-            // アクションコントローラーを表示
-            [self presentViewController:actionController animated:YES completion:nil];
-        }
-        else{
-            NSLog(@"iPadの処理");
-            // popoverを開く
-            UIBarButtonItem *btn = sender;
-
-            actionController.popoverPresentationController.sourceView = self.view;
-            actionController.popoverPresentationController.sourceRect = CGRectMake(100.0, 100.0, 20.0, 20.0);
-            actionController.popoverPresentationController.barButtonItem = btn;
-            // アクションコントローラーを表示
-            [self presentViewController:actionController animated:YES completion:nil];
-
-        }
-
-
-    } else{
+    NSLog(@"scrollviewSize:%@",NSStringFromCGSize(_imageScrollView.frame.size));
+     NSLog(@"editImageViewSize:%@",NSStringFromCGSize(_editImageView.frame.size));
+         NSLog(@"editImageViewOrigin:%@",NSStringFromCGPoint(_editImageView.bounds.origin));
+//    Class class = NSClassFromString(@"UIAlertController"); // iOS8/7の切り分けフラグに使用
+//    if (class) {
+//        // アクションコントローラー生成
+//        UIAlertController *actionController =
+//        [UIAlertController alertControllerWithTitle:@"Add this image?"
+//                                            message:@"Message"
+//                                     preferredStyle:UIAlertControllerStyleActionSheet];
+//        [actionController addAction:[UIAlertAction actionWithTitle:@"Add this Image"
+//                                                             style:UIAlertActionStyleDefault
+//                                                           handler:^(UIAlertAction *action) {
+//                                                               [self actionAddImage];
+//                                                               
+//                                                           }]];
+//        [actionController addAction:[UIAlertAction actionWithTitle:@"Cancel"
+//                                                             style:UIAlertActionStyleCancel
+//                                                           handler:^(UIAlertAction *action) {
+//                                                               
+//                                                           }]];
+//        // iOS8の処理
+//        // デバイスがiphoneであるかそうでないかで分岐
+//        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
+//            NSLog(@"iPhoneの処理");
+//            // アクションコントローラーを表示
+//            [self presentViewController:actionController animated:YES completion:nil];
+//        }
+//        else{
+//            NSLog(@"iPadの処理");
+//            // popoverを開く
+//            UIBarButtonItem *btn = sender;
+//
+//            actionController.popoverPresentationController.sourceView = self.view;
+//            actionController.popoverPresentationController.sourceRect = CGRectMake(100.0, 100.0, 20.0, 20.0);
+//            actionController.popoverPresentationController.barButtonItem = btn;
+//            // アクションコントローラーを表示
+//            [self presentViewController:actionController animated:YES completion:nil];
+//
+//        }
+//
+//
+//    } else{
         // iOS7の処理
         
         // UIActionSheetを生成
         UIActionSheet *actionSheet = [[UIActionSheet alloc]init];
         actionSheet.delegate = self;
         actionSheet.title = @"Add this Image?";
-        [actionSheet addButtonWithTitle:@"OK"];
+        [actionSheet addButtonWithTitle:@"Add this Image"];
         [actionSheet addButtonWithTitle:@"Cancel"];
-        //        actionSheet.destructiveButtonIndex = 0;
         actionSheet.cancelButtonIndex = 1;
-//            [actionSheet showInView:self.view];
         
         // デバイスがiphoneであるかそうでないかで分岐
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
             NSLog(@"iPhoneの処理");
             // アクションシートを表示
-            [actionSheet showInView:self.view];
+            [actionSheet showInView:self.view.superview];
         }
         else{
             NSLog(@"iPadの処理");
@@ -207,7 +215,7 @@
             UIBarButtonItem *btn = sender;
             [actionSheet showFromBarButtonItem:btn animated:YES];
         }
-    }
+//    }
 }
 
 // 画面のスナップショット画像を作成
@@ -222,6 +230,8 @@
     //描画領域の設定
     CGSize cropSize = CGSizeMake(self.view.frame.size.width, self.view.frame.size.height);
     UIGraphicsBeginImageContext(cropSize);
+    NSLog(@"cropSize:%@",NSStringFromCGSize(cropSize));
+
     //グラフィックコンテキストの取得
     CGContextRef context = UIGraphicsGetCurrentContext();
     
@@ -255,10 +265,6 @@
         // コレクションビューのデータソースとして保存
         NSArray *array = [defaults objectForKey:@"KEY_imageNames"];
         NSMutableArray *imageNames = [array mutableCopy];
-        // 追加するセルを選択状態にするために配列のindexを保存
-        int selectedIndex = (int)[imageNames count];
-        NSLog(@"selectedIndexWrite:%d",selectedIndex);
-        [defaults setInteger:selectedIndex forKey:@"KEY_addedIndexNum"];
         
         // ファイル名を作成しDocumentフォルダにそのファイル名として保存
         NSInteger imageCount = [defaults integerForKey:@"KEY_imageCount"];
@@ -286,28 +292,33 @@
 // iOS 7でアクションシートのボタンが押された時の処理
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if (actionSheet == _actionSheetAlert) {
-        switch (buttonIndex) {
-            case 0:
-                // firstViewControllerに戻った時にpickerを閉じるためにUnwindSegueで戻る
-                [self performSegueWithIdentifier:@"backFromSecondVC" sender:self];
-                
-                break;
-            default:
-                break;
-        }
-    }else{
-        switch (buttonIndex) {
-            case 0:
-                [self actionAddImage];
-                break;
-            case 1:
-                [self action3];
-                break;
-            default:
-                break;
-        }
+    
+    NSString *buttonTitle = [actionSheet buttonTitleAtIndex:buttonIndex];
+    if ([buttonTitle isEqualToString:@"Add this Image"]) {
+        [self actionAddImage];
     }
+//    if (actionSheet == _actionSheetAlert) {
+//        switch (buttonIndex) {
+//            case 0:
+//                // firstViewControllerに戻った時にpickerを閉じるためにUnwindSegueで戻る
+//                [self performSegueWithIdentifier:@"backFromSecondVC" sender:self];
+//                
+//                break;
+//            default:
+//                break;
+//        }
+//    }else{
+//        switch (buttonIndex) {
+//            case 0:
+//                [self actionAddImage];
+//                break;
+//            case 1:
+//                [self action3];
+//                break;
+//            default:
+//                break;
+//        }
+//    }
 
 }
 
