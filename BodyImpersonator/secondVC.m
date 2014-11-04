@@ -59,13 +59,7 @@
     _editImageView.userInteractionEnabled = YES;
     [_editImageView addGestureRecognizer:doubleTapGesture];
     
-    // NSUserDefaultsから画像を取得
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    // NSDataとして情報を取得
-    NSData *imageData = [defaults objectForKey:@"KEY_tmpImage"];
-    // NSDataからUIImageを作成
-    UIImage *tmpImage = [UIImage imageWithData:imageData];
-    [self.editImageView setImage:tmpImage];
+    [self.editImageView setImage:_selectedImage];
     _startCenterPoint = _imageScrollView.center;
     // navigationBarとtoolBarを表示する
     [_navigationBar setHidden:0];
@@ -139,86 +133,14 @@
     
 }
 
-
+// Cancelをタップしたら最初のビューコントローラーに戻る
 - (IBAction)tapCancelBarBtn:(UIBarButtonItem *)sender {
-    NSLog(@"cancel tapped");
     [self dismissViewControllerAnimated:YES completion:nil];
 
 }
 
-// カメラロール保存完了を知らせる
-- (void) savingImageIsFinished:(UIImage *)_image didFinishSavingWithError:(NSError *)_error contextInfo:(void *)_contextInfo
-{
-    
-    if(_error){//エラーのとき
-        
-        Class class = NSClassFromString(@"UIAlertController"); // iOS8/7の切り分けフラグに使用
-        if (class) {
-            // iOS8の処理
-            
-            // アクションコントローラー生成
-            UIAlertController *actionController =
-            [UIAlertController alertControllerWithTitle:@"Error"
-                                                message:@"Save failed"
-                                         preferredStyle:UIAlertControllerStyleAlert];
-            [actionController addAction:[UIAlertAction actionWithTitle:@"OK"
-                                                                 style:UIAlertActionStyleDefault
-                                                               handler:^(UIAlertAction *action) {
-                                                                  [self performSegueWithIdentifier:@"backFromSecondVC" sender:self];
-                                                                   
-                                                               }]];
-            // アクションコントローラーを表示
-            [self presentViewController:actionController animated:YES completion:nil];
-        } else{
-            // iOS7の処理
-            
-            // UIActionSheetを生成
-            UIActionSheet *actionSheet = [[UIActionSheet alloc]init];
-            actionSheet.delegate = self;
-            actionSheet.title = @"Error - Save failed";
-            [actionSheet addButtonWithTitle:@"OK"];
-            // アクションシートを表示
-            [actionSheet showInView:self.view];
-            
-        }
-        
-    }else{//保存できたとき
-        Class class = NSClassFromString(@"UIAlertController"); // iOS8/7の切り分けフラグに使用
-        if (class) {
-            // iOS8の処理
-            
-            // アクションコントローラー生成
-            UIAlertController *actionController =
-            [UIAlertController alertControllerWithTitle:@"Save succeed"
-                                                message:@"Message"
-                                         preferredStyle:UIAlertControllerStyleAlert];
-            [actionController addAction:[UIAlertAction actionWithTitle:@"OK"
-                                                                 style:UIAlertActionStyleDefault
-                                                               handler:^(UIAlertAction *action) {
-                                                                   // Show editro タップ時の処理
-                                                                  [self performSegueWithIdentifier:@"backFromSecondVC" sender:self];
-                                                                   
-                                                               }]];
-            // アクションコントローラーを表示
-            [self presentViewController:actionController animated:YES completion:nil];
-        } else{
-            // iOS7の処理
-            
-            // UIActionSheetを生成
-            _actionSheetAlert = [[UIActionSheet alloc]init];
-            _actionSheetAlert.delegate = self;
-            _actionSheetAlert.title = @"Save succeed";
-            [_actionSheetAlert addButtonWithTitle:@"OK"];
-            // アクションシートを表示
-            [_actionSheetAlert showInView:self.view];
-            
-        }
 
-    }
-}
-
-
-
+// Doneタップ時のアクションコントローラーを作成
 - (IBAction)tapDoneBarBtn:(UIBarButtonItem *)sender {
 
         Class class = NSClassFromString(@"UIAlertController"); // iOS8/7の切り分けフラグに使用
@@ -284,14 +206,11 @@
             // アクションシートをpopoverで表示
             UIBarButtonItem *btn = sender;
             [actionSheet showFromBarButtonItem:btn animated:YES];
-
         }
-
-        
     }
-
 }
 
+// 画面のスナップショット画像を作成
 - (UIImage *)snapFullDisplay
 {
     // スナップショットを保存するのでナビゲーションバーとツールバーを非表示にする
@@ -316,72 +235,46 @@
     return image;
 }
 
-// actionSaveToCamerarollボタンが押された時の処理
-- (void)actionSaveToCameraroll
-{
-    // Save to Cameraroll タップ時の処理
-    UIImage *image = [self snapFullDisplay];
-    // 上記imageをNSUserDefaultsに保存
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSData *editedImage = UIImagePNGRepresentation(image);
-    [defaults setObject:editedImage forKey:@"KEY_selectedImage"];
-    [defaults synchronize];
-    // 上記imageをカメラロールにも保存
-    UIImageWriteToSavedPhotosAlbum(image, self, @selector(savingImageIsFinished:didFinishSavingWithError:contextInfo:), nil);
-    
-    // カメラロール保存成功失敗アラートのUIAlertControllerのOKボタンで最初の画面に戻る
-}
-
-
-
-// actionSaveToAppボタンが押された時の処理
-- (void)actionSaveToApp
-{
-    UIImage *image = [self snapFullDisplay];
-    // 現在のビューに表示されている画像をNSUserDefaultsに保存
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSData *editedImage = UIImagePNGRepresentation(image);
-    [defaults setObject:editedImage forKey:@"KEY_selectedImage"];
-    
-    [defaults synchronize];
-    // 最初の画面に戻る
-    [self performSegueWithIdentifier:@"backFromSecondVC" sender:self];
-}
-
 // action3ボタンが押された時の処理
 - (void)action3
 {
     
 }
 
+// 画像をファイル保存/ファイル名をimageNamesに保存
 - (void)actionAddImage{
     // Add this Image タップ時の処理
+    
+    // 画像スナップをファイルとして保存
     UIImage *image = [self snapFullDisplay];
-    // 選択した画像をNSUserDefaultsのKEY_selectedImageに保存
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSData *tmpImage = UIImagePNGRepresentation(image);
-    [defaults setObject:tmpImage forKey:@"KEY_selectedImage"];
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
     {
         // コレクションビューのデータソースとして保存
-        NSArray *array = [defaults objectForKey:@"KEY_arrayImageNames"];
-        NSMutableArray *tmpArray = [array mutableCopy];
+        NSArray *array = [defaults objectForKey:@"KEY_imageNames"];
+        NSMutableArray *imageNames = [array mutableCopy];
+        // 追加するセルを選択状態にするために配列のindexを保存
+        int selectedIndex = (int)[imageNames count];
+        NSLog(@"selectedIndexWrite:%d",selectedIndex);
+        [defaults setInteger:selectedIndex forKey:@"KEY_addedIndexNum"];
         
-        // 同じ画像をアプリケーションのDocumentsフォルダ内に保存
+        // ファイル名を作成しDocumentフォルダにそのファイル名として保存
         NSInteger imageCount = [defaults integerForKey:@"KEY_imageCount"];
         imageCount ++;
         NSString *path = [NSString stringWithFormat:@"%@/image%@.png",[NSHomeDirectory() stringByAppendingString:@"/Documents"],[NSString stringWithFormat:@"%d",(int)imageCount]];
-        NSString *pathShort = [NSString stringWithFormat:@"/image%@.png",[NSString stringWithFormat:@"%d",(int)imageCount]];
-        
-        [tmpImage writeToFile:path atomically:YES];
+        NSString *pathShort = [NSString stringWithFormat:@"/image%@.png",[NSString stringWithFormat:@"%d",(int)imageCount]];// ファイル名の末尾数字を+1
+        [tmpImage writeToFile:path atomically:YES]; // ファイルとして保存
         [defaults setInteger:imageCount forKey:@"KEY_imageCount"];
         
-        [tmpArray addObject:pathShort];
-        // [tmpArray addObject:[NSString stringWithFormat:@"../Documents/image%@.png",[NSString stringWithFormat:@"%d",(int)imageCount]]];
-        array = [tmpArray copy];
-        [defaults setObject:array forKey:@"KEY_arrayImageNames"];
-        NSLog(@"path:%@",path);
-        NSLog(@"tmpArrayCount:%d",(int)[tmpArray count]);
+        [imageNames addObject:pathShort]; // データソースKEY_imageNamesに追加
+
+        array = [imageNames copy]; // NSUserDefaultsに保存するためにNSMutableArray→NSArrayにcopy
+        // KEY_imageNamesを更新
+        [defaults setObject:array forKey:@"KEY_imageNames"];
+        // KEY_selectedImageNameを更新
+        [defaults setObject:pathShort forKey:@"KEY_selectedImageName"];
     }
     
     [defaults synchronize];
@@ -418,10 +311,7 @@
 
 }
 
-
-
-
-
+// このビューを開いた時の状態に画像を調節
 - (IBAction)undo:(UIBarButtonItem *)sender {
     // 倍率１、センターに戻す
     [_imageScrollView setZoomScale:1.0 animated:YES];

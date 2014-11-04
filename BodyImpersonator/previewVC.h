@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface previewVC : UIViewController<UIPopoverControllerDelegate,UIPopoverPresentationControllerDelegate,UIActionSheetDelegate>
-@property NSIndexPath *receiveIndexPath;
-@property NSString *selectedImageName;
+
+@property (strong,nonatomic) UIImage *selectedImage;
 @end

@@ -222,8 +222,8 @@
                              self.view.backgroundColor = [UIColor whiteColor];
                              
                          } completion:nil];
-        
-        
+    [self.selectedImageView setImage:_selectedImage];
+    
         // selectedPhotoImageの画像が回転しながら大きくなってくるアニメーション
         [self.selectedImageView appearWithScaleUp]; // (1.09sec)ctrlBtnをそのまま同様のアニメーションをさせると、ctrlBtnをギュンギュンアニメーションさせている都合で、タイミングによって結果がとても大きくなることがあるため、本イメージビューをアニメーション用として準備
     

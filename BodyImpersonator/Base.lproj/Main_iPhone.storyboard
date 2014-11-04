@@ -49,7 +49,7 @@
                                 <color key="backgroundColor" red="0.067062042653560638" green="0.13338275253772736" blue="0.18701528012752533" alpha="1" colorSpace="calibratedRGB"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="EgR-uf-nHg" customClass="FrameOutCollectionViewFlowLayout">
                                     <size key="itemSize" width="106" height="106"/>
-                                    <size key="headerReferenceSize" width="50" height="28"/>
+                                    <size key="headerReferenceSize" width="50" height="50"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="1" minY="4" maxX="1" maxY="4"/>
                                 </collectionViewFlowLayout>
@@ -76,8 +76,17 @@
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
-                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="IFT-3n-WwY">
+                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="OpF-U5-9U4">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Monomane List" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4gZ-kb-4Bl" userLabel="List">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
                                 </collectionReusableView>
                                 <connections>
                                     <outlet property="dataSource" destination="vXZ-lx-hvc" id="TAb-mE-1Wv"/>
@@ -121,10 +130,6 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="touchDownCtrlBtn:" destination="vXZ-lx-hvc" eventType="touchDown" id="ElU-rw-QE2"/>
-                                    <action selector="touchDragEnterCtrlBtn:" destination="vXZ-lx-hvc" eventType="touchDragEnter" id="sv6-v8-AYy"/>
-                                    <action selector="touchDragExitCtrlBtn:" destination="vXZ-lx-hvc" eventType="touchDragExit" id="H3U-wL-U59"/>
-                                    <action selector="touchUpInsideCtrlBtn:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Pi4-Ss-vUB"/>
                                     <segue destination="xz1-qg-4jT" kind="modal" identifier="moveToPlayVC" modalTransitionStyle="crossDissolve" id="dnt-X1-NKi"/>
                                 </connections>
                             </button>
@@ -253,7 +258,7 @@
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="Thx-wV-hfG"/>
                                     <barButtonItem systemItem="trash" id="jVY-O7-Qmf">
                                         <connections>
-                                            <action selector="removeImage:" destination="Ml1-cR-wrA" id="SNu-te-E1p"/>
+                                            <action selector="removeItemBtn:" destination="Ml1-cR-wrA" id="RYN-oV-jm1"/>
                                         </connections>
                                     </barButtonItem>
                                 </items>
@@ -279,7 +284,7 @@
                     <navigationItem key="navigationItem" id="anj-bW-EAz"/>
                     <connections>
                         <outlet property="previewImageView" destination="EOC-7T-xUJ" id="ZrJ-kS-EdL"/>
-                        <segue destination="6gl-yu-fDZ" kind="unwind" identifier="backFromPreviewVC" unwindAction="firstViewReturnActionForSegue:" id="EIx-j5-HZM"/>
+                        <segue destination="6gl-yu-fDZ" kind="unwind" identifier="BackFromPreviewVCRemoveItemBtn" unwindAction="firstViewReturnActionForSegue:" id="EIx-j5-HZM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="49u-XO-Twl" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -306,8 +311,8 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ODn-tp-2vP" userLabel="stopBtn">
-                                <rect key="frame" x="137" y="269" width="55" height="30"/>
-                                <state key="normal" title="stopBtn">
+                                <rect key="frame" x="0.0" y="20" width="320" height="568"/>
+                                <state key="normal">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>

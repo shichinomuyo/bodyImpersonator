@@ -41,4 +41,6 @@
 }
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *naviBarHeight;
 @property(nonatomic,retain)NADView *nadView;
+@property (strong,nonatomic) NSIndexPath *selectedIndexPath;
+@property (strong,nonatomic) UIImage *selectedImage;
 @end

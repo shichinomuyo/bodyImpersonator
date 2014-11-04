@@ -11,8 +11,5 @@
 @interface UIImageView (Animation)
 - (void)flashAnimation;
 - (void)appearWithScaleUp;
-- (void)appearEmeraldWithScaleUp:(NSTimer *)timer;
-- (void)appearALIZARINWithScaleUp:(NSTimer *)timer;
-- (void)disappearEmeraldWithScaleDown:(NSTimer *)timer;
-- (void)disappearALIZARINWithScaleUp:(NSTimer *)timer;
+
 @end
