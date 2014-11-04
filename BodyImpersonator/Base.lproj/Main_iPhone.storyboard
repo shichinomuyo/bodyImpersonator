@@ -305,9 +305,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lsf-vS-kYr" userLabel="selectedImageView">
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lnI-fg-NcO" customClass="BugFixContainerView">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                            </imageView>
+                                <subviews>
+                                    <imageView hidden="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lsf-vS-kYr" userLabel="selectedImageView">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="knobImageView" destination="Lsf-vS-kYr" id="07d-fc-bDo"/>
+                                </connections>
+                            </view>
                             <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="LightsFromCenter.png" translatesAutoresizingMaskIntoConstraints="NO" id="02z-tB-FhH" userLabel="lightEffectImageView">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                             </imageView>
@@ -325,8 +334,8 @@
                     </view>
                     <navigationItem key="navigationItem" id="JRO-qk-G6Q"/>
                     <connections>
+                        <outlet property="BFCV" destination="lnI-fg-NcO" id="s3o-0f-N6t"/>
                         <outlet property="lightEffectImageView" destination="02z-tB-FhH" id="XI2-4d-tru"/>
-                        <outlet property="selectedImageView" destination="Lsf-vS-kYr" id="np9-97-5Is"/>
                         <outlet property="stopBtn" destination="ODn-tp-2vP" id="u5p-Qc-qxx"/>
                         <segue destination="516-j7-imK" kind="unwind" identifier="unwindFromPlayVC" unwindAction="firstViewReturnActionForSegue:" id="qPx-Ci-aGK"/>
                     </connections>

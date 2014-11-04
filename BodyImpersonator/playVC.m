@@ -24,7 +24,7 @@
 
 
 @property (weak, nonatomic) IBOutlet UIImageView *lightEffectImageView;
-@property (weak, nonatomic) IBOutlet UIImageView *selectedImageView;
+@property (strong, nonatomic) IBOutlet BugFixContainerView *BFCV; // imageViewを持つ
 
 @property (weak, nonatomic) IBOutlet UIButton *stopBtn;
 - (IBAction)stopBtn:(UIButton *)sender;
@@ -75,7 +75,7 @@
     // (audioplayer)再生する効果音のパスを取得しインスタンス生成
     [self initializeAVAudioPlayers];
     // selectedPhotoImageを非表示に設定
-    [self.selectedImageView setHidden:1];
+    [self.BFCV.knobImageView setHidden:1];
     [self playDrumRoll];
 
 }
@@ -222,11 +222,10 @@
                              self.view.backgroundColor = [UIColor whiteColor];
                              
                          } completion:nil];
-    [self.selectedImageView setImage:_selectedImage];
-    
-        // selectedPhotoImageの画像が回転しながら大きくなってくるアニメーション
-        [self.selectedImageView appearWithScaleUp]; // (1.09sec)ctrlBtnをそのまま同様のアニメーションをさせると、ctrlBtnをギュンギュンアニメーションさせている都合で、タイミングによって結果がとても大きくなることがあるため、本イメージビューをアニメーション用として準備
-    
+    [self.BFCV.knobImageView setImage:_selectedImage];
+
+    // 拡大してくるアニメーション
+    [self.BFCV.knobImageView appearWithScaleUp];
 }
 
 -(void)playDrumRoll{
@@ -247,7 +246,7 @@
                           delay:0
                         options:UIViewAnimationOptionCurveEaseIn
                      animations:^{
-                         self.view.backgroundColor = RGB(17, 34, 48);//nearlyBlack
+                         self.BFCV.backgroundColor = RGB(17, 34, 48);//nearlyBlack
                      } completion:nil];
     
     // flashAnimation開始
@@ -265,7 +264,7 @@
 #pragma mark motionAction
 - (void)motionBegan:(UIEventSubtype)motion withEvent:(UIEvent *)event{
     // selectedPhotoImageが非表示(起動時の画面)のときにだけ反応
-    if (self.selectedImageView.hidden == 1) {
+    if (self.BFCV.knobImageView.hidden == 1) {
         // バイブレーションを動作させる
         AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
         [self stopDrumRoll];

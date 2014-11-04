@@ -497,6 +497,7 @@
 		56A4B1FA19FB2C950009CC37 /* PreviewIcon44x44.png in Resources */ = {isa = PBXBuildFile; fileRef = 56A4B1F719FB2C950009CC37 /* PreviewIcon44x44.png */; };
 		56A4B1FC19FB2DB10009CC37 /* CollectionViewCellFrame188x188.png in Resources */ = {isa = PBXBuildFile; fileRef = 56A4B1FB19FB2DB10009CC37 /* CollectionViewCellFrame188x188.png */; };
 		56A4B1FF19FB70C40009CC37 /* NSArray+IndexHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 56A4B1FE19FB70C40009CC37 /* NSArray+IndexHelper.m */; };
+		56C9954A1A088C180006477D /* BugFixContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 56C995491A088C180006477D /* BugFixContainerView.m */; };
 		56E14FFA19FD26DB0029B81D /* AddImage188x188.png in Resources */ = {isa = PBXBuildFile; fileRef = 56E14FF919FD26DB0029B81D /* AddImage188x188.png */; };
 		56E14FFD19FF38930029B81D /* playVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 56E14FFC19FF38930029B81D /* playVC.m */; };
 /* End PBXBuildFile section */
@@ -645,6 +646,8 @@
 		56A4B1FB19FB2DB10009CC37 /* CollectionViewCellFrame188x188.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CollectionViewCellFrame188x188.png; sourceTree = "<group>"; };
 		56A4B1FD19FB70C40009CC37 /* NSArray+IndexHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+IndexHelper.h"; sourceTree = "<group>"; };
 		56A4B1FE19FB70C40009CC37 /* NSArray+IndexHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+IndexHelper.m"; sourceTree = "<group>"; };
+		56C995481A088C180006477D /* BugFixContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BugFixContainerView.h; sourceTree = "<group>"; };
+		56C995491A088C180006477D /* BugFixContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BugFixContainerView.m; sourceTree = "<group>"; };
 		56E14FF919FD26DB0029B81D /* AddImage188x188.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AddImage188x188.png; sourceTree = "<group>"; };
 		56E14FFB19FF38930029B81D /* playVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = playVC.h; sourceTree = "<group>"; };
 		56E14FFC19FF38930029B81D /* playVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = playVC.m; sourceTree = "<group>"; };
@@ -981,6 +984,8 @@
 				569B432E1A00D09C00EF21EC /* BICollectionView.m */,
 				569B43271A00BCB700EF21EC /* BICollectionViewCell.h */,
 				569B43281A00BCB700EF21EC /* BICollectionViewCell.m */,
+				56C995481A088C180006477D /* BugFixContainerView.h */,
+				56C995491A088C180006477D /* BugFixContainerView.m */,
 				56427E2519AB823200B516A0 /* AppDelegate.h */,
 				56427E2619AB823200B516A0 /* AppDelegate.m */,
 				56427E2819AB823200B516A0 /* Main_iPhone.storyboard */,
@@ -1761,6 +1766,7 @@
 				569B43291A00BCB700EF21EC /* BICollectionViewCell.m in Sources */,
 				569B43231A00A89300EF21EC /* FrameOutCollectionViewFlowLayout.m in Sources */,
 				56427EA119AB895300B516A0 /* UIImageView+Animation.m in Sources */,
+				56C9954A1A088C180006477D /* BugFixContainerView.m in Sources */,
 				56427E2719AB823200B516A0 /* AppDelegate.m in Sources */,
 				56427E2319AB823200B516A0 /* main.m in Sources */,
 				564AD77B19E3B4FB0069901D /* previewVC.m in Sources */,

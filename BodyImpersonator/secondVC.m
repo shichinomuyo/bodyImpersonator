@@ -153,46 +153,46 @@
     NSLog(@"scrollviewSize:%@",NSStringFromCGSize(_imageScrollView.frame.size));
      NSLog(@"editImageViewSize:%@",NSStringFromCGSize(_editImageView.frame.size));
          NSLog(@"editImageViewOrigin:%@",NSStringFromCGPoint(_editImageView.bounds.origin));
-//    Class class = NSClassFromString(@"UIAlertController"); // iOS8/7の切り分けフラグに使用
-//    if (class) {
-//        // アクションコントローラー生成
-//        UIAlertController *actionController =
-//        [UIAlertController alertControllerWithTitle:@"Add this image?"
-//                                            message:@"Message"
-//                                     preferredStyle:UIAlertControllerStyleActionSheet];
-//        [actionController addAction:[UIAlertAction actionWithTitle:@"Add this Image"
-//                                                             style:UIAlertActionStyleDefault
-//                                                           handler:^(UIAlertAction *action) {
-//                                                               [self actionAddImage];
-//                                                               
-//                                                           }]];
-//        [actionController addAction:[UIAlertAction actionWithTitle:@"Cancel"
-//                                                             style:UIAlertActionStyleCancel
-//                                                           handler:^(UIAlertAction *action) {
-//                                                               
-//                                                           }]];
-//        // iOS8の処理
-//        // デバイスがiphoneであるかそうでないかで分岐
-//        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
-//            NSLog(@"iPhoneの処理");
-//            // アクションコントローラーを表示
-//            [self presentViewController:actionController animated:YES completion:nil];
-//        }
-//        else{
-//            NSLog(@"iPadの処理");
-//            // popoverを開く
-//            UIBarButtonItem *btn = sender;
-//
-//            actionController.popoverPresentationController.sourceView = self.view;
-//            actionController.popoverPresentationController.sourceRect = CGRectMake(100.0, 100.0, 20.0, 20.0);
-//            actionController.popoverPresentationController.barButtonItem = btn;
-//            // アクションコントローラーを表示
-//            [self presentViewController:actionController animated:YES completion:nil];
-//
-//        }
-//
-//
-//    } else{
+    Class class = NSClassFromString(@"UIAlertController"); // iOS8/7の切り分けフラグに使用
+    if (class) {
+        // アクションコントローラー生成
+        UIAlertController *actionController =
+        [UIAlertController alertControllerWithTitle:@"Add this image?"
+                                            message:@"Message"
+                                     preferredStyle:UIAlertControllerStyleActionSheet];
+        [actionController addAction:[UIAlertAction actionWithTitle:@"Add this Image"
+                                                             style:UIAlertActionStyleDefault
+                                                           handler:^(UIAlertAction *action) {
+                                                               [self actionAddImage];
+                                                               
+                                                           }]];
+        [actionController addAction:[UIAlertAction actionWithTitle:@"Cancel"
+                                                             style:UIAlertActionStyleCancel
+                                                           handler:^(UIAlertAction *action) {
+                                                               
+                                                           }]];
+        // iOS8の処理
+        // デバイスがiphoneであるかそうでないかで分岐
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
+            NSLog(@"iPhoneの処理");
+            // アクションコントローラーを表示
+            [self presentViewController:actionController animated:YES completion:nil];
+        }
+        else{
+            NSLog(@"iPadの処理");
+            // popoverを開く
+            UIBarButtonItem *btn = sender;
+
+            actionController.popoverPresentationController.sourceView = self.view;
+            actionController.popoverPresentationController.sourceRect = CGRectMake(100.0, 100.0, 20.0, 20.0);
+            actionController.popoverPresentationController.barButtonItem = btn;
+            // アクションコントローラーを表示
+            [self presentViewController:actionController animated:YES completion:nil];
+
+        }
+
+
+    } else{
         // iOS7の処理
         
         // UIActionSheetを生成
@@ -207,7 +207,7 @@
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
             NSLog(@"iPhoneの処理");
             // アクションシートを表示
-            [actionSheet showInView:self.view.superview];
+            [actionSheet showInView:self.view.superview]; // self.view.superviewにしないとずれる
         }
         else{
             NSLog(@"iPadの処理");
@@ -215,7 +215,7 @@
             UIBarButtonItem *btn = sender;
             [actionSheet showFromBarButtonItem:btn animated:YES];
         }
-//    }
+    }
 }
 
 // 画面のスナップショット画像を作成
