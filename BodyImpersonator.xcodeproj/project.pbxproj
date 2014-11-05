@@ -498,6 +498,9 @@
 		56A4B1FC19FB2DB10009CC37 /* CollectionViewCellFrame188x188.png in Resources */ = {isa = PBXBuildFile; fileRef = 56A4B1FB19FB2DB10009CC37 /* CollectionViewCellFrame188x188.png */; };
 		56A4B1FF19FB70C40009CC37 /* NSArray+IndexHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 56A4B1FE19FB70C40009CC37 /* NSArray+IndexHelper.m */; };
 		56C9954A1A088C180006477D /* BugFixContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 56C995491A088C180006477D /* BugFixContainerView.m */; };
+		56C9954D1A09F6FE0006477D /* SelectTag@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 56C9954C1A09F6FE0006477D /* SelectTag@2x.png */; };
+		56C9954F1A09F9E00006477D /* karadamonomaneLogo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 56C9954E1A09F9E00006477D /* karadamonomaneLogo@2x.png */; };
+		56C995511A09FAF90006477D /* PreviewIcon2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 56C995501A09FAF90006477D /* PreviewIcon2@2x.png */; };
 		56E14FFA19FD26DB0029B81D /* AddImage188x188.png in Resources */ = {isa = PBXBuildFile; fileRef = 56E14FF919FD26DB0029B81D /* AddImage188x188.png */; };
 		56E14FFD19FF38930029B81D /* playVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 56E14FFC19FF38930029B81D /* playVC.m */; };
 /* End PBXBuildFile section */
@@ -648,6 +651,9 @@
 		56A4B1FE19FB70C40009CC37 /* NSArray+IndexHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+IndexHelper.m"; sourceTree = "<group>"; };
 		56C995481A088C180006477D /* BugFixContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BugFixContainerView.h; sourceTree = "<group>"; };
 		56C995491A088C180006477D /* BugFixContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BugFixContainerView.m; sourceTree = "<group>"; };
+		56C9954C1A09F6FE0006477D /* SelectTag@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SelectTag@2x.png"; path = "v0.2/SelectTag@2x.png"; sourceTree = "<group>"; };
+		56C9954E1A09F9E00006477D /* karadamonomaneLogo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "karadamonomaneLogo@2x.png"; sourceTree = "<group>"; };
+		56C995501A09FAF90006477D /* PreviewIcon2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "PreviewIcon2@2x.png"; path = "v0.2/PreviewIcon2@2x.png"; sourceTree = "<group>"; };
 		56E14FF919FD26DB0029B81D /* AddImage188x188.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AddImage188x188.png; sourceTree = "<group>"; };
 		56E14FFB19FF38930029B81D /* playVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = playVC.h; sourceTree = "<group>"; };
 		56E14FFC19FF38930029B81D /* playVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = playVC.m; sourceTree = "<group>"; };
@@ -1083,6 +1089,7 @@
 		56427E8419AB88B000B516A0 /* image */ = {
 			isa = PBXGroup;
 			children = (
+				56C9954B1A09F6CA0006477D /* @2x */,
 				564AD9EE19F1F3E20069901D /* v0.2 */,
 				56427EE119B8407000B516A0 /* v0.1 */,
 				56427ED019AB98F900B516A0 /* 41tSp5ic8NL.jpg */,
@@ -1193,6 +1200,16 @@
 				56A4B1D619F772260009CC37 /* image4.png */,
 			);
 			path = collectionViewTestImages;
+			sourceTree = "<group>";
+		};
+		56C9954B1A09F6CA0006477D /* @2x */ = {
+			isa = PBXGroup;
+			children = (
+				56C995501A09FAF90006477D /* PreviewIcon2@2x.png */,
+				56C9954E1A09F9E00006477D /* karadamonomaneLogo@2x.png */,
+				56C9954C1A09F6FE0006477D /* SelectTag@2x.png */,
+			);
+			name = "@2x";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1437,6 +1454,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				569B43191A00902900EF21EC /* WhiteFrame188x188.png in Resources */,
+				56C9954F1A09F9E00006477D /* karadamonomaneLogo@2x.png in Resources */,
 				56A4B1EE19FA13C20009CC37 /* PlayBtn_iphone320x88.png in Resources */,
 				56427E4F19AB82C200B516A0 /* .gitignore in Resources */,
 				564AD9F819F1F3E20069901D /* OrgIcon.png in Resources */,
@@ -1473,6 +1491,7 @@
 				56A4B1F919FB2C950009CC37 /* OrgIcon44x44.png in Resources */,
 				56A4B1E819F93E6A0009CC37 /* BarButtonCamIconx40.png in Resources */,
 				564AD9FA19F1F3E20069901D /* PreviewIcon.png in Resources */,
+				56C9954D1A09F6FE0006477D /* SelectTag@2x.png in Resources */,
 				569B431D1A009AB400EF21EC /* YelloFrameTransparentBack188x188.png in Resources */,
 				569B431519FF79C400EF21EC /* EditorOutline320x568.png in Resources */,
 				56A4B1CD19F4F8FD0009CC37 /* Logo32.png in Resources */,
@@ -1487,6 +1506,7 @@
 				56A4B1DE19F88D110009CC37 /* image5.png in Resources */,
 				56A4B1E219F93BAA0009CC37 /* CollectionViewCellFramex94.png in Resources */,
 				56427ED119AB98F900B516A0 /* 41tSp5ic8NL.jpg in Resources */,
+				56C995511A09FAF90006477D /* PreviewIcon2@2x.png in Resources */,
 				56427E9919AB88F700B516A0 /* crash01.png in Resources */,
 				56427E9419AB88F700B516A0 /* ctrlBtnDF.png in Resources */,
 			);

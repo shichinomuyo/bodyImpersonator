@@ -7,28 +7,22 @@
 //
 
 #import "ViewController.h"
-
+// collectionViewの最大アイテム数
 static const NSInteger kMAX_ITEM_NUMBER = 9;
 
 @interface ViewController ()
 {
     UIImagePickerController *_imagePicker;
     UIPopoverController *_imagePopController;
-    // collectionViewの最大アイテム数
-
 }
-
 
 // IBOutlet Btn
 @property (weak, nonatomic) IBOutlet UIButton *ctrlBtn;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *camIcon;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *orgIcon;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *previewIcon;
 // IBOutlet Image
 @property (weak, nonatomic) IBOutlet UIImageView *selectedPhotoImage; // secondVCへの画像データ渡し用
 // IBOutlet collectionView
 @property (weak, nonatomic) IBOutlet BICollectionView *collectionView;
-
 
 // previewImageViewの表示をコントールするために宣言
 @property (weak, nonatomic) IBOutlet UIButton *nestViewCtrlBtn;
@@ -64,8 +58,6 @@ static const NSInteger kMAX_ITEM_NUMBER = 9;
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     [userDefaults registerDefaults:appDefaults];
 }
-
-
 
 - (void)viewAdBanners{
     //    // 【Ad】サイズを指定してAdMobインスタンスを生成
@@ -139,7 +131,6 @@ static const NSInteger kMAX_ITEM_NUMBER = 9;
     if (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_6_1) {
         self.naviBarHeight.constant = 64;
     }
-    
     // collectionViewにヘッダーを追加
  //   [_collectionView registerClass:[combineIconLogo class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"collectionViewHeader"];
 }
@@ -173,7 +164,6 @@ static const NSInteger kMAX_ITEM_NUMBER = 9;
     if (((i % 3) == 0) && (b == YES)) {
         [interstitial_ presentFromRootViewController:self];
     }
-    
 }
 
 - (void)dealloc{
@@ -229,7 +219,6 @@ static const NSInteger kMAX_ITEM_NUMBER = 9;
         if ([imageNames safeObjectAtIndex:(int)(_selectedIndexPath.row)] == nil) {
             [self actionShowAlert];
             return NO;
-            
         }else {
             NSString *imageName = [imageNames objectAtIndex:(int)(_selectedIndexPath.row)];
             NSString *selectedImageName = [defaults objectForKey:@"KEY_selectedImageName"];
@@ -239,9 +228,7 @@ static const NSInteger kMAX_ITEM_NUMBER = 9;
             if (![imageName isEqualToString:selectedImageName]) {
                 [self actionShowAlert];
                 return NO;
-                
             }
-            
         }
     }
     return YES;
@@ -289,7 +276,6 @@ static const NSInteger kMAX_ITEM_NUMBER = 9;
 // セルの内容
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     NSLog(@"-----------------------------------------");
-    
     // セルを作成する
     BICollectionViewCell *cell;
     cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
@@ -301,23 +287,16 @@ static const NSInteger kMAX_ITEM_NUMBER = 9;
     NSLog(@"indexPath    :%d",(int)indexPath);
     NSLog(@"indexPath.row:%d",(int)indexPath.row);
     NSLog(@"selectedImageName:%@",selectedImageName);
-    
     if ([imageNames safeObjectAtIndex:(int)(indexPath.row)] == nil) {
         NSLog(@"nilだ");
         UIImage *image = [UIImage imageNamed:@"AddImage188x188.png"];
         [cell.imageView setImage:image];
         // frameをつける
-        CGSize frameSize = CGSizeMake(112, 120);
-        CGFloat adjustX = (frameSize.width - cell.frame.size.width)/2;
-        CGFloat adjustY = (frameSize.height - cell.frame.size.height)/2;
         cell.backgroundColor = [UIColor whiteColor];
-        // cell.imageViewFrame = [[UIImageView alloc]initWithFrame:CGRectMake(-adjustX, -adjustY, frameSize.width, frameSize.height)];
         UIImage *imageFrame = [UIImage imageNamed:@"CollectionViewCellFrame188x188.png"];
         [cell.imageViewFrame setImage:imageFrame];
         //        NSLog(@"黒いFrameつけるお");
-        
     } else{
-        
         // NSDataからUIImageを作成
         NSLog(@"nilじゃない");
         NSString *imageName = [imageNames objectAtIndex:(int)(indexPath.row)];
@@ -329,26 +308,19 @@ static const NSInteger kMAX_ITEM_NUMBER = 9;
             _selectedIndexPath = indexPath; // 画像追加時はうまく動く
             _selectedImage = image;
             cell.backgroundColor = [UIColor blackColor];
-        
             // frameをつける
-            CGSize frameSize = CGSizeMake(112, 120);
-            CGFloat adjustX = (frameSize.width - cell.frame.size.width)/2;
-            CGFloat adjustY = (frameSize.height - cell.frame.size.height)/2;
-            //   cell.imageViewFrame = [[UIImageView alloc]initWithFrame:CGRectMake(cell.frame.origin.x -adjustX	,cell.frame.origin.y -adjustY, frameSize.width, frameSize.height)];
-            UIImage *imageFrame = [UIImage imageNamed:@"YelloFrameTransparentBack188x188.png"];
+            UIImage *imageFrame = [UIImage imageNamed:@"SelectTag@2x.png"];
             [cell.imageViewFrame setImage:imageFrame];
-            // [collectionView addSubview:cell.imageViewFrame];
+            
             NSLog(@"選択中Frameつけるお");
             NSLog(@"imageviewSizeSelected:(%.2f,%.2f)",cell.imageView.frame.size.width,cell.imageView.frame.size.height);
             NSLog(@"imageviewFrameRect:(%.2f,%.2f,%.2f,%.2f)",cell.imageViewFrame.frame.origin.x, cell.imageViewFrame.frame.origin.y, cell.imageViewFrame.frame.size.width,cell.imageViewFrame.frame.size.height);
-
+            
         }
-
-
-        
         [cell.imageView setImage:image];
         
     }
+
     return cell;
 }
 

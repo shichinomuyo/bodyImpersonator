@@ -38,7 +38,6 @@
     
     // 【Ad】AdMobインタースティシャル：インタンス変数として1つ宣言
     GADInterstitial *interstitial_;
-    // collectionViewの最大アイテム数
 
 }
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *naviBarHeight;

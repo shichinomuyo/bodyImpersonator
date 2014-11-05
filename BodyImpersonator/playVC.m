@@ -219,7 +219,7 @@
         // viewのバックグラウンドカラーを白にする
         [UIView animateWithDuration:0.25
                          animations:^{
-                             self.view.backgroundColor = [UIColor whiteColor];
+                             self.BFCV.backgroundColor = [UIColor whiteColor];
                              
                          } completion:nil];
     [self.BFCV.knobImageView setImage:_selectedImage];

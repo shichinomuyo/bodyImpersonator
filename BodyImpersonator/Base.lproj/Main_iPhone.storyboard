@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="ECo-jj-JfU">
     <dependencies>
-        <deployment defaultVersion="1808" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
     </dependencies>
     <scenes>
@@ -109,11 +108,11 @@
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="uwk-FQ-9NO"/>
-                                    <barButtonItem image="logo94x44.png" id="Jaq-xP-t3f">
+                                    <barButtonItem image="karadamonomaneLogo.png" id="Jaq-xP-t3f">
                                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="Mlf-8w-HdD"/>
-                                    <barButtonItem image="PreviewIcon44x44.png" id="Bg4-9g-yWL">
+                                    <barButtonItem image="PreviewIcon2.png" id="Bg4-9g-yWL">
                                         <color key="tintColor" red="0.92549020051956177" green="0.94117647409439087" blue="0.94509804248809814" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
                                             <action selector="previewBtn:" destination="vXZ-lx-hvc" id="cNR-Ao-CvX"/>
@@ -368,8 +367,8 @@
         <image name="EditorOutline320x568.png" width="320" height="568"/>
         <image name="LightsFromCenter.png" width="320" height="504"/>
         <image name="PlayBtn_iphone320x88.png" width="320" height="88"/>
-        <image name="PreviewIcon44x44.png" width="44" height="44"/>
-        <image name="logo94x44.png" width="94" height="44"/>
+        <image name="PreviewIcon2.png" width="44" height="44"/>
+        <image name="karadamonomaneLogo.png" width="94" height="44"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
