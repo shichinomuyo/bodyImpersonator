@@ -474,7 +474,6 @@
 		569B431D1A009AB400EF21EC /* YelloFrameTransparentBack188x188.png in Resources */ = {isa = PBXBuildFile; fileRef = 569B431C1A009AB400EF21EC /* YelloFrameTransparentBack188x188.png */; };
 		569B43231A00A89300EF21EC /* FrameOutCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 569B43221A00A89300EF21EC /* FrameOutCollectionViewFlowLayout.m */; };
 		569B43291A00BCB700EF21EC /* BICollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 569B43281A00BCB700EF21EC /* BICollectionViewCell.m */; };
-		569B432F1A00D09C00EF21EC /* BICollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 569B432E1A00D09C00EF21EC /* BICollectionView.m */; };
 		569B43311A03E41300EF21EC /* logo94x44.png in Resources */ = {isa = PBXBuildFile; fileRef = 569B43301A03E41300EF21EC /* logo94x44.png */; };
 		56A4B1CB19F4F8200009CC37 /* AppIconInApp32.png in Resources */ = {isa = PBXBuildFile; fileRef = 56A4B1CA19F4F8200009CC37 /* AppIconInApp32.png */; };
 		56A4B1CD19F4F8FD0009CC37 /* Logo32.png in Resources */ = {isa = PBXBuildFile; fileRef = 56A4B1CC19F4F8FD0009CC37 /* Logo32.png */; };
@@ -624,8 +623,6 @@
 		569B43221A00A89300EF21EC /* FrameOutCollectionViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FrameOutCollectionViewFlowLayout.m; sourceTree = "<group>"; };
 		569B43271A00BCB700EF21EC /* BICollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BICollectionViewCell.h; sourceTree = "<group>"; };
 		569B43281A00BCB700EF21EC /* BICollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BICollectionViewCell.m; sourceTree = "<group>"; };
-		569B432D1A00D09C00EF21EC /* BICollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BICollectionView.h; sourceTree = "<group>"; };
-		569B432E1A00D09C00EF21EC /* BICollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BICollectionView.m; sourceTree = "<group>"; };
 		569B43301A03E41300EF21EC /* logo94x44.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo94x44.png; sourceTree = "<group>"; };
 		56A4B1CA19F4F8200009CC37 /* AppIconInApp32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppIconInApp32.png; sourceTree = "<group>"; };
 		56A4B1CC19F4F8FD0009CC37 /* Logo32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Logo32.png; sourceTree = "<group>"; };
@@ -986,8 +983,6 @@
 				56A4B1FE19FB70C40009CC37 /* NSArray+IndexHelper.m */,
 				569B43211A00A89300EF21EC /* FrameOutCollectionViewFlowLayout.h */,
 				569B43221A00A89300EF21EC /* FrameOutCollectionViewFlowLayout.m */,
-				569B432D1A00D09C00EF21EC /* BICollectionView.h */,
-				569B432E1A00D09C00EF21EC /* BICollectionView.m */,
 				569B43271A00BCB700EF21EC /* BICollectionViewCell.h */,
 				569B43281A00BCB700EF21EC /* BICollectionViewCell.m */,
 				56C995481A088C180006477D /* BugFixContainerView.h */,
@@ -1782,7 +1777,6 @@
 				56427E3019AB823200B516A0 /* ViewController.m in Sources */,
 				5686757B19BED3C900AF524A /* secondVC.m in Sources */,
 				56427EA819AB897500B516A0 /* AVAudioPlayer+CustomControllers.m in Sources */,
-				569B432F1A00D09C00EF21EC /* BICollectionView.m in Sources */,
 				569B43291A00BCB700EF21EC /* BICollectionViewCell.m in Sources */,
 				569B43231A00A89300EF21EC /* FrameOutCollectionViewFlowLayout.m in Sources */,
 				56427EA119AB895300B516A0 /* UIImageView+Animation.m in Sources */,

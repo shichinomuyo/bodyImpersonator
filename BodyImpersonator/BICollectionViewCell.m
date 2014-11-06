@@ -13,6 +13,7 @@
     [super prepareForReuse];
     _imageView.image = nil;
     _imageViewFrame.image = nil;
+    _imageViewSelectedFrame.image = nil;
 }
 
 @end

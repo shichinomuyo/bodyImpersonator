@@ -14,6 +14,8 @@ static const NSInteger kMAX_ITEM_NUMBER = 9;
 {
     UIImagePickerController *_imagePicker;
     UIPopoverController *_imagePopController;
+    BICollectionViewCell *_selectedCell;
+
 }
 
 // IBOutlet Btn
@@ -22,7 +24,7 @@ static const NSInteger kMAX_ITEM_NUMBER = 9;
 // IBOutlet Image
 @property (weak, nonatomic) IBOutlet UIImageView *selectedPhotoImage; // secondVCへの画像データ渡し用
 // IBOutlet collectionView
-@property (weak, nonatomic) IBOutlet BICollectionView *collectionView;
+@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 
 // previewImageViewの表示をコントールするために宣言
 @property (weak, nonatomic) IBOutlet UIButton *nestViewCtrlBtn;
@@ -151,6 +153,15 @@ static const NSInteger kMAX_ITEM_NUMBER = 9;
 // ビューが表示されたときに実行される
 - (void)viewDidAppear:(BOOL)animated
 {
+//    [self.collectionView performBatchUpdates:^{
+//        NSLog(@"入ってる");
+//        [UIView animateWithDuration:0
+//                              delay:0 options:UIViewAnimationOptionCurveEaseInOut
+//                         animations:^{
+//                             [_selectedCell.imageViewSelectedFrame setAlpha:1];
+//                         } completion:nil];
+//    } completion:nil];
+
     // 再生回数が3の倍数かつインタースティシャル広告の準備ができていればインタースティシャル広告表示
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSInteger i = [defaults integerForKey:@"KEY_countUpCrashPlayed"];
@@ -164,6 +175,8 @@ static const NSInteger kMAX_ITEM_NUMBER = 9;
     if (((i % 3) == 0) && (b == YES)) {
         [interstitial_ presentFromRootViewController:self];
     }
+    
+    
 }
 
 - (void)dealloc{
@@ -265,11 +278,12 @@ static const NSInteger kMAX_ITEM_NUMBER = 9;
     //    NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
     //    NSDictionary *dic = [defaults persistentDomainForName:appDomain];
     //    NSLog(@"defualts:%@", dic);
-    if (count < kMAX_ITEM_NUMBER) {
-        return count+1;
-    } else {
-        return count;
-    }
+//    if (count < kMAX_ITEM_NUMBER) {
+//        return count+1;
+//    } else {
+//        return count;
+//    }
+    return  count + 1;
     NSLog(@"numberOfItemsInSection%d",count);
 }
 
@@ -284,9 +298,7 @@ static const NSInteger kMAX_ITEM_NUMBER = 9;
     NSArray *imageNames = [defaults objectForKey:@"KEY_imageNames"];
     
     NSString *selectedImageName = [defaults objectForKey:@"KEY_selectedImageName"];
-    NSLog(@"indexPath    :%d",(int)indexPath);
-    NSLog(@"indexPath.row:%d",(int)indexPath.row);
-    NSLog(@"selectedImageName:%@",selectedImageName);
+
     if ([imageNames safeObjectAtIndex:(int)(indexPath.row)] == nil) {
         NSLog(@"nilだ");
         UIImage *image = [UIImage imageNamed:@"AddImage188x188.png"];
@@ -307,22 +319,25 @@ static const NSInteger kMAX_ITEM_NUMBER = 9;
         if ([imageName isEqualToString:selectedImageName]) {
             _selectedIndexPath = indexPath; // 画像追加時はうまく動く
             _selectedImage = image;
-            cell.backgroundColor = [UIColor blackColor];
+            
+            // _selectedCellを利用
+            _selectedCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
             // frameをつける
             UIImage *imageFrame = [UIImage imageNamed:@"SelectTag@2x.png"];
-            [cell.imageViewFrame setImage:imageFrame];
+            [cell.imageViewSelectedFrame setImage:imageFrame];
+            [cell.imageViewSelectedFrame setAlpha:1];
+//            [_selectedCell.imageView setImage:image];
             
             NSLog(@"選択中Frameつけるお");
             NSLog(@"imageviewSizeSelected:(%.2f,%.2f)",cell.imageView.frame.size.width,cell.imageView.frame.size.height);
             NSLog(@"imageviewFrameRect:(%.2f,%.2f,%.2f,%.2f)",cell.imageViewFrame.frame.origin.x, cell.imageViewFrame.frame.origin.y, cell.imageViewFrame.frame.size.width,cell.imageViewFrame.frame.size.height);
-            
         }
         [cell.imageView setImage:image];
-        
-    }
 
+    }
     return cell;
 }
+
 
 #pragma mark -
 #pragma mark touchAction
@@ -451,6 +466,49 @@ static const NSInteger kMAX_ITEM_NUMBER = 9;
         
     }
     
+}
+
+// 保存できる画像を９個までに制限するアラート
+- (void)actionShowSaveLimitAlert{
+    //処理
+    Class class = NSClassFromString(@"UIAlertController"); // iOS8/7の切り分けフラグに使用
+    if (class) {
+        // iOS8の処理
+        
+        // アクションコントローラー生成
+        UIAlertController *actionController =
+        [UIAlertController alertControllerWithTitle:@"It is up to 9 can be saved"
+                                            message:nil
+                                     preferredStyle:UIAlertControllerStyleAlert];
+        
+        [actionController addAction:[UIAlertAction actionWithTitle:@"OK"
+                                                             style:UIAlertActionStyleCancel
+                                                           handler:^(UIAlertAction *action) {
+                                                               // Cancel タップ時の処理
+                                                               
+                                                           }]];
+        // アクションコントローラーを表示
+        [self presentViewController:actionController animated:YES completion:nil];
+    } else{
+        // iOS7の処理
+        
+        // UIActionSheetを生成
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"It is up to 9 can be saved."
+                                                       message:nil
+                                                      delegate:self
+                                             cancelButtonTitle:@"OK"
+                                             otherButtonTitles:nil, nil];
+        //        UIActionSheet *actionSheet = [[UIActionSheet alloc]init];
+        //        actionSheet.delegate = self;
+        //        actionSheet.title = @"First,Please tap + icon to add Image.?";
+        //        [actionSheet addButtonWithTitle:@"Cancel"];
+        //        //        actionSheet.destructiveButtonIndex = 0;
+        //        actionSheet.cancelButtonIndex = 0;
+        
+        // アクションシートを表示
+        [alert show];
+        
+    }
 }
 
 // collectionView内のセルが押された時の処理
@@ -609,8 +667,6 @@ static const NSInteger kMAX_ITEM_NUMBER = 9;
 // actionAddItemボタンが押された時の処理
 - (void)actionAddItem:(UIImage *)image
 {
-    // Add this Image タップ時の処理
-
     // ビューのselectedImageに保存
     _selectedImage = image;
     
@@ -672,53 +728,60 @@ static const NSInteger kMAX_ITEM_NUMBER = 9;
 // カメラロール表示orカメラ起動を選択するアクションコントローラー生成
 - (void)actionShowOrg
 {
-    //処理
-    Class class = NSClassFromString(@"UIAlertController"); // iOS8/7の切り分けフラグに使用
-    if (class) {
-        // iOS8の処理
-        
-        // アクションコントローラー生成
-        UIAlertController *actionController =
-        [UIAlertController alertControllerWithTitle:@"Add Image"
-                                            message:nil
-                                     preferredStyle:UIAlertControllerStyleActionSheet];
-        [actionController addAction:[UIAlertAction actionWithTitle:@"Open CameraRoll"
-                                                             style:UIAlertActionStyleDefault
-                                                           handler:^(UIAlertAction *action) {
-                                                               [self launchOrg];
-                                                               
-                                                           }]];
-        [actionController addAction:[UIAlertAction actionWithTitle:@"Take a Photo"
-                                                             style:UIAlertActionStyleDefault
-                                                           handler:^(UIAlertAction *action) {
-                                                               [self launchCam];
-                                                               
-                                                           }]];
-        [actionController addAction:[UIAlertAction actionWithTitle:@"Cancel"
-                                                             style:UIAlertActionStyleCancel
-                                                           handler:^(UIAlertAction *action) {
-                                                               // Cancel タップ時の処理
-                                                               
-                                                               
-                                                           }]];
-        // アクションコントローラーを表示
-        [self presentViewController:actionController animated:YES completion:nil];
-    } else{
-        // iOS7の処理
-        
-        // UIActionSheetを生成
-        UIActionSheet *actionSheet = [[UIActionSheet alloc]init];
-        actionSheet.delegate = self;
-        actionSheet.title = @"Add Image";
-        [actionSheet addButtonWithTitle:@"Open CameraRoll"];
-        [actionSheet addButtonWithTitle:@"Take a Photo"];
-        [actionSheet addButtonWithTitle:@"Cancel"];
-        //        actionSheet.destructiveButtonIndex = 0;
-        actionSheet.cancelButtonIndex = 2;
-        
-        // アクションシートを表示
-        [actionSheet showInView:self.view];
-        
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSArray *array = [defaults objectForKey:@"KEY_imageNames"];
+    if ([array count] == kMAX_ITEM_NUMBER) { // 保存できる画像を９個に制限
+        [self actionShowSaveLimitAlert];
+    }else{
+        //処理
+        Class class = NSClassFromString(@"UIAlertController"); // iOS8/7の切り分けフラグに使用
+        if (class) {
+            // iOS8の処理
+            
+            // アクションコントローラー生成
+            UIAlertController *actionController =
+            [UIAlertController alertControllerWithTitle:@"Add Image"
+                                                message:nil
+                                         preferredStyle:UIAlertControllerStyleActionSheet];
+            [actionController addAction:[UIAlertAction actionWithTitle:@"Open CameraRoll"
+                                                                 style:UIAlertActionStyleDefault
+                                                               handler:^(UIAlertAction *action) {
+                                                                   [self launchOrg];
+                                                                   
+                                                               }]];
+            [actionController addAction:[UIAlertAction actionWithTitle:@"Take a Photo"
+                                                                 style:UIAlertActionStyleDefault
+                                                               handler:^(UIAlertAction *action) {
+                                                                   [self launchCam];
+                                                                   
+                                                               }]];
+            [actionController addAction:[UIAlertAction actionWithTitle:@"Cancel"
+                                                                 style:UIAlertActionStyleCancel
+                                                               handler:^(UIAlertAction *action) {
+                                                                   // Cancel タップ時の処理
+                                                                   
+                                                                   
+                                                               }]];
+            // アクションコントローラーを表示
+            [self presentViewController:actionController animated:YES completion:nil];
+        } else{
+            // iOS7の処理
+            
+            // UIActionSheetを生成
+            UIActionSheet *actionSheet = [[UIActionSheet alloc]init];
+            actionSheet.delegate = self;
+            actionSheet.title = @"Add Image";
+            [actionSheet addButtonWithTitle:@"Open CameraRoll"];
+            [actionSheet addButtonWithTitle:@"Take a Photo"];
+            [actionSheet addButtonWithTitle:@"Cancel"];
+            //        actionSheet.destructiveButtonIndex = 0;
+            actionSheet.cancelButtonIndex = 2;
+            
+            // アクションシートを表示
+            [actionSheet showInView:self.view];
+            
+        }
+
     }
 }
 
@@ -808,13 +871,17 @@ static const NSInteger kMAX_ITEM_NUMBER = 9;
     [defaults synchronize];
     
     [self.collectionView selectItemAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
-    
-    [self.collectionView performBatchUpdates:^{
+    if ([imageNames count] == 8) { // 削除後９個目のセルに画像追加ボタンを表示するためにBathchUpdateしないでreloadDataしちゃう
+        [self.collectionView reloadData];
+    } else{
+        [self.collectionView performBatchUpdates:^{
+            NSLog(@"入ってる");
             // コレクションビューから項目を削除する
             [self.collectionView deleteItemsAtIndexPaths:[self.collectionView indexPathsForSelectedItems]];
         } completion:^(BOOL finish){
             [self.collectionView reloadData]; // 明示的にreloadしてセルを再度生成
-    }];
+        }];
+    }
 }
 
 // 縦横長い方に合わせて縮小する
