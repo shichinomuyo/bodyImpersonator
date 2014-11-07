@@ -15,6 +15,7 @@ static const NSInteger kMAX_ITEM_NUMBER = 9;
     UIImagePickerController *_imagePicker;
     UIPopoverController *_imagePopController;
     BICollectionViewCell *_selectedCell;
+    BICollectionReusableView *_collectionHeaderView;
 
 }
 
@@ -301,12 +302,12 @@ static const NSInteger kMAX_ITEM_NUMBER = 9;
 
     if ([imageNames safeObjectAtIndex:(int)(indexPath.row)] == nil) {
         NSLog(@"nilだ");
-        UIImage *image = [UIImage imageNamed:@"AddImage188x188.png"];
+        UIImage *image = [UIImage imageNamed:@"AddImage.png"];
         [cell.imageView setImage:image];
         // frameをつける
-        cell.backgroundColor = [UIColor whiteColor];
-        UIImage *imageFrame = [UIImage imageNamed:@"CollectionViewCellFrame188x188.png"];
-        [cell.imageViewFrame setImage:imageFrame];
+//        cell.backgroundColor = [UIColor whiteColor];
+//        UIImage *imageFrame = [UIImage imageNamed:@"CollectionViewCellFrame188x188.png"];
+//        [cell.imageViewFrame setImage:imageFrame];
         //        NSLog(@"黒いFrameつけるお");
     } else{
         // NSDataからUIImageを作成
@@ -338,6 +339,19 @@ static const NSInteger kMAX_ITEM_NUMBER = 9;
     return cell;
 }
 
+// セクションに画像を追加
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath{
+    UICollectionReusableView *reusableView = nil;
+    if (kind == UICollectionElementKindSectionHeader) {
+        _collectionHeaderView = [self.collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"header" forIndexPath:indexPath];
+        // headerに画像をセット
+        [_collectionHeaderView.imageView setImage:[UIImage imageNamed:@"karadamonomaneLogo3@2x.png"]];
+        _collectionHeaderView.imageView.tintColor =  RGB(241, 197, 18);//nearlyBlack
+
+        reusableView = _collectionHeaderView;
+    }
+    return reusableView;
+}
 
 #pragma mark -
 #pragma mark touchAction
@@ -1002,7 +1016,7 @@ static const NSInteger kMAX_ITEM_NUMBER = 9;
 
 // ステータスバーの文字色を設定
 - (UIStatusBarStyle)preferredStatusBarStyle {
-   // return UIStatusBarStyleLightContent; //文字を白くする
-       return UIStatusBarStyleDefault; // デフォルト値（文字色は黒色）
+    return UIStatusBarStyleLightContent; //文字を白くする
+   //    return UIStatusBarStyleDefault; // デフォルト値（文字色は黒色）
 }
 @end
