@@ -340,19 +340,19 @@ static const NSInteger kMAX_ITEM_NUMBER = 9;
 }
 
 // セクションヘッダーに画像を追加
-//
-//- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath{
-//    UICollectionReusableView *reusableView = nil;
-//    if (kind == UICollectionElementKindSectionHeader) {
-//        _collectionHeaderView = [self.collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"header" forIndexPath:indexPath];
-//        // headerに画像をセット
-//        [_collectionHeaderView.imageView setImage:[UIImage imageNamed:@"karadamonomaneLogo3@2x.png"]];
-//        _collectionHeaderView.imageView.tintColor =  RGB(241, 197, 18);//nearlyBlack
-//
-//        reusableView = _collectionHeaderView;
-//    }
-//    return reusableView;
-//}
+
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath{
+    UICollectionReusableView *reusableView = nil;
+    if (kind == UICollectionElementKindSectionHeader) {
+        _collectionHeaderView = [self.collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"header" forIndexPath:indexPath];
+        // headerに画像をセット
+        [_collectionHeaderView.imageView setImage:[UIImage imageNamed:@"karadamonomaneLogo3@2x.png"]];
+        _collectionHeaderView.imageView.tintColor =  RGB(241, 197, 18);//nearlyBlack
+
+        reusableView = _collectionHeaderView;
+    }
+    return reusableView;
+}
 
 #pragma mark -
 #pragma mark touchAction
