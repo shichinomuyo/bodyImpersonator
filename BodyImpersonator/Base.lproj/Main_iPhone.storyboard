@@ -17,6 +17,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
+                            <navigationBar contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bve-WN-prz">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="64" id="kWY-IL-Per"/>
+                                </constraints>
+                                <color key="barTintColor" red="0.067062042653560638" green="0.13338275253772736" blue="0.18701528012752533" alpha="1" colorSpace="calibratedRGB"/>
+                            </navigationBar>
                             <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4Ch-Od-A9z" userLabel="selectedPhotoImage">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                             </imageView>
@@ -46,11 +53,11 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="jjl-Ge-y0R">
-                                <rect key="frame" x="0.0" y="64" width="320" height="356"/>
-                                <color key="backgroundColor" red="1" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <rect key="frame" x="0.0" y="64" width="320" height="318"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="EgR-uf-nHg" customClass="FrameOutCollectionViewFlowLayout">
                                     <size key="itemSize" width="106" height="106"/>
-                                    <size key="headerReferenceSize" width="50" height="38"/>
+                                    <size key="headerReferenceSize" width="50" height="1"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="1" minY="0.0" maxX="1" maxY="0.0"/>
                                 </collectionViewFlowLayout>
@@ -82,7 +89,7 @@
                                     </collectionViewCell>
                                 </cells>
                                 <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="header" id="Cp6-7A-2H4" customClass="BICollectionReusableView">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="38"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ocx-5j-6fl">
@@ -98,10 +105,17 @@
                                     <outlet property="delegate" destination="vXZ-lx-hvc" id="A7G-aX-0pg"/>
                                 </connections>
                             </collectionView>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TFc-KJ-FbI" userLabel="ADBannerSample">
-                                <rect key="frame" x="0.0" y="518" width="320" height="50"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
+                            <button tag="2" contentMode="scaleAspectFit" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fRx-QP-7Su" userLabel="ctrlBtn">
+                                <rect key="frame" x="0.0" y="382" width="320" height="92"/>
+                                <color key="backgroundColor" red="0.94509804249999996" green="0.77254903320000001" blue="0.070588238540000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="27"/>
+                                <state key="normal" image="PlayBtnRoundSunFlowerBtnOnly.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="xz1-qg-4jT" kind="modal" identifier="moveToPlayVC" modalTransitionStyle="crossDissolve" id="dnt-X1-NKi"/>
+                                </connections>
+                            </button>
                             <toolbar clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wnz-Xy-9jT">
                                 <rect key="frame" x="0.0" y="474" width="320" height="44"/>
                                 <color key="backgroundColor" red="0.067062042653560638" green="0.13338275253772736" blue="0.18701528012752533" alpha="1" colorSpace="calibratedRGB"/>
@@ -121,17 +135,10 @@
                                 </items>
                                 <color key="barTintColor" red="0.067062042653560638" green="0.13338275253772736" blue="0.18701528012752533" alpha="1" colorSpace="calibratedRGB"/>
                             </toolbar>
-                            <button tag="2" contentMode="scaleAspectFit" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fRx-QP-7Su" userLabel="ctrlBtn">
-                                <rect key="frame" x="0.0" y="376" width="320" height="98"/>
-                                <color key="backgroundColor" red="0.94509804249999996" green="0.77254903320000001" blue="0.070588238540000001" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="27"/>
-                                <state key="normal" image="PlayBtnRoundSunFlowerBtnOnly.png">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <segue destination="xz1-qg-4jT" kind="modal" identifier="moveToPlayVC" modalTransitionStyle="crossDissolve" id="dnt-X1-NKi"/>
-                                </connections>
-                            </button>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TFc-KJ-FbI" userLabel="ADBannerSample">
+                                <rect key="frame" x="0.0" y="518" width="320" height="50"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.067062042650000001" green="0.13338275250000001" blue="0.18701528009999999" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
@@ -139,6 +146,7 @@
                     <connections>
                         <outlet property="collectionView" destination="jjl-Ge-y0R" id="TnM-m4-gac"/>
                         <outlet property="ctrlBtn" destination="fRx-QP-7Su" id="IfP-0K-7sf"/>
+                        <outlet property="navigationBar" destination="bve-WN-prz" id="mhj-np-iH4"/>
                         <outlet property="nestViewCtrlBtn" destination="J2f-Zl-dsq" id="3oQ-nP-T8T"/>
                         <outlet property="previewIcon" destination="Bg4-9g-yWL" id="OtI-1r-vhN"/>
                         <outlet property="previewImageView" destination="v9w-6V-fkw" id="xWF-RR-zP0"/>

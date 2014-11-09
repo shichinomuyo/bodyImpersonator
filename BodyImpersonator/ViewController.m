@@ -26,6 +26,7 @@ static const NSInteger kMAX_ITEM_NUMBER = 9;
 @property (weak, nonatomic) IBOutlet UIImageView *selectedPhotoImage; // secondVCへの画像データ渡し用
 // IBOutlet collectionView
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (strong, nonatomic) IBOutlet UINavigationBar *navigationBar;
 
 // previewImageViewの表示をコントールするために宣言
 @property (weak, nonatomic) IBOutlet UIButton *nestViewCtrlBtn;
@@ -125,7 +126,7 @@ static const NSInteger kMAX_ITEM_NUMBER = 9;
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
     // 広告表示
     //    [self viewAdBanners];
     NSLog(@"最初のviewDidLoad");
@@ -134,8 +135,46 @@ static const NSInteger kMAX_ITEM_NUMBER = 9;
     if (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_6_1) {
         self.naviBarHeight.constant = 64;
     }
-    // collectionViewにヘッダーを追加
- //   [_collectionView registerClass:[combineIconLogo class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"collectionViewHeader"];
+
+    [self pushImageOnNavigationBar:self.navigationBar :[UIImage imageNamed:@"karadamonomaneLogo3@2x.png"]];
+}
+
+// NavigationBarに画像を配置 高さ調整
+- (void)pushImageOnNavigationBar:(UINavigationBar *)navi Image:(UIImage *)image Height:(CGFloat)height
+{
+    // navigationBarMainに画像を設定
+    // イメージのサイズを調節
+    CGSize imageSize = CGSizeMake(image.size.width,image.size.height);
+    CGSize size = CGSizeMake(imageSize.width * (height / imageSize.height), height);
+    
+    NSLog(@"imagesize(%.2f,%.2f)",image.size.width,image.size.height);
+    UIImageView *imgView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, size.width, height)];
+    imgView.image = image;
+    
+    [imgView setContentMode:UIViewContentModeScaleAspectFit];
+    // navigationItemに設定
+    UINavigationItem *navigationItemIcon = [[UINavigationItem alloc]init];
+    navigationItemIcon.titleView = imgView;
+    [navi pushNavigationItem:navigationItemIcon animated:YES];
+    
+}
+
+// NavigationBarに画像を配置 高さ調整なし
+- (void)pushImageOnNavigationBar:(UINavigationBar *)navi :(UIImage *)image
+{
+    // navigationBarMainに画像を設定
+    // イメージのサイズを調節
+    CGSize imageSize = CGSizeMake(image.size.width,image.size.height);
+    
+    NSLog(@"imagesize(%.2f,%.2f)",image.size.width,image.size.height);
+    UIImageView *imgView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, imageSize.width, imageSize.height)];
+    imgView.image = image;
+    
+    [imgView setContentMode:UIViewContentModeScaleAspectFit];
+    // navigationItemに設定
+    UINavigationItem *navigationItemIcon = [[UINavigationItem alloc]init];
+    navigationItemIcon.titleView = imgView;
+    [navi pushNavigationItem:navigationItemIcon animated:YES];
 }
 
 
@@ -665,8 +704,6 @@ static const NSInteger kMAX_ITEM_NUMBER = 9;
         secondVC *sVC = [self.storyboard instantiateViewControllerWithIdentifier:@"secondVC"];
         sVC.selectedImage = image;
         [_imagePicker presentViewController:sVC animated:YES completion:nil];
-        //        [_imagePicker dismissViewControllerAnimated:YES completion:nil];
-        //       [self.navigationController pushViewController:sVC animated:YES];
         
     }
     else{
@@ -1018,6 +1055,6 @@ static const NSInteger kMAX_ITEM_NUMBER = 9;
 // ステータスバーの文字色を設定
 - (UIStatusBarStyle)preferredStatusBarStyle {
     return UIStatusBarStyleLightContent; //文字を白くする
-   //    return UIStatusBarStyleDefault; // デフォルト値（文字色は黒色）
+//       return UIStatusBarStyleDefault; // デフォルト値（文字色は黒色）
 }
 @end
