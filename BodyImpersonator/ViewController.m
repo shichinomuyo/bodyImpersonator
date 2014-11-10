@@ -20,6 +20,8 @@ static const NSInteger kMAX_ITEM_NUMBER = 9;
 }
 
 // IBOutlet Btn
+
+- (IBAction)searchBtn:(UIBarButtonItem *)sender;
 @property (weak, nonatomic) IBOutlet UIButton *ctrlBtn;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *previewIcon;
 // IBOutlet Image
@@ -125,7 +127,7 @@ static const NSInteger kMAX_ITEM_NUMBER = 9;
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    
+    // ナビゲーションコントローラのステータスバーの透過表示が気に入らないので隠す。
     [self.navigationController setNavigationBarHidden:YES animated:YES];
     // 広告表示
     //    [self viewAdBanners];
@@ -136,7 +138,7 @@ static const NSInteger kMAX_ITEM_NUMBER = 9;
         self.naviBarHeight.constant = 64;
     }
 
-    [self pushImageOnNavigationBar:self.navigationBar :[UIImage imageNamed:@"karadamonomaneLogo3@2x.png"]];
+  //  [self pushImageOnNavigationBar:self.navigationBar :[UIImage imageNamed:@"NavigationBarTitle@2x.png"]];
 }
 
 // NavigationBarに画像を配置 高さ調整
@@ -193,14 +195,7 @@ static const NSInteger kMAX_ITEM_NUMBER = 9;
 // ビューが表示されたときに実行される
 - (void)viewDidAppear:(BOOL)animated
 {
-//    [self.collectionView performBatchUpdates:^{
-//        NSLog(@"入ってる");
-//        [UIView animateWithDuration:0
-//                              delay:0 options:UIViewAnimationOptionCurveEaseInOut
-//                         animations:^{
-//                             [_selectedCell.imageViewSelectedFrame setAlpha:1];
-//                         } completion:nil];
-//    } completion:nil];
+
 
     // 再生回数が3の倍数かつインタースティシャル広告の準備ができていればインタースティシャル広告表示
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -330,6 +325,7 @@ static const NSInteger kMAX_ITEM_NUMBER = 9;
 // セルの内容
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     NSLog(@"-----------------------------------------");
+
     // セルを作成する
     BICollectionViewCell *cell;
     cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
@@ -356,23 +352,33 @@ static const NSInteger kMAX_ITEM_NUMBER = 9;
         UIImage *image = [UIImage imageWithContentsOfFile:filePath];
         NSLog(@"filePath:%@",filePath);
         NSLog(@"imageName:%@",imageName);
+
+        
         if ([imageName isEqualToString:selectedImageName]) {
             _selectedIndexPath = indexPath; // 画像追加時はうまく動く
             _selectedImage = image;
             
-            // _selectedCellを利用
-            _selectedCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
+
             // frameをつける
             UIImage *imageFrame = [UIImage imageNamed:@"SelectTag@2x.png"];
             [cell.imageViewSelectedFrame setImage:imageFrame];
-            [cell.imageViewSelectedFrame setAlpha:1];
-//            [_selectedCell.imageView setImage:image];
-            
+            [cell.imageViewSelectedFrame setAlpha:0.4];
+
+
+            [UIView animateWithDuration:0.6
+                             animations:^{
+                                  [cell.imageViewSelectedFrame setAlpha:1];
+                             }
+                             completion:^(BOOL finished){
+                                 
+                             }];
+            [_selectedCell.imageView setImage:image];
             NSLog(@"選択中Frameつけるお");
             NSLog(@"imageviewSizeSelected:(%.2f,%.2f)",cell.imageView.frame.size.width,cell.imageView.frame.size.height);
             NSLog(@"imageviewFrameRect:(%.2f,%.2f,%.2f,%.2f)",cell.imageViewFrame.frame.origin.x, cell.imageViewFrame.frame.origin.y, cell.imageViewFrame.frame.size.width,cell.imageViewFrame.frame.size.height);
         }
-        [cell.imageView setImage:image];
+                [cell.imageView setImage:image];
+
 
     }
     return cell;
@@ -752,6 +758,7 @@ static const NSInteger kMAX_ITEM_NUMBER = 9;
     }
     
     [defaults synchronize];
+    
     [self.collectionView reloadData];
     
     
@@ -871,23 +878,22 @@ static const NSInteger kMAX_ITEM_NUMBER = 9;
     _selectedImage = image;
 
     [defaults setObject:imageName forKey:@"KEY_selectedImageName"];
-    _selectedIndexPath = indexPath;
-    
     [defaults synchronize];
+    
+    _selectedIndexPath = indexPath;
     [self.collectionView selectItemAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
     [self.collectionView reloadData];
-    
-    // デバイスがiphoneであるかそうでないかで分岐
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
-        NSLog(@"iPhoneの処理");
-        // 最初の画面に戻る
-        [self dismissViewControllerAnimated:YES completion:nil];
-    }
-    else{
-        NSLog(@"iPadの処理");
-        [_imagePopController dismissPopoverAnimated:YES];
-    }
-    
+
+//    // デバイスがiphoneであるかそうでないかで分岐
+//    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
+//        NSLog(@"iPhoneの処理");
+//        // 最初の画面に戻る
+//        [self dismissViewControllerAnimated:YES completion:nil];
+//    }
+//    else{
+//        NSLog(@"iPadの処理");
+//        [_imagePopController dismissPopoverAnimated:YES];
+//    }
     
 }
 - (void)actionRemoveItem:(NSIndexPath *)indexPath{
@@ -931,7 +937,9 @@ static const NSInteger kMAX_ITEM_NUMBER = 9;
             // コレクションビューから項目を削除する
             [self.collectionView deleteItemsAtIndexPaths:[self.collectionView indexPathsForSelectedItems]];
         } completion:^(BOOL finish){
+
             [self.collectionView reloadData]; // 明示的にreloadしてセルを再度生成
+
         }];
     }
 }
@@ -1056,5 +1064,12 @@ static const NSInteger kMAX_ITEM_NUMBER = 9;
 - (UIStatusBarStyle)preferredStatusBarStyle {
     return UIStatusBarStyleLightContent; //文字を白くする
 //       return UIStatusBarStyleDefault; // デフォルト値（文字色は黒色）
+}
+// サファリを起動
+- (IBAction)searchBtn:(UIBarButtonItem *)sender {
+    
+    NSURL *url = [NSURL URLWithString:@"https://www.google.com/search?tbm=isch&q="];
+
+    [[UIApplication sharedApplication] openURL:url];
 }
 @end

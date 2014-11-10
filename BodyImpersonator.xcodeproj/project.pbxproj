@@ -379,6 +379,7 @@
 		567DF0501A0BA0040092165D /* PreviewIcon2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 567DF04C1A0BA0040092165D /* PreviewIcon2@2x.png */; };
 		567DF0511A0BA0040092165D /* SelectTag@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 567DF04D1A0BA0040092165D /* SelectTag@2x.png */; };
 		5686757B19BED3C900AF524A /* secondVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5686757A19BED3C900AF524A /* secondVC.m */; };
+		568B95EF1A11108700368272 /* NavigationBarTitle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 568B95EE1A11108700368272 /* NavigationBarTitle@2x.png */; };
 		569B431519FF79C400EF21EC /* EditorOutline320x568.png in Resources */ = {isa = PBXBuildFile; fileRef = 569B431419FF79C400EF21EC /* EditorOutline320x568.png */; };
 		569B43171A008F7100EF21EC /* YellowFrame188x188.png in Resources */ = {isa = PBXBuildFile; fileRef = 569B43161A008F7100EF21EC /* YellowFrame188x188.png */; };
 		569B43191A00902900EF21EC /* WhiteFrame188x188.png in Resources */ = {isa = PBXBuildFile; fileRef = 569B43181A00902900EF21EC /* WhiteFrame188x188.png */; };
@@ -526,6 +527,7 @@
 		567DF04D1A0BA0040092165D /* SelectTag@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SelectTag@2x.png"; path = "Images/@2x/SelectTag@2x.png"; sourceTree = "<group>"; };
 		5686757919BED3C900AF524A /* secondVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = secondVC.h; sourceTree = "<group>"; };
 		5686757A19BED3C900AF524A /* secondVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = secondVC.m; sourceTree = "<group>"; };
+		568B95EE1A11108700368272 /* NavigationBarTitle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "NavigationBarTitle@2x.png"; path = "Images/@2x/NavigationBarTitle@2x.png"; sourceTree = "<group>"; };
 		569B431419FF79C400EF21EC /* EditorOutline320x568.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = EditorOutline320x568.png; sourceTree = "<group>"; };
 		569B43161A008F7100EF21EC /* YellowFrame188x188.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = YellowFrame188x188.png; sourceTree = "<group>"; };
 		569B43181A00902900EF21EC /* WhiteFrame188x188.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WhiteFrame188x188.png; sourceTree = "<group>"; };
@@ -1093,6 +1095,7 @@
 		56C9954B1A09F6CA0006477D /* @2x */ = {
 			isa = PBXGroup;
 			children = (
+				568B95EE1A11108700368272 /* NavigationBarTitle@2x.png */,
 				565E97D31A0C8A6600C18266 /* PlayBtnRoundSunFlowerBtnOnly@2x.png */,
 				565E97D11A0C887800C18266 /* PlayBtnRoundSunFlower@2x.png */,
 				565E97CF1A0C85A200C18266 /* PlayBtnSolidSunFlower@2x.png */,
@@ -1310,6 +1313,11 @@
 				TargetAttributes = {
 					56427E1219AB823200B516A0 = {
 						DevelopmentTeam = 3UR743JQHM;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 					56427E3619AB823200B516A0 = {
 						TestTargetID = 56427E1219AB823200B516A0;
@@ -1359,6 +1367,7 @@
 				564AD9F919F1F3E20069901D /* PlayBtn.png in Resources */,
 				56A4B1EA19F93E6A0009CC37 /* BarButtonPreviewIconx40.png in Resources */,
 				565E97D41A0C8A6600C18266 /* PlayBtnRoundSunFlowerBtnOnly@2x.png in Resources */,
+				568B95EF1A11108700368272 /* NavigationBarTitle@2x.png in Resources */,
 				565E97CE1A0C84B400C18266 /* PlayBtnSolid@2x.png in Resources */,
 				56427E2D19AB823200B516A0 /* Main_iPad.storyboard in Resources */,
 				56A4B1F819FB2C950009CC37 /* CamIcon44x44.png in Resources */,

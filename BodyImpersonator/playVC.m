@@ -20,6 +20,7 @@
     // アニメーションタイマー
 
     NSTimer *_flashAnimationTimer; // flashAnimation用タイマー
+    
 }
 
 
@@ -37,9 +38,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    //バックグラウンド時の対応
     
 
+    //バックグラウンド時の対応
     
     if (&UIApplicationDidEnterBackgroundNotification) {
         
@@ -70,9 +71,7 @@
          object:[UIApplication sharedApplication]];
         
     }
-
-    
-    // (audioplayer)再生する効果音のパスを取得しインスタンス生成
+     // (audioplayer)再生する効果音のパスを取得しインスタンス生成
     [self initializeAVAudioPlayers];
     // selectedPhotoImageを非表示に設定
     [self.BFCV.knobImageView setHidden:1];
@@ -102,6 +101,7 @@
     NSString *path_roll = [[NSBundle mainBundle] pathForResource:@"roll13" ofType:@"mp3"];
     NSURL *url_roll = [NSURL fileURLWithPath:path_roll];
     _rollPlayerTmp = [[AVAudioPlayer alloc] initWithContentsOfURL:url_roll error:NULL];
+
     
     // ロールalt
     _rollPlayerAlt = [[AVAudioPlayer alloc] initWithContentsOfURL:url_roll error:NULL];
@@ -142,6 +142,7 @@
                                                userInfo:nil
                                                 repeats:YES];
     } else if(_rollPlayerAlt.playing) {
+
         // tmpを代替プレイヤーとして再生
         [_rollPlayerTmp startAltPlayerSetStartTime:1.0 setVolume:0.4];
         
@@ -286,6 +287,7 @@
     
     [_playTimer invalidate];
     [self animationTimerInvalidate];
+    
 }
 
 - (void)appWillEnterForeground:(NSNotification *)notification{
@@ -298,5 +300,40 @@
 {
     return YES;
 }
+
+-(void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag{
+    if (player == _crashPlayer) {
+        NSLog(@"detected");
+    }
+      NSLog(@"detected");
+}
+//- (void) onAudioSessionEvent: (NSNotification *) notification
+//{
+//    //Check the type of notification, especially if you are sending multiple AVAudioSession events here
+//    if ([notification.name isEqualToString:AVAudioSessionInterruptionNotification]) {
+//        NSLog(@"Interruption notification received!");
+//        
+//        //Check to see if it was a Begin interruption
+//        if ([[notification.userInfo valueForKey:AVAudioSessionInterruptionTypeKey] isEqualToNumber:[NSNumber numberWithInt:AVAudioSessionInterruptionTypeBegan]]) {
+//            NSLog(@"Interruption began!");
+//            
+//        } else {
+//            NSLog(@"Interruption ended!");
+//            //Resume your audio
+//        }
+//    }
+//}
+
+-(void)audioPlayerBeginInterruption:(AVAudioPlayer *)player{
+    
+}
+
+-(void)audioPlayerEndInterruption:(AVAudioPlayer *)player withOptions:(NSUInteger)flags{
+    
+}
+
+
+
+
 
 @end
