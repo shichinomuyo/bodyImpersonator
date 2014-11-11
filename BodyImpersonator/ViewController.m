@@ -138,7 +138,7 @@ static const NSInteger kMAX_ITEM_NUMBER = 9;
         self.naviBarHeight.constant = 64;
     }
 
-  //  [self pushImageOnNavigationBar:self.navigationBar :[UIImage imageNamed:@"NavigationBarTitle@2x.png"]];
+    [self pushImageOnNavigationBar:self.navigationBar :[UIImage imageNamed:@"NavigationBarTitle2@2x.png"]];
 }
 
 // NavigationBarに画像を配置 高さ調整

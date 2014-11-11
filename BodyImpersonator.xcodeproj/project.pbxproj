@@ -380,6 +380,10 @@
 		567DF0511A0BA0040092165D /* SelectTag@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 567DF04D1A0BA0040092165D /* SelectTag@2x.png */; };
 		5686757B19BED3C900AF524A /* secondVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5686757A19BED3C900AF524A /* secondVC.m */; };
 		568B95EF1A11108700368272 /* NavigationBarTitle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 568B95EE1A11108700368272 /* NavigationBarTitle@2x.png */; };
+		568B95F51A11CF5600368272 /* BISettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 568B95F41A11CF5600368272 /* BISettingViewController.m */; };
+		568B95F81A11D50A00368272 /* BIOtherAppsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 568B95F71A11D50A00368272 /* BIOtherAppsTableViewCell.m */; };
+		568B95FC1A11FDC100368272 /* NavigationBarTitle2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 568B95FB1A11FDC100368272 /* NavigationBarTitle2@2x.png */; };
+		568B95FE1A11FF1700368272 /* ICONRollToCrashForLink60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 568B95FD1A11FF1700368272 /* ICONRollToCrashForLink60@2x.png */; };
 		569B431519FF79C400EF21EC /* EditorOutline320x568.png in Resources */ = {isa = PBXBuildFile; fileRef = 569B431419FF79C400EF21EC /* EditorOutline320x568.png */; };
 		569B43171A008F7100EF21EC /* YellowFrame188x188.png in Resources */ = {isa = PBXBuildFile; fileRef = 569B43161A008F7100EF21EC /* YellowFrame188x188.png */; };
 		569B43191A00902900EF21EC /* WhiteFrame188x188.png in Resources */ = {isa = PBXBuildFile; fileRef = 569B43181A00902900EF21EC /* WhiteFrame188x188.png */; };
@@ -528,6 +532,12 @@
 		5686757919BED3C900AF524A /* secondVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = secondVC.h; sourceTree = "<group>"; };
 		5686757A19BED3C900AF524A /* secondVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = secondVC.m; sourceTree = "<group>"; };
 		568B95EE1A11108700368272 /* NavigationBarTitle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "NavigationBarTitle@2x.png"; path = "Images/@2x/NavigationBarTitle@2x.png"; sourceTree = "<group>"; };
+		568B95F31A11CF5600368272 /* BISettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BISettingViewController.h; sourceTree = "<group>"; };
+		568B95F41A11CF5600368272 /* BISettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BISettingViewController.m; sourceTree = "<group>"; };
+		568B95F61A11D50A00368272 /* BIOtherAppsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BIOtherAppsTableViewCell.h; sourceTree = "<group>"; };
+		568B95F71A11D50A00368272 /* BIOtherAppsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BIOtherAppsTableViewCell.m; sourceTree = "<group>"; };
+		568B95FB1A11FDC100368272 /* NavigationBarTitle2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "NavigationBarTitle2@2x.png"; path = "Images/@2x/NavigationBarTitle2@2x.png"; sourceTree = "<group>"; };
+		568B95FD1A11FF1700368272 /* ICONRollToCrashForLink60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ICONRollToCrashForLink60@2x.png"; path = "Images/@2x/OtherAppsIcon/ICONRollToCrashForLink60@2x.png"; sourceTree = "<group>"; };
 		569B431419FF79C400EF21EC /* EditorOutline320x568.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = EditorOutline320x568.png; sourceTree = "<group>"; };
 		569B43161A008F7100EF21EC /* YellowFrame188x188.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = YellowFrame188x188.png; sourceTree = "<group>"; };
 		569B43181A00902900EF21EC /* WhiteFrame188x188.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WhiteFrame188x188.png; sourceTree = "<group>"; };
@@ -904,6 +914,10 @@
 				56427E2B19AB823200B516A0 /* Main_iPad.storyboard */,
 				56427E2E19AB823200B516A0 /* ViewController.h */,
 				56427E2F19AB823200B516A0 /* ViewController.m */,
+				568B95F31A11CF5600368272 /* BISettingViewController.h */,
+				568B95F41A11CF5600368272 /* BISettingViewController.m */,
+				568B95F61A11D50A00368272 /* BIOtherAppsTableViewCell.h */,
+				568B95F71A11D50A00368272 /* BIOtherAppsTableViewCell.m */,
 				565E97D81A0D0B4000C18266 /* BICollectionReusableView.h */,
 				565E97D91A0D0B4000C18266 /* BICollectionReusableView.m */,
 				56E14FFB19FF38930029B81D /* playVC.h */,
@@ -1095,6 +1109,8 @@
 		56C9954B1A09F6CA0006477D /* @2x */ = {
 			isa = PBXGroup;
 			children = (
+				568B95FD1A11FF1700368272 /* ICONRollToCrashForLink60@2x.png */,
+				568B95FB1A11FDC100368272 /* NavigationBarTitle2@2x.png */,
 				568B95EE1A11108700368272 /* NavigationBarTitle@2x.png */,
 				565E97D31A0C8A6600C18266 /* PlayBtnRoundSunFlowerBtnOnly@2x.png */,
 				565E97D11A0C887800C18266 /* PlayBtnRoundSunFlower@2x.png */,
@@ -1372,6 +1388,7 @@
 				56427E2D19AB823200B516A0 /* Main_iPad.storyboard in Resources */,
 				56A4B1F819FB2C950009CC37 /* CamIcon44x44.png in Resources */,
 				569B43171A008F7100EF21EC /* YellowFrame188x188.png in Resources */,
+				568B95FC1A11FDC100368272 /* NavigationBarTitle2@2x.png in Resources */,
 				56427E3219AB823200B516A0 /* Images.xcassets in Resources */,
 				56A4B1E419F93C800009CC37 /* PlayBtn02.png in Resources */,
 				56427ECF19AB923C00B516A0 /* libAdapterNend_readme.txt in Resources */,
@@ -1381,6 +1398,7 @@
 				56A4B1DA19F772260009CC37 /* image4.png in Resources */,
 				569B43311A03E41300EF21EC /* logo94x44.png in Resources */,
 				56A4B1FA19FB2C950009CC37 /* PreviewIcon44x44.png in Resources */,
+				568B95FE1A11FF1700368272 /* ICONRollToCrashForLink60@2x.png in Resources */,
 				564AD9F619F1F3E20069901D /* CamIcon.png in Resources */,
 				56A4B1E919F93E6A0009CC37 /* BarButtonOrgIconx40.png in Resources */,
 				56A4B1D919F772260009CC37 /* image3.png in Resources */,
@@ -1599,7 +1617,9 @@
 				569B43291A00BCB700EF21EC /* BICollectionViewCell.m in Sources */,
 				569B43231A00A89300EF21EC /* FrameOutCollectionViewFlowLayout.m in Sources */,
 				56427EA119AB895300B516A0 /* UIImageView+Animation.m in Sources */,
+				568B95F51A11CF5600368272 /* BISettingViewController.m in Sources */,
 				56C9954A1A088C180006477D /* BugFixContainerView.m in Sources */,
+				568B95F81A11D50A00368272 /* BIOtherAppsTableViewCell.m in Sources */,
 				56427E2719AB823200B516A0 /* AppDelegate.m in Sources */,
 				56427E2319AB823200B516A0 /* main.m in Sources */,
 				564AD77B19E3B4FB0069901D /* previewVC.m in Sources */,
