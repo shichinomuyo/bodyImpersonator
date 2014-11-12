@@ -384,6 +384,8 @@
 		568B95F81A11D50A00368272 /* BIOtherAppsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 568B95F71A11D50A00368272 /* BIOtherAppsTableViewCell.m */; };
 		568B95FC1A11FDC100368272 /* NavigationBarTitle2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 568B95FB1A11FDC100368272 /* NavigationBarTitle2@2x.png */; };
 		568B95FE1A11FF1700368272 /* ICONRollToCrashForLink60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 568B95FD1A11FF1700368272 /* ICONRollToCrashForLink60@2x.png */; };
+		568B96011A12350500368272 /* BIFeedbakAndActionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 568B96001A12350500368272 /* BIFeedbakAndActionCell.m */; };
+		568B96041A13507300368272 /* ShareIcon60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 568B96031A13507300368272 /* ShareIcon60@2x.png */; };
 		569B431519FF79C400EF21EC /* EditorOutline320x568.png in Resources */ = {isa = PBXBuildFile; fileRef = 569B431419FF79C400EF21EC /* EditorOutline320x568.png */; };
 		569B43171A008F7100EF21EC /* YellowFrame188x188.png in Resources */ = {isa = PBXBuildFile; fileRef = 569B43161A008F7100EF21EC /* YellowFrame188x188.png */; };
 		569B43191A00902900EF21EC /* WhiteFrame188x188.png in Resources */ = {isa = PBXBuildFile; fileRef = 569B43181A00902900EF21EC /* WhiteFrame188x188.png */; };
@@ -538,6 +540,9 @@
 		568B95F71A11D50A00368272 /* BIOtherAppsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BIOtherAppsTableViewCell.m; sourceTree = "<group>"; };
 		568B95FB1A11FDC100368272 /* NavigationBarTitle2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "NavigationBarTitle2@2x.png"; path = "Images/@2x/NavigationBarTitle2@2x.png"; sourceTree = "<group>"; };
 		568B95FD1A11FF1700368272 /* ICONRollToCrashForLink60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ICONRollToCrashForLink60@2x.png"; path = "Images/@2x/OtherAppsIcon/ICONRollToCrashForLink60@2x.png"; sourceTree = "<group>"; };
+		568B95FF1A12350500368272 /* BIFeedbakAndActionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BIFeedbakAndActionCell.h; sourceTree = "<group>"; };
+		568B96001A12350500368272 /* BIFeedbakAndActionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BIFeedbakAndActionCell.m; sourceTree = "<group>"; };
+		568B96031A13507300368272 /* ShareIcon60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ShareIcon60@2x.png"; path = "Images/@2x/FeedbackAndShareIcon/ShareIcon60@2x.png"; sourceTree = "<group>"; };
 		569B431419FF79C400EF21EC /* EditorOutline320x568.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = EditorOutline320x568.png; sourceTree = "<group>"; };
 		569B43161A008F7100EF21EC /* YellowFrame188x188.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = YellowFrame188x188.png; sourceTree = "<group>"; };
 		569B43181A00902900EF21EC /* WhiteFrame188x188.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WhiteFrame188x188.png; sourceTree = "<group>"; };
@@ -914,10 +919,7 @@
 				56427E2B19AB823200B516A0 /* Main_iPad.storyboard */,
 				56427E2E19AB823200B516A0 /* ViewController.h */,
 				56427E2F19AB823200B516A0 /* ViewController.m */,
-				568B95F31A11CF5600368272 /* BISettingViewController.h */,
-				568B95F41A11CF5600368272 /* BISettingViewController.m */,
-				568B95F61A11D50A00368272 /* BIOtherAppsTableViewCell.h */,
-				568B95F71A11D50A00368272 /* BIOtherAppsTableViewCell.m */,
+				568B96021A12351E00368272 /* BITableView */,
 				565E97D81A0D0B4000C18266 /* BICollectionReusableView.h */,
 				565E97D91A0D0B4000C18266 /* BICollectionReusableView.m */,
 				56E14FFB19FF38930029B81D /* playVC.h */,
@@ -1094,6 +1096,19 @@
 			path = v0.2;
 			sourceTree = "<group>";
 		};
+		568B96021A12351E00368272 /* BITableView */ = {
+			isa = PBXGroup;
+			children = (
+				568B95F31A11CF5600368272 /* BISettingViewController.h */,
+				568B95F41A11CF5600368272 /* BISettingViewController.m */,
+				568B95F61A11D50A00368272 /* BIOtherAppsTableViewCell.h */,
+				568B95F71A11D50A00368272 /* BIOtherAppsTableViewCell.m */,
+				568B95FF1A12350500368272 /* BIFeedbakAndActionCell.h */,
+				568B96001A12350500368272 /* BIFeedbakAndActionCell.m */,
+			);
+			name = BITableView;
+			sourceTree = "<group>";
+		};
 		56A4B1D219F772260009CC37 /* collectionViewTestImages */ = {
 			isa = PBXGroup;
 			children = (
@@ -1109,6 +1124,7 @@
 		56C9954B1A09F6CA0006477D /* @2x */ = {
 			isa = PBXGroup;
 			children = (
+				568B96031A13507300368272 /* ShareIcon60@2x.png */,
 				568B95FD1A11FF1700368272 /* ICONRollToCrashForLink60@2x.png */,
 				568B95FB1A11FDC100368272 /* NavigationBarTitle2@2x.png */,
 				568B95EE1A11108700368272 /* NavigationBarTitle@2x.png */,
@@ -1410,6 +1426,7 @@
 				56427E2119AB823200B516A0 /* InfoPlist.strings in Resources */,
 				565E97CC1A0C817300C18266 /* karadamonomaneLogo3@2x.png in Resources */,
 				56A4B1CB19F4F8200009CC37 /* AppIconInApp32.png in Resources */,
+				568B96041A13507300368272 /* ShareIcon60@2x.png in Resources */,
 				564AD9F719F1F3E20069901D /* Logo.png in Resources */,
 				56427EE519B85A7600B516A0 /* LightsFromCenter.png in Resources */,
 				56A4B1F919FB2C950009CC37 /* OrgIcon44x44.png in Resources */,
@@ -1621,6 +1638,7 @@
 				56C9954A1A088C180006477D /* BugFixContainerView.m in Sources */,
 				568B95F81A11D50A00368272 /* BIOtherAppsTableViewCell.m in Sources */,
 				56427E2719AB823200B516A0 /* AppDelegate.m in Sources */,
+				568B96011A12350500368272 /* BIFeedbakAndActionCell.m in Sources */,
 				56427E2319AB823200B516A0 /* main.m in Sources */,
 				564AD77B19E3B4FB0069901D /* previewVC.m in Sources */,
 				56E14FFD19FF38930029B81D /* playVC.m in Sources */,

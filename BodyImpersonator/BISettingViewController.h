@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BIFeedbakAndActionCell.h"
 #import "BIOtherAppsTableViewCell.h"
 
 @interface BISettingViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>

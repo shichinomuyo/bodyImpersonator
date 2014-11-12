@@ -11,6 +11,8 @@
 @interface BISettingViewController ()
 @property (nonatomic, strong) NSArray *sectionList;
 @property (nonatomic, strong) NSArray *dataSourceAddOn;
+@property (nonatomic, strong) NSArray *dataSourceFeedbackAndShare;
+@property (nonatomic, strong) NSArray *dataSourceFeedbackAndShareImages;
 @property (nonatomic, strong) NSArray *dataSourceOtherApps;
 
 @end
@@ -27,10 +29,13 @@
     self.tableView.dataSource = self;
     
     // section名のListを作成
-    self.sectionList = @[@"Add On", @"Other Apps"];
+    self.sectionList = @[@"Add On",@"Feedback / Share This App", @"Other Apps"];
     // table表示したいデータソースを設定
     self.dataSourceAddOn = @[@"Remove AD"];
+    self.dataSourceFeedbackAndShare = @[@"App Store review", @"Share This App"];
+    self.dataSourceFeedbackAndShareImages = [NSArray arrayWithObjects: @"ShareIcon60@2x.png",@"ShareIcon60@2x.png", nil];
     self.dataSourceOtherApps = @[@"RollToCrash"];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -53,8 +58,9 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
     // Return the number of sections.
-    
-    return 2;
+    NSInteger sectionCount;
+    sectionCount = [self.sectionList count];
+    return sectionCount;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -66,6 +72,9 @@
             dataCount = [self.dataSourceAddOn count];
             break;
         case 1:
+            dataCount = [self.dataSourceFeedbackAndShare count];
+            break;
+        case 2:
             dataCount = [self.dataSourceOtherApps count];
             break;
         default:
@@ -76,32 +85,9 @@
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSArray *identifiers = @[@"Cell",@"CellOtherApps"];
+    NSArray *identifiers = @[@"Cell", @"CellFeedbackAndShare", @"CellOtherApps"];
     NSString *CellIdentifier = identifiers[indexPath.section];
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-
-    //    [self.tableView registerClass:[BIOtherAppsTableViewCell class] をしてるので以下は不要
-//    if (cell == nil) {
-//        switch (indexPath.row) {
-//            case 0:
-//                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-//                break;
-//            case 1:
-//                cell = [[BIOtherAppsTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-//                NSLog(@"dekimasen1");
-//                break;
-////            case 2:
-////                cell = [[CustomCell2 alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-////                break;
-////            case 3:
-////                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-////                break;
-//            default:
-//                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-//                break;
-//        }
-//    }
-
     
     switch (indexPath.section) {
         case 0:
@@ -109,6 +95,21 @@
             NSLog(@"kanryo");
             break;
         case 1:
+        {
+            
+            BIFeedbakAndActionCell *feedbackAndShare = (BIFeedbakAndActionCell *)cell;
+            
+            UIImageView *imageViewFeedbackAction = (UIImageView *)[feedbackAndShare viewWithTag:1];
+            UILabel *labelFeedbackAction = (UILabel *)[feedbackAndShare viewWithTag:2];
+            UIImage *image = [UIImage imageNamed:@"ShareIcon60@2x.png"];//[self.dataSourceFeedbackAndShareImages objectAtIndex:indexPath.row]];
+            [imageViewFeedbackAction setImage:[UIImage imageNamed:@"ICONRollToCrashForLink60@2x.png"]];
+            labelFeedbackAction.text = self.dataSourceFeedbackAndShare[indexPath.row];
+        }
+
+
+            cell.textLabel.text = self.dataSourceFeedbackAndShare[indexPath.row];
+            break;
+        case 2:
         {
 
             BIOtherAppsTableViewCell *otherAppsCell = (BIOtherAppsTableViewCell *)cell;
@@ -146,9 +147,12 @@
     CGFloat rowHeight;
     switch (indexPath.section) {
         case 0:
-            rowHeight = 44.0;
+            rowHeight = [BIOtherAppsTableViewCell rowHeight];
             break;
         case 1:
+            rowHeight = [BIOtherAppsTableViewCell rowHeight];
+            break;
+        case 2:
             rowHeight = [BIOtherAppsTableViewCell rowHeight];
             break;
         default:
@@ -156,5 +160,63 @@
     }
 
     return rowHeight;
+}
+
+// tableCell is tapped
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // cellがタップされた際の処理
+    switch (indexPath.section) {
+        case 0:
+            
+            break;
+        case 1:
+            if (indexPath.row == 0) { // App Store Review
+                [self actionPostAppStoreReview];
+            }else if (indexPath.row == 1) { // PostActivities
+                [self actionPostActivity];
+            }
+            break;
+        case 2:
+            if (indexPath.row == 0) {
+                [self actionJumpToRollToCrash];
+            }
+            break;
+        default:
+            break;
+    }
+    
+}
+
+// actions
+- (void)actionPostActivity{
+    NSString *textToShare = @"#KARADA MONOMANIZER NOW!";
+    NSString *urlString = @"http://itunes.apple.com/app/id912275000"; // KARADAMONOMANIZERのidを追加する
+    NSURL *url = [NSURL URLWithString:urlString];
+    NSArray *activityItems = [[NSArray alloc] initWithObjects:textToShare,url, nil];
+    // 連携できるアプリを取得する
+    UIActivity *activity = [[UIActivity alloc]init];
+    NSArray *activities = @[activity];
+    // アクティビティコントローラーを作る
+    UIActivityViewController *activityVC = [[UIActivityViewController alloc]initWithActivityItems:activityItems applicationActivities:activities];
+    // Add to Reading Listをactivityから除外
+    NSArray *excludedActivityTypes = @[UIActivityTypeAddToReadingList];
+    activityVC.excludedActivityTypes = excludedActivityTypes;
+
+    // アクティビティコントローラーを表示する
+    [self presentViewController:activityVC animated:YES completion:nil];
+    
+}
+
+- (void)actionPostAppStoreReview{
+    NSString *urlString = @"itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=912275000";
+    NSURL *url = [NSURL URLWithString:urlString];
+    [[UIApplication sharedApplication] openURL:url];
+}
+
+- (void)actionJumpToRollToCrash{
+    NSString *urlString = @"itms-apps://itunes.apple.com/app/id912275000";
+    NSURL *url = [NSURL URLWithString:urlString];
+    [[UIApplication sharedApplication] openURL:url];
 }
 @end

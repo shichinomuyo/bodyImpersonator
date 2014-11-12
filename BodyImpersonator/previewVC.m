@@ -147,10 +147,13 @@
 - (IBAction)actionBtn:(UIBarButtonItem *)sender {
     NSArray *activityItems = @[_selectedImage];
     // 連携できるアプリを取得する
-//    UIActivity *activity = [[UIActivity alloc]init]; // twitterとか外部に送信できると著作権的に問題ありなのでnil
+//    UIActivity *activity = [[UIActivity alloc]init]; // twitter等画像を共有はさせない
 //    NSArray *activities = @[activity];
     // アクティビティコントローラーを作る
-    UIActivityViewController *activityVC = [[UIActivityViewController alloc]initWithActivityItems:activityItems applicationActivities:nil];
+    UIActivityViewController *activityVC = [[UIActivityViewController alloc]initWithActivityItems:activityItems applicationActivities:nil];// 画像を共有されないようにnil
+    // 無効にする機能を指定
+    NSArray *excludedActivityTypes =@[UIActivityTypePostToTwitter,UIActivityTypePostToFacebook,UIActivityTypePostToFlickr,UIActivityTypePostToTencentWeibo,UIActivityTypePostToVimeo,UIActivityTypePostToVimeo];
+    activityVC.excludedActivityTypes = excludedActivityTypes;
     // アクティビティコントローラーを表示する
     [self presentViewController:activityVC animated:YES completion:nil];
 }
