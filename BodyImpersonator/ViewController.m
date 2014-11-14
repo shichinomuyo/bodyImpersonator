@@ -16,7 +16,7 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     UIImagePickerController *_imagePicker;
     UIPopoverController *_imagePopController;
     BICollectionViewCell *_selectedCell;
-    BICollectionReusableView *_collectionHeaderView;
+
 
 }
 
@@ -326,7 +326,7 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     // セルを作成する
     BICollectionViewCell *cell;
     cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
-    //    UIImageView *imageView = (UIImageView *)[cell viewWithTag:1]; // cell.imageViewで置き換え済み
+
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSArray *imageNames = [defaults objectForKey:@"KEY_imageNames"];
     
@@ -383,18 +383,18 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
 
 // セクションヘッダーに画像を追加
 
-- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath{
-    UICollectionReusableView *reusableView = nil;
-    if (kind == UICollectionElementKindSectionHeader) {
-        _collectionHeaderView = [self.collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"header" forIndexPath:indexPath];
-        // headerに画像をセット
-        [_collectionHeaderView.imageView setImage:[UIImage imageNamed:@"karadamonomaneLogo3@2x.png"]];
-        _collectionHeaderView.imageView.tintColor =  RGB(231, 76, 69);//ALIZALIN
-
-        reusableView = _collectionHeaderView;
-    }
-    return reusableView;
-}
+//- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath{
+//    UICollectionReusableView *reusableView = nil;
+//    if (kind == UICollectionElementKindSectionHeader) {
+//        _collectionHeaderView = [self.collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"header" forIndexPath:indexPath];
+//        // headerに画像をセット
+//        [_collectionHeaderView.imageView setImage:[UIImage imageNamed:@"karadamonomaneLogo3@2x.png"]];
+//        _collectionHeaderView.imageView.tintColor =  RGB(231, 76, 69);//ALIZALIN
+//
+//        reusableView = _collectionHeaderView;
+//    }
+//    return reusableView;
+//}
 
 #pragma mark -
 #pragma mark touchAction

@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface BICollectionReusableView : UICollectionReusableView
-@property (strong, nonatomic) IBOutlet UIImageView *imageView;
+
 
 @end

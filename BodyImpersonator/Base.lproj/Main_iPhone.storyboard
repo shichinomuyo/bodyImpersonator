@@ -60,7 +60,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="EgR-uf-nHg" customClass="FrameOutCollectionViewFlowLayout">
                                     <size key="itemSize" width="106" height="106"/>
-                                    <size key="headerReferenceSize" width="50" height="1"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="1" minY="0.0" maxX="1" maxY="0.0"/>
                                 </collectionViewFlowLayout>
@@ -91,18 +91,6 @@
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
-                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="header" id="Cp6-7A-2H4" customClass="BICollectionReusableView">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="1"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ocx-5j-6fl">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="38"/>
-                                        </imageView>
-                                    </subviews>
-                                    <connections>
-                                        <outlet property="imageView" destination="Ocx-5j-6fl" id="YAA-no-8rA"/>
-                                    </connections>
-                                </collectionReusableView>
                                 <connections>
                                     <outlet property="dataSource" destination="vXZ-lx-hvc" id="TAb-mE-1Wv"/>
                                     <outlet property="delegate" destination="vXZ-lx-hvc" id="A7G-aX-0pg"/>

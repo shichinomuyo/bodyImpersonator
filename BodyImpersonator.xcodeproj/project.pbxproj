@@ -917,10 +917,7 @@
 				56427EA019AB895300B516A0 /* UIImageView+Animation.m */,
 				56A4B1FD19FB70C40009CC37 /* NSArray+IndexHelper.h */,
 				56A4B1FE19FB70C40009CC37 /* NSArray+IndexHelper.m */,
-				569B43211A00A89300EF21EC /* FrameOutCollectionViewFlowLayout.h */,
-				569B43221A00A89300EF21EC /* FrameOutCollectionViewFlowLayout.m */,
-				569B43271A00BCB700EF21EC /* BICollectionViewCell.h */,
-				569B43281A00BCB700EF21EC /* BICollectionViewCell.m */,
+				568B96151A15DB4000368272 /* BICollectionView */,
 				56C995481A088C180006477D /* BugFixContainerView.h */,
 				56C995491A088C180006477D /* BugFixContainerView.m */,
 				56427E2519AB823200B516A0 /* AppDelegate.h */,
@@ -930,8 +927,6 @@
 				56427E2E19AB823200B516A0 /* ViewController.h */,
 				56427E2F19AB823200B516A0 /* ViewController.m */,
 				568B96021A12351E00368272 /* BITableView */,
-				565E97D81A0D0B4000C18266 /* BICollectionReusableView.h */,
-				565E97D91A0D0B4000C18266 /* BICollectionReusableView.m */,
 				56E14FFB19FF38930029B81D /* playVC.h */,
 				56E14FFC19FF38930029B81D /* playVC.m */,
 				5686757919BED3C900AF524A /* secondVC.h */,
@@ -1117,6 +1112,19 @@
 				568B96001A12350500368272 /* BIFeedbakAndActionCell.m */,
 			);
 			name = BITableView;
+			sourceTree = "<group>";
+		};
+		568B96151A15DB4000368272 /* BICollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				569B43211A00A89300EF21EC /* FrameOutCollectionViewFlowLayout.h */,
+				569B43221A00A89300EF21EC /* FrameOutCollectionViewFlowLayout.m */,
+				569B43271A00BCB700EF21EC /* BICollectionViewCell.h */,
+				569B43281A00BCB700EF21EC /* BICollectionViewCell.m */,
+				565E97D81A0D0B4000C18266 /* BICollectionReusableView.h */,
+				565E97D91A0D0B4000C18266 /* BICollectionReusableView.m */,
+			);
+			name = BICollectionView;
 			sourceTree = "<group>";
 		};
 		56A4B1D219F772260009CC37 /* collectionViewTestImages */ = {
