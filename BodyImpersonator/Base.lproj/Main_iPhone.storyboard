@@ -107,23 +107,20 @@
                                     <segue destination="xz1-qg-4jT" kind="modal" identifier="moveToPlayVC" modalTransitionStyle="crossDissolve" id="dnt-X1-NKi"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TFc-KJ-FbI" userLabel="ADBannerSample">
+                                <rect key="frame" x="0.0" y="518" width="320" height="50"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                             <toolbar clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wnz-Xy-9jT">
                                 <rect key="frame" x="0.0" y="474" width="320" height="44"/>
                                 <items>
-                                    <barButtonItem image="Roope44.png" id="tca-VQ-Wc6">
+                                    <barButtonItem image="Roope44-2.png" id="tca-VQ-Wc6">
                                         <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
                                             <action selector="searchBtn:" destination="vXZ-lx-hvc" id="614-Yq-pAn"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="Mlf-8w-HdD"/>
-                                    <barButtonItem image="karadamonomaneLogo3.png" id="Jaq-xP-t3f">
-                                        <color key="tintColor" red="0.92549020049999997" green="0.94117647410000005" blue="0.94509804249999996" alpha="1" colorSpace="calibratedRGB"/>
-                                        <connections>
-                                            <segue destination="YQN-mj-a54" kind="modal" id="81S-gS-Bbc"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="8MH-zB-O2t"/>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="uuA-An-azT"/>
                                     <barButtonItem image="PreviewIcon2.png" id="Bg4-9g-yWL">
                                         <color key="tintColor" red="0.92549020051956177" green="0.94117647409439087" blue="0.94509804248809814" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
@@ -131,13 +128,15 @@
                                             <segue destination="Ml1-cR-wrA" kind="push" identifier="pushToPreviewVC" id="sRG-aS-idK"/>
                                         </connections>
                                     </barButtonItem>
+                                    <barButtonItem image="Gear44-2.png" id="Jaq-xP-t3f">
+                                        <color key="tintColor" red="0.92549020049999997" green="0.94117647410000005" blue="0.94509804249999996" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <segue destination="YQN-mj-a54" kind="modal" id="81S-gS-Bbc"/>
+                                        </connections>
+                                    </barButtonItem>
                                 </items>
                                 <color key="barTintColor" red="0.17254902422428131" green="0.24313725531101227" blue="0.31372550129890442" alpha="1" colorSpace="calibratedRGB"/>
                             </toolbar>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TFc-KJ-FbI" userLabel="ADBannerSample">
-                                <rect key="frame" x="0.0" y="518" width="320" height="50"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.067062042650000001" green="0.13338275250000001" blue="0.18701528009999999" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
@@ -487,11 +486,11 @@
     </scenes>
     <resources>
         <image name="EditorOutline.png" width="320" height="568"/>
+        <image name="Gear44-2.png" width="44" height="44"/>
         <image name="LightsFromCenter.png" width="320" height="504"/>
         <image name="PlayBtn320x196.png" width="320" height="98"/>
         <image name="PreviewIcon2.png" width="44" height="44"/>
-        <image name="Roope44.png" width="44" height="44"/>
-        <image name="karadamonomaneLogo3.png" width="141" height="44"/>
+        <image name="Roope44-2.png" width="44" height="44"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

@@ -173,7 +173,7 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     UIImageView *imgView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, imageSize.width, imageSize.height)];
     imgView.image = image;
     
-    [imgView setContentMode:UIViewContentModeScaleAspectFit];
+    [imgView setContentMode:UIViewContentModeCenter];
     // navigationItemに設定
     UINavigationItem *navigationItemIcon = [[UINavigationItem alloc]init];
     navigationItemIcon.titleView = imgView;

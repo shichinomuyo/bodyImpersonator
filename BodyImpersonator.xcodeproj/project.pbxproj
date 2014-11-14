@@ -391,6 +391,9 @@
 		568B96101A14950700368272 /* RemoveAD60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 568B960F1A14950700368272 /* RemoveAD60@2x.png */; };
 		568B96121A15D4E800368272 /* PlayBtn320x196@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 568B96111A15D4E800368272 /* PlayBtn320x196@2x.png */; };
 		568B96141A15D7BC00368272 /* MainViewHeader320x44@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 568B96131A15D7BC00368272 /* MainViewHeader320x44@2x.png */; };
+		568B96171A15E99700368272 /* Gear44@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 568B96161A15E99700368272 /* Gear44@2x.png */; };
+		568B96191A15EA3800368272 /* Gear44-2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 568B96181A15EA3800368272 /* Gear44-2@2x.png */; };
+		568B961B1A15EAB000368272 /* Roope44-2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 568B961A1A15EAB000368272 /* Roope44-2@2x.png */; };
 		569B431519FF79C400EF21EC /* EditorOutline320x568.png in Resources */ = {isa = PBXBuildFile; fileRef = 569B431419FF79C400EF21EC /* EditorOutline320x568.png */; };
 		569B43171A008F7100EF21EC /* YellowFrame188x188.png in Resources */ = {isa = PBXBuildFile; fileRef = 569B43161A008F7100EF21EC /* YellowFrame188x188.png */; };
 		569B43191A00902900EF21EC /* WhiteFrame188x188.png in Resources */ = {isa = PBXBuildFile; fileRef = 569B43181A00902900EF21EC /* WhiteFrame188x188.png */; };
@@ -553,6 +556,9 @@
 		568B960F1A14950700368272 /* RemoveAD60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "RemoveAD60@2x.png"; path = "Images/@2x/RemoveAD60@2x.png"; sourceTree = "<group>"; };
 		568B96111A15D4E800368272 /* PlayBtn320x196@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "PlayBtn320x196@2x.png"; path = "Images/@2x/PlayBtn320x196@2x.png"; sourceTree = "<group>"; };
 		568B96131A15D7BC00368272 /* MainViewHeader320x44@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "MainViewHeader320x44@2x.png"; path = "Images/@2x/MainViewHeader320x44@2x.png"; sourceTree = "<group>"; };
+		568B96161A15E99700368272 /* Gear44@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Gear44@2x.png"; path = "Images/@2x/Gear44@2x.png"; sourceTree = "<group>"; };
+		568B96181A15EA3800368272 /* Gear44-2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Gear44-2@2x.png"; path = "Images/@2x/Gear44-2@2x.png"; sourceTree = "<group>"; };
+		568B961A1A15EAB000368272 /* Roope44-2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Roope44-2@2x.png"; path = "Images/@2x/Roope44-2@2x.png"; sourceTree = "<group>"; };
 		569B431419FF79C400EF21EC /* EditorOutline320x568.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = EditorOutline320x568.png; sourceTree = "<group>"; };
 		569B43161A008F7100EF21EC /* YellowFrame188x188.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = YellowFrame188x188.png; sourceTree = "<group>"; };
 		569B43181A00902900EF21EC /* WhiteFrame188x188.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WhiteFrame188x188.png; sourceTree = "<group>"; };
@@ -1142,6 +1148,9 @@
 		56C9954B1A09F6CA0006477D /* @2x */ = {
 			isa = PBXGroup;
 			children = (
+				568B961A1A15EAB000368272 /* Roope44-2@2x.png */,
+				568B96181A15EA3800368272 /* Gear44-2@2x.png */,
+				568B96161A15E99700368272 /* Gear44@2x.png */,
 				568B96131A15D7BC00368272 /* MainViewHeader320x44@2x.png */,
 				568B96111A15D4E800368272 /* PlayBtn320x196@2x.png */,
 				568B960F1A14950700368272 /* RemoveAD60@2x.png */,
@@ -1413,6 +1422,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				569B43191A00902900EF21EC /* WhiteFrame188x188.png in Resources */,
+				568B961B1A15EAB000368272 /* Roope44-2@2x.png in Resources */,
 				567DF04F1A0BA0040092165D /* karadamonomaneLogo@2x.png in Resources */,
 				56A4B1EE19FA13C20009CC37 /* PlayBtn_iphone320x88.png in Resources */,
 				56427E4F19AB82C200B516A0 /* .gitignore in Resources */,
@@ -1429,6 +1439,7 @@
 				56A4B1F819FB2C950009CC37 /* CamIcon44x44.png in Resources */,
 				569B43171A008F7100EF21EC /* YellowFrame188x188.png in Resources */,
 				568B95FC1A11FDC100368272 /* NavigationBarTitle2@2x.png in Resources */,
+				568B96171A15E99700368272 /* Gear44@2x.png in Resources */,
 				56427E3219AB823200B516A0 /* Images.xcassets in Resources */,
 				56A4B1E419F93C800009CC37 /* PlayBtn02.png in Resources */,
 				568B960A1A1450E700368272 /* Compose60@2x.png in Resources */,
@@ -1449,6 +1460,7 @@
 				56427E2A19AB823200B516A0 /* Main_iPhone.storyboard in Resources */,
 				56E14FFA19FD26DB0029B81D /* AddImage188x188.png in Resources */,
 				56A4B1FC19FB2DB10009CC37 /* CollectionViewCellFrame188x188.png in Resources */,
+				568B96191A15EA3800368272 /* Gear44-2@2x.png in Resources */,
 				56427E2119AB823200B516A0 /* InfoPlist.strings in Resources */,
 				565E97CC1A0C817300C18266 /* karadamonomaneLogo3@2x.png in Resources */,
 				56A4B1CB19F4F8200009CC37 /* AppIconInApp32.png in Resources */,
