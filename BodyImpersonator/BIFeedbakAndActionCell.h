@@ -9,9 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface BIFeedbakAndActionCell : UITableViewCell
-@property (strong, nonatomic) IBOutlet UIImageView *imageViewFeedbackAction;
-
-@property (strong, nonatomic) IBOutlet UILabel *labelFeedbackAction;
+@property (weak, nonatomic) IBOutlet UIImageView *imageViewFeedbackAction;
+@property (weak, nonatomic) IBOutlet UILabel *labelFeedbackAction;
 
 
 

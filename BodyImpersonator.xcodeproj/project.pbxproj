@@ -386,6 +386,11 @@
 		568B95FE1A11FF1700368272 /* ICONRollToCrashForLink60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 568B95FD1A11FF1700368272 /* ICONRollToCrashForLink60@2x.png */; };
 		568B96011A12350500368272 /* BIFeedbakAndActionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 568B96001A12350500368272 /* BIFeedbakAndActionCell.m */; };
 		568B96041A13507300368272 /* ShareIcon60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 568B96031A13507300368272 /* ShareIcon60@2x.png */; };
+		568B960A1A1450E700368272 /* Compose60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 568B96091A1450E700368272 /* Compose60@2x.png */; };
+		568B960E1A1456B000368272 /* Roope44@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 568B960D1A1456B000368272 /* Roope44@2x.png */; };
+		568B96101A14950700368272 /* RemoveAD60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 568B960F1A14950700368272 /* RemoveAD60@2x.png */; };
+		568B96121A15D4E800368272 /* PlayBtn320x196@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 568B96111A15D4E800368272 /* PlayBtn320x196@2x.png */; };
+		568B96141A15D7BC00368272 /* MainViewHeader320x44@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 568B96131A15D7BC00368272 /* MainViewHeader320x44@2x.png */; };
 		569B431519FF79C400EF21EC /* EditorOutline320x568.png in Resources */ = {isa = PBXBuildFile; fileRef = 569B431419FF79C400EF21EC /* EditorOutline320x568.png */; };
 		569B43171A008F7100EF21EC /* YellowFrame188x188.png in Resources */ = {isa = PBXBuildFile; fileRef = 569B43161A008F7100EF21EC /* YellowFrame188x188.png */; };
 		569B43191A00902900EF21EC /* WhiteFrame188x188.png in Resources */ = {isa = PBXBuildFile; fileRef = 569B43181A00902900EF21EC /* WhiteFrame188x188.png */; };
@@ -543,6 +548,11 @@
 		568B95FF1A12350500368272 /* BIFeedbakAndActionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BIFeedbakAndActionCell.h; sourceTree = "<group>"; };
 		568B96001A12350500368272 /* BIFeedbakAndActionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BIFeedbakAndActionCell.m; sourceTree = "<group>"; };
 		568B96031A13507300368272 /* ShareIcon60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ShareIcon60@2x.png"; path = "Images/@2x/FeedbackAndShareIcon/ShareIcon60@2x.png"; sourceTree = "<group>"; };
+		568B96091A1450E700368272 /* Compose60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Compose60@2x.png"; path = "Images/@2x/FeedbackAndShareIcon/Compose60@2x.png"; sourceTree = "<group>"; };
+		568B960D1A1456B000368272 /* Roope44@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Roope44@2x.png"; path = "Images/@2x/Roope44@2x.png"; sourceTree = "<group>"; };
+		568B960F1A14950700368272 /* RemoveAD60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "RemoveAD60@2x.png"; path = "Images/@2x/RemoveAD60@2x.png"; sourceTree = "<group>"; };
+		568B96111A15D4E800368272 /* PlayBtn320x196@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "PlayBtn320x196@2x.png"; path = "Images/@2x/PlayBtn320x196@2x.png"; sourceTree = "<group>"; };
+		568B96131A15D7BC00368272 /* MainViewHeader320x44@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "MainViewHeader320x44@2x.png"; path = "Images/@2x/MainViewHeader320x44@2x.png"; sourceTree = "<group>"; };
 		569B431419FF79C400EF21EC /* EditorOutline320x568.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = EditorOutline320x568.png; sourceTree = "<group>"; };
 		569B43161A008F7100EF21EC /* YellowFrame188x188.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = YellowFrame188x188.png; sourceTree = "<group>"; };
 		569B43181A00902900EF21EC /* WhiteFrame188x188.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WhiteFrame188x188.png; sourceTree = "<group>"; };
@@ -1124,6 +1134,11 @@
 		56C9954B1A09F6CA0006477D /* @2x */ = {
 			isa = PBXGroup;
 			children = (
+				568B96131A15D7BC00368272 /* MainViewHeader320x44@2x.png */,
+				568B96111A15D4E800368272 /* PlayBtn320x196@2x.png */,
+				568B960F1A14950700368272 /* RemoveAD60@2x.png */,
+				568B960D1A1456B000368272 /* Roope44@2x.png */,
+				568B96091A1450E700368272 /* Compose60@2x.png */,
 				568B96031A13507300368272 /* ShareIcon60@2x.png */,
 				568B95FD1A11FF1700368272 /* ICONRollToCrashForLink60@2x.png */,
 				568B95FB1A11FDC100368272 /* NavigationBarTitle2@2x.png */,
@@ -1397,6 +1412,7 @@
 				564AD9F819F1F3E20069901D /* OrgIcon.png in Resources */,
 				56A4B1D819F772260009CC37 /* image2.png in Resources */,
 				564AD9F919F1F3E20069901D /* PlayBtn.png in Resources */,
+				568B960E1A1456B000368272 /* Roope44@2x.png in Resources */,
 				56A4B1EA19F93E6A0009CC37 /* BarButtonPreviewIconx40.png in Resources */,
 				565E97D41A0C8A6600C18266 /* PlayBtnRoundSunFlowerBtnOnly@2x.png in Resources */,
 				568B95EF1A11108700368272 /* NavigationBarTitle@2x.png in Resources */,
@@ -1407,7 +1423,9 @@
 				568B95FC1A11FDC100368272 /* NavigationBarTitle2@2x.png in Resources */,
 				56427E3219AB823200B516A0 /* Images.xcassets in Resources */,
 				56A4B1E419F93C800009CC37 /* PlayBtn02.png in Resources */,
+				568B960A1A1450E700368272 /* Compose60@2x.png in Resources */,
 				56427ECF19AB923C00B516A0 /* libAdapterNend_readme.txt in Resources */,
+				568B96101A14950700368272 /* RemoveAD60@2x.png in Resources */,
 				565E97C81A0BAF5F00C18266 /* EditorOutline@2x.png in Resources */,
 				567DF0511A0BA0040092165D /* SelectTag@2x.png in Resources */,
 				56A4B1ED19FA13C20009CC37 /* CollectionViewCellFramex94_midNightBlue.png in Resources */,
@@ -1435,12 +1453,14 @@
 				564AD9FA19F1F3E20069901D /* PreviewIcon.png in Resources */,
 				569B431D1A009AB400EF21EC /* YelloFrameTransparentBack188x188.png in Resources */,
 				569B431519FF79C400EF21EC /* EditorOutline320x568.png in Resources */,
+				568B96141A15D7BC00368272 /* MainViewHeader320x44@2x.png in Resources */,
 				56A4B1CD19F4F8FD0009CC37 /* Logo32.png in Resources */,
 				56427E8719AB88CB00B516A0 /* crash13.mp3 in Resources */,
 				56427E8819AB88CB00B516A0 /* roll13.mp3 in Resources */,
 				56A4B1D119F619720009CC37 /* PlayBtn01.png in Resources */,
 				569B431B1A0091F000EF21EC /* YellowCloudsFrame188x188.png in Resources */,
 				567DF04E1A0BA0040092165D /* AddImage@2x.png in Resources */,
+				568B96121A15D4E800368272 /* PlayBtn320x196@2x.png in Resources */,
 				56A4B1D719F772260009CC37 /* image1.png in Resources */,
 				56427ECA19AB923000B516A0 /* NADView_readme.txt in Resources */,
 				56A4B1DE19F88D110009CC37 /* image5.png in Resources */,

@@ -8,7 +8,8 @@
 
 #import "ViewController.h"
 // collectionViewの最大アイテム数
-static const NSInteger kMAX_ITEM_NUMBER = 9;
+static const NSInteger kLIMITED_ITEM_NUMBER = 9;
+static const NSInteger kMAX_ITEM_NUMBER = 18;
 
 @interface ViewController ()
 {
@@ -138,7 +139,7 @@ static const NSInteger kMAX_ITEM_NUMBER = 9;
         self.naviBarHeight.constant = 64;
     }
 
-    [self pushImageOnNavigationBar:self.navigationBar :[UIImage imageNamed:@"NavigationBarTitle2@2x.png"]];
+    [self pushImageOnNavigationBar:self.navigationBar :[UIImage imageNamed:@"MainViewHeader320x44@2x.png"]];
 }
 
 // NavigationBarに画像を配置 高さ調整
@@ -313,11 +314,7 @@ static const NSInteger kMAX_ITEM_NUMBER = 9;
     //    NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
     //    NSDictionary *dic = [defaults persistentDomainForName:appDomain];
     //    NSLog(@"defualts:%@", dic);
-//    if (count < kMAX_ITEM_NUMBER) {
-//        return count+1;
-//    } else {
-//        return count;
-//    }
+
     return  count + 1;
     NSLog(@"numberOfItemsInSection%d",count);
 }
@@ -392,7 +389,7 @@ static const NSInteger kMAX_ITEM_NUMBER = 9;
         _collectionHeaderView = [self.collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"header" forIndexPath:indexPath];
         // headerに画像をセット
         [_collectionHeaderView.imageView setImage:[UIImage imageNamed:@"karadamonomaneLogo3@2x.png"]];
-        _collectionHeaderView.imageView.tintColor =  RGB(241, 197, 18);//nearlyBlack
+        _collectionHeaderView.imageView.tintColor =  RGB(231, 76, 69);//ALIZALIN
 
         reusableView = _collectionHeaderView;
     }
@@ -789,7 +786,7 @@ static const NSInteger kMAX_ITEM_NUMBER = 9;
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSArray *array = [defaults objectForKey:@"KEY_imageNames"];
-    if ([array count] == kMAX_ITEM_NUMBER) { // 保存できる画像を９個に制限
+    if ([array count] == kLIMITED_ITEM_NUMBER) { // 保存できる画像を９個に制限
         [self actionShowSaveLimitAlert];
     }else{
         //処理
@@ -1062,8 +1059,8 @@ static const NSInteger kMAX_ITEM_NUMBER = 9;
 
 // ステータスバーの文字色を設定
 - (UIStatusBarStyle)preferredStatusBarStyle {
-    return UIStatusBarStyleLightContent; //文字を白くする
-//       return UIStatusBarStyleDefault; // デフォルト値（文字色は黒色）
+//    return UIStatusBarStyleLightContent; //文字を白くする
+       return UIStatusBarStyleDefault; // デフォルト値（文字色は黒色）
 }
 // サファリを起動
 - (IBAction)searchBtn:(UIBarButtonItem *)sender {

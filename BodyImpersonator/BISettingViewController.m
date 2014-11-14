@@ -11,6 +11,7 @@
 @interface BISettingViewController ()
 @property (nonatomic, strong) NSArray *sectionList;
 @property (nonatomic, strong) NSArray *dataSourceAddOn;
+@property (nonatomic, strong) NSArray *dataSourceAddOnImages;
 @property (nonatomic, strong) NSArray *dataSourceFeedbackAndShare;
 @property (nonatomic, strong) NSArray *dataSourceFeedbackAndShareImages;
 @property (nonatomic, strong) NSArray *dataSourceOtherApps;
@@ -32,8 +33,9 @@
     self.sectionList = @[@"Add On",@"Feedback / Share This App", @"Other Apps"];
     // table表示したいデータソースを設定
     self.dataSourceAddOn = @[@"Remove AD"];
+    self.dataSourceAddOnImages = [NSArray arrayWithObjects:@"RemoveAD60@2x.png", nil];
     self.dataSourceFeedbackAndShare = @[@"App Store review", @"Share This App"];
-    self.dataSourceFeedbackAndShareImages = [NSArray arrayWithObjects: @"ShareIcon60@2x.png",@"ShareIcon60@2x.png", nil];
+    self.dataSourceFeedbackAndShareImages = [NSArray arrayWithObjects: @"Compose60@2x.png",@"ShareIcon60@2x.png", nil];
     self.dataSourceOtherApps = @[@"RollToCrash"];
     
 }
@@ -85,29 +87,34 @@
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSArray *identifiers = @[@"Cell", @"CellFeedbackAndShare", @"CellOtherApps"];
+    NSArray *identifiers = @[@"CellFeedbackAndShare", @"CellFeedbackAndShare", @"CellOtherApps"];
     NSString *CellIdentifier = identifiers[indexPath.section];
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     switch (indexPath.section) {
         case 0:
-            cell.textLabel.text = self.dataSourceAddOn[indexPath.row];
-            NSLog(@"kanryo");
-            break;
+        {
+            
+            BIFeedbakAndActionCell *addOnCell = (BIFeedbakAndActionCell *)cell;
+            
+            UIImageView *imageViewAddOn = (UIImageView *)[addOnCell viewWithTag:1];
+            UILabel *labelAddOn = (UILabel *)[addOnCell viewWithTag:2];
+            [imageViewAddOn setImage:[UIImage imageNamed:self.dataSourceAddOnImages[indexPath.row]]];
+            [labelAddOn setText:self.dataSourceAddOn[indexPath.row]];
+           
+
+        }
+             break;
         case 1:
         {
             
-            BIFeedbakAndActionCell *feedbackAndShare = (BIFeedbakAndActionCell *)cell;
+            BIFeedbakAndActionCell *feedbackAndShareCell = (BIFeedbakAndActionCell *)cell;
             
-            UIImageView *imageViewFeedbackAction = (UIImageView *)[feedbackAndShare viewWithTag:1];
-            UILabel *labelFeedbackAction = (UILabel *)[feedbackAndShare viewWithTag:2];
-            UIImage *image = [UIImage imageNamed:@"ShareIcon60@2x.png"];//[self.dataSourceFeedbackAndShareImages objectAtIndex:indexPath.row]];
-            [imageViewFeedbackAction setImage:[UIImage imageNamed:@"ICONRollToCrashForLink60@2x.png"]];
-            labelFeedbackAction.text = self.dataSourceFeedbackAndShare[indexPath.row];
+            UIImageView *imageViewFeedbackAction = (UIImageView *)[feedbackAndShareCell viewWithTag:1];
+            UILabel *labelFeedbackAction = (UILabel *)[feedbackAndShareCell viewWithTag:2];
+            [imageViewFeedbackAction setImage:[UIImage imageNamed:self.dataSourceFeedbackAndShareImages[indexPath.row]]];
+            [labelFeedbackAction setText:self.dataSourceFeedbackAndShare[indexPath.row]];
         }
-
-
-            cell.textLabel.text = self.dataSourceFeedbackAndShare[indexPath.row];
             break;
         case 2:
         {
@@ -150,7 +157,7 @@
             rowHeight = [BIOtherAppsTableViewCell rowHeight];
             break;
         case 1:
-            rowHeight = [BIOtherAppsTableViewCell rowHeight];
+            rowHeight = [BIFeedbakAndActionCell rowHeight];
             break;
         case 2:
             rowHeight = [BIOtherAppsTableViewCell rowHeight];
