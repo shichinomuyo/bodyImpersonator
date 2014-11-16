@@ -226,4 +226,8 @@
     NSURL *url = [NSURL URLWithString:urlString];
     [[UIApplication sharedApplication] openURL:url];
 }
+
+- (void)actionRemoveAD{
+
+}
 @end

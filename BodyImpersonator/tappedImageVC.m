@@ -1,35 +1,28 @@
 //
-//  previewVC.m
+//  tappedImageVC.m
 //  BodyImpersonator
 //
-//  Created by 七野祐太 on 2014/10/07.
+//  Created by 七野祐太 on 2014/11/16.
 //  Copyright (c) 2014年 shichino yuta. All rights reserved.
 //
 
-#import "previewVC.h"
+#import "tappedImageVC.h"
 
-@interface previewVC (){
-        UIActionSheet *_actionSheetAlert;
+@interface tappedImageVC (){
+    UIActionSheet *_actionSheetAlert;
 }
 
 
 @property (weak, nonatomic) IBOutlet UINavigationBar *navigationBar;
 @property (weak, nonatomic) IBOutlet UIImageView *previewImageView;
 - (IBAction)removeItemBtn:(UIBarButtonItem *)sender;
+- (IBAction)setImageBtn:(UIBarButtonItem *)sender;
 
 - (IBAction)actionBtn:(UIBarButtonItem *)sender;
 
 @end
 
-@implementation previewVC
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
+@implementation tappedImageVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -37,7 +30,7 @@
     // デバイスがiphoneであるかそうでないかで分岐
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
         NSLog(@"iPhoneの処理");
-//            self.contentSizeForViewInPopover = CGSizeMake(220, 340);
+        //            self.contentSizeForViewInPopover = CGSizeMake(220, 340);
     }
     else{
         NSLog(@"iPadの処理");
@@ -47,7 +40,7 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated{
-
+    
     // デバイスがiphoneであるかそうでないかで分岐
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
         NSLog(@"iPhoneの処理");
@@ -75,7 +68,7 @@
     // popoverするサイズを設定
     self.preferredContentSize = popoverSize;
     self.modalInPopover = YES;
-
+    
     UIImage *image = _selectedImage; // 遷移元のビューから渡された画像をセット
     // imageviewのpreviewImageViewに画像を設定
     [self.previewImageView setImage:[self popoverWithImage:image screenSize:screenSize popoverScale:scale]];
@@ -95,20 +88,20 @@
     CGFloat heightRatio = size.height / image.size.height;
     // (widthRatio < heightRatio)が真なら ratio = widthRatio/ 偽ならratio = heightRatio
     CGFloat ratio = (widthRatio < heightRatio) ? widthRatio : heightRatio;
-
+    
     NSLog(@"widthRatio:%.2f",widthRatio);
     NSLog(@"heightRatio:%.2f",heightRatio);
     NSLog(@"ratio:%.2f",ratio);
     CGRect rect;
     if (ratio > 1.0) {
         rect = CGRectMake(0, 0,
-                                 image.size.width  / ratio,
-                                 image.size.height / ratio);
+                          image.size.width  / ratio,
+                          image.size.height / ratio);
     } else{
         rect = CGRectMake(0,0,image.size.width * scale, image.size.height * scale);
     }
-
-
+    
+    
     UIGraphicsBeginImageContext(rect.size);
     
     [image drawInRect:rect];
@@ -128,14 +121,14 @@
 
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 // 表示されている画像を削除
 - (IBAction)removeItemBtn:(UIBarButtonItem *)sender {
@@ -144,23 +137,38 @@
     [actionController addAction:[UIAlertAction actionWithTitle:@"Remove this Image" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         
         // 最初の画面にBackFromPreviewVCRemoveItemBtnで戻ると削除メソッドが動く
-        [self performSegueWithIdentifier:@"BackFromPreviewVCRemoveItemBtn" sender:self];
+        [self performSegueWithIdentifier:@"BackFromTappedImageVCRemoveItemBtn" sender:self];
     }]];
     [actionController addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
         // キャンセルタップ時の処理
     }]];
     
     [self presentViewController:actionController animated:YES completion:nil];
-
+    
 }
 
+- (IBAction)setImageBtn:(UIBarButtonItem *)sender {
+    // アクションコントローラー生成
+    UIAlertController *actionController = [UIAlertController alertControllerWithTitle:@"Set this Image?" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    [actionController addAction:[UIAlertAction actionWithTitle:@"Set this Image" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        
+        [self performSegueWithIdentifier:@"BackFromTappedImageVCSetImageBtn" sender:self];
+    }]];
+    [actionController addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+        // キャンセルタップ時の処理
+    }]];
+    
+    [self presentViewController:actionController animated:YES completion:nil];
+    
+    
+}
 
 // アクションメニューを作成・表示
 - (IBAction)actionBtn:(UIBarButtonItem *)sender {
     NSArray *activityItems = @[_selectedImage];
     // 連携できるアプリを取得する
-//    UIActivity *activity = [[UIActivity alloc]init]; // twitter等画像を共有はさせない
-//    NSArray *activities = @[activity];
+    //    UIActivity *activity = [[UIActivity alloc]init]; // twitter等画像を共有はさせない
+    //    NSArray *activities = @[activity];
     // アクティビティコントローラーを作る
     UIActivityViewController *activityVC = [[UIActivityViewController alloc]initWithActivityItems:activityItems applicationActivities:nil];// 画像を共有されないようにnil
     // 無効にする機能を指定
@@ -185,11 +193,10 @@
     //    NSError *error;
     //    [fileManager removeItemAtPath:path error:&error];
     [defaults removeObjectForKey:@"KEY_arrayImages"];
-//    [defaults removeObjectForKey:@"KEY_imageCount"];
+    //    [defaults removeObjectForKey:@"KEY_imageCount"];
     [defaults synchronize];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     
-}
-@end
+}@end

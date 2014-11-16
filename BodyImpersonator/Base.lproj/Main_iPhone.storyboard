@@ -390,7 +390,7 @@
                                     <constraint firstAttribute="height" constant="64" id="jqB-aT-U4e"/>
                                 </constraints>
                                 <items>
-                                    <navigationItem title="Preview" id="bN0-Fe-ar9">
+                                    <navigationItem title="Selected Image Preview" id="bN0-Fe-ar9">
                                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="HbL-4b-MOz">
                                             <connections>
                                                 <segue destination="6gl-yu-fDZ" kind="unwind" identifier="cancel" unwindAction="firstViewReturnActionForSegue:" id="ufg-i3-4th"/>
@@ -412,6 +412,73 @@
                 <exit id="6gl-yu-fDZ" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1928" y="506"/>
+        </scene>
+        <!--tappedImageVC-->
+        <scene sceneID="7HX-cv-jQN">
+            <objects>
+                <viewController storyboardIdentifier="tappedImageVC" title="tappedImageVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="yAO-Md-pSK" customClass="tappedImageVC" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="423-LH-tYQ"/>
+                        <viewControllerLayoutGuide type="bottom" id="lia-Qw-aFt"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="center" id="mlD-MQ-Ntr">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4mY-Te-FEa" userLabel="previewImageView">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </imageView>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" alpha="0.80000001192092896" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="51D-HO-sML">
+                                <rect key="frame" x="0.0" y="524" width="320" height="44"/>
+                                <items>
+                                    <barButtonItem systemItem="refresh" id="zvS-Hp-hzq">
+                                        <connections>
+                                            <action selector="setImageBtn:" destination="yAO-Md-pSK" id="1kr-Hg-zqJ"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem systemItem="action" id="d0h-5o-lEf">
+                                        <connections>
+                                            <action selector="actionBtn:" destination="yAO-Md-pSK" id="1Wi-tb-Vuh"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="poa-rc-yds"/>
+                                    <barButtonItem systemItem="trash" id="WW0-rM-Kxj">
+                                        <connections>
+                                            <action selector="removeItemBtn:" destination="yAO-Md-pSK" id="2bF-jh-b4p"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
+                            <navigationBar alpha="0.69999998807907104" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UhS-kG-ITt">
+                                <rect key="frame" x="0.0" y="-5" width="320" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="64" id="h71-PZ-HqS"/>
+                                </constraints>
+                                <items>
+                                    <navigationItem title="Tapped Image" id="d9y-v8-iuA">
+                                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="32t-kj-0rq">
+                                            <connections>
+                                                <segue destination="y5x-A0-10f" kind="unwind" identifier="cancel" unwindAction="firstViewReturnActionForSegue:" id="stf-Ke-MkP"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="vlJ-Xh-K2V"/>
+                    <connections>
+                        <outlet property="previewImageView" destination="4mY-Te-FEa" id="JGJ-YD-GIh"/>
+                        <segue destination="y5x-A0-10f" kind="unwind" identifier="BackFromTappedImageVCRemoveItemBtn" unwindAction="firstViewReturnActionForSegue:" id="eIj-hT-VlR"/>
+                        <segue destination="y5x-A0-10f" kind="unwind" identifier="BackFromTappedImageVCSetImageBtn" unwindAction="firstViewReturnActionForSegue:" id="00Y-C1-vcb"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="h0X-Th-ehg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="y5x-A0-10f" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="1928" y="1153"/>
         </scene>
         <!--playVC-->
         <scene sceneID="Y7s-kr-IQK">

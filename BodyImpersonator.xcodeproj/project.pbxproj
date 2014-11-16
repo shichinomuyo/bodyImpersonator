@@ -394,6 +394,7 @@
 		568B96171A15E99700368272 /* Gear44@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 568B96161A15E99700368272 /* Gear44@2x.png */; };
 		568B96191A15EA3800368272 /* Gear44-2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 568B96181A15EA3800368272 /* Gear44-2@2x.png */; };
 		568B961B1A15EAB000368272 /* Roope44-2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 568B961A1A15EAB000368272 /* Roope44-2@2x.png */; };
+		568B961E1A185CF300368272 /* tappedImageVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 568B961D1A185CF300368272 /* tappedImageVC.m */; };
 		569B431519FF79C400EF21EC /* EditorOutline320x568.png in Resources */ = {isa = PBXBuildFile; fileRef = 569B431419FF79C400EF21EC /* EditorOutline320x568.png */; };
 		569B43171A008F7100EF21EC /* YellowFrame188x188.png in Resources */ = {isa = PBXBuildFile; fileRef = 569B43161A008F7100EF21EC /* YellowFrame188x188.png */; };
 		569B43191A00902900EF21EC /* WhiteFrame188x188.png in Resources */ = {isa = PBXBuildFile; fileRef = 569B43181A00902900EF21EC /* WhiteFrame188x188.png */; };
@@ -559,6 +560,8 @@
 		568B96161A15E99700368272 /* Gear44@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Gear44@2x.png"; path = "Images/@2x/Gear44@2x.png"; sourceTree = "<group>"; };
 		568B96181A15EA3800368272 /* Gear44-2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Gear44-2@2x.png"; path = "Images/@2x/Gear44-2@2x.png"; sourceTree = "<group>"; };
 		568B961A1A15EAB000368272 /* Roope44-2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Roope44-2@2x.png"; path = "Images/@2x/Roope44-2@2x.png"; sourceTree = "<group>"; };
+		568B961C1A185CF300368272 /* tappedImageVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tappedImageVC.h; sourceTree = "<group>"; };
+		568B961D1A185CF300368272 /* tappedImageVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = tappedImageVC.m; sourceTree = "<group>"; };
 		569B431419FF79C400EF21EC /* EditorOutline320x568.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = EditorOutline320x568.png; sourceTree = "<group>"; };
 		569B43161A008F7100EF21EC /* YellowFrame188x188.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = YellowFrame188x188.png; sourceTree = "<group>"; };
 		569B43181A00902900EF21EC /* WhiteFrame188x188.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WhiteFrame188x188.png; sourceTree = "<group>"; };
@@ -939,6 +942,8 @@
 				5686757A19BED3C900AF524A /* secondVC.m */,
 				564AD77919E3B4FB0069901D /* previewVC.h */,
 				564AD77A19E3B4FB0069901D /* previewVC.m */,
+				568B961C1A185CF300368272 /* tappedImageVC.h */,
+				568B961D1A185CF300368272 /* tappedImageVC.m */,
 				56427E3119AB823200B516A0 /* Images.xcassets */,
 				56427E1D19AB823200B516A0 /* Supporting Files */,
 			);
@@ -1676,6 +1681,7 @@
 				56427EA119AB895300B516A0 /* UIImageView+Animation.m in Sources */,
 				568B95F51A11CF5600368272 /* BISettingViewController.m in Sources */,
 				56C9954A1A088C180006477D /* BugFixContainerView.m in Sources */,
+				568B961E1A185CF300368272 /* tappedImageVC.m in Sources */,
 				568B95F81A11D50A00368272 /* BIOtherAppsTableViewCell.m in Sources */,
 				56427E2719AB823200B516A0 /* AppDelegate.m in Sources */,
 				568B96011A12350500368272 /* BIFeedbakAndActionCell.m in Sources */,

@@ -294,6 +294,11 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
         [self actionRemoveItem:_selectedIndexPath];
         NSLog(@"BackFromPreviewVCRemoveItemBtn");
         NSLog(@"selectedIndexPath:%d",(int)_selectedIndexPath);
+    }else if ([segue.identifier isEqualToString:@"BackFromTappedImageVCSetImageBtn"]){
+        [self actionSetSelectedImage:_tappedIndexPath];
+        NSLog(@"BackFromPreviewVCSetImage");
+    }else if ([segue.identifier isEqualToString:@"BackFromTappedImageVCRemoveItemBtn"]){
+        [self actionRemoveItem:_tappedIndexPath];
     }
 }
 
@@ -351,7 +356,7 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
         NSLog(@"imageName:%@",imageName);
 
         
-        if ([imageName isEqualToString:selectedImageName]) {
+        if ([imageName isEqualToString:selectedImageName]) {// 黄色い三角形を右上に表示させる
             _selectedIndexPath = indexPath; // 画像追加時はうまく動く
             _selectedImage = image;
             
@@ -568,6 +573,32 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     }
 }
 
+// セルをタップしたらpreviewVCに遷移しその画像を表示させる
+- (void)actionImageTapped:(NSIndexPath *)indexPath{
+
+    _tappedIndexPath = indexPath;
+    if (_tappedIndexPath == _selectedIndexPath) {
+        previewVC *pVC = [self.storyboard instantiateViewControllerWithIdentifier:@"previewVC"];
+        pVC.selectedImage = _selectedImage;
+        [self.navigationController pushViewController:pVC animated:YES];
+
+    } else{
+        tappedImageVC *tappedImgVC = [self.storyboard instantiateViewControllerWithIdentifier:@"tappedImageVC"];
+        // 選択したセルの画像をselectedImageに保存
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        NSArray *imageNames = [defaults objectForKey:@"KEY_imageNames"];
+        NSString *imageName = [imageNames objectAtIndex:(int)(indexPath.row)];
+        NSString *filePath = [NSString stringWithFormat:@"%@%@",[NSHomeDirectory() stringByAppendingString:@"/Documents"],imageName];
+        
+        // NSDataからUIImageを作成
+        UIImage *image = [UIImage imageWithContentsOfFile:filePath];
+        tappedImgVC.selectedImage = image;
+        [self.navigationController pushViewController:tappedImgVC animated:YES];
+    }
+
+
+}
+
 // collectionView内のセルが押された時の処理
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -583,25 +614,27 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
         Class class = NSClassFromString(@"UIAlertController"); // iOS8/7の切り分けフラグに使用
         if (class) {
             // iOS8の処理
-            
+            [self actionImageTapped:indexPath];
             // アクションコントローラー生成
-            UIAlertController *actionController =
-            [UIAlertController alertControllerWithTitle:@"Image selected"
-                                                message:nil
-                                         preferredStyle:UIAlertControllerStyleActionSheet];
-            [actionController addAction:[UIAlertAction actionWithTitle:@"Set this Image"
-                                                                 style:UIAlertActionStyleDefault
-                                                               handler:^(UIAlertAction *action) {
-                                                                   [self actionSetSelectedImage:indexPath];
-                                                               }]];
+//            UIAlertController *actionController =
+//            [UIAlertController alertControllerWithTitle:@"Image selected"
+//                                                message:nil
+//                                         preferredStyle:UIAlertControllerStyleActionSheet];
+//            [actionController addAction:[UIAlertAction actionWithTitle:@"Set this Image"
+//                                                                 style:UIAlertActionStyleDefault
+//                                                               handler:^(UIAlertAction *action) {
+//                                                                   [self actionSetSelectedImage:indexPath];
+//                                                               }]];
+//            
+//            [actionController addAction:[UIAlertAction actionWithTitle:@"Cancel"
+//                                                                 style:UIAlertActionStyleCancel
+//                                                               handler:^(UIAlertAction *action) {
+//                                                                   // Cancel タップ時の処理
+//                                                               }]];
+//            // アクションコントローラーを表示
+//            [self presentViewController:actionController animated:YES completion:nil];
             
-            [actionController addAction:[UIAlertAction actionWithTitle:@"Cancel"
-                                                                 style:UIAlertActionStyleCancel
-                                                               handler:^(UIAlertAction *action) {
-                                                                   // Cancel タップ時の処理
-                                                               }]];
-            // アクションコントローラーを表示
-            [self presentViewController:actionController animated:YES completion:nil];
+            
         } else{
             // iOS7の処理
             
@@ -893,27 +926,31 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
 //    }
     
 }
+
 - (void)actionRemoveItem:(NSIndexPath *)indexPath{
     // データソースから項目を削除する
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSArray *array = [defaults objectForKey:@"KEY_imageNames"];
     NSMutableArray *imageNames = [array mutableCopy];
     NSString *imageName = [imageNames objectAtIndex:(int)(indexPath.row)];
-    // となりのセルを選択状態にする
-    if ((int)(indexPath.row) == 0) { // 削除するのが配列の一番最初のアイテムだった場合
-        if ([imageNames count] == 1) { // かつ最後のひとつのアイテムだった場合
-            [defaults setObject:@"NO Images." forKey:@"KEY_selectedImageName"]; // No Images
-        }else{// アイテムが2つ以上残っている場合
+    
+    if (indexPath == _selectedIndexPath) { // indexPathがtappedIndexPathの場合はselectedImageNameの変更は不要
+        // KEY_selectedImageNameを更新することでとなりのセルを選択状態にする
+        if ((int)(indexPath.row) == 0) { // 削除するのが配列の一番最初のアイテムだった場合
+            if ([imageNames count] == 1) { // かつ最後のひとつのアイテムだった場合
+                [defaults setObject:@"NO Images." forKey:@"KEY_selectedImageName"]; // No Images
+            }else{// アイテムが2つ以上残っている場合
+                NSString *rightImageName = [imageNames objectAtIndex:(int)(indexPath.row)+1];
+                [defaults setObject:rightImageName forKey:@"KEY_selectedImageName"];
+            }
+            
+        }else if((int)(indexPath.row) == ([imageNames count]-1)){ // 削除するのが配列の最後のアイテムだった場合
+            NSString *leftImageName = [imageNames objectAtIndex:(int)(indexPath.row)-1];
+            [defaults setObject:leftImageName forKey:@"KEY_selectedImageName"];
+        }else { // 上記以外の場合
             NSString *rightImageName = [imageNames objectAtIndex:(int)(indexPath.row)+1];
             [defaults setObject:rightImageName forKey:@"KEY_selectedImageName"];
         }
-        
-    }else if((int)(indexPath.row) == ([imageNames count]-1)){ // 削除するのが配列の最後のアイテムだった場合
-        NSString *leftImageName = [imageNames objectAtIndex:(int)(indexPath.row)-1];
-        [defaults setObject:leftImageName forKey:@"KEY_selectedImageName"];
-    }else { // 上記以外の場合
-        NSString *rightImageName = [imageNames objectAtIndex:(int)(indexPath.row)+1];
-        [defaults setObject:rightImageName forKey:@"KEY_selectedImageName"];
     }
     
     NSString *filePath = [NSString stringWithFormat:@"%@%@",[NSHomeDirectory() stringByAppendingString:@"/Documents"],imageName];
@@ -926,7 +963,7 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     [defaults synchronize];
     
     [self.collectionView selectItemAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
-    if ([imageNames count] == 8) { // 削除後９個目のセルに画像追加ボタンを表示するためにBathchUpdateしないでreloadDataしちゃう
+    if ([imageNames count] == (kLIMITED_ITEM_NUMBER -1)) { // 削除後９個目のセルに画像追加ボタンを表示するためにBathchUpdateしないでreloadDataしちゃう
         [self.collectionView reloadData];
     } else{
         [self.collectionView performBatchUpdates:^{
@@ -940,6 +977,8 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
         }];
     }
 }
+
+
 
 // 縦横長い方に合わせて縮小する
 -(UIImage *)imageWithImage:(UIImage *)image ConvertToSize:(CGSize)size {
