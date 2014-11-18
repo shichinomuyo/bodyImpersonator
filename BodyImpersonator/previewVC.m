@@ -42,6 +42,14 @@
     else{
         NSLog(@"iPadの処理");
     }
+    
+    // 広告表示フラグ確認
+    _adsRemoved = [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_adsRemoved"];
+    //    _adsRemoved = NO; // デバッグ用 YESで購入後の状態
+    if (_adsRemoved == NO) {
+        // 広告表示
+        [self interstitialInitialize];
+    }
     //デフォルトのナビゲーションコントロールを非表示にする
     [self.navigationController setNavigationBarHidden:YES animated:NO];
 }
@@ -58,6 +66,20 @@
         NSLog(@"iPadの処理");
         // popoverなので縮小する
         [self viewSizeMake:0.5];
+    }
+    
+    // インタースティシャル広告表示
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSInteger i = [defaults integerForKey:@"KEY_countUpTappedImageCell"];
+    BOOL b = [defaults boolForKey:@"KEY_ADMOBinterstitialRecieved"];
+    NSLog(@"countUpCrashPlayed %ld", (long)i);
+    NSLog(@"interstitialLoadedState:%d",b);
+    if (b == NO) {
+        [self interstitialLoad];
+    }
+    
+    if (((i % 3) == 0) && (b == YES)) {
+        [interstitial_ presentFromRootViewController:self];
     }
 }
 
@@ -191,5 +213,53 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     
+}
+#pragma mark -
+#pragma mark interstitialInitialize
+- (void)interstitialInitialize{
+    // 【Ad】インタースティシャル広告の表示
+    interstitial_ = [[GADInterstitial alloc] init];
+    interstitial_.adUnitID = MY_INTERSTITIAL_UNIT_ID;
+    interstitial_.delegate = self;
+    [interstitial_ loadRequest:[GADRequest request]];
+}
+#pragma mark -
+#pragma mark AdMobDelegate
+//// AdMobバナーのloadrequestが失敗したとき
+//-(void)adView:(GADBannerView *)bannerView didFailToReceiveAdWithError:(GADRequestError *)error{
+//    NSLog(@"adView:didFailToReceiveAdWithError:%@", [error localizedDescription]);
+//    
+//    // 他の広告ネットワークの広告を表示させるなど。
+//}
+
+/// AdMobインタースティシャルのloadrequestが失敗したとき
+-(void)interstitial:(GADInterstitial *)interstitial didFailToReceiveAdWithError:(GADRequestError *)error{
+    NSLog(@"interstitial:didFailToReceiveAdWithError:%@", [error localizedDescription]);
+    
+    // 他の広告ネットワークの広告を表示させるなど。
+    // フラグ更新
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setBool:NO forKey:@"KEY_ADMOBinterstitialRecieved"];
+    [defaults synchronize];
+    
+}
+
+// AdMobのインタースティシャル広告表示
+- (void)interstitialDidReceiveAd:(GADInterstitial *)ad
+{
+    // フラグ更新
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setBool:YES forKey:@"KEY_ADMOBinterstitialRecieved"];
+    [defaults synchronize];
+    NSLog(@"adfrag:%d",[defaults boolForKey:@"KEY_ADMOBinterstitialRecieved"]);
+}
+
+// AdMobインタースティシャルの再ロード
+- (void)interstitialLoad{
+    // 【Ad】インタースティシャル広告の表示
+    interstitial_ = [[GADInterstitial alloc] init];
+    interstitial_.adUnitID = MY_INTERSTITIAL_UNIT_ID;
+    interstitial_.delegate = self;
+    [interstitial_ loadRequest:[GADRequest request]];
 }
 @end

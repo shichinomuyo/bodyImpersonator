@@ -207,12 +207,12 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
 {
 
 
-    // 再生回数が3の倍数かつインタースティシャル広告の準備ができていればインタースティシャル広告表示
+    // 最初のviewControllerに戻ったときplayVCで表示完了した回数が3の倍数かつインタースティシャル広告の準備ができていればインタースティシャル広告表示
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSInteger i = [defaults integerForKey:@"KEY_countUpCrashPlayed"];
     BOOL b = [defaults boolForKey:@"KEY_ADMOBinterstitialRecieved"];
     NSLog(@"countUpCrashPlayed %ld", (long)i);
-    
+    NSLog(@"interstitialLoadedState:%d",b);
     if (b == NO) {
         [self interstitialLoad];
     }
@@ -1108,10 +1108,10 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
 // AdMobインタースティシャルの再ロード
 - (void)interstitialLoad{
     // 【Ad】インタースティシャル広告の表示
-    //    interstitial_ = [[GADInterstitial alloc] init];
-    //    interstitial_.adUnitID = MY_INTERSTITIAL_UNIT_ID;
-    //    interstitial_.delegate = self;
-    //    [interstitial_ loadRequest:[GADRequest request]];
+        interstitial_ = [[GADInterstitial alloc] init];
+        interstitial_.adUnitID = MY_INTERSTITIAL_UNIT_ID;
+        interstitial_.delegate = self;
+        [interstitial_ loadRequest:[GADRequest request]];
 }
 
 #pragma mark nendDelegate

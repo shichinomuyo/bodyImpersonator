@@ -389,6 +389,7 @@
 		568B96411A1B03BB00368272 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 568B963F1A1B03BB00368272 /* README.txt */; };
 		568B96441A1B17DE00368272 /* PlayBtn_320x142@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 568B96421A1B17DE00368272 /* PlayBtn_320x142@2x.png */; };
 		568B96451A1B17DE00368272 /* PlayBtn320x92@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 568B96431A1B17DE00368272 /* PlayBtn320x92@2x.png */; };
+		568B96481A1B2E5600368272 /* kADMOBController.m in Sources */ = {isa = PBXBuildFile; fileRef = 568B96471A1B2E5600368272 /* kADMOBController.m */; };
 		569B431519FF79C400EF21EC /* EditorOutline320x568.png in Resources */ = {isa = PBXBuildFile; fileRef = 569B431419FF79C400EF21EC /* EditorOutline320x568.png */; };
 		569B43171A008F7100EF21EC /* YellowFrame188x188.png in Resources */ = {isa = PBXBuildFile; fileRef = 569B43161A008F7100EF21EC /* YellowFrame188x188.png */; };
 		569B43191A00902900EF21EC /* WhiteFrame188x188.png in Resources */ = {isa = PBXBuildFile; fileRef = 569B43181A00902900EF21EC /* WhiteFrame188x188.png */; };
@@ -574,6 +575,8 @@
 		568B963F1A1B03BB00368272 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
 		568B96421A1B17DE00368272 /* PlayBtn_320x142@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "PlayBtn_320x142@2x.png"; path = "Images/@2x/PlayBtn_320x142@2x.png"; sourceTree = "<group>"; };
 		568B96431A1B17DE00368272 /* PlayBtn320x92@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "PlayBtn320x92@2x.png"; path = "Images/@2x/PlayBtn320x92@2x.png"; sourceTree = "<group>"; };
+		568B96461A1B2E5600368272 /* kADMOBController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kADMOBController.h; sourceTree = "<group>"; };
+		568B96471A1B2E5600368272 /* kADMOBController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = kADMOBController.m; sourceTree = "<group>"; };
 		569B431419FF79C400EF21EC /* EditorOutline320x568.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = EditorOutline320x568.png; sourceTree = "<group>"; };
 		569B43161A008F7100EF21EC /* YellowFrame188x188.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = YellowFrame188x188.png; sourceTree = "<group>"; };
 		569B43181A00902900EF21EC /* WhiteFrame188x188.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WhiteFrame188x188.png; sourceTree = "<group>"; };
@@ -947,6 +950,8 @@
 				564AD77A19E3B4FB0069901D /* previewVC.m */,
 				568B961C1A185CF300368272 /* tappedImageVC.h */,
 				568B961D1A185CF300368272 /* tappedImageVC.m */,
+				568B96461A1B2E5600368272 /* kADMOBController.h */,
+				568B96471A1B2E5600368272 /* kADMOBController.m */,
 				56427E3119AB823200B516A0 /* Images.xcassets */,
 				56427E1D19AB823200B516A0 /* Supporting Files */,
 			);
@@ -1731,6 +1736,7 @@
 				56427E3019AB823200B516A0 /* ViewController.m in Sources */,
 				5686757B19BED3C900AF524A /* secondVC.m in Sources */,
 				565E97DA1A0D0B4000C18266 /* BICollectionReusableView.m in Sources */,
+				568B96481A1B2E5600368272 /* kADMOBController.m in Sources */,
 				56427EA819AB897500B516A0 /* AVAudioPlayer+CustomControllers.m in Sources */,
 				569B43291A00BCB700EF21EC /* BICollectionViewCell.m in Sources */,
 				569B43231A00A89300EF21EC /* FrameOutCollectionViewFlowLayout.m in Sources */,
