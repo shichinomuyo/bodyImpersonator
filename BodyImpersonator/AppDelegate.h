@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#ifndef DEBUG
+#define NSLog(...)
+#endif
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 

@@ -146,15 +146,17 @@
     return cell;
 }
 
+// セクション毎のセクション名を設定
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
     return [self.sectionList objectAtIndex:section];
 }
 
+// セクションごとのセルの高さを設定
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     CGFloat rowHeight;
     switch (indexPath.section) {
         case 0:
-            rowHeight = [BIOtherAppsTableViewCell rowHeight];
+            rowHeight = [BIFeedbakAndActionCell rowHeight];
             break;
         case 1:
             rowHeight = [BIFeedbakAndActionCell rowHeight];
@@ -174,17 +176,22 @@
 {
     // cellがタップされた際の処理
     switch (indexPath.section) {
-        case 0:
-            
+        case 0: //Add On
+            if ([self checkInAppPurchaseEnable] == YES){ // アプリ内課金制限がない場合はYES、制限有りはNO
+                [self startInAppPurchase];
+            } else {
+                // NOの場合のアラート表示
+                [self actionShowAppPurchaseLimitAlert];
+            }
             break;
-        case 1:
+        case 1: // Feedback / Share this App
             if (indexPath.row == 0) { // App Store Review
                 [self actionPostAppStoreReview];
             }else if (indexPath.row == 1) { // PostActivities
                 [self actionPostActivity];
             }
             break;
-        case 2:
+        case 2: // Other Apps
             if (indexPath.row == 0) {
                 [self actionJumpToRollToCrash];
             }
@@ -229,5 +236,193 @@
 
 - (void)actionRemoveAD{
 
+}
+
+#pragma mark アプリ内課金
+// アプリ内課金制限有無を確認
+- (BOOL)checkInAppPurchaseEnable
+{
+    if (![SKPaymentQueue canMakePayments]) {
+//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"エラー"
+//                                                        message:@"アプリ内課金が制限されています。"
+//                                                       delegate:nil
+//                                              cancelButtonTitle:nil
+//                                              otherButtonTitles:@"OK", nil];
+//        [alert show];
+        return NO; // 制限有りの場合、NO
+    }
+    return YES; // 制限無しの場合、YES
+}
+
+- (void)actionShowAppPurchaseLimitAlert {
+    Class class = NSClassFromString(@"UIAlertController"); // iOS8/7の切り分けフラグに使用
+    if (class) {
+        // アクションコントローラー生成
+        UIAlertController *actionController =
+        [UIAlertController alertControllerWithTitle:@"Error"
+                                            message:@"アプリ内課金が制限されています。"
+                                     preferredStyle:UIAlertControllerStyleActionSheet];
+        [actionController addAction:[UIAlertAction actionWithTitle:@"OK"
+                                                             style:UIAlertActionStyleDefault
+                                                           handler:^(UIAlertAction *action) {
+
+                                                               
+                                                           }]];
+        [actionController addAction:[UIAlertAction actionWithTitle:@"Cancel"
+                                                             style:UIAlertActionStyleCancel
+                                                           handler:^(UIAlertAction *action) {
+                                                               
+                                                           }]];
+        // iOS8の処理
+        // デバイスがiphoneであるかそうでないかで分岐
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
+            NSLog(@"iPhoneの処理");
+            // アクションコントローラーを表示
+            [self presentViewController:actionController animated:YES completion:nil];
+        }
+        else{
+            NSLog(@"iPadの処理");
+            // popoverを開く
+//            UIBarButtonItem *btn = sender;
+//            
+//            actionController.popoverPresentationController.sourceView = self.view;
+//            actionController.popoverPresentationController.sourceRect = CGRectMake(100.0, 100.0, 20.0, 20.0);
+//            actionController.popoverPresentationController.barButtonItem = btn;
+//            // アクションコントローラーを表示
+//            [self presentViewController:actionController animated:YES completion:nil];
+            
+        }
+        
+        
+    } else{
+        // iOS7の処理
+        
+        // UIActionSheetを生成
+        UIActionSheet *actionSheet = [[UIActionSheet alloc]init];
+        actionSheet.delegate = self;
+        actionSheet.title = @"Error:アプリ内課金が制限されています。";
+        [actionSheet addButtonWithTitle:@"OK"];
+        [actionSheet addButtonWithTitle:@"Cancel"];
+        actionSheet.cancelButtonIndex = 1;
+        
+        // デバイスがiphoneであるかそうでないかで分岐
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
+            NSLog(@"iPhoneの処理");
+            // アクションシートを表示
+            [actionSheet showInView:self.view.superview]; // self.view.superviewにしないとずれる
+        }
+        else{
+            NSLog(@"iPadの処理");
+            // アクションシートをpopoverで表示
+//            UIBarButtonItem *btn = sender;
+//            [actionSheet showFromBarButtonItem:btn animated:YES];
+        }
+    }
+
+}
+// アプリ内制限有無チェック処理の結果がYESだったらこの処理を呼ぶ）
+- (void)startInAppPurchase
+{
+    // com.companyname.application.productidは、「1-1. iTunes ConnectでManage In-App Purchasesの追加」で作成したProduct IDを設定します。
+    NSSet *set = [NSSet setWithObjects:@"com.muyo.bodyImpersonator.remove_ad_up_registrable_number_of_images", nil];
+    SKProductsRequest *productsRequest = [[SKProductsRequest alloc] initWithProductIdentifiers:set];
+    productsRequest.delegate = self;
+    [productsRequest start];
+}
+
+// 購入処理の開始
+- (void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response {
+    // 無効なアイテムがないかチェック
+    if ([response.invalidProductIdentifiers count] > 0) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"エラー"
+                                                        message:@"アイテムIDが不正です。"
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil, nil];
+        [alert show];
+
+        return;
+    }
+    // 購入処理開始
+    [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
+    for (SKProduct *product in response.products) {
+        SKPayment *payment = [SKPayment paymentWithProduct:product];
+        [[SKPaymentQueue defaultQueue] addPayment:payment];
+    }
+}
+
+//アイテム購入処理
+- (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray *)transactions {
+    for (SKPaymentTransaction *transaction in transactions) {
+        switch (transaction.transactionState) {
+            case SKPaymentTransactionStatePurchasing:
+                // NSLog(@"購入処理中");
+                // TODO: インジケータなど回して頑張ってる感を出す。
+                break;
+            case SKPaymentTransactionStatePurchased:
+                // NSLog(@"購入成功");
+                // TODO: アイテム購入した処理（アップグレード版の機能制限解除処理等）
+                [self upgradeRemoveAllAD];
+                [self upgradeRemoveLimitNumberOfImages];
+                // TODO: 購入の持続的な記録
+                {
+                }
+                [queue finishTransaction:transaction];
+                break;
+            case SKPaymentTransactionStateFailed:
+                // NSLog(@"購入失敗: %@, %@", transaction.transactionIdentifier, transaction.error);
+                // ユーザが購入処理をキャンセルした場合もここにくる
+                // TODO: 失敗のアラート表示等
+                {
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"エラー"
+                                                                    message:[transaction.error localizedDescription]
+                                                                   delegate:nil
+                                                          cancelButtonTitle:nil
+                                                          otherButtonTitles:@"OK", nil];
+                    [alert show];
+                }
+                break;
+            case SKPaymentTransactionStateRestored:
+                // リストア処理
+                // NSLog(@"以前に購入した機能を復元");
+                [queue finishTransaction:transaction];
+                // TODO: アイテム購入した処理（アップグレード版の機能制限解除処理等）
+                [self upgradeRemoveAllAD];
+                [self upgradeRemoveLimitNumberOfImages];
+                break;
+            default:
+                [queue finishTransaction:transaction];
+                break;
+        }
+    }
+}
+
+// レシートの確認とアイテムの付与
+
+//購入処理の終了
+- (void)paymentQueue:(SKPaymentQueue *)queue removedTransactions:(NSArray *)transactions
+{
+    [[SKPaymentQueue defaultQueue] removeTransactionObserver:self];
+}
+
+- (void)paymentQueue:(SKPaymentQueue *)queue restoreCompletedTransactionsFailedWithError:(NSError *)error
+{
+    // リストアの失敗
+}
+- (void)paymentQueueRestoreCompletedTransactionsFinished:(SKPaymentQueue *)queue
+{
+    // 全てのリストア処理が
+}
+
+- (void)upgradeRemoveAllAD{
+    BOOL adsRemoved = YES;
+    [[NSUserDefaults standardUserDefaults] setBool:adsRemoved forKey:@"KEY_adsRemoved"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (void)upgradeRemoveLimitNumberOfImages{
+    BOOL limitNumberOfImagesRemoved = YES;
+    [[NSUserDefaults standardUserDefaults] setBool:limitNumberOfImagesRemoved forKey:@"KEY_RemoveLimitNumberOfImagesRemoved"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 @end

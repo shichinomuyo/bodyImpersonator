@@ -98,16 +98,16 @@
                             </collectionView>
                             <button tag="2" contentMode="scaleAspectFit" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fRx-QP-7Su" userLabel="ctrlBtn">
                                 <rect key="frame" x="0.0" y="382" width="320" height="92"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.90588235855102539" green="0.29803922772407532" blue="0.27058824896812439" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="27"/>
-                                <state key="normal" image="PlayBtn320x196.png">
+                                <state key="normal" image="PlayBtn320x92.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <segue destination="xz1-qg-4jT" kind="modal" identifier="moveToPlayVC" modalTransitionStyle="crossDissolve" id="dnt-X1-NKi"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TFc-KJ-FbI" userLabel="ADBannerSample">
+                            <view hidden="YES" alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TFc-KJ-FbI" userLabel="ADBannerSample">
                                 <rect key="frame" x="0.0" y="518" width="320" height="50"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
@@ -151,6 +151,7 @@
                         <outlet property="previewIcon" destination="Bg4-9g-yWL" id="OtI-1r-vhN"/>
                         <outlet property="previewImageView" destination="v9w-6V-fkw" id="xWF-RR-zP0"/>
                         <outlet property="selectedPhotoImage" destination="4Ch-Od-A9z" id="6ua-47-mrh"/>
+                        <outlet property="toolBar" destination="Wnz-Xy-9jT" id="Wdz-he-q5e"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
@@ -555,7 +556,7 @@
         <image name="EditorOutline.png" width="320" height="568"/>
         <image name="Gear44-2.png" width="44" height="44"/>
         <image name="LightsFromCenter.png" width="320" height="504"/>
-        <image name="PlayBtn320x196.png" width="320" height="98"/>
+        <image name="PlayBtn320x92.png" width="320" height="92"/>
         <image name="PreviewIcon2.png" width="44" height="44"/>
         <image name="Roope44-2.png" width="44" height="44"/>
     </resources>

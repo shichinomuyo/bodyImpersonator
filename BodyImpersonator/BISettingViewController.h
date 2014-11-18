@@ -9,8 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "BIFeedbakAndActionCell.h"
 #import "BIOtherAppsTableViewCell.h"
+#import <StoreKit/StoreKit.h>
 
-@interface BISettingViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>
+@interface BISettingViewController : UIViewController<UIActionSheetDelegate,UITableViewDataSource,UITableViewDelegate,SKProductsRequestDelegate,SKPaymentTransactionObserver>
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
+
 
 @end

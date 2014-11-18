@@ -21,7 +21,7 @@
 }
 
 + (CGFloat)rowHeight{
-    return 54.0;
+    return 64.0;
 }
 
 

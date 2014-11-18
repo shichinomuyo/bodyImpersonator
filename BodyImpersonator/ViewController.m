@@ -16,8 +16,6 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     UIImagePickerController *_imagePicker;
     UIPopoverController *_imagePopController;
     BICollectionViewCell *_selectedCell;
-
-
 }
 
 // IBOutlet Btn
@@ -30,6 +28,8 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
 // IBOutlet collectionView
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (strong, nonatomic) IBOutlet UINavigationBar *navigationBar;
+// IBOutlet toolBar
+@property (strong, nonatomic) IBOutlet UIToolbar *toolBar;
 
 // previewImageViewの表示をコントールするために宣言
 @property (weak, nonatomic) IBOutlet UIButton *nestViewCtrlBtn;
@@ -60,66 +60,66 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     [appDefaults setObject:array forKey:@"KEY_imageNames"];
     // collectionViewに表示する画像に番号を振るために整数値を作成・初期化
     [appDefaults setObject:@"0" forKey:@"KEY_imageCount"];
-    
+    // アプリ内課金状況を初期化
+    [appDefaults setObject:@"NO" forKey:@"KEY_adsRemoved"]; // 広告表示する
+    [appDefaults setObject:@"NO" forKey:@"KEY_RemoveLimitNumberOfImagesRemoved"];
+
     // ユーザーデフォルトの初期値に設定する
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     [userDefaults registerDefaults:appDefaults];
 }
 
-- (void)viewAdBanners{
-    //    // 【Ad】サイズを指定してAdMobインスタンスを生成
-    //    bannerView_ = [[GADBannerView alloc] initWithAdSize:kGADAdSizeSmartBannerPortrait];
-    //
-    //    // 【Ad】AdMobのパブリッシャーIDを指定
-    //    bannerView_.adUnitID = MY_BANNER_UNIT_ID;
-    //
-    //
-    //    // 【Ad】AdMob広告を表示するViewController(自分自身)を指定し、ビューに広告を追加
-    //    bannerView_.rootViewController = self;
-    //    [self.view addSubview:bannerView_];
-    //
-    //    // ビューの一番下に表示
-    //    [bannerView_ setCenter:CGPointMake(self.view.bounds.size.width/2, self.view.bounds.size.height - bannerView_.bounds.size.height/2)];
-    //
-    //    // 【Ad】AdMob広告データの読み込みを要求
-    //    [bannerView_ loadRequest:[GADRequest request]];
-    //    // AdMobバナーの回転時のautosize
-    //    bannerView_.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
-    //
-    //    // 【Ad】インタースティシャル広告の表示
-    //    interstitial_ = [[GADInterstitial alloc] init];
-    //    interstitial_.adUnitID = MY_INTERSTITIAL_UNIT_ID;
-    //    interstitial_.delegate = self;
-    //    [interstitial_ loadRequest:[GADRequest request]];
-    //
-    //    //NADViewの作成
-    //
-    //
-    //    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
-    //        NSLog(@"iPhoneの処理");
-    //        self.nadView = [[NADView alloc] initWithFrame:CGRectMake(0, 0, 320, 50)];
-    //        [self.nadView setCenter:CGPointMake(self.view.bounds.size.width/2, self.nadView.bounds.size.height/2)];
-    //        // (3) ログ出力の指定
-    //        [self.nadView setIsOutputLog:YES];
-    //        // (4) set apiKey, spotId.
-    //        //        [self.nadView setNendID:@"a6eca9dd074372c898dd1df549301f277c53f2b9" spotID:@"3172"]; // テスト用
-    //        [self.nadView setNendID:@"139154ca4d546a7370695f0ba43c9520730f9703" spotID:@"208229"];
-    //
-    //    }
-    //    else{
-    //        NSLog(@"iPadの処理");
-    //        self.nadView = [[NADView alloc] initWithFrame:CGRectMake(0, 0, 728, 90)];
-    //        [self.nadView setCenter:CGPointMake(self.view.bounds.size.width/2, self.nadView.bounds.size.height/2)]; // ヘッダー
-    //        // (3) ログ出力の指定
-    //        [self.nadView setIsOutputLog:NO];
-    //        // (4) set apiKey, spotId.
-    //        //      [self.nadView setNendID:@"2e0b9e0b3f40d952e6000f1a8c4d455fffc4ca3a" spotID:@"70999"]; // テスト用
-    //        [self.nadView setNendID:@"19d17a40ad277a000f27111f286dc6aaa0ad146b" spotID:@"220604"];
-    //
-    //    }
-    //    [self.nadView setDelegate:self]; //(5)
-    //    [self.nadView load]; //(6)
-    //    [self.view addSubview:self.nadView]; // 最初から表示する場合
+- (void)addAdBanners{
+        // サイズを指定してAdMobインスタンスを生成
+        bannerView_ = [[GADBannerView alloc] initWithAdSize:kGADAdSizeSmartBannerPortrait];
+    
+        // AdMobのパブリッシャーIDを指定
+        bannerView_.adUnitID = MY_BANNER_UNIT_ID;
+    
+        // AdMob広告を表示するViewController(自分自身)を指定し、ビューに広告を追加
+        bannerView_.rootViewController = self;
+        [self.view addSubview:bannerView_];
+    
+        // ビューの一番下に表示
+        [bannerView_ setCenter:CGPointMake(self.view.bounds.size.width/2, self.view.bounds.size.height - bannerView_.bounds.size.height/2)];
+    
+        // 【Ad】AdMob広告データの読み込みを要求
+        [bannerView_ loadRequest:[GADRequest request]];
+        // AdMobバナーの回転時のautosize
+//        bannerView_.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
+    
+        // 【Ad】インタースティシャル広告の表示
+        interstitial_ = [[GADInterstitial alloc] init];
+        interstitial_.adUnitID = MY_INTERSTITIAL_UNIT_ID;
+        interstitial_.delegate = self;
+        [interstitial_ loadRequest:[GADRequest request]];
+    
+        //NADViewの作成
+//        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
+//            NSLog(@"iPhoneの処理");
+//            self.nadView = [[NADView alloc] initWithFrame:CGRectMake(0, 0, 320, 50)];
+//            [self.nadView setCenter:CGPointMake(self.view.bounds.size.width/2, self.nadView.bounds.size.height/2)];
+//            // (3) ログ出力の指定
+//            [self.nadView setIsOutputLog:YES];
+//            // (4) set apiKey, spotId.
+//            //        [self.nadView setNendID:@"a6eca9dd074372c898dd1df549301f277c53f2b9" spotID:@"3172"]; // テスト用
+//            [self.nadView setNendID:@"139154ca4d546a7370695f0ba43c9520730f9703" spotID:@"208229"];
+//    
+//        }
+//        else{
+//            NSLog(@"iPadの処理");
+//            self.nadView = [[NADView alloc] initWithFrame:CGRectMake(0, 0, 728, 90)];
+//            [self.nadView setCenter:CGPointMake(self.view.bounds.size.width/2, self.nadView.bounds.size.height/2)]; // ヘッダー
+//            // (3) ログ出力の指定
+//            [self.nadView setIsOutputLog:NO];
+//            // (4) set apiKey, spotId.
+//            //      [self.nadView setNendID:@"2e0b9e0b3f40d952e6000f1a8c4d455fffc4ca3a" spotID:@"70999"]; // テスト用
+//            [self.nadView setNendID:@"19d17a40ad277a000f27111f286dc6aaa0ad146b" spotID:@"220604"];
+//    
+//        }
+//        [self.nadView setDelegate:self]; //(5)
+//        [self.nadView load]; //(6)
+//        [self.view addSubview:self.nadView]; // 最初から表示する場合
 }
 
 #pragma mark -
@@ -130,8 +130,16 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     // Do any additional setup after loading the view, typically from a nib.
     // ナビゲーションコントローラのステータスバーの透過表示が気に入らないので隠す。
     [self.navigationController setNavigationBarHidden:YES animated:YES];
-    // 広告表示
-    //    [self viewAdBanners];
+    // 広告表示フラグ確認
+    _adsRemoved = [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_adsRemoved"];
+    _limitNumberOfImagesRemoved = [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_RemoveLimitNumberOfImagesRemoved"];
+//    _adsRemoved = NO; // デバッグ用 YESで購入後の状態
+//    _limitNumberOfImagesRemoved = NO; // デバッグ用 YESで購入後の状態
+    if (_adsRemoved == NO) {
+        // 広告表示
+        [self addAdBanners];
+    }
+    
     NSLog(@"最初のviewDidLoad");
     
     // iOS7以上の場合はnavigationBarの高さを64pxにする
@@ -191,6 +199,7 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
 - (void)viewWillAppear:(BOOL)animated{
     // 画面が表示されたら定期ロード再開
     [self.nadView resume];
+
 }
 
 // ビューが表示されたときに実行される
@@ -212,9 +221,28 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
         [interstitial_ presentFromRootViewController:self];
     }
     
+
     
 }
 
+-(void)viewDidLayoutSubviews{
+    if (_adsRemoved == NO) {
+        // 広告表示
+        //        [self addAdBanners];
+    } else {
+        [self adjustLayoutAdsRemovedView];
+    }
+}
+
+- (void)adjustLayoutAdsRemovedView{
+    NSLog(@"adsRemovedViewAdjustItemsPosition");
+    [_collectionView setFrame:CGRectMake(0, 64, self.view.bounds.size.width, 106 * 3 + 50)];
+    [_toolBar setCenter:CGPointMake(self.view.bounds.size.width/2, self.view.bounds.size.height - _toolBar.bounds.size.height/2)];
+    [_ctrlBtn setCenter:CGPointMake(self.view.bounds.size.width/2, self.view.bounds.size.height - _toolBar.bounds.size.height - 46)];
+//    [_ctrlBtn setBounds:CGRectMake(0, 0, self.view.bounds.size.width, 142 - 106)];
+     //CGRectMake(0, 0, self.view.bounds.size.width, 142)];
+//    [_ctrlBtn setImage:[UIImage imageNamed:@"PlayBtn_320x142@2x.png"] forState:UIControlStateNormal];
+}
 - (void)dealloc{
     // AdMobBannerviewの開放
     bannerView_ = nil;
@@ -319,7 +347,7 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     //    NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
     //    NSDictionary *dic = [defaults persistentDomainForName:appDomain];
     //    NSLog(@"defualts:%@", dic);
-
+    
     return  count + 1;
     NSLog(@"numberOfItemsInSection%d",count);
 }
@@ -536,10 +564,11 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     Class class = NSClassFromString(@"UIAlertController"); // iOS8/7の切り分けフラグに使用
     if (class) {
         // iOS8の処理
-        
+    
+        NSString *string = [NSString stringWithFormat:@"It is up to %d can be saved",_limitedNumberOfImages];
         // アクションコントローラー生成
         UIAlertController *actionController =
-        [UIAlertController alertControllerWithTitle:@"It is up to 9 can be saved"
+        [UIAlertController alertControllerWithTitle:string
                                             message:nil
                                      preferredStyle:UIAlertControllerStyleAlert];
         
@@ -819,7 +848,14 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSArray *array = [defaults objectForKey:@"KEY_imageNames"];
-    if ([array count] == kLIMITED_ITEM_NUMBER) { // 保存できる画像を９個に制限
+    NSLog(@"%d",_limitNumberOfImagesRemoved);
+    if (_limitNumberOfImagesRemoved == NO) {
+        _limitedNumberOfImages = kLIMITED_ITEM_NUMBER; // 9個
+    } else {
+        _limitedNumberOfImages = kMAX_ITEM_NUMBER; // 18個
+    }
+    
+    if ([array count] >= _limitedNumberOfImages) { // 保存できる画像を9個/18個に制限
         [self actionShowSaveLimitAlert];
     }else{
         //処理
