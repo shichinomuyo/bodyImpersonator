@@ -38,10 +38,6 @@
 		56427EBC19AB918C00B516A0 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EBB19AB918C00B516A0 /* SystemConfiguration.framework */; };
 		56427EBE19AB919B00B516A0 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EBD19AB919B00B516A0 /* MessageUI.framework */; };
 		56427EC019AB91BF00B516A0 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EBF19AB91BE00B516A0 /* StoreKit.framework */; };
-		56427EC919AB923000B516A0 /* libNendAd.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EC219AB923000B516A0 /* libNendAd.a */; };
-		56427ECA19AB923000B516A0 /* NADView_readme.txt in Resources */ = {isa = PBXBuildFile; fileRef = 56427EC819AB923000B516A0 /* NADView_readme.txt */; };
-		56427ECE19AB923C00B516A0 /* libAdapterNend.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427ECC19AB923C00B516A0 /* libAdapterNend.a */; };
-		56427ECF19AB923C00B516A0 /* libAdapterNend_readme.txt in Resources */ = {isa = PBXBuildFile; fileRef = 56427ECD19AB923C00B516A0 /* libAdapterNend_readme.txt */; };
 		56427ED119AB98F900B516A0 /* 41tSp5ic8NL.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 56427ED019AB98F900B516A0 /* 41tSp5ic8NL.jpg */; };
 		56427EE519B85A7600B516A0 /* LightsFromCenter.png in Resources */ = {isa = PBXBuildFile; fileRef = 56427EE419B85A7600B516A0 /* LightsFromCenter.png */; };
 		564AD77B19E3B4FB0069901D /* previewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 564AD77A19E3B4FB0069901D /* previewVC.m */; };
@@ -54,7 +50,6 @@
 		564AD80019EF8F760069901D /* previewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 564AD77A19E3B4FB0069901D /* previewVC.m */; };
 		564AD80219EF8F760069901D /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EBF19AB91BE00B516A0 /* StoreKit.framework */; };
 		564AD80319EF8F760069901D /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EBD19AB919B00B516A0 /* MessageUI.framework */; };
-		564AD80419EF8F760069901D /* libAdapterNend.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427ECC19AB923C00B516A0 /* libAdapterNend.a */; };
 		564AD80519EF8F760069901D /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EBB19AB918C00B516A0 /* SystemConfiguration.framework */; };
 		564AD80619EF8F760069901D /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EB919AB917A00B516A0 /* AdSupport.framework */; };
 		564AD80719EF8F760069901D /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EB719AB916400B516A0 /* CoreTelephony.framework */; };
@@ -64,20 +59,17 @@
 		564AD80B19EF8F760069901D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EAF19AB904400B516A0 /* QuartzCore.framework */; };
 		564AD80C19EF8F760069901D /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EAD19AB8FE200B516A0 /* iAd.framework */; };
 		564AD80D19EF8F760069901D /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EAB19AB8FC900B516A0 /* AVFoundation.framework */; };
-		564AD80E19EF8F760069901D /* libNendAd.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EC219AB923000B516A0 /* libNendAd.a */; };
 		564AD80F19EF8F760069901D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427E1819AB823200B516A0 /* CoreGraphics.framework */; };
 		564AD81119EF8F760069901D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427E1A19AB823200B516A0 /* UIKit.framework */; };
 		564AD81219EF8F760069901D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427E1619AB823200B516A0 /* Foundation.framework */; };
 		564AD81419EF8F760069901D /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 56427E4E19AB82C200B516A0 /* .gitignore */; };
 		564AD81719EF8F760069901D /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 56427E2B19AB823200B516A0 /* Main_iPad.storyboard */; };
 		564AD81819EF8F760069901D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 56427E3119AB823200B516A0 /* Images.xcassets */; };
-		564AD81919EF8F760069901D /* libAdapterNend_readme.txt in Resources */ = {isa = PBXBuildFile; fileRef = 56427ECD19AB923C00B516A0 /* libAdapterNend_readme.txt */; };
 		564AD81C19EF8F760069901D /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 56427E2819AB823200B516A0 /* Main_iPhone.storyboard */; };
 		564AD81D19EF8F760069901D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 56427E1F19AB823200B516A0 /* InfoPlist.strings */; };
 		564AD82019EF8F760069901D /* LightsFromCenter.png in Resources */ = {isa = PBXBuildFile; fileRef = 56427EE419B85A7600B516A0 /* LightsFromCenter.png */; };
 		564AD82319EF8F760069901D /* crash13.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 56427E8519AB88CB00B516A0 /* crash13.mp3 */; };
 		564AD82419EF8F760069901D /* roll13.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 56427E8619AB88CB00B516A0 /* roll13.mp3 */; };
-		564AD82519EF8F760069901D /* NADView_readme.txt in Resources */ = {isa = PBXBuildFile; fileRef = 56427EC819AB923000B516A0 /* NADView_readme.txt */; };
 		564AD82619EF8F760069901D /* 41tSp5ic8NL.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 56427ED019AB98F900B516A0 /* 41tSp5ic8NL.jpg */; };
 		564AD83019F0C8FF0069901D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56427E2F19AB823200B516A0 /* ViewController.m */; };
 		564AD83219F0C8FF0069901D /* secondVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5686757A19BED3C900AF524A /* secondVC.m */; };
@@ -88,7 +80,6 @@
 		564AD83819F0C8FF0069901D /* previewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 564AD77A19E3B4FB0069901D /* previewVC.m */; };
 		564AD83A19F0C8FF0069901D /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EBF19AB91BE00B516A0 /* StoreKit.framework */; };
 		564AD83B19F0C8FF0069901D /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EBD19AB919B00B516A0 /* MessageUI.framework */; };
-		564AD83C19F0C8FF0069901D /* libAdapterNend.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427ECC19AB923C00B516A0 /* libAdapterNend.a */; };
 		564AD83D19F0C8FF0069901D /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EBB19AB918C00B516A0 /* SystemConfiguration.framework */; };
 		564AD83E19F0C8FF0069901D /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EB919AB917A00B516A0 /* AdSupport.framework */; };
 		564AD83F19F0C8FF0069901D /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EB719AB916400B516A0 /* CoreTelephony.framework */; };
@@ -98,20 +89,17 @@
 		564AD84319F0C8FF0069901D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EAF19AB904400B516A0 /* QuartzCore.framework */; };
 		564AD84419F0C8FF0069901D /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EAD19AB8FE200B516A0 /* iAd.framework */; };
 		564AD84519F0C8FF0069901D /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EAB19AB8FC900B516A0 /* AVFoundation.framework */; };
-		564AD84619F0C8FF0069901D /* libNendAd.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EC219AB923000B516A0 /* libNendAd.a */; };
 		564AD84719F0C8FF0069901D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427E1819AB823200B516A0 /* CoreGraphics.framework */; };
 		564AD84919F0C8FF0069901D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427E1A19AB823200B516A0 /* UIKit.framework */; };
 		564AD84A19F0C8FF0069901D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427E1619AB823200B516A0 /* Foundation.framework */; };
 		564AD84C19F0C8FF0069901D /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 56427E4E19AB82C200B516A0 /* .gitignore */; };
 		564AD84F19F0C8FF0069901D /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 56427E2B19AB823200B516A0 /* Main_iPad.storyboard */; };
 		564AD85019F0C8FF0069901D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 56427E3119AB823200B516A0 /* Images.xcassets */; };
-		564AD85119F0C8FF0069901D /* libAdapterNend_readme.txt in Resources */ = {isa = PBXBuildFile; fileRef = 56427ECD19AB923C00B516A0 /* libAdapterNend_readme.txt */; };
 		564AD85419F0C8FF0069901D /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 56427E2819AB823200B516A0 /* Main_iPhone.storyboard */; };
 		564AD85519F0C8FF0069901D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 56427E1F19AB823200B516A0 /* InfoPlist.strings */; };
 		564AD85819F0C8FF0069901D /* LightsFromCenter.png in Resources */ = {isa = PBXBuildFile; fileRef = 56427EE419B85A7600B516A0 /* LightsFromCenter.png */; };
 		564AD85B19F0C8FF0069901D /* crash13.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 56427E8519AB88CB00B516A0 /* crash13.mp3 */; };
 		564AD85C19F0C8FF0069901D /* roll13.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 56427E8619AB88CB00B516A0 /* roll13.mp3 */; };
-		564AD85D19F0C8FF0069901D /* NADView_readme.txt in Resources */ = {isa = PBXBuildFile; fileRef = 56427EC819AB923000B516A0 /* NADView_readme.txt */; };
 		564AD85E19F0C8FF0069901D /* 41tSp5ic8NL.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 56427ED019AB98F900B516A0 /* 41tSp5ic8NL.jpg */; };
 		564AD86819F0CC930069901D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56427E2F19AB823200B516A0 /* ViewController.m */; };
 		564AD86A19F0CC930069901D /* secondVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5686757A19BED3C900AF524A /* secondVC.m */; };
@@ -122,7 +110,6 @@
 		564AD87019F0CC930069901D /* previewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 564AD77A19E3B4FB0069901D /* previewVC.m */; };
 		564AD87219F0CC930069901D /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EBF19AB91BE00B516A0 /* StoreKit.framework */; };
 		564AD87319F0CC930069901D /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EBD19AB919B00B516A0 /* MessageUI.framework */; };
-		564AD87419F0CC930069901D /* libAdapterNend.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427ECC19AB923C00B516A0 /* libAdapterNend.a */; };
 		564AD87519F0CC930069901D /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EBB19AB918C00B516A0 /* SystemConfiguration.framework */; };
 		564AD87619F0CC930069901D /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EB919AB917A00B516A0 /* AdSupport.framework */; };
 		564AD87719F0CC930069901D /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EB719AB916400B516A0 /* CoreTelephony.framework */; };
@@ -132,20 +119,17 @@
 		564AD87B19F0CC930069901D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EAF19AB904400B516A0 /* QuartzCore.framework */; };
 		564AD87C19F0CC930069901D /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EAD19AB8FE200B516A0 /* iAd.framework */; };
 		564AD87D19F0CC930069901D /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EAB19AB8FC900B516A0 /* AVFoundation.framework */; };
-		564AD87E19F0CC930069901D /* libNendAd.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EC219AB923000B516A0 /* libNendAd.a */; };
 		564AD87F19F0CC930069901D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427E1819AB823200B516A0 /* CoreGraphics.framework */; };
 		564AD88119F0CC930069901D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427E1A19AB823200B516A0 /* UIKit.framework */; };
 		564AD88219F0CC930069901D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427E1619AB823200B516A0 /* Foundation.framework */; };
 		564AD88419F0CC930069901D /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 56427E4E19AB82C200B516A0 /* .gitignore */; };
 		564AD88719F0CC930069901D /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 56427E2B19AB823200B516A0 /* Main_iPad.storyboard */; };
 		564AD88819F0CC930069901D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 56427E3119AB823200B516A0 /* Images.xcassets */; };
-		564AD88919F0CC930069901D /* libAdapterNend_readme.txt in Resources */ = {isa = PBXBuildFile; fileRef = 56427ECD19AB923C00B516A0 /* libAdapterNend_readme.txt */; };
 		564AD88C19F0CC930069901D /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 56427E2819AB823200B516A0 /* Main_iPhone.storyboard */; };
 		564AD88D19F0CC930069901D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 56427E1F19AB823200B516A0 /* InfoPlist.strings */; };
 		564AD89019F0CC930069901D /* LightsFromCenter.png in Resources */ = {isa = PBXBuildFile; fileRef = 56427EE419B85A7600B516A0 /* LightsFromCenter.png */; };
 		564AD89319F0CC930069901D /* crash13.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 56427E8519AB88CB00B516A0 /* crash13.mp3 */; };
 		564AD89419F0CC930069901D /* roll13.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 56427E8619AB88CB00B516A0 /* roll13.mp3 */; };
-		564AD89519F0CC930069901D /* NADView_readme.txt in Resources */ = {isa = PBXBuildFile; fileRef = 56427EC819AB923000B516A0 /* NADView_readme.txt */; };
 		564AD89619F0CC930069901D /* 41tSp5ic8NL.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 56427ED019AB98F900B516A0 /* 41tSp5ic8NL.jpg */; };
 		564AD8A019F0D20E0069901D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56427E2F19AB823200B516A0 /* ViewController.m */; };
 		564AD8A219F0D20E0069901D /* secondVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5686757A19BED3C900AF524A /* secondVC.m */; };
@@ -156,7 +140,6 @@
 		564AD8A819F0D20E0069901D /* previewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 564AD77A19E3B4FB0069901D /* previewVC.m */; };
 		564AD8AA19F0D20E0069901D /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EBF19AB91BE00B516A0 /* StoreKit.framework */; };
 		564AD8AB19F0D20E0069901D /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EBD19AB919B00B516A0 /* MessageUI.framework */; };
-		564AD8AC19F0D20E0069901D /* libAdapterNend.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427ECC19AB923C00B516A0 /* libAdapterNend.a */; };
 		564AD8AD19F0D20E0069901D /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EBB19AB918C00B516A0 /* SystemConfiguration.framework */; };
 		564AD8AE19F0D20E0069901D /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EB919AB917A00B516A0 /* AdSupport.framework */; };
 		564AD8AF19F0D20E0069901D /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EB719AB916400B516A0 /* CoreTelephony.framework */; };
@@ -166,20 +149,17 @@
 		564AD8B319F0D20E0069901D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EAF19AB904400B516A0 /* QuartzCore.framework */; };
 		564AD8B419F0D20E0069901D /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EAD19AB8FE200B516A0 /* iAd.framework */; };
 		564AD8B519F0D20E0069901D /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EAB19AB8FC900B516A0 /* AVFoundation.framework */; };
-		564AD8B619F0D20E0069901D /* libNendAd.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EC219AB923000B516A0 /* libNendAd.a */; };
 		564AD8B719F0D20E0069901D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427E1819AB823200B516A0 /* CoreGraphics.framework */; };
 		564AD8B919F0D20E0069901D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427E1A19AB823200B516A0 /* UIKit.framework */; };
 		564AD8BA19F0D20E0069901D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427E1619AB823200B516A0 /* Foundation.framework */; };
 		564AD8BC19F0D20E0069901D /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 56427E4E19AB82C200B516A0 /* .gitignore */; };
 		564AD8BF19F0D20E0069901D /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 56427E2B19AB823200B516A0 /* Main_iPad.storyboard */; };
 		564AD8C019F0D20E0069901D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 56427E3119AB823200B516A0 /* Images.xcassets */; };
-		564AD8C119F0D20E0069901D /* libAdapterNend_readme.txt in Resources */ = {isa = PBXBuildFile; fileRef = 56427ECD19AB923C00B516A0 /* libAdapterNend_readme.txt */; };
 		564AD8C419F0D20E0069901D /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 56427E2819AB823200B516A0 /* Main_iPhone.storyboard */; };
 		564AD8C519F0D20E0069901D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 56427E1F19AB823200B516A0 /* InfoPlist.strings */; };
 		564AD8C819F0D20E0069901D /* LightsFromCenter.png in Resources */ = {isa = PBXBuildFile; fileRef = 56427EE419B85A7600B516A0 /* LightsFromCenter.png */; };
 		564AD8CB19F0D20E0069901D /* crash13.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 56427E8519AB88CB00B516A0 /* crash13.mp3 */; };
 		564AD8CC19F0D20E0069901D /* roll13.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 56427E8619AB88CB00B516A0 /* roll13.mp3 */; };
-		564AD8CD19F0D20E0069901D /* NADView_readme.txt in Resources */ = {isa = PBXBuildFile; fileRef = 56427EC819AB923000B516A0 /* NADView_readme.txt */; };
 		564AD8CE19F0D20E0069901D /* 41tSp5ic8NL.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 56427ED019AB98F900B516A0 /* 41tSp5ic8NL.jpg */; };
 		564AD8D819F0D9320069901D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56427E2F19AB823200B516A0 /* ViewController.m */; };
 		564AD8DA19F0D9320069901D /* secondVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5686757A19BED3C900AF524A /* secondVC.m */; };
@@ -190,7 +170,6 @@
 		564AD8E019F0D9320069901D /* previewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 564AD77A19E3B4FB0069901D /* previewVC.m */; };
 		564AD8E219F0D9320069901D /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EBF19AB91BE00B516A0 /* StoreKit.framework */; };
 		564AD8E319F0D9320069901D /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EBD19AB919B00B516A0 /* MessageUI.framework */; };
-		564AD8E419F0D9320069901D /* libAdapterNend.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427ECC19AB923C00B516A0 /* libAdapterNend.a */; };
 		564AD8E519F0D9320069901D /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EBB19AB918C00B516A0 /* SystemConfiguration.framework */; };
 		564AD8E619F0D9320069901D /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EB919AB917A00B516A0 /* AdSupport.framework */; };
 		564AD8E719F0D9320069901D /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EB719AB916400B516A0 /* CoreTelephony.framework */; };
@@ -200,20 +179,17 @@
 		564AD8EB19F0D9320069901D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EAF19AB904400B516A0 /* QuartzCore.framework */; };
 		564AD8EC19F0D9320069901D /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EAD19AB8FE200B516A0 /* iAd.framework */; };
 		564AD8ED19F0D9320069901D /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EAB19AB8FC900B516A0 /* AVFoundation.framework */; };
-		564AD8EE19F0D9320069901D /* libNendAd.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EC219AB923000B516A0 /* libNendAd.a */; };
 		564AD8EF19F0D9320069901D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427E1819AB823200B516A0 /* CoreGraphics.framework */; };
 		564AD8F119F0D9320069901D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427E1A19AB823200B516A0 /* UIKit.framework */; };
 		564AD8F219F0D9320069901D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427E1619AB823200B516A0 /* Foundation.framework */; };
 		564AD8F419F0D9320069901D /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 56427E4E19AB82C200B516A0 /* .gitignore */; };
 		564AD8F719F0D9320069901D /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 56427E2B19AB823200B516A0 /* Main_iPad.storyboard */; };
 		564AD8F819F0D9320069901D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 56427E3119AB823200B516A0 /* Images.xcassets */; };
-		564AD8F919F0D9320069901D /* libAdapterNend_readme.txt in Resources */ = {isa = PBXBuildFile; fileRef = 56427ECD19AB923C00B516A0 /* libAdapterNend_readme.txt */; };
 		564AD8FC19F0D9320069901D /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 56427E2819AB823200B516A0 /* Main_iPhone.storyboard */; };
 		564AD8FD19F0D9320069901D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 56427E1F19AB823200B516A0 /* InfoPlist.strings */; };
 		564AD90019F0D9320069901D /* LightsFromCenter.png in Resources */ = {isa = PBXBuildFile; fileRef = 56427EE419B85A7600B516A0 /* LightsFromCenter.png */; };
 		564AD90319F0D9320069901D /* crash13.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 56427E8519AB88CB00B516A0 /* crash13.mp3 */; };
 		564AD90419F0D9320069901D /* roll13.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 56427E8619AB88CB00B516A0 /* roll13.mp3 */; };
-		564AD90519F0D9320069901D /* NADView_readme.txt in Resources */ = {isa = PBXBuildFile; fileRef = 56427EC819AB923000B516A0 /* NADView_readme.txt */; };
 		564AD90619F0D9320069901D /* 41tSp5ic8NL.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 56427ED019AB98F900B516A0 /* 41tSp5ic8NL.jpg */; };
 		564AD91019F0E32E0069901D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56427E2F19AB823200B516A0 /* ViewController.m */; };
 		564AD91219F0E32E0069901D /* secondVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5686757A19BED3C900AF524A /* secondVC.m */; };
@@ -224,7 +200,6 @@
 		564AD91819F0E32E0069901D /* previewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 564AD77A19E3B4FB0069901D /* previewVC.m */; };
 		564AD91A19F0E32E0069901D /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EBF19AB91BE00B516A0 /* StoreKit.framework */; };
 		564AD91B19F0E32E0069901D /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EBD19AB919B00B516A0 /* MessageUI.framework */; };
-		564AD91C19F0E32E0069901D /* libAdapterNend.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427ECC19AB923C00B516A0 /* libAdapterNend.a */; };
 		564AD91D19F0E32E0069901D /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EBB19AB918C00B516A0 /* SystemConfiguration.framework */; };
 		564AD91E19F0E32E0069901D /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EB919AB917A00B516A0 /* AdSupport.framework */; };
 		564AD91F19F0E32E0069901D /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EB719AB916400B516A0 /* CoreTelephony.framework */; };
@@ -234,20 +209,17 @@
 		564AD92319F0E32E0069901D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EAF19AB904400B516A0 /* QuartzCore.framework */; };
 		564AD92419F0E32E0069901D /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EAD19AB8FE200B516A0 /* iAd.framework */; };
 		564AD92519F0E32E0069901D /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EAB19AB8FC900B516A0 /* AVFoundation.framework */; };
-		564AD92619F0E32E0069901D /* libNendAd.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EC219AB923000B516A0 /* libNendAd.a */; };
 		564AD92719F0E32E0069901D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427E1819AB823200B516A0 /* CoreGraphics.framework */; };
 		564AD92919F0E32E0069901D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427E1A19AB823200B516A0 /* UIKit.framework */; };
 		564AD92A19F0E32E0069901D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427E1619AB823200B516A0 /* Foundation.framework */; };
 		564AD92C19F0E32E0069901D /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 56427E4E19AB82C200B516A0 /* .gitignore */; };
 		564AD92F19F0E32E0069901D /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 56427E2B19AB823200B516A0 /* Main_iPad.storyboard */; };
 		564AD93019F0E32E0069901D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 56427E3119AB823200B516A0 /* Images.xcassets */; };
-		564AD93119F0E32E0069901D /* libAdapterNend_readme.txt in Resources */ = {isa = PBXBuildFile; fileRef = 56427ECD19AB923C00B516A0 /* libAdapterNend_readme.txt */; };
 		564AD93419F0E32E0069901D /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 56427E2819AB823200B516A0 /* Main_iPhone.storyboard */; };
 		564AD93519F0E32E0069901D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 56427E1F19AB823200B516A0 /* InfoPlist.strings */; };
 		564AD93819F0E32E0069901D /* LightsFromCenter.png in Resources */ = {isa = PBXBuildFile; fileRef = 56427EE419B85A7600B516A0 /* LightsFromCenter.png */; };
 		564AD93B19F0E32E0069901D /* crash13.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 56427E8519AB88CB00B516A0 /* crash13.mp3 */; };
 		564AD93C19F0E32E0069901D /* roll13.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 56427E8619AB88CB00B516A0 /* roll13.mp3 */; };
-		564AD93D19F0E32E0069901D /* NADView_readme.txt in Resources */ = {isa = PBXBuildFile; fileRef = 56427EC819AB923000B516A0 /* NADView_readme.txt */; };
 		564AD93E19F0E32E0069901D /* 41tSp5ic8NL.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 56427ED019AB98F900B516A0 /* 41tSp5ic8NL.jpg */; };
 		564AD94819F0E4520069901D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56427E2F19AB823200B516A0 /* ViewController.m */; };
 		564AD94A19F0E4520069901D /* secondVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5686757A19BED3C900AF524A /* secondVC.m */; };
@@ -258,7 +230,6 @@
 		564AD95019F0E4520069901D /* previewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 564AD77A19E3B4FB0069901D /* previewVC.m */; };
 		564AD95219F0E4520069901D /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EBF19AB91BE00B516A0 /* StoreKit.framework */; };
 		564AD95319F0E4520069901D /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EBD19AB919B00B516A0 /* MessageUI.framework */; };
-		564AD95419F0E4520069901D /* libAdapterNend.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427ECC19AB923C00B516A0 /* libAdapterNend.a */; };
 		564AD95519F0E4520069901D /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EBB19AB918C00B516A0 /* SystemConfiguration.framework */; };
 		564AD95619F0E4520069901D /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EB919AB917A00B516A0 /* AdSupport.framework */; };
 		564AD95719F0E4520069901D /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EB719AB916400B516A0 /* CoreTelephony.framework */; };
@@ -268,20 +239,17 @@
 		564AD95B19F0E4520069901D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EAF19AB904400B516A0 /* QuartzCore.framework */; };
 		564AD95C19F0E4520069901D /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EAD19AB8FE200B516A0 /* iAd.framework */; };
 		564AD95D19F0E4520069901D /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EAB19AB8FC900B516A0 /* AVFoundation.framework */; };
-		564AD95E19F0E4520069901D /* libNendAd.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EC219AB923000B516A0 /* libNendAd.a */; };
 		564AD95F19F0E4520069901D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427E1819AB823200B516A0 /* CoreGraphics.framework */; };
 		564AD96119F0E4520069901D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427E1A19AB823200B516A0 /* UIKit.framework */; };
 		564AD96219F0E4520069901D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427E1619AB823200B516A0 /* Foundation.framework */; };
 		564AD96419F0E4520069901D /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 56427E4E19AB82C200B516A0 /* .gitignore */; };
 		564AD96719F0E4520069901D /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 56427E2B19AB823200B516A0 /* Main_iPad.storyboard */; };
 		564AD96819F0E4520069901D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 56427E3119AB823200B516A0 /* Images.xcassets */; };
-		564AD96919F0E4520069901D /* libAdapterNend_readme.txt in Resources */ = {isa = PBXBuildFile; fileRef = 56427ECD19AB923C00B516A0 /* libAdapterNend_readme.txt */; };
 		564AD96C19F0E4520069901D /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 56427E2819AB823200B516A0 /* Main_iPhone.storyboard */; };
 		564AD96D19F0E4520069901D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 56427E1F19AB823200B516A0 /* InfoPlist.strings */; };
 		564AD97019F0E4520069901D /* LightsFromCenter.png in Resources */ = {isa = PBXBuildFile; fileRef = 56427EE419B85A7600B516A0 /* LightsFromCenter.png */; };
 		564AD97319F0E4520069901D /* crash13.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 56427E8519AB88CB00B516A0 /* crash13.mp3 */; };
 		564AD97419F0E4520069901D /* roll13.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 56427E8619AB88CB00B516A0 /* roll13.mp3 */; };
-		564AD97519F0E4520069901D /* NADView_readme.txt in Resources */ = {isa = PBXBuildFile; fileRef = 56427EC819AB923000B516A0 /* NADView_readme.txt */; };
 		564AD97619F0E4520069901D /* 41tSp5ic8NL.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 56427ED019AB98F900B516A0 /* 41tSp5ic8NL.jpg */; };
 		564AD98019F0E8410069901D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56427E2F19AB823200B516A0 /* ViewController.m */; };
 		564AD98219F0E8410069901D /* secondVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5686757A19BED3C900AF524A /* secondVC.m */; };
@@ -292,7 +260,6 @@
 		564AD98819F0E8410069901D /* previewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 564AD77A19E3B4FB0069901D /* previewVC.m */; };
 		564AD98A19F0E8410069901D /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EBF19AB91BE00B516A0 /* StoreKit.framework */; };
 		564AD98B19F0E8410069901D /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EBD19AB919B00B516A0 /* MessageUI.framework */; };
-		564AD98C19F0E8410069901D /* libAdapterNend.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427ECC19AB923C00B516A0 /* libAdapterNend.a */; };
 		564AD98D19F0E8410069901D /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EBB19AB918C00B516A0 /* SystemConfiguration.framework */; };
 		564AD98E19F0E8410069901D /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EB919AB917A00B516A0 /* AdSupport.framework */; };
 		564AD98F19F0E8410069901D /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EB719AB916400B516A0 /* CoreTelephony.framework */; };
@@ -302,20 +269,17 @@
 		564AD99319F0E8410069901D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EAF19AB904400B516A0 /* QuartzCore.framework */; };
 		564AD99419F0E8410069901D /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EAD19AB8FE200B516A0 /* iAd.framework */; };
 		564AD99519F0E8410069901D /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EAB19AB8FC900B516A0 /* AVFoundation.framework */; };
-		564AD99619F0E8410069901D /* libNendAd.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EC219AB923000B516A0 /* libNendAd.a */; };
 		564AD99719F0E8410069901D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427E1819AB823200B516A0 /* CoreGraphics.framework */; };
 		564AD99919F0E8410069901D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427E1A19AB823200B516A0 /* UIKit.framework */; };
 		564AD99A19F0E8410069901D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427E1619AB823200B516A0 /* Foundation.framework */; };
 		564AD99C19F0E8410069901D /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 56427E4E19AB82C200B516A0 /* .gitignore */; };
 		564AD99F19F0E8410069901D /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 56427E2B19AB823200B516A0 /* Main_iPad.storyboard */; };
 		564AD9A019F0E8410069901D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 56427E3119AB823200B516A0 /* Images.xcassets */; };
-		564AD9A119F0E8410069901D /* libAdapterNend_readme.txt in Resources */ = {isa = PBXBuildFile; fileRef = 56427ECD19AB923C00B516A0 /* libAdapterNend_readme.txt */; };
 		564AD9A419F0E8410069901D /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 56427E2819AB823200B516A0 /* Main_iPhone.storyboard */; };
 		564AD9A519F0E8410069901D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 56427E1F19AB823200B516A0 /* InfoPlist.strings */; };
 		564AD9A819F0E8410069901D /* LightsFromCenter.png in Resources */ = {isa = PBXBuildFile; fileRef = 56427EE419B85A7600B516A0 /* LightsFromCenter.png */; };
 		564AD9AB19F0E8410069901D /* crash13.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 56427E8519AB88CB00B516A0 /* crash13.mp3 */; };
 		564AD9AC19F0E8410069901D /* roll13.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 56427E8619AB88CB00B516A0 /* roll13.mp3 */; };
-		564AD9AD19F0E8410069901D /* NADView_readme.txt in Resources */ = {isa = PBXBuildFile; fileRef = 56427EC819AB923000B516A0 /* NADView_readme.txt */; };
 		564AD9AE19F0E8410069901D /* 41tSp5ic8NL.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 56427ED019AB98F900B516A0 /* 41tSp5ic8NL.jpg */; };
 		564AD9B819F0E9630069901D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56427E2F19AB823200B516A0 /* ViewController.m */; };
 		564AD9BA19F0E9630069901D /* secondVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5686757A19BED3C900AF524A /* secondVC.m */; };
@@ -326,7 +290,6 @@
 		564AD9C019F0E9630069901D /* previewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 564AD77A19E3B4FB0069901D /* previewVC.m */; };
 		564AD9C219F0E9630069901D /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EBF19AB91BE00B516A0 /* StoreKit.framework */; };
 		564AD9C319F0E9630069901D /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EBD19AB919B00B516A0 /* MessageUI.framework */; };
-		564AD9C419F0E9630069901D /* libAdapterNend.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427ECC19AB923C00B516A0 /* libAdapterNend.a */; };
 		564AD9C519F0E9630069901D /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EBB19AB918C00B516A0 /* SystemConfiguration.framework */; };
 		564AD9C619F0E9630069901D /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EB919AB917A00B516A0 /* AdSupport.framework */; };
 		564AD9C719F0E9630069901D /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EB719AB916400B516A0 /* CoreTelephony.framework */; };
@@ -336,20 +299,17 @@
 		564AD9CB19F0E9630069901D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EAF19AB904400B516A0 /* QuartzCore.framework */; };
 		564AD9CC19F0E9630069901D /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EAD19AB8FE200B516A0 /* iAd.framework */; };
 		564AD9CD19F0E9630069901D /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EAB19AB8FC900B516A0 /* AVFoundation.framework */; };
-		564AD9CE19F0E9630069901D /* libNendAd.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EC219AB923000B516A0 /* libNendAd.a */; };
 		564AD9CF19F0E9630069901D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427E1819AB823200B516A0 /* CoreGraphics.framework */; };
 		564AD9D119F0E9630069901D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427E1A19AB823200B516A0 /* UIKit.framework */; };
 		564AD9D219F0E9630069901D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427E1619AB823200B516A0 /* Foundation.framework */; };
 		564AD9D419F0E9630069901D /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 56427E4E19AB82C200B516A0 /* .gitignore */; };
 		564AD9D719F0E9630069901D /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 56427E2B19AB823200B516A0 /* Main_iPad.storyboard */; };
 		564AD9D819F0E9630069901D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 56427E3119AB823200B516A0 /* Images.xcassets */; };
-		564AD9D919F0E9630069901D /* libAdapterNend_readme.txt in Resources */ = {isa = PBXBuildFile; fileRef = 56427ECD19AB923C00B516A0 /* libAdapterNend_readme.txt */; };
 		564AD9DC19F0E9630069901D /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 56427E2819AB823200B516A0 /* Main_iPhone.storyboard */; };
 		564AD9DD19F0E9630069901D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 56427E1F19AB823200B516A0 /* InfoPlist.strings */; };
 		564AD9E019F0E9630069901D /* LightsFromCenter.png in Resources */ = {isa = PBXBuildFile; fileRef = 56427EE419B85A7600B516A0 /* LightsFromCenter.png */; };
 		564AD9E319F0E9630069901D /* crash13.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 56427E8519AB88CB00B516A0 /* crash13.mp3 */; };
 		564AD9E419F0E9630069901D /* roll13.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 56427E8619AB88CB00B516A0 /* roll13.mp3 */; };
-		564AD9E519F0E9630069901D /* NADView_readme.txt in Resources */ = {isa = PBXBuildFile; fileRef = 56427EC819AB923000B516A0 /* NADView_readme.txt */; };
 		564AD9E619F0E9630069901D /* 41tSp5ic8NL.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 56427ED019AB98F900B516A0 /* 41tSp5ic8NL.jpg */; };
 		564AD9F619F1F3E20069901D /* CamIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 564AD9F019F1F3E20069901D /* CamIcon.png */; };
 		564AD9F719F1F3E20069901D /* Logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 564AD9F119F1F3E20069901D /* Logo.png */; };
@@ -389,7 +349,10 @@
 		568B96411A1B03BB00368272 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 568B963F1A1B03BB00368272 /* README.txt */; };
 		568B96441A1B17DE00368272 /* PlayBtn_320x142@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 568B96421A1B17DE00368272 /* PlayBtn_320x142@2x.png */; };
 		568B96451A1B17DE00368272 /* PlayBtn320x92@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 568B96431A1B17DE00368272 /* PlayBtn320x92@2x.png */; };
-		568B96481A1B2E5600368272 /* kADMOBController.m in Sources */ = {isa = PBXBuildFile; fileRef = 568B96471A1B2E5600368272 /* kADMOBController.m */; };
+		568B968A1A1C370600368272 /* libAdapterNend.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 568B964B1A1C370600368272 /* libAdapterNend.a */; };
+		568B968B1A1C370600368272 /* libAdapterNend_readme.txt in Resources */ = {isa = PBXBuildFile; fileRef = 568B964C1A1C370600368272 /* libAdapterNend_readme.txt */; };
+		568B968C1A1C370600368272 /* libNendAd.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 568B964F1A1C370600368272 /* libNendAd.a */; };
+		568B968D1A1C370600368272 /* NADView_readme.txt in Resources */ = {isa = PBXBuildFile; fileRef = 568B96551A1C370600368272 /* NADView_readme.txt */; };
 		569B431519FF79C400EF21EC /* EditorOutline320x568.png in Resources */ = {isa = PBXBuildFile; fileRef = 569B431419FF79C400EF21EC /* EditorOutline320x568.png */; };
 		569B43171A008F7100EF21EC /* YellowFrame188x188.png in Resources */ = {isa = PBXBuildFile; fileRef = 569B43161A008F7100EF21EC /* YellowFrame188x188.png */; };
 		569B43191A00902900EF21EC /* WhiteFrame188x188.png in Resources */ = {isa = PBXBuildFile; fileRef = 569B43181A00902900EF21EC /* WhiteFrame188x188.png */; };
@@ -473,15 +436,6 @@
 		56427EBB19AB918C00B516A0 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		56427EBD19AB919B00B516A0 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		56427EBF19AB91BE00B516A0 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
-		56427EC219AB923000B516A0 /* libNendAd.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libNendAd.a; sourceTree = "<group>"; };
-		56427EC319AB923000B516A0 /* NADIconArrayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NADIconArrayView.h; sourceTree = "<group>"; };
-		56427EC419AB923000B516A0 /* NADIconLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NADIconLoader.h; sourceTree = "<group>"; };
-		56427EC519AB923000B516A0 /* NADIconView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NADIconView.h; sourceTree = "<group>"; };
-		56427EC619AB923000B516A0 /* NADInterstitial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NADInterstitial.h; sourceTree = "<group>"; };
-		56427EC719AB923000B516A0 /* NADView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NADView.h; sourceTree = "<group>"; };
-		56427EC819AB923000B516A0 /* NADView_readme.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = NADView_readme.txt; sourceTree = "<group>"; };
-		56427ECC19AB923C00B516A0 /* libAdapterNend.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libAdapterNend.a; sourceTree = "<group>"; };
-		56427ECD19AB923C00B516A0 /* libAdapterNend_readme.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = libAdapterNend_readme.txt; sourceTree = "<group>"; };
 		56427ED019AB98F900B516A0 /* 41tSp5ic8NL.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 41tSp5ic8NL.jpg; sourceTree = "<group>"; };
 		56427EE419B85A7600B516A0 /* LightsFromCenter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LightsFromCenter.png; sourceTree = "<group>"; };
 		564AD77919E3B4FB0069901D /* previewVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = previewVC.h; sourceTree = "<group>"; };
@@ -575,8 +529,16 @@
 		568B963F1A1B03BB00368272 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
 		568B96421A1B17DE00368272 /* PlayBtn_320x142@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "PlayBtn_320x142@2x.png"; path = "Images/@2x/PlayBtn_320x142@2x.png"; sourceTree = "<group>"; };
 		568B96431A1B17DE00368272 /* PlayBtn320x92@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "PlayBtn320x92@2x.png"; path = "Images/@2x/PlayBtn320x92@2x.png"; sourceTree = "<group>"; };
-		568B96461A1B2E5600368272 /* kADMOBController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kADMOBController.h; sourceTree = "<group>"; };
-		568B96471A1B2E5600368272 /* kADMOBController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = kADMOBController.m; sourceTree = "<group>"; };
+		568B964B1A1C370600368272 /* libAdapterNend.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libAdapterNend.a; sourceTree = "<group>"; };
+		568B964C1A1C370600368272 /* libAdapterNend_readme.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = libAdapterNend_readme.txt; sourceTree = "<group>"; };
+		568B964F1A1C370600368272 /* libNendAd.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libNendAd.a; sourceTree = "<group>"; };
+		568B96501A1C370600368272 /* NADIconArrayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NADIconArrayView.h; sourceTree = "<group>"; };
+		568B96511A1C370600368272 /* NADIconLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NADIconLoader.h; sourceTree = "<group>"; };
+		568B96521A1C370600368272 /* NADIconView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NADIconView.h; sourceTree = "<group>"; };
+		568B96531A1C370600368272 /* NADInterstitial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NADInterstitial.h; sourceTree = "<group>"; };
+		568B96541A1C370600368272 /* NADView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NADView.h; sourceTree = "<group>"; };
+		568B96551A1C370600368272 /* NADView_readme.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = NADView_readme.txt; sourceTree = "<group>"; };
+		568B96561A1C370600368272 /* NendAd-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NendAd-Bridging-Header.h"; sourceTree = "<group>"; };
 		569B431419FF79C400EF21EC /* EditorOutline320x568.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = EditorOutline320x568.png; sourceTree = "<group>"; };
 		569B43161A008F7100EF21EC /* YellowFrame188x188.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = YellowFrame188x188.png; sourceTree = "<group>"; };
 		569B43181A00902900EF21EC /* WhiteFrame188x188.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WhiteFrame188x188.png; sourceTree = "<group>"; };
@@ -623,7 +585,6 @@
 			files = (
 				56427EC019AB91BF00B516A0 /* StoreKit.framework in Frameworks */,
 				56427EBE19AB919B00B516A0 /* MessageUI.framework in Frameworks */,
-				56427ECE19AB923C00B516A0 /* libAdapterNend.a in Frameworks */,
 				56427EBC19AB918C00B516A0 /* SystemConfiguration.framework in Frameworks */,
 				56427EBA19AB917A00B516A0 /* AdSupport.framework in Frameworks */,
 				56427EB819AB916400B516A0 /* CoreTelephony.framework in Frameworks */,
@@ -631,10 +592,11 @@
 				56427EB419AB913D00B516A0 /* ImageIO.framework in Frameworks */,
 				56427EB219AB905500B516A0 /* AudioToolbox.framework in Frameworks */,
 				568B96401A1B03BB00368272 /* libGoogleAdMobAds.a in Frameworks */,
+				568B968C1A1C370600368272 /* libNendAd.a in Frameworks */,
 				56427EB019AB904400B516A0 /* QuartzCore.framework in Frameworks */,
 				56427EAE19AB8FE200B516A0 /* iAd.framework in Frameworks */,
 				56427EAC19AB8FC900B516A0 /* AVFoundation.framework in Frameworks */,
-				56427EC919AB923000B516A0 /* libNendAd.a in Frameworks */,
+				568B968A1A1C370600368272 /* libAdapterNend.a in Frameworks */,
 				56427E1919AB823200B516A0 /* CoreGraphics.framework in Frameworks */,
 				56427E1B19AB823200B516A0 /* UIKit.framework in Frameworks */,
 				56427E1719AB823200B516A0 /* Foundation.framework in Frameworks */,
@@ -657,7 +619,6 @@
 			files = (
 				564AD80219EF8F760069901D /* StoreKit.framework in Frameworks */,
 				564AD80319EF8F760069901D /* MessageUI.framework in Frameworks */,
-				564AD80419EF8F760069901D /* libAdapterNend.a in Frameworks */,
 				564AD80519EF8F760069901D /* SystemConfiguration.framework in Frameworks */,
 				564AD80619EF8F760069901D /* AdSupport.framework in Frameworks */,
 				564AD80719EF8F760069901D /* CoreTelephony.framework in Frameworks */,
@@ -667,7 +628,6 @@
 				564AD80B19EF8F760069901D /* QuartzCore.framework in Frameworks */,
 				564AD80C19EF8F760069901D /* iAd.framework in Frameworks */,
 				564AD80D19EF8F760069901D /* AVFoundation.framework in Frameworks */,
-				564AD80E19EF8F760069901D /* libNendAd.a in Frameworks */,
 				564AD80F19EF8F760069901D /* CoreGraphics.framework in Frameworks */,
 				564AD81119EF8F760069901D /* UIKit.framework in Frameworks */,
 				564AD81219EF8F760069901D /* Foundation.framework in Frameworks */,
@@ -680,7 +640,6 @@
 			files = (
 				564AD83A19F0C8FF0069901D /* StoreKit.framework in Frameworks */,
 				564AD83B19F0C8FF0069901D /* MessageUI.framework in Frameworks */,
-				564AD83C19F0C8FF0069901D /* libAdapterNend.a in Frameworks */,
 				564AD83D19F0C8FF0069901D /* SystemConfiguration.framework in Frameworks */,
 				564AD83E19F0C8FF0069901D /* AdSupport.framework in Frameworks */,
 				564AD83F19F0C8FF0069901D /* CoreTelephony.framework in Frameworks */,
@@ -690,7 +649,6 @@
 				564AD84319F0C8FF0069901D /* QuartzCore.framework in Frameworks */,
 				564AD84419F0C8FF0069901D /* iAd.framework in Frameworks */,
 				564AD84519F0C8FF0069901D /* AVFoundation.framework in Frameworks */,
-				564AD84619F0C8FF0069901D /* libNendAd.a in Frameworks */,
 				564AD84719F0C8FF0069901D /* CoreGraphics.framework in Frameworks */,
 				564AD84919F0C8FF0069901D /* UIKit.framework in Frameworks */,
 				564AD84A19F0C8FF0069901D /* Foundation.framework in Frameworks */,
@@ -703,7 +661,6 @@
 			files = (
 				564AD87219F0CC930069901D /* StoreKit.framework in Frameworks */,
 				564AD87319F0CC930069901D /* MessageUI.framework in Frameworks */,
-				564AD87419F0CC930069901D /* libAdapterNend.a in Frameworks */,
 				564AD87519F0CC930069901D /* SystemConfiguration.framework in Frameworks */,
 				564AD87619F0CC930069901D /* AdSupport.framework in Frameworks */,
 				564AD87719F0CC930069901D /* CoreTelephony.framework in Frameworks */,
@@ -713,7 +670,6 @@
 				564AD87B19F0CC930069901D /* QuartzCore.framework in Frameworks */,
 				564AD87C19F0CC930069901D /* iAd.framework in Frameworks */,
 				564AD87D19F0CC930069901D /* AVFoundation.framework in Frameworks */,
-				564AD87E19F0CC930069901D /* libNendAd.a in Frameworks */,
 				564AD87F19F0CC930069901D /* CoreGraphics.framework in Frameworks */,
 				564AD88119F0CC930069901D /* UIKit.framework in Frameworks */,
 				564AD88219F0CC930069901D /* Foundation.framework in Frameworks */,
@@ -726,7 +682,6 @@
 			files = (
 				564AD8AA19F0D20E0069901D /* StoreKit.framework in Frameworks */,
 				564AD8AB19F0D20E0069901D /* MessageUI.framework in Frameworks */,
-				564AD8AC19F0D20E0069901D /* libAdapterNend.a in Frameworks */,
 				564AD8AD19F0D20E0069901D /* SystemConfiguration.framework in Frameworks */,
 				564AD8AE19F0D20E0069901D /* AdSupport.framework in Frameworks */,
 				564AD8AF19F0D20E0069901D /* CoreTelephony.framework in Frameworks */,
@@ -736,7 +691,6 @@
 				564AD8B319F0D20E0069901D /* QuartzCore.framework in Frameworks */,
 				564AD8B419F0D20E0069901D /* iAd.framework in Frameworks */,
 				564AD8B519F0D20E0069901D /* AVFoundation.framework in Frameworks */,
-				564AD8B619F0D20E0069901D /* libNendAd.a in Frameworks */,
 				564AD8B719F0D20E0069901D /* CoreGraphics.framework in Frameworks */,
 				564AD8B919F0D20E0069901D /* UIKit.framework in Frameworks */,
 				564AD8BA19F0D20E0069901D /* Foundation.framework in Frameworks */,
@@ -749,7 +703,6 @@
 			files = (
 				564AD8E219F0D9320069901D /* StoreKit.framework in Frameworks */,
 				564AD8E319F0D9320069901D /* MessageUI.framework in Frameworks */,
-				564AD8E419F0D9320069901D /* libAdapterNend.a in Frameworks */,
 				564AD8E519F0D9320069901D /* SystemConfiguration.framework in Frameworks */,
 				564AD8E619F0D9320069901D /* AdSupport.framework in Frameworks */,
 				564AD8E719F0D9320069901D /* CoreTelephony.framework in Frameworks */,
@@ -759,7 +712,6 @@
 				564AD8EB19F0D9320069901D /* QuartzCore.framework in Frameworks */,
 				564AD8EC19F0D9320069901D /* iAd.framework in Frameworks */,
 				564AD8ED19F0D9320069901D /* AVFoundation.framework in Frameworks */,
-				564AD8EE19F0D9320069901D /* libNendAd.a in Frameworks */,
 				564AD8EF19F0D9320069901D /* CoreGraphics.framework in Frameworks */,
 				564AD8F119F0D9320069901D /* UIKit.framework in Frameworks */,
 				564AD8F219F0D9320069901D /* Foundation.framework in Frameworks */,
@@ -772,7 +724,6 @@
 			files = (
 				564AD91A19F0E32E0069901D /* StoreKit.framework in Frameworks */,
 				564AD91B19F0E32E0069901D /* MessageUI.framework in Frameworks */,
-				564AD91C19F0E32E0069901D /* libAdapterNend.a in Frameworks */,
 				564AD91D19F0E32E0069901D /* SystemConfiguration.framework in Frameworks */,
 				564AD91E19F0E32E0069901D /* AdSupport.framework in Frameworks */,
 				564AD91F19F0E32E0069901D /* CoreTelephony.framework in Frameworks */,
@@ -782,7 +733,6 @@
 				564AD92319F0E32E0069901D /* QuartzCore.framework in Frameworks */,
 				564AD92419F0E32E0069901D /* iAd.framework in Frameworks */,
 				564AD92519F0E32E0069901D /* AVFoundation.framework in Frameworks */,
-				564AD92619F0E32E0069901D /* libNendAd.a in Frameworks */,
 				564AD92719F0E32E0069901D /* CoreGraphics.framework in Frameworks */,
 				564AD92919F0E32E0069901D /* UIKit.framework in Frameworks */,
 				564AD92A19F0E32E0069901D /* Foundation.framework in Frameworks */,
@@ -795,7 +745,6 @@
 			files = (
 				564AD95219F0E4520069901D /* StoreKit.framework in Frameworks */,
 				564AD95319F0E4520069901D /* MessageUI.framework in Frameworks */,
-				564AD95419F0E4520069901D /* libAdapterNend.a in Frameworks */,
 				564AD95519F0E4520069901D /* SystemConfiguration.framework in Frameworks */,
 				564AD95619F0E4520069901D /* AdSupport.framework in Frameworks */,
 				564AD95719F0E4520069901D /* CoreTelephony.framework in Frameworks */,
@@ -805,7 +754,6 @@
 				564AD95B19F0E4520069901D /* QuartzCore.framework in Frameworks */,
 				564AD95C19F0E4520069901D /* iAd.framework in Frameworks */,
 				564AD95D19F0E4520069901D /* AVFoundation.framework in Frameworks */,
-				564AD95E19F0E4520069901D /* libNendAd.a in Frameworks */,
 				564AD95F19F0E4520069901D /* CoreGraphics.framework in Frameworks */,
 				564AD96119F0E4520069901D /* UIKit.framework in Frameworks */,
 				564AD96219F0E4520069901D /* Foundation.framework in Frameworks */,
@@ -818,7 +766,6 @@
 			files = (
 				564AD98A19F0E8410069901D /* StoreKit.framework in Frameworks */,
 				564AD98B19F0E8410069901D /* MessageUI.framework in Frameworks */,
-				564AD98C19F0E8410069901D /* libAdapterNend.a in Frameworks */,
 				564AD98D19F0E8410069901D /* SystemConfiguration.framework in Frameworks */,
 				564AD98E19F0E8410069901D /* AdSupport.framework in Frameworks */,
 				564AD98F19F0E8410069901D /* CoreTelephony.framework in Frameworks */,
@@ -828,7 +775,6 @@
 				564AD99319F0E8410069901D /* QuartzCore.framework in Frameworks */,
 				564AD99419F0E8410069901D /* iAd.framework in Frameworks */,
 				564AD99519F0E8410069901D /* AVFoundation.framework in Frameworks */,
-				564AD99619F0E8410069901D /* libNendAd.a in Frameworks */,
 				564AD99719F0E8410069901D /* CoreGraphics.framework in Frameworks */,
 				564AD99919F0E8410069901D /* UIKit.framework in Frameworks */,
 				564AD99A19F0E8410069901D /* Foundation.framework in Frameworks */,
@@ -841,7 +787,6 @@
 			files = (
 				564AD9C219F0E9630069901D /* StoreKit.framework in Frameworks */,
 				564AD9C319F0E9630069901D /* MessageUI.framework in Frameworks */,
-				564AD9C419F0E9630069901D /* libAdapterNend.a in Frameworks */,
 				564AD9C519F0E9630069901D /* SystemConfiguration.framework in Frameworks */,
 				564AD9C619F0E9630069901D /* AdSupport.framework in Frameworks */,
 				564AD9C719F0E9630069901D /* CoreTelephony.framework in Frameworks */,
@@ -851,7 +796,6 @@
 				564AD9CB19F0E9630069901D /* QuartzCore.framework in Frameworks */,
 				564AD9CC19F0E9630069901D /* iAd.framework in Frameworks */,
 				564AD9CD19F0E9630069901D /* AVFoundation.framework in Frameworks */,
-				564AD9CE19F0E9630069901D /* libNendAd.a in Frameworks */,
 				564AD9CF19F0E9630069901D /* CoreGraphics.framework in Frameworks */,
 				564AD9D119F0E9630069901D /* UIKit.framework in Frameworks */,
 				564AD9D219F0E9630069901D /* Foundation.framework in Frameworks */,
@@ -950,8 +894,6 @@
 				564AD77A19E3B4FB0069901D /* previewVC.m */,
 				568B961C1A185CF300368272 /* tappedImageVC.h */,
 				568B961D1A185CF300368272 /* tappedImageVC.m */,
-				568B96461A1B2E5600368272 /* kADMOBController.h */,
-				568B96471A1B2E5600368272 /* kADMOBController.m */,
 				56427E3119AB823200B516A0 /* Images.xcassets */,
 				56427E1D19AB823200B516A0 /* Supporting Files */,
 			);
@@ -990,8 +932,7 @@
 		56427E6219AB87A300B516A0 /* AD */ = {
 			isa = PBXGroup;
 			children = (
-				56427ECB19AB923C00B516A0 /* AdMobMediationAdapter */,
-				56427EC119AB923000B516A0 /* NendAd */,
+				568B96491A1C370600368272 /* NendSDK_iOS-2.5.5 */,
 				56427E6419AB87B900B516A0 /* AdMob 6.1.2 */,
 			);
 			name = AD;
@@ -1054,29 +995,6 @@
 				56427E8619AB88CB00B516A0 /* roll13.mp3 */,
 			);
 			name = ver1.0;
-			sourceTree = "<group>";
-		};
-		56427EC119AB923000B516A0 /* NendAd */ = {
-			isa = PBXGroup;
-			children = (
-				56427EC219AB923000B516A0 /* libNendAd.a */,
-				56427EC319AB923000B516A0 /* NADIconArrayView.h */,
-				56427EC419AB923000B516A0 /* NADIconLoader.h */,
-				56427EC519AB923000B516A0 /* NADIconView.h */,
-				56427EC619AB923000B516A0 /* NADInterstitial.h */,
-				56427EC719AB923000B516A0 /* NADView.h */,
-				56427EC819AB923000B516A0 /* NADView_readme.txt */,
-			);
-			path = NendAd;
-			sourceTree = "<group>";
-		};
-		56427ECB19AB923C00B516A0 /* AdMobMediationAdapter */ = {
-			isa = PBXGroup;
-			children = (
-				56427ECC19AB923C00B516A0 /* libAdapterNend.a */,
-				56427ECD19AB923C00B516A0 /* libAdapterNend_readme.txt */,
-			);
-			path = AdMobMediationAdapter;
 			sourceTree = "<group>";
 		};
 		56427EE119B8407000B516A0 /* v0.1 */ = {
@@ -1192,6 +1110,47 @@
 				568B96311A1B03BB00368272 /* GADSearchRequest.h */,
 			);
 			path = Search;
+			sourceTree = "<group>";
+		};
+		568B96491A1C370600368272 /* NendSDK_iOS-2.5.5 */ = {
+			isa = PBXGroup;
+			children = (
+				568B964A1A1C370600368272 /* AdMobMediationAdapter */,
+				568B964D1A1C370600368272 /* Nend */,
+			);
+			path = "NendSDK_iOS-2.5.5";
+			sourceTree = "<group>";
+		};
+		568B964A1A1C370600368272 /* AdMobMediationAdapter */ = {
+			isa = PBXGroup;
+			children = (
+				568B964B1A1C370600368272 /* libAdapterNend.a */,
+				568B964C1A1C370600368272 /* libAdapterNend_readme.txt */,
+			);
+			path = AdMobMediationAdapter;
+			sourceTree = "<group>";
+		};
+		568B964D1A1C370600368272 /* Nend */ = {
+			isa = PBXGroup;
+			children = (
+				568B964E1A1C370600368272 /* NendAd */,
+				568B96561A1C370600368272 /* NendAd-Bridging-Header.h */,
+			);
+			path = Nend;
+			sourceTree = "<group>";
+		};
+		568B964E1A1C370600368272 /* NendAd */ = {
+			isa = PBXGroup;
+			children = (
+				568B964F1A1C370600368272 /* libNendAd.a */,
+				568B96501A1C370600368272 /* NADIconArrayView.h */,
+				568B96511A1C370600368272 /* NADIconLoader.h */,
+				568B96521A1C370600368272 /* NADIconView.h */,
+				568B96531A1C370600368272 /* NADInterstitial.h */,
+				568B96541A1C370600368272 /* NADView.h */,
+				568B96551A1C370600368272 /* NADView_readme.txt */,
+			);
+			path = NendAd;
 			sourceTree = "<group>";
 		};
 		56A4B1D219F772260009CC37 /* collectionViewTestImages */ = {
@@ -1508,7 +1467,6 @@
 				56427E3219AB823200B516A0 /* Images.xcassets in Resources */,
 				56A4B1E419F93C800009CC37 /* PlayBtn02.png in Resources */,
 				568B960A1A1450E700368272 /* Compose60@2x.png in Resources */,
-				56427ECF19AB923C00B516A0 /* libAdapterNend_readme.txt in Resources */,
 				568B96101A14950700368272 /* RemoveAD60@2x.png in Resources */,
 				565E97C81A0BAF5F00C18266 /* EditorOutline@2x.png in Resources */,
 				567DF0511A0BA0040092165D /* SelectTag@2x.png in Resources */,
@@ -1518,6 +1476,7 @@
 				56A4B1FA19FB2C950009CC37 /* PreviewIcon44x44.png in Resources */,
 				568B95FE1A11FF1700368272 /* ICONRollToCrashForLink60@2x.png in Resources */,
 				564AD9F619F1F3E20069901D /* CamIcon.png in Resources */,
+				568B968B1A1C370600368272 /* libAdapterNend_readme.txt in Resources */,
 				56A4B1E919F93E6A0009CC37 /* BarButtonOrgIconx40.png in Resources */,
 				56A4B1D919F772260009CC37 /* image3.png in Resources */,
 				56A4B1CF19F4FB040009CC37 /* AppIconInApp01.png in Resources */,
@@ -1535,6 +1494,7 @@
 				56427EE519B85A7600B516A0 /* LightsFromCenter.png in Resources */,
 				56A4B1F919FB2C950009CC37 /* OrgIcon44x44.png in Resources */,
 				565E97D01A0C85A200C18266 /* PlayBtnSolidSunFlower@2x.png in Resources */,
+				568B968D1A1C370600368272 /* NADView_readme.txt in Resources */,
 				56A4B1E819F93E6A0009CC37 /* BarButtonCamIconx40.png in Resources */,
 				564AD9FA19F1F3E20069901D /* PreviewIcon.png in Resources */,
 				569B431D1A009AB400EF21EC /* YelloFrameTransparentBack188x188.png in Resources */,
@@ -1548,7 +1508,6 @@
 				567DF04E1A0BA0040092165D /* AddImage@2x.png in Resources */,
 				568B96121A15D4E800368272 /* PlayBtn320x196@2x.png in Resources */,
 				56A4B1D719F772260009CC37 /* image1.png in Resources */,
-				56427ECA19AB923000B516A0 /* NADView_readme.txt in Resources */,
 				56A4B1DE19F88D110009CC37 /* image5.png in Resources */,
 				56A4B1E219F93BAA0009CC37 /* CollectionViewCellFramex94.png in Resources */,
 				56427ED119AB98F900B516A0 /* 41tSp5ic8NL.jpg in Resources */,
@@ -1571,13 +1530,11 @@
 				564AD81419EF8F760069901D /* .gitignore in Resources */,
 				564AD81719EF8F760069901D /* Main_iPad.storyboard in Resources */,
 				564AD81819EF8F760069901D /* Images.xcassets in Resources */,
-				564AD81919EF8F760069901D /* libAdapterNend_readme.txt in Resources */,
 				564AD81C19EF8F760069901D /* Main_iPhone.storyboard in Resources */,
 				564AD81D19EF8F760069901D /* InfoPlist.strings in Resources */,
 				564AD82019EF8F760069901D /* LightsFromCenter.png in Resources */,
 				564AD82319EF8F760069901D /* crash13.mp3 in Resources */,
 				564AD82419EF8F760069901D /* roll13.mp3 in Resources */,
-				564AD82519EF8F760069901D /* NADView_readme.txt in Resources */,
 				564AD82619EF8F760069901D /* 41tSp5ic8NL.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1589,13 +1546,11 @@
 				564AD84C19F0C8FF0069901D /* .gitignore in Resources */,
 				564AD84F19F0C8FF0069901D /* Main_iPad.storyboard in Resources */,
 				564AD85019F0C8FF0069901D /* Images.xcassets in Resources */,
-				564AD85119F0C8FF0069901D /* libAdapterNend_readme.txt in Resources */,
 				564AD85419F0C8FF0069901D /* Main_iPhone.storyboard in Resources */,
 				564AD85519F0C8FF0069901D /* InfoPlist.strings in Resources */,
 				564AD85819F0C8FF0069901D /* LightsFromCenter.png in Resources */,
 				564AD85B19F0C8FF0069901D /* crash13.mp3 in Resources */,
 				564AD85C19F0C8FF0069901D /* roll13.mp3 in Resources */,
-				564AD85D19F0C8FF0069901D /* NADView_readme.txt in Resources */,
 				564AD85E19F0C8FF0069901D /* 41tSp5ic8NL.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1607,13 +1562,11 @@
 				564AD88419F0CC930069901D /* .gitignore in Resources */,
 				564AD88719F0CC930069901D /* Main_iPad.storyboard in Resources */,
 				564AD88819F0CC930069901D /* Images.xcassets in Resources */,
-				564AD88919F0CC930069901D /* libAdapterNend_readme.txt in Resources */,
 				564AD88C19F0CC930069901D /* Main_iPhone.storyboard in Resources */,
 				564AD88D19F0CC930069901D /* InfoPlist.strings in Resources */,
 				564AD89019F0CC930069901D /* LightsFromCenter.png in Resources */,
 				564AD89319F0CC930069901D /* crash13.mp3 in Resources */,
 				564AD89419F0CC930069901D /* roll13.mp3 in Resources */,
-				564AD89519F0CC930069901D /* NADView_readme.txt in Resources */,
 				564AD89619F0CC930069901D /* 41tSp5ic8NL.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1625,13 +1578,11 @@
 				564AD8BC19F0D20E0069901D /* .gitignore in Resources */,
 				564AD8BF19F0D20E0069901D /* Main_iPad.storyboard in Resources */,
 				564AD8C019F0D20E0069901D /* Images.xcassets in Resources */,
-				564AD8C119F0D20E0069901D /* libAdapterNend_readme.txt in Resources */,
 				564AD8C419F0D20E0069901D /* Main_iPhone.storyboard in Resources */,
 				564AD8C519F0D20E0069901D /* InfoPlist.strings in Resources */,
 				564AD8C819F0D20E0069901D /* LightsFromCenter.png in Resources */,
 				564AD8CB19F0D20E0069901D /* crash13.mp3 in Resources */,
 				564AD8CC19F0D20E0069901D /* roll13.mp3 in Resources */,
-				564AD8CD19F0D20E0069901D /* NADView_readme.txt in Resources */,
 				564AD8CE19F0D20E0069901D /* 41tSp5ic8NL.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1643,13 +1594,11 @@
 				564AD8F419F0D9320069901D /* .gitignore in Resources */,
 				564AD8F719F0D9320069901D /* Main_iPad.storyboard in Resources */,
 				564AD8F819F0D9320069901D /* Images.xcassets in Resources */,
-				564AD8F919F0D9320069901D /* libAdapterNend_readme.txt in Resources */,
 				564AD8FC19F0D9320069901D /* Main_iPhone.storyboard in Resources */,
 				564AD8FD19F0D9320069901D /* InfoPlist.strings in Resources */,
 				564AD90019F0D9320069901D /* LightsFromCenter.png in Resources */,
 				564AD90319F0D9320069901D /* crash13.mp3 in Resources */,
 				564AD90419F0D9320069901D /* roll13.mp3 in Resources */,
-				564AD90519F0D9320069901D /* NADView_readme.txt in Resources */,
 				564AD90619F0D9320069901D /* 41tSp5ic8NL.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1661,13 +1610,11 @@
 				564AD92C19F0E32E0069901D /* .gitignore in Resources */,
 				564AD92F19F0E32E0069901D /* Main_iPad.storyboard in Resources */,
 				564AD93019F0E32E0069901D /* Images.xcassets in Resources */,
-				564AD93119F0E32E0069901D /* libAdapterNend_readme.txt in Resources */,
 				564AD93419F0E32E0069901D /* Main_iPhone.storyboard in Resources */,
 				564AD93519F0E32E0069901D /* InfoPlist.strings in Resources */,
 				564AD93819F0E32E0069901D /* LightsFromCenter.png in Resources */,
 				564AD93B19F0E32E0069901D /* crash13.mp3 in Resources */,
 				564AD93C19F0E32E0069901D /* roll13.mp3 in Resources */,
-				564AD93D19F0E32E0069901D /* NADView_readme.txt in Resources */,
 				564AD93E19F0E32E0069901D /* 41tSp5ic8NL.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1679,13 +1626,11 @@
 				564AD96419F0E4520069901D /* .gitignore in Resources */,
 				564AD96719F0E4520069901D /* Main_iPad.storyboard in Resources */,
 				564AD96819F0E4520069901D /* Images.xcassets in Resources */,
-				564AD96919F0E4520069901D /* libAdapterNend_readme.txt in Resources */,
 				564AD96C19F0E4520069901D /* Main_iPhone.storyboard in Resources */,
 				564AD96D19F0E4520069901D /* InfoPlist.strings in Resources */,
 				564AD97019F0E4520069901D /* LightsFromCenter.png in Resources */,
 				564AD97319F0E4520069901D /* crash13.mp3 in Resources */,
 				564AD97419F0E4520069901D /* roll13.mp3 in Resources */,
-				564AD97519F0E4520069901D /* NADView_readme.txt in Resources */,
 				564AD97619F0E4520069901D /* 41tSp5ic8NL.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1697,13 +1642,11 @@
 				564AD99C19F0E8410069901D /* .gitignore in Resources */,
 				564AD99F19F0E8410069901D /* Main_iPad.storyboard in Resources */,
 				564AD9A019F0E8410069901D /* Images.xcassets in Resources */,
-				564AD9A119F0E8410069901D /* libAdapterNend_readme.txt in Resources */,
 				564AD9A419F0E8410069901D /* Main_iPhone.storyboard in Resources */,
 				564AD9A519F0E8410069901D /* InfoPlist.strings in Resources */,
 				564AD9A819F0E8410069901D /* LightsFromCenter.png in Resources */,
 				564AD9AB19F0E8410069901D /* crash13.mp3 in Resources */,
 				564AD9AC19F0E8410069901D /* roll13.mp3 in Resources */,
-				564AD9AD19F0E8410069901D /* NADView_readme.txt in Resources */,
 				564AD9AE19F0E8410069901D /* 41tSp5ic8NL.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1715,13 +1658,11 @@
 				564AD9D419F0E9630069901D /* .gitignore in Resources */,
 				564AD9D719F0E9630069901D /* Main_iPad.storyboard in Resources */,
 				564AD9D819F0E9630069901D /* Images.xcassets in Resources */,
-				564AD9D919F0E9630069901D /* libAdapterNend_readme.txt in Resources */,
 				564AD9DC19F0E9630069901D /* Main_iPhone.storyboard in Resources */,
 				564AD9DD19F0E9630069901D /* InfoPlist.strings in Resources */,
 				564AD9E019F0E9630069901D /* LightsFromCenter.png in Resources */,
 				564AD9E319F0E9630069901D /* crash13.mp3 in Resources */,
 				564AD9E419F0E9630069901D /* roll13.mp3 in Resources */,
-				564AD9E519F0E9630069901D /* NADView_readme.txt in Resources */,
 				564AD9E619F0E9630069901D /* 41tSp5ic8NL.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1736,7 +1677,6 @@
 				56427E3019AB823200B516A0 /* ViewController.m in Sources */,
 				5686757B19BED3C900AF524A /* secondVC.m in Sources */,
 				565E97DA1A0D0B4000C18266 /* BICollectionReusableView.m in Sources */,
-				568B96481A1B2E5600368272 /* kADMOBController.m in Sources */,
 				56427EA819AB897500B516A0 /* AVAudioPlayer+CustomControllers.m in Sources */,
 				569B43291A00BCB700EF21EC /* BICollectionViewCell.m in Sources */,
 				569B43231A00A89300EF21EC /* FrameOutCollectionViewFlowLayout.m in Sources */,
@@ -2021,6 +1961,8 @@
 					"$(PROJECT_DIR)/BodyImpersonator/AdMobMediationAdapter",
 					"$(PROJECT_DIR)/BodyImpersonator",
 					"$(PROJECT_DIR)/BodyImpersonator/NendAd",
+					"$(PROJECT_DIR)/BodyImpersonator/NendSDK_iOS-2.5.5/AdMobMediationAdapter",
+					"$(PROJECT_DIR)/BodyImpersonator/NendSDK_iOS-2.5.5/Nend/NendAd",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2043,6 +1985,8 @@
 					"$(PROJECT_DIR)/BodyImpersonator/AdMobMediationAdapter",
 					"$(PROJECT_DIR)/BodyImpersonator",
 					"$(PROJECT_DIR)/BodyImpersonator/NendAd",
+					"$(PROJECT_DIR)/BodyImpersonator/NendSDK_iOS-2.5.5/AdMobMediationAdapter",
+					"$(PROJECT_DIR)/BodyImpersonator/NendSDK_iOS-2.5.5/Nend/NendAd",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";

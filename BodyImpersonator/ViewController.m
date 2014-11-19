@@ -210,19 +210,19 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     // 最初のviewControllerに戻ったときplayVCで表示完了した回数が3の倍数かつインタースティシャル広告の準備ができていればインタースティシャル広告表示
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSInteger i = [defaults integerForKey:@"KEY_countUpCrashPlayed"];
+    NSInteger memoryCountNumberOfInterstitialDidAppear = [defaults integerForKey:@"KEY_memoryCountNumberOfInterstitialDidAppear"];
     BOOL b = [defaults boolForKey:@"KEY_ADMOBinterstitialRecieved"];
     NSLog(@"countUpCrashPlayed %ld", (long)i);
     NSLog(@"interstitialLoadedState:%d",b);
-    if (b == NO) {
-        [self interstitialLoad];
+    if (i != memoryCountNumberOfInterstitialDidAppear) { // 別ビューを表示
+        if (b == NO) {
+            [self interstitialLoad];
+        }
+        
+        if (((i % 3) == 0) && (b == YES)) {
+            [interstitial_ presentFromRootViewController:self];
+        }
     }
-    
-    if (((i % 3) == 0) && (b == YES)) {
-        [interstitial_ presentFromRootViewController:self];
-    }
-    
-
-    
 }
 
 -(void)viewDidLayoutSubviews{
@@ -605,6 +605,11 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
 // セルをタップしたらpreviewVCに遷移しその画像を表示させる
 - (void)actionImageTapped:(NSIndexPath *)indexPath{
 
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSInteger i = [defaults integerForKey:@"KEY_countUpTappedImageCell"];
+    i ++;
+    [defaults setInteger:i forKey:@"KEY_countUpTappedImageCell"];
+    [defaults synchronize];
     _tappedIndexPath = indexPath;
     if (_tappedIndexPath == _selectedIndexPath) {
         previewVC *pVC = [self.storyboard instantiateViewControllerWithIdentifier:@"previewVC"];
@@ -624,6 +629,7 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
         tappedImgVC.selectedImage = image;
         [self.navigationController pushViewController:tappedImgVC animated:YES];
     }
+    
 
 
 }
@@ -1098,7 +1104,7 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
 // AdMobのインタースティシャル広告表示
 - (void)interstitialDidReceiveAd:(GADInterstitial *)ad
 {
-    // フラグ更新
+    // 広告受信状況フラグ更新
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setBool:YES forKey:@"KEY_ADMOBinterstitialRecieved"];
     [defaults synchronize];
@@ -1111,7 +1117,16 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
         interstitial_ = [[GADInterstitial alloc] init];
         interstitial_.adUnitID = MY_INTERSTITIAL_UNIT_ID;
         interstitial_.delegate = self;
+
         [interstitial_ loadRequest:[GADRequest request]];
+}
+
+-(void)interstitialWillDismissScreen:(GADInterstitial *)ad{
+    // 広告表示済み状況フラグ更新
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSInteger memoryCountNumberOfInterstitialDidAppear = [defaults integerForKey:@"KEY_countUpCrashPlayed"];
+    [defaults setInteger:memoryCountNumberOfInterstitialDidAppear forKey:@"KEY_memoryCountNumberOfInterstitialDidAppear"];
+    [defaults synchronize];
 }
 
 #pragma mark nendDelegate

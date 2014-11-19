@@ -68,11 +68,15 @@
         [self viewSizeMake:0.5];
     }
     
+
+}
+
+-(void)viewDidAppear:(BOOL)animated{
     // インタースティシャル広告表示
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSInteger i = [defaults integerForKey:@"KEY_countUpTappedImageCell"];
     BOOL b = [defaults boolForKey:@"KEY_ADMOBinterstitialRecieved"];
-    NSLog(@"countUpCrashPlayed %ld", (long)i);
+    NSLog(@"KEY_countUpTappedImageCell %ld", (long)i);
     NSLog(@"interstitialLoadedState:%d",b);
     if (b == NO) {
         [self interstitialLoad];
@@ -82,7 +86,6 @@
         [interstitial_ presentFromRootViewController:self];
     }
 }
-
 
 -(void)viewWillDisappear:(BOOL)animated{
     [self.navigationController setNavigationBarHidden:YES animated:YES]; // ナビゲーションバー非表示
