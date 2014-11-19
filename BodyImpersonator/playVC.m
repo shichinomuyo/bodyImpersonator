@@ -201,13 +201,6 @@
 
         // ドラムロール再生中にctrlBtnが押されたときクラッシュ再生
         
-        // crash再生する度に再生回数を+1してNSUserDefaultsに保存
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        NSInteger i = [defaults integerForKey:@"KEY_countUpCrashPlayed"];
-        i = i +1;
-        [defaults setInteger:i forKey:@"KEY_countUpCrashPlayed"];
-        [defaults synchronize];
-        
         // ドラムロールを止めcrash再生
         [_crashPlayer playCrashStopRolls:_rollPlayerTmp :_rollPlayerAlt];
         
@@ -293,6 +286,13 @@
 - (void)appWillEnterForeground:(NSNotification *)notification{
     [self viewDidAppear:1];
     
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+    NSInteger countViewChanged = [[NSUserDefaults standardUserDefaults] integerForKey:@"KEY_countUpViewChanged"];
+    countViewChanged ++;
+    [[NSUserDefaults standardUserDefaults] setInteger:countViewChanged forKey:@"KEY_countUpViewChanged"];
+    [[NSUserDefaults standardUserDefaults]synchronize];
 }
 
 // statusBarを非表示にする

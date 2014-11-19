@@ -7,6 +7,8 @@
 //
 
 #import "previewVC.h"
+//#define MY_INTERSTITIAL_UNIT_ID @"ca-app-pub-5959590649595305/1259039270" // メインビュー
+#define MY_INTERSTITIAL_UNIT_ID @"ca-app-pub-5959590649595305/7827912478" //previewView用
 
 @interface previewVC (){
         UIActionSheet *_actionSheetAlert;
@@ -15,6 +17,7 @@
 
 @property (weak, nonatomic) IBOutlet UINavigationBar *navigationBar;
 @property (weak, nonatomic) IBOutlet UIImageView *previewImageView;
+
 - (IBAction)removeItemBtn:(UIBarButtonItem *)sender;
 
 - (IBAction)actionBtn:(UIBarButtonItem *)sender;
@@ -43,13 +46,7 @@
         NSLog(@"iPadの処理");
     }
     
-    // 広告表示フラグ確認
-    _adsRemoved = [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_adsRemoved"];
-    //    _adsRemoved = NO; // デバッグ用 YESで購入後の状態
-    if (_adsRemoved == NO) {
-        // 広告表示
-        [self interstitialInitialize];
-    }
+
     //デフォルトのナビゲーションコントロールを非表示にする
     [self.navigationController setNavigationBarHidden:YES animated:NO];
 }
@@ -67,6 +64,10 @@
         // popoverなので縮小する
         [self viewSizeMake:0.5];
     }
+    NSInteger countViewChanged = [[NSUserDefaults standardUserDefaults] integerForKey:@"KEY_countUpViewChanged"];
+    countViewChanged ++;
+    [[NSUserDefaults standardUserDefaults] setInteger:countViewChanged forKey:@"KEY_countUpViewChanged"];
+    [[NSUserDefaults standardUserDefaults]synchronize];
     
 
 }
@@ -74,21 +75,29 @@
 -(void)viewDidAppear:(BOOL)animated{
     // インタースティシャル広告表示
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSInteger i = [defaults integerForKey:@"KEY_countUpTappedImageCell"];
-    BOOL b = [defaults boolForKey:@"KEY_ADMOBinterstitialRecieved"];
-    NSLog(@"KEY_countUpTappedImageCell %ld", (long)i);
-    NSLog(@"interstitialLoadedState:%d",b);
-    if (b == NO) {
-        [self interstitialLoad];
-    }
+
+    NSInteger countViewChanged = [defaults integerForKey:@"KEY_countUpViewChanged"];
     
-    if (((i % 3) == 0) && (b == YES)) {
-        [interstitial_ presentFromRootViewController:self];
+    //    BOOL b = [defaults boolForKey:@"KEY_ADMOBinterstitialRecieved"];
+
+    NSInteger memoryCountNumberOfInterstitialDidAppear = [defaults integerForKey:@"KEY_memoryCountNumberOfInterstitialDidAppearInPreview"];
+    
+    if (countViewChanged != memoryCountNumberOfInterstitialDidAppear) {
+        if (((countViewChanged % kINTERSTITIAL_DISPLAY_RATE) == 0)) {
+            // 広告表示フラグ確認
+            _adsRemoved = [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_adsRemoved"];
+            //    _adsRemoved = NO; // デバッグ用 YESで購入後の状態
+            if (_adsRemoved == NO) {
+                // 広告表示
+                [self interstitialLoad];
+            }
+        }
     }
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
     [self.navigationController setNavigationBarHidden:YES animated:YES]; // ナビゲーションバー非表示
+
 }
 
 - (void)viewSizeMake:(CGFloat)scale{
@@ -162,7 +171,11 @@
 }
 */
 
+
 // 表示されている画像を削除
+
+
+
 - (IBAction)removeItemBtn:(UIBarButtonItem *)sender {
     // アクションコントローラー生成
     UIAlertController *actionController = [UIAlertController alertControllerWithTitle:@"Remove this Image?" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
@@ -217,15 +230,7 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     
 }
-#pragma mark -
-#pragma mark interstitialInitialize
-- (void)interstitialInitialize{
-    // 【Ad】インタースティシャル広告の表示
-    interstitial_ = [[GADInterstitial alloc] init];
-    interstitial_.adUnitID = MY_INTERSTITIAL_UNIT_ID;
-    interstitial_.delegate = self;
-    [interstitial_ loadRequest:[GADRequest request]];
-}
+
 #pragma mark -
 #pragma mark AdMobDelegate
 //// AdMobバナーのloadrequestが失敗したとき
@@ -250,13 +255,21 @@
 // AdMobのインタースティシャル広告表示
 - (void)interstitialDidReceiveAd:(GADInterstitial *)ad
 {
-    // フラグ更新
+    // 広告受信状況フラグ更新
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setBool:YES forKey:@"KEY_ADMOBinterstitialRecieved"];
     [defaults synchronize];
     NSLog(@"adfrag:%d",[defaults boolForKey:@"KEY_ADMOBinterstitialRecieved"]);
+    
+    [interstitial_ presentFromRootViewController:self];
 }
-
+-(void)interstitialWillDismissScreen:(GADInterstitial *)ad{
+    // 広告表示済み状況フラグ更新
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSInteger memoryCountNumberOfInterstitialDidAppear = [defaults integerForKey:@"KEY_countUpViewChanged"];
+    [defaults setInteger:memoryCountNumberOfInterstitialDidAppear forKey:@"KEY_memoryCountNumberOfInterstitialDidAppearInPreview"];
+    [defaults synchronize];
+}
 // AdMobインタースティシャルの再ロード
 - (void)interstitialLoad{
     // 【Ad】インタースティシャル広告の表示

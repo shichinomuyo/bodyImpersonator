@@ -6,9 +6,9 @@
 //  Copyright (c) 2014年 shichino yuta. All rights reserved.
 //
 
-#import "BIOtherAppsTableViewCell.h"
+#import "BITableViewCellHaveFourItems.h"
 
-@implementation BIOtherAppsTableViewCell
+@implementation BITableViewCellHaveFourItems
 
 - (void)awakeFromNib {
     // Initialization code

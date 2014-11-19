@@ -8,7 +8,7 @@
 
 #import "secondVC.h"
 #import "ViewController.h"
-
+#define MY_INTERSTITIAL_UNIT_ID @"ca-app-pub-5959590649595305/7827912478" //previewView用
 @interface secondVC (){
     UIActionSheet *_actionSheetAlert;
     CGPoint _startCenterPoint;
@@ -333,6 +333,86 @@
                           [_editImageView setCenter:_startCenterPoint];
                      } completion:nil];
    
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    NSInteger countViewChanged = [[NSUserDefaults standardUserDefaults] integerForKey:@"KEY_countUpViewChanged"];
+    countViewChanged ++;
+    [[NSUserDefaults standardUserDefaults] setInteger:countViewChanged forKey:@"KEY_countUpViewChanged"];
+    [[NSUserDefaults standardUserDefaults]synchronize];
+}
+-(void)viewDidAppear:(BOOL)animated{
+    // インタースティシャル広告表示
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSInteger countViewChanged = [defaults integerForKey:@"KEY_countUpViewChanged"];
+    
+    //    BOOL b = [defaults boolForKey:@"KEY_ADMOBinterstitialRecieved"];
+    NSInteger memoryCountNumberOfInterstitialDidAppear = [defaults integerForKey:@"KEY_memoryCountNumberOfInterstitialDidAppearInPreview"];
+    
+    if (countViewChanged != memoryCountNumberOfInterstitialDidAppear) {
+        if (((countViewChanged % kINTERSTITIAL_DISPLAY_RATE) == 0)) {
+            // 広告表示フラグ確認
+            _adsRemoved = [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_adsRemoved"];
+            //    _adsRemoved = NO; // デバッグ用 YESで購入後の状態
+            if (_adsRemoved == NO) {
+                // 広告表示
+                [self interstitialLoad];
+            }
+        }
+    }
+}
+-(void)viewWillDisappear:(BOOL)animated{
+
+}
+
+#pragma mark -
+#pragma mark AdMobDelegate
+//// AdMobバナーのloadrequestが失敗したとき
+//-(void)adView:(GADBannerView *)bannerView didFailToReceiveAdWithError:(GADRequestError *)error{
+//    NSLog(@"adView:didFailToReceiveAdWithError:%@", [error localizedDescription]);
+//
+//    // 他の広告ネットワークの広告を表示させるなど。
+//}
+
+/// AdMobインタースティシャルのloadrequestが失敗したとき
+-(void)interstitial:(GADInterstitial *)interstitial didFailToReceiveAdWithError:(GADRequestError *)error{
+    NSLog(@"interstitial:didFailToReceiveAdWithError:%@", [error localizedDescription]);
+    
+    // 他の広告ネットワークの広告を表示させるなど。
+    // フラグ更新
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setBool:NO forKey:@"KEY_ADMOBinterstitialRecieved"];
+    [defaults synchronize];
+    
+}
+
+// AdMobのインタースティシャル広告表示
+- (void)interstitialDidReceiveAd:(GADInterstitial *)ad
+{
+    // 広告受信状況フラグ更新
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setBool:YES forKey:@"KEY_ADMOBinterstitialRecieved"];
+    [defaults synchronize];
+    NSLog(@"adfrag:%d",[defaults boolForKey:@"KEY_ADMOBinterstitialRecieved"]);
+
+    [interstitial_ presentFromRootViewController:self];
+}
+-(void)interstitialWillDismissScreen:(GADInterstitial *)ad{
+    // 広告表示済み状況フラグ更新
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSInteger memoryCountNumberOfInterstitialDidAppear = [defaults integerForKey:@"KEY_countUpViewChanged"];
+    [defaults setInteger:memoryCountNumberOfInterstitialDidAppear forKey:@"KEY_memoryCountNumberOfInterstitialDidAppearInPreview"];
+    [defaults synchronize];
+}
+
+
+// AdMobインタースティシャルの再ロード
+- (void)interstitialLoad{
+    // 【Ad】インタースティシャル広告の表示
+    interstitial_ = [[GADInterstitial alloc] init];
+    interstitial_.adUnitID = MY_INTERSTITIAL_UNIT_ID;
+    interstitial_.delegate = self;
+    [interstitial_ loadRequest:[GADRequest request]];
 }
 
 @end

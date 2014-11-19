@@ -7,13 +7,21 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GADInterstitialDelegate.h"
+#import "AppDelegate.h"
+
 #ifdef DEBUG
 #define LOG(fmt,...) NSLog((@"%s %d "fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
 #else
 #define NSLog(...)
 #endif
 
-@interface secondVC : UIViewController <UIScrollViewDelegate,UINavigationControllerDelegate,UIActionSheetDelegate>
+@interface secondVC : UIViewController <UIScrollViewDelegate,UINavigationControllerDelegate,UIActionSheetDelegate, GADInterstitialDelegate>
+{
+    GADInterstitial *interstitial_;
+}
 
+@property BOOL adsRemoved;
+@property BOOL limitNumberOfImagesRemoved;
 @property (weak, nonatomic) IBOutlet UIImage *selectedImage;
 @end

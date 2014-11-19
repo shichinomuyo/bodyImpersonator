@@ -11,6 +11,9 @@
 static const NSInteger kLIMITED_ITEM_NUMBER = 9;
 static const NSInteger kMAX_ITEM_NUMBER = 18;
 
+#define MY_BANNER_UNIT_ID @"ca-app-pub-5959590649595305/8782306070"
+#define MY_INTERSTITIAL_UNIT_ID @"ca-app-pub-5959590649595305/1259039270"
+
 @interface ViewController ()
 {
     UIImagePickerController *_imagePicker;
@@ -52,7 +55,7 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
 + (void) initialize{
     // 初回起動時の初期データ
     NSMutableDictionary *appDefaults = [[NSMutableDictionary alloc] init];
-    [appDefaults setObject:@"0" forKey:@"KEY_countUpCrashPlayed"]; //　crash再生回数
+    [appDefaults setObject:@"0" forKey:@"KEY_countUPViewChanged"]; // ビューの切り替わりをカウント
     [appDefaults setObject:@"NO" forKey:@"KEY_ADMOBinterstitialRecieved"]; // インタースティシャル広告受信状況
     // collectionViewに表示する画像を保存する配列の作成・初期化
     NSMutableArray *imageNames = [NSMutableArray array];
@@ -88,11 +91,6 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
         // AdMobバナーの回転時のautosize
 //        bannerView_.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
     
-        // 【Ad】インタースティシャル広告の表示
-        interstitial_ = [[GADInterstitial alloc] init];
-        interstitial_.adUnitID = MY_INTERSTITIAL_UNIT_ID;
-        interstitial_.delegate = self;
-        [interstitial_ loadRequest:[GADRequest request]];
     
         //NADViewの作成
 //        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
@@ -130,16 +128,8 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     // Do any additional setup after loading the view, typically from a nib.
     // ナビゲーションコントローラのステータスバーの透過表示が気に入らないので隠す。
     [self.navigationController setNavigationBarHidden:YES animated:YES];
-    // 広告表示フラグ確認
-    _adsRemoved = [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_adsRemoved"];
-    _limitNumberOfImagesRemoved = [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_RemoveLimitNumberOfImagesRemoved"];
-//    _adsRemoved = NO; // デバッグ用 YESで購入後の状態
-//    _limitNumberOfImagesRemoved = NO; // デバッグ用 YESで購入後の状態
-    if (_adsRemoved == NO) {
-        // 広告表示
-        [self addAdBanners];
-    }
-    
+
+
     NSLog(@"最初のviewDidLoad");
     
     // iOS7以上の場合はnavigationBarの高さを64pxにする
@@ -199,7 +189,7 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
 - (void)viewWillAppear:(BOOL)animated{
     // 画面が表示されたら定期ロード再開
     [self.nadView resume];
-
+   
 }
 
 // ビューが表示されたときに実行される
@@ -209,26 +199,36 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
 
     // 最初のviewControllerに戻ったときplayVCで表示完了した回数が3の倍数かつインタースティシャル広告の準備ができていればインタースティシャル広告表示
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSInteger i = [defaults integerForKey:@"KEY_countUpCrashPlayed"];
-    NSInteger memoryCountNumberOfInterstitialDidAppear = [defaults integerForKey:@"KEY_memoryCountNumberOfInterstitialDidAppear"];
-    BOOL b = [defaults boolForKey:@"KEY_ADMOBinterstitialRecieved"];
-    NSLog(@"countUpCrashPlayed %ld", (long)i);
-    NSLog(@"interstitialLoadedState:%d",b);
-    if (i != memoryCountNumberOfInterstitialDidAppear) { // 別ビューを表示
-        if (b == NO) {
+    NSInteger countViewChanged = [defaults integerForKey:@"KEY_countUpViewChanged"];
+    NSInteger memoryCountNumberOfInterstitialDidAppear = [defaults integerForKey:@"KEY_memoryCountNumberOfInterstitialDidAppearInPreview"];
+
+    NSLog(@"countUpViewChanged %ld", (long)countViewChanged);
+    // 広告表示フラグ確認
+    _adsRemoved = [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_adsRemoved"];
+    _limitNumberOfImagesRemoved = [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_RemoveLimitNumberOfImagesRemoved"];
+    //    _adsRemoved = NO; // デバッグ用 YESで購入後の状態
+    //    _limitNumberOfImagesRemoved = NO; // デバッグ用 YESで購入後の状態
+    //    [[NSUserDefaults standardUserDefaults] setBool:_adsRemoved forKey:@"KEY_adsRemoved"]; // 購入前の状態に戻す用
+    //        [[NSUserDefaults standardUserDefaults] setBool:_limitNumberOfImagesRemoved forKey:@"KEY_RemoveLimitNumberOfImagesRemoved"]; // 購入前の状態に戻す用
+    //    [[NSUserDefaults standardUserDefaults] synchronize]; // 購入前の状態に戻す用
+
+    if (countViewChanged != memoryCountNumberOfInterstitialDidAppear) { // 別ビューを表示してもどってきても大丈夫なように
+        if (_adsRemoved == NO) {
+            // 広告表示
+            [self addAdBanners];
+            if ((countViewChanged % kINTERSTITIAL_DISPLAY_RATE) == 0) {
             [self interstitialLoad];
-        }
-        
-        if (((i % 3) == 0) && (b == YES)) {
-            [interstitial_ presentFromRootViewController:self];
+                   NSLog(@"インタースティシャルロードチェック");
+            }
         }
     }
+    
 }
 
 -(void)viewDidLayoutSubviews{
     if (_adsRemoved == NO) {
-        // 広告表示
-        //        [self addAdBanners];
+        // 広告表示のためのストーリボード上のレイアウト
+
     } else {
         [self adjustLayoutAdsRemovedView];
     }
@@ -605,11 +605,6 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
 // セルをタップしたらpreviewVCに遷移しその画像を表示させる
 - (void)actionImageTapped:(NSIndexPath *)indexPath{
 
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSInteger i = [defaults integerForKey:@"KEY_countUpTappedImageCell"];
-    i ++;
-    [defaults setInteger:i forKey:@"KEY_countUpTappedImageCell"];
-    [defaults synchronize];
     _tappedIndexPath = indexPath;
     if (_tappedIndexPath == _selectedIndexPath) {
         previewVC *pVC = [self.storyboard instantiateViewControllerWithIdentifier:@"previewVC"];
@@ -1109,6 +1104,9 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     [defaults setBool:YES forKey:@"KEY_ADMOBinterstitialRecieved"];
     [defaults synchronize];
     NSLog(@"adfrag:%d",[defaults boolForKey:@"KEY_ADMOBinterstitialRecieved"]);
+    
+     [interstitial_ presentFromRootViewController:self];
+
 }
 
 // AdMobインタースティシャルの再ロード
@@ -1124,8 +1122,8 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
 -(void)interstitialWillDismissScreen:(GADInterstitial *)ad{
     // 広告表示済み状況フラグ更新
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSInteger memoryCountNumberOfInterstitialDidAppear = [defaults integerForKey:@"KEY_countUpCrashPlayed"];
-    [defaults setInteger:memoryCountNumberOfInterstitialDidAppear forKey:@"KEY_memoryCountNumberOfInterstitialDidAppear"];
+    NSInteger memoryCountNumberOfInterstitialDidAppear = [defaults integerForKey:@"KEY_countUpViewChanged"];
+    [defaults setInteger:memoryCountNumberOfInterstitialDidAppear forKey:@"KEY_memoryCountNumberOfInterstitialDidAppearInPreview"];
     [defaults synchronize];
 }
 

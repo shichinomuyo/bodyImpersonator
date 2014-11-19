@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BIOtherAppsTableViewCell : UITableViewCell
+@interface BITableViewCellHaveFourItems : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *imageViewAppIcon;
 @property (weak, nonatomic) IBOutlet UILabel *labelAppName;
 @property (weak, nonatomic) IBOutlet UILabel *labelFee;

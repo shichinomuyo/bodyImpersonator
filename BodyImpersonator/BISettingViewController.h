@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "BIFeedbakAndActionCell.h"
-#import "BIOtherAppsTableViewCell.h"
+#import "BITableViewCellHaveFourItems.h"
 #import <StoreKit/StoreKit.h>
 
 @interface BISettingViewController : UIViewController<UIActionSheetDelegate,UITableViewDataSource,UITableViewDelegate,SKProductsRequestDelegate,SKPaymentTransactionObserver>

@@ -12,9 +12,12 @@
 @property (nonatomic, strong) NSArray *sectionList;
 @property (nonatomic, strong) NSArray *dataSourceAddOn;
 @property (nonatomic, strong) NSArray *dataSourceAddOnImages;
+@property (nonatomic, strong) NSArray *dataSourceAddOnDesc;
 @property (nonatomic, strong) NSArray *dataSourceFeedbackAndShare;
 @property (nonatomic, strong) NSArray *dataSourceFeedbackAndShareImages;
 @property (nonatomic, strong) NSArray *dataSourceOtherApps;
+@property (nonatomic, strong) NSArray *dataSourceOtherAppsImages;
+@property (nonatomic, strong) NSArray *dataSourceOtherAppsDesc;
 
 @end
 
@@ -32,11 +35,17 @@
     // section名のListを作成
     self.sectionList = @[@"Add On",@"Feedback / Share This App", @"Other Apps"];
     // table表示したいデータソースを設定
-    self.dataSourceAddOn = @[@"Remove AD"];
-    self.dataSourceAddOnImages = [NSArray arrayWithObjects:@"RemoveAD60@2x.png", nil];
+    self.dataSourceAddOn = @[@"Remove AD & Registrable Cap ",@"Restore"];
+    self.dataSourceAddOnImages = [NSArray arrayWithObjects:@"RemoveAD60@2x.png",@"RemoveAD60@2x.png", nil];
+    self.dataSourceAddOnDesc = @[@"Remove All AD & Registrable number of Images Increase 9 to 18",@"購入状態を復元します。"];
+    
+    
     self.dataSourceFeedbackAndShare = @[@"App Store review", @"Share This App"];
     self.dataSourceFeedbackAndShareImages = [NSArray arrayWithObjects: @"Compose60@2x.png",@"ShareIcon60@2x.png", nil];
+    
     self.dataSourceOtherApps = @[@"RollToCrash"];
+    self.dataSourceOtherAppsImages = [NSArray arrayWithObjects:@"ICONRollToCrashForLink60@2x.png", nil];
+    self.dataSourceOtherAppsDesc = @[@"ドラムロール→クラッシュシンバルの音を鳴らせるアプリです。"];
     
 }
 
@@ -87,7 +96,7 @@
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSArray *identifiers = @[@"CellFeedbackAndShare", @"CellFeedbackAndShare", @"CellOtherApps"];
+    NSArray *identifiers = @[@"CellHaveFourItems", @"CellFeedbackAndShare", @"CellHaveFourItems"];
     NSString *CellIdentifier = identifiers[indexPath.section];
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
@@ -95,13 +104,25 @@
         case 0:
         {
             
-            BIFeedbakAndActionCell *addOnCell = (BIFeedbakAndActionCell *)cell;
+            BITableViewCellHaveFourItems *addOnCell = (BITableViewCellHaveFourItems *)cell;
             
             UIImageView *imageViewAddOn = (UIImageView *)[addOnCell viewWithTag:1];
             UILabel *labelAddOn = (UILabel *)[addOnCell viewWithTag:2];
+            UILabel *labelDescTitle = (UILabel *)[addOnCell viewWithTag:3];
+            UILabel *labelDescription = (UILabel *)[addOnCell viewWithTag:4];
             [imageViewAddOn setImage:[UIImage imageNamed:self.dataSourceAddOnImages[indexPath.row]]];
+            
             [labelAddOn setText:self.dataSourceAddOn[indexPath.row]];
-           
+            [labelAddOn setAdjustsFontSizeToFitWidth:YES];
+            [labelAddOn setLineBreakMode:NSLineBreakByClipping];
+            [labelAddOn setMinimumScaleFactor:4];
+            
+            [labelDescTitle setText:@"Desc:"];//説明
+            
+            [labelDescription setText:self.dataSourceAddOnDesc[indexPath.row]];
+            [labelDescription setAdjustsFontSizeToFitWidth:YES];
+            [labelDescription setLineBreakMode:NSLineBreakByClipping];
+            [labelDescription setMinimumScaleFactor:4];
 
         }
              break;
@@ -119,21 +140,21 @@
         case 2:
         {
 
-            BIOtherAppsTableViewCell *otherAppsCell = (BIOtherAppsTableViewCell *)cell;
+            BITableViewCellHaveFourItems *otherAppsCell = (BITableViewCellHaveFourItems *)cell;
 
             UIImageView *imageViewAppIcon = (UIImageView *)[otherAppsCell viewWithTag:1];
             UILabel *labelAppName = (UILabel *)[otherAppsCell viewWithTag:2];
             UILabel *labelFee = (UILabel *)[otherAppsCell viewWithTag:3];
             UILabel *labelDescription = (UILabel *)[otherAppsCell viewWithTag:4];
             
-            [imageViewAppIcon setImage:[UIImage imageNamed:@"ICONRollToCrashForLink60@2x.png"]];
+            [imageViewAppIcon setImage:[UIImage imageNamed:self.dataSourceOtherAppsImages[indexPath.row]]];
             [labelAppName setText:self.dataSourceOtherApps[indexPath.row]];
             [labelFee setText:@"Free:"];
 
             [labelDescription setAdjustsFontSizeToFitWidth:YES];
             [labelDescription setLineBreakMode:NSLineBreakByClipping];
             [labelDescription setMinimumScaleFactor:4];
-            [labelDescription setText:@"ドラムロール→クラッシュシンバルの音を鳴らせるアプリです。"];
+            [labelDescription setText:self.dataSourceOtherAppsDesc[indexPath.row]];
 
             NSLog(@"nannde");
         }
@@ -156,13 +177,13 @@
     CGFloat rowHeight;
     switch (indexPath.section) {
         case 0:
-            rowHeight = [BIFeedbakAndActionCell rowHeight];
+            rowHeight = [BITableViewCellHaveFourItems rowHeight];
             break;
         case 1:
             rowHeight = [BIFeedbakAndActionCell rowHeight];
             break;
         case 2:
-            rowHeight = [BIOtherAppsTableViewCell rowHeight];
+            rowHeight = [BITableViewCellHaveFourItems rowHeight];
             break;
         default:
             break;
@@ -177,12 +198,18 @@
     // cellがタップされた際の処理
     switch (indexPath.section) {
         case 0: //Add On
-            if ([self checkInAppPurchaseEnable] == YES){ // アプリ内課金制限がない場合はYES、制限有りはNO
-                [self startInAppPurchase];
-            } else {
-                // NOの場合のアラート表示
-                [self actionShowAppPurchaseLimitAlert];
+            if (indexPath.row == 0) {
+                if ([self checkInAppPurchaseEnable] == YES){ // アプリ内課金制限がない場合はYES、制限有りはNO
+                    [self startInAppPurchase];
+                } else {
+                    // NOの場合のアラート表示
+                    [self actionShowAppPurchaseLimitAlert];
+                }
+            }else if(indexPath.row == 1){
+                // TODO:リストア処理
+                [self startRestore];
             }
+    
             break;
         case 1: // Feedback / Share this App
             if (indexPath.row == 0) { // App Store Review
@@ -205,7 +232,7 @@
 // actions
 - (void)actionPostActivity{
     NSString *textToShare = @"#KARADA MONOMANIZER NOW!";
-    NSString *urlString = @"http://itunes.apple.com/app/id912275000"; // KARADAMONOMANIZERのidを追加する
+    NSString *urlString = @"http://itunes.apple.com/app/id942520127"; // KARADAMONOMANIZERのappstoreURL
     NSURL *url = [NSURL URLWithString:urlString];
     NSArray *activityItems = [[NSArray alloc] initWithObjects:textToShare,url, nil];
     // 連携できるアプリを取得する
@@ -223,13 +250,13 @@
 }
 
 - (void)actionPostAppStoreReview{
-    NSString *urlString = @"itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=912275000";
+    NSString *urlString = @"itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=942520127"; // karadamonomanizerのレビューページに飛ぶ
     NSURL *url = [NSURL URLWithString:urlString];
     [[UIApplication sharedApplication] openURL:url];
 }
 
 - (void)actionJumpToRollToCrash{
-    NSString *urlString = @"itms-apps://itunes.apple.com/app/id912275000";
+    NSString *urlString = @"itms-apps://itunes.apple.com/app/id912275000"; // rolltocrashのページに飛ぶ
     NSURL *url = [NSURL URLWithString:urlString];
     [[UIApplication sharedApplication] openURL:url];
 }
@@ -330,6 +357,14 @@
     [productsRequest start];
 }
 
+- (void)startRestore{
+    NSSet *set = [NSSet setWithObjects:@"com.muyo.bodyImpersonator.remove_ad_up_registrable_number_of_images", nil];
+    SKProductsRequest *productsRequest = [[SKProductsRequest alloc] initWithProductIdentifiers:set];
+    productsRequest.delegate = self;
+    [[SKPaymentQueue defaultQueue] restoreCompletedTransactions];
+    
+}
+
 // 購入処理の開始
 - (void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response {
     // 無効なアイテムがないかチェック
@@ -384,11 +419,11 @@
                 break;
             case SKPaymentTransactionStateRestored:
                 // リストア処理
-                // NSLog(@"以前に購入した機能を復元");
-                [queue finishTransaction:transaction];
                 // TODO: アイテム購入した処理（アップグレード版の機能制限解除処理等）
                 [self upgradeRemoveAllAD];
                 [self upgradeRemoveLimitNumberOfImages];
+                // NSLog(@"以前に購入した機能を復元");
+                [queue finishTransaction:transaction];
                 break;
             default:
                 [queue finishTransaction:transaction];
@@ -411,7 +446,8 @@
 }
 - (void)paymentQueueRestoreCompletedTransactionsFinished:(SKPaymentQueue *)queue
 {
-    // 全てのリストア処理が
+    // 全てのリストア処理が完了
+    
 }
 
 - (void)upgradeRemoveAllAD{

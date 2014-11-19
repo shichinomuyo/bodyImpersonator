@@ -28,9 +28,6 @@
 #define RGBA(r, g, b, a)[UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:a]
 
 
-#define MY_BANNER_UNIT_ID @"ca-app-pub-5959590649595305/8782306070"
-#define MY_INTERSTITIAL_UNIT_ID @"ca-app-pub-5959590649595305/1259039270"
-
 @interface ViewController : UIViewController<GADBannerViewDelegate,GADInterstitialDelegate,NADViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIPopoverControllerDelegate,UIPopoverPresentationControllerDelegate, UICollectionViewDataSource, UICollectionViewDelegate,UIGestureRecognizerDelegate,UIActionSheetDelegate>{
     //【Ad】AdMobバナー：インスタンス変数として1つ宣言
     GADBannerView *bannerView_;

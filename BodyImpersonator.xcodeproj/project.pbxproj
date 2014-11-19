@@ -331,7 +331,7 @@
 		5686757B19BED3C900AF524A /* secondVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5686757A19BED3C900AF524A /* secondVC.m */; };
 		568B95EF1A11108700368272 /* NavigationBarTitle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 568B95EE1A11108700368272 /* NavigationBarTitle@2x.png */; };
 		568B95F51A11CF5600368272 /* BISettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 568B95F41A11CF5600368272 /* BISettingViewController.m */; };
-		568B95F81A11D50A00368272 /* BIOtherAppsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 568B95F71A11D50A00368272 /* BIOtherAppsTableViewCell.m */; };
+		568B95F81A11D50A00368272 /* BITableViewCellHaveFourItems.m in Sources */ = {isa = PBXBuildFile; fileRef = 568B95F71A11D50A00368272 /* BITableViewCellHaveFourItems.m */; };
 		568B95FC1A11FDC100368272 /* NavigationBarTitle2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 568B95FB1A11FDC100368272 /* NavigationBarTitle2@2x.png */; };
 		568B95FE1A11FF1700368272 /* ICONRollToCrashForLink60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 568B95FD1A11FF1700368272 /* ICONRollToCrashForLink60@2x.png */; };
 		568B96011A12350500368272 /* BIFeedbakAndActionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 568B96001A12350500368272 /* BIFeedbakAndActionCell.m */; };
@@ -481,8 +481,8 @@
 		568B95EE1A11108700368272 /* NavigationBarTitle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "NavigationBarTitle@2x.png"; path = "Images/@2x/NavigationBarTitle@2x.png"; sourceTree = "<group>"; };
 		568B95F31A11CF5600368272 /* BISettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BISettingViewController.h; sourceTree = "<group>"; };
 		568B95F41A11CF5600368272 /* BISettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BISettingViewController.m; sourceTree = "<group>"; };
-		568B95F61A11D50A00368272 /* BIOtherAppsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BIOtherAppsTableViewCell.h; sourceTree = "<group>"; };
-		568B95F71A11D50A00368272 /* BIOtherAppsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BIOtherAppsTableViewCell.m; sourceTree = "<group>"; };
+		568B95F61A11D50A00368272 /* BITableViewCellHaveFourItems.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BITableViewCellHaveFourItems.h; sourceTree = "<group>"; };
+		568B95F71A11D50A00368272 /* BITableViewCellHaveFourItems.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BITableViewCellHaveFourItems.m; sourceTree = "<group>"; };
 		568B95FB1A11FDC100368272 /* NavigationBarTitle2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "NavigationBarTitle2@2x.png"; path = "Images/@2x/NavigationBarTitle2@2x.png"; sourceTree = "<group>"; };
 		568B95FD1A11FF1700368272 /* ICONRollToCrashForLink60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ICONRollToCrashForLink60@2x.png"; path = "Images/@2x/OtherAppsIcon/ICONRollToCrashForLink60@2x.png"; sourceTree = "<group>"; };
 		568B95FF1A12350500368272 /* BIFeedbakAndActionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BIFeedbakAndActionCell.h; sourceTree = "<group>"; };
@@ -1045,8 +1045,8 @@
 			children = (
 				568B95F31A11CF5600368272 /* BISettingViewController.h */,
 				568B95F41A11CF5600368272 /* BISettingViewController.m */,
-				568B95F61A11D50A00368272 /* BIOtherAppsTableViewCell.h */,
-				568B95F71A11D50A00368272 /* BIOtherAppsTableViewCell.m */,
+				568B95F61A11D50A00368272 /* BITableViewCellHaveFourItems.h */,
+				568B95F71A11D50A00368272 /* BITableViewCellHaveFourItems.m */,
 				568B95FF1A12350500368272 /* BIFeedbakAndActionCell.h */,
 				568B96001A12350500368272 /* BIFeedbakAndActionCell.m */,
 			);
@@ -1684,7 +1684,7 @@
 				568B95F51A11CF5600368272 /* BISettingViewController.m in Sources */,
 				56C9954A1A088C180006477D /* BugFixContainerView.m in Sources */,
 				568B961E1A185CF300368272 /* tappedImageVC.m in Sources */,
-				568B95F81A11D50A00368272 /* BIOtherAppsTableViewCell.m in Sources */,
+				568B95F81A11D50A00368272 /* BITableViewCellHaveFourItems.m in Sources */,
 				56427E2719AB823200B516A0 /* AppDelegate.m in Sources */,
 				568B96011A12350500368272 /* BIFeedbakAndActionCell.m in Sources */,
 				56427E2319AB823200B516A0 /* main.m in Sources */,
