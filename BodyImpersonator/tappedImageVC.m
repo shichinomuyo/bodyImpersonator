@@ -67,7 +67,7 @@
     // インタースティシャル広告表示
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSInteger countViewChanged = [defaults integerForKey:@"KEY_countUpViewChanged"];
-    NSInteger memoryCountNumberOfInterstitialDidAppear = [defaults integerForKey:@"KEY_memoryCountNumberOfInterstitialDidAppearInPreview"];
+    NSInteger memoryCountNumberOfInterstitialDidAppear = [defaults integerForKey:@"KEY_memoryCountNumberOfInterstitialDidAppear"];
 
     if (countViewChanged != memoryCountNumberOfInterstitialDidAppear) {
         if (((countViewChanged % kINTERSTITIAL_DISPLAY_RATE) == 0)) {
@@ -161,36 +161,75 @@
 // 表示されている画像を削除
 - (IBAction)removeItemBtn:(UIBarButtonItem *)sender {
     // アクションコントローラー生成
-    UIAlertController *actionController = [UIAlertController alertControllerWithTitle:@"Remove this Image?" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-    [actionController addAction:[UIAlertAction actionWithTitle:@"Remove this Image" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        
-        // 最初の画面にBackFromPreviewVCRemoveItemBtnで戻ると削除メソッドが動く
-        [self performSegueWithIdentifier:@"BackFromTappedImageVCRemoveItemBtn" sender:self];
-    }]];
-    [actionController addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+    UIAlertController *actionController = [UIAlertController alertControllerWithTitle:@"Remove this Image?"
+                                                                              message:nil
+                                                                       preferredStyle:UIAlertControllerStyleActionSheet];
+    [actionController addAction:[UIAlertAction actionWithTitle:@"Remove this Image"
+                                                         style:UIAlertActionStyleDefault
+                                                       handler:^(UIAlertAction *action) {
+                                                           // 最初の画面にBackFromPreviewVCRemoveItemBtnで戻ると削除メソッドが動く
+                                                           [self performSegueWithIdentifier:@"BackFromTappedImageVCRemoveItemBtn" sender:self];
+                                                       }]];
+    [actionController addAction:[UIAlertAction actionWithTitle:@"Cancel"
+                                                         style:UIAlertActionStyleCancel
+                                                       handler:^(UIAlertAction *action) {
         // キャンセルタップ時の処理
     }]];
     
-    [self presentViewController:actionController animated:YES completion:nil];
-    
+    // デバイスがiphoneであるかそうでないかで分岐
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
+        NSLog(@"iPhoneの処理");
+            [self presentViewController:actionController animated:YES completion:nil];
+    }
+    else{
+        NSLog(@"iPadの処理");
+        UIPopoverController *popover = [[UIPopoverController alloc]initWithContentViewController:actionController];
+        [popover presentPopoverFromBarButtonItem:sender permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    }
 }
 
-- (void)actionSetImage {
+- (void)actionSetImage:(UIBarButtonItem *)sender{
     // アクションコントローラー生成
-    UIAlertController *actionController = [UIAlertController alertControllerWithTitle:@"Set this Image?" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-    [actionController addAction:[UIAlertAction actionWithTitle:@"Set this Image" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        
-        [self performSegueWithIdentifier:@"BackFromTappedImageVCSetImageBtn" sender:self];
-    }]];
-    [actionController addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-        // キャンセルタップ時の処理
-    }]];
+    UIAlertController *actionController = [UIAlertController alertControllerWithTitle:@"Set this Image?"
+                                                                              message:nil
+                                                                       preferredStyle:UIAlertControllerStyleActionSheet];
+    [actionController addAction:[UIAlertAction actionWithTitle:@"Set this Image"
+                                                         style:UIAlertActionStyleDefault
+                                                       handler:^(UIAlertAction *action) {
+                                                           [self performSegueWithIdentifier:@"BackFromTappedImageVCSetImageBtn" sender:self];
+                                                       }]];
+    [actionController addAction:[UIAlertAction actionWithTitle:@"Cancel"
+                                                         style:UIAlertActionStyleCancel
+                                                       handler:^(UIAlertAction *action) {
+                                                           // キャンセルタップ時の処理
+                                                       }]];
     
-    [self presentViewController:actionController animated:YES completion:nil];
+    // デバイスがiphoneであるかそうでないかで分岐
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
+        NSLog(@"iPhoneの処理");
+            [self presentViewController:actionController animated:YES completion:nil];
+    }
+    else{
+        NSLog(@"iPadの処理");
+        if (sender == nil) {
+            actionController.popoverPresentationController.sourceView = self.view;
+            actionController.popoverPresentationController.sourceRect = CGRectMake(self.view.frame.size.width/2, self.view.frame.size.height/2, 0, 0);
+            [actionController.popoverPresentationController setPermittedArrowDirections:0];
+            [self presentViewController:actionController animated:YES completion:nil];
+        }else{
+            UIPopoverController *popover = [[UIPopoverController alloc]initWithContentViewController:actionController];
+            [popover presentPopoverFromBarButtonItem:sender permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+        }
+        
+    }
+
+
+
+
 }
 
 - (IBAction)setImageBtn:(UIBarButtonItem *)sender {
-    [self actionSetImage];
+    [self actionSetImage:sender];
     
 }
 
@@ -206,11 +245,19 @@
     NSArray *excludedActivityTypes =@[UIActivityTypePostToTwitter,UIActivityTypePostToFacebook,UIActivityTypePostToFlickr,UIActivityTypePostToTencentWeibo,UIActivityTypePostToVimeo,UIActivityTypePostToVimeo];
     activityVC.excludedActivityTypes = excludedActivityTypes;
     // アクティビティコントローラーを表示する
-    [self presentViewController:activityVC animated:YES completion:nil];
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){    // デバイスがiphoneであるかそうでないかで分岐
+        NSLog(@"iPhoneの処理");
+            [self presentViewController:activityVC animated:YES completion:nil];
+    }
+    else{
+        NSLog(@"iPadの処理");
+            UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:activityVC];
+            [popover presentPopoverFromBarButtonItem:sender permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    }
 }
 
 - (IBAction)btnCoverAllDisplay:(UIButton *)sender {
-    [self actionSetImage];
+    [self actionSetImage:nil];
     
 }
 
@@ -249,32 +296,17 @@
 /// AdMobインタースティシャルのloadrequestが失敗したとき
 -(void)interstitial:(GADInterstitial *)interstitial didFailToReceiveAdWithError:(GADRequestError *)error{
     NSLog(@"interstitial:didFailToReceiveAdWithError:%@", [error localizedDescription]);
-    
     // 他の広告ネットワークの広告を表示させるなど。
-    // フラグ更新
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setBool:NO forKey:@"KEY_ADMOBinterstitialRecieved"];
-    [defaults synchronize];
-    
 }
 
 // AdMobのインタースティシャル広告表示
 - (void)interstitialDidReceiveAd:(GADInterstitial *)ad
 {
-    // 広告受信状況フラグ更新
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setBool:YES forKey:@"KEY_ADMOBinterstitialRecieved"];
-    [defaults synchronize];
-    NSLog(@"adfrag:%d",[defaults boolForKey:@"KEY_ADMOBinterstitialRecieved"]);
-
     [interstitial_ presentFromRootViewController:self];
+
 }
 -(void)interstitialWillDismissScreen:(GADInterstitial *)ad{
-    // 広告表示済み状況フラグ更新
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSInteger memoryCountNumberOfInterstitialDidAppear = [defaults integerForKey:@"KEY_countUpViewChanged"];
-    [defaults setInteger:memoryCountNumberOfInterstitialDidAppear forKey:@"KEY_memoryCountNumberOfInterstitialDidAppearInPreview"];
-    [defaults synchronize];
+
 }
 
 
@@ -285,5 +317,10 @@
     interstitial_.adUnitID = MY_INTERSTITIAL_UNIT_ID;
     interstitial_.delegate = self;
     [interstitial_ loadRequest:[GADRequest request]];
+    // 広告表示準備完了状況フラグ更新
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSInteger memoryCountNumberOfInterstitialDidAppear = [defaults integerForKey:@"KEY_countUpViewChanged"];
+    [defaults setInteger:memoryCountNumberOfInterstitialDidAppear forKey:@"KEY_memoryCountNumberOfInterstitialDidAppear"];
+    [defaults synchronize];
 }
 @end

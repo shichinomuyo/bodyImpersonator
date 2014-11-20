@@ -12,6 +12,8 @@
 
 @interface previewVC (){
         UIActionSheet *_actionSheetAlert;
+    UIActivityIndicatorView *indicator;
+
 }
 
 
@@ -75,12 +77,8 @@
 -(void)viewDidAppear:(BOOL)animated{
     // インタースティシャル広告表示
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-
     NSInteger countViewChanged = [defaults integerForKey:@"KEY_countUpViewChanged"];
-    
-    //    BOOL b = [defaults boolForKey:@"KEY_ADMOBinterstitialRecieved"];
-
-    NSInteger memoryCountNumberOfInterstitialDidAppear = [defaults integerForKey:@"KEY_memoryCountNumberOfInterstitialDidAppearInPreview"];
+    NSInteger memoryCountNumberOfInterstitialDidAppear = [defaults integerForKey:@"KEY_memoryCountNumberOfInterstitialDidAppear"];
     
     if (countViewChanged != memoryCountNumberOfInterstitialDidAppear) {
         if (((countViewChanged % kINTERSTITIAL_DISPLAY_RATE) == 0)) {
@@ -188,7 +186,19 @@
         // キャンセルタップ時の処理
     }]];
     
-    [self presentViewController:actionController animated:YES completion:nil];
+    // デバイスがiphoneであるかそうでないかで分岐
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
+        NSLog(@"iPhoneの処理");
+            [self presentViewController:actionController animated:YES completion:nil];
+    }
+    else{
+        NSLog(@"iPadの処理");
+        UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:actionController];
+        [popover presentPopoverFromBarButtonItem:sender permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    }
+
+
+    
 
 }
 
@@ -204,8 +214,20 @@
     // 無効にする機能を指定
     NSArray *excludedActivityTypes =@[UIActivityTypePostToTwitter,UIActivityTypePostToFacebook,UIActivityTypePostToFlickr,UIActivityTypePostToTencentWeibo,UIActivityTypePostToVimeo,UIActivityTypePostToVimeo];
     activityVC.excludedActivityTypes = excludedActivityTypes;
-    // アクティビティコントローラーを表示する
-    [self presentViewController:activityVC animated:YES completion:nil];
+
+    
+    // デバイスがiphoneであるかそうでないかで分岐
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
+        NSLog(@"iPhoneの処理");
+        // アクティビティコントローラーを表示する
+        [self presentViewController:activityVC animated:YES completion:nil];
+    }
+    else{
+        NSLog(@"iPadの処理");
+        UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:activityVC];
+        [popover presentPopoverFromBarButtonItem:sender permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    }
+
 }
 
 // デバッグ用
@@ -233,49 +255,69 @@
 
 #pragma mark -
 #pragma mark AdMobDelegate
-//// AdMobバナーのloadrequestが失敗したとき
-//-(void)adView:(GADBannerView *)bannerView didFailToReceiveAdWithError:(GADRequestError *)error{
-//    NSLog(@"adView:didFailToReceiveAdWithError:%@", [error localizedDescription]);
-//    
-//    // 他の広告ネットワークの広告を表示させるなど。
-//}
+
 
 /// AdMobインタースティシャルのloadrequestが失敗したとき
 -(void)interstitial:(GADInterstitial *)interstitial didFailToReceiveAdWithError:(GADRequestError *)error{
     NSLog(@"interstitial:didFailToReceiveAdWithError:%@", [error localizedDescription]);
+    // 他の広告ネットワークの広告を表示させるなど
     
-    // 他の広告ネットワークの広告を表示させるなど。
-    // フラグ更新
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setBool:NO forKey:@"KEY_ADMOBinterstitialRecieved"];
-    [defaults synchronize];
-    
+    // 操作無効解除
+    [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+    // インジケーターを止める
+    [self performSelectorInBackground:@selector(indicatorStop) withObject:nil];
 }
 
 // AdMobのインタースティシャル広告表示
 - (void)interstitialDidReceiveAd:(GADInterstitial *)ad
 {
-    // 広告受信状況フラグ更新
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setBool:YES forKey:@"KEY_ADMOBinterstitialRecieved"];
-    [defaults synchronize];
-    NSLog(@"adfrag:%d",[defaults boolForKey:@"KEY_ADMOBinterstitialRecieved"]);
-    
+    [self performSelectorInBackground:@selector(indicatorStop) withObject:nil];
+    [[UIApplication sharedApplication] endIgnoringInteractionEvents];
     [interstitial_ presentFromRootViewController:self];
+    
+    
 }
--(void)interstitialWillDismissScreen:(GADInterstitial *)ad{
-    // 広告表示済み状況フラグ更新
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSInteger memoryCountNumberOfInterstitialDidAppear = [defaults integerForKey:@"KEY_countUpViewChanged"];
-    [defaults setInteger:memoryCountNumberOfInterstitialDidAppear forKey:@"KEY_memoryCountNumberOfInterstitialDidAppearInPreview"];
-    [defaults synchronize];
-}
+
 // AdMobインタースティシャルの再ロード
 - (void)interstitialLoad{
+    // 広告表示準備開始状況フラグ更新
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSInteger memoryCountNumberOfInterstitialDidAppear = [defaults integerForKey:@"KEY_countUpViewChanged"];
+    [defaults setInteger:memoryCountNumberOfInterstitialDidAppear forKey:@"KEY_memoryCountNumberOfInterstitialDidAppear"];
+    [defaults synchronize];
+    
     // 【Ad】インタースティシャル広告の表示
     interstitial_ = [[GADInterstitial alloc] init];
     interstitial_.adUnitID = MY_INTERSTITIAL_UNIT_ID;
     interstitial_.delegate = self;
+    
     [interstitial_ loadRequest:[GADRequest request]];
+    [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
+    [self performSelectorInBackground:@selector(indicatorStart) withObject:nil];
+    
+    
 }
+
+-(void)interstitialWillDismissScreen:(GADInterstitial *)ad{
+    
+    // 操作無効解除
+    [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+    // インジケーターを止める
+    [self performSelectorInBackground:@selector(indicatorStop) withObject:nil];
+    
+}
+
+- (void)indicatorStart{
+    indicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    indicator.frame = CGRectMake(100, 100, 50.0, 50.0);
+    indicator.center = self.view.center;
+    [self.view addSubview:indicator];
+    
+}
+
+-(void)indicatorStop{
+    [indicator stopAnimating];
+    
+}
+
 @end

@@ -19,6 +19,7 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     UIImagePickerController *_imagePicker;
     UIPopoverController *_imagePopController;
     BICollectionViewCell *_selectedCell;
+    UIActivityIndicatorView *indicator;
 }
 
 // IBOutlet Btn
@@ -56,7 +57,6 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     // 初回起動時の初期データ
     NSMutableDictionary *appDefaults = [[NSMutableDictionary alloc] init];
     [appDefaults setObject:@"0" forKey:@"KEY_countUPViewChanged"]; // ビューの切り替わりをカウント
-    [appDefaults setObject:@"NO" forKey:@"KEY_ADMOBinterstitialRecieved"]; // インタースティシャル広告受信状況
     // collectionViewに表示する画像を保存する配列の作成・初期化
     NSMutableArray *imageNames = [NSMutableArray array];
     NSArray *array = [imageNames copy];
@@ -200,7 +200,7 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     // 最初のviewControllerに戻ったときplayVCで表示完了した回数が3の倍数かつインタースティシャル広告の準備ができていればインタースティシャル広告表示
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSInteger countViewChanged = [defaults integerForKey:@"KEY_countUpViewChanged"];
-    NSInteger memoryCountNumberOfInterstitialDidAppear = [defaults integerForKey:@"KEY_memoryCountNumberOfInterstitialDidAppearInPreview"];
+    NSInteger memoryCountNumberOfInterstitialDidAppear = [defaults integerForKey:@"KEY_memoryCountNumberOfInterstitialDidAppear"];
 
     NSLog(@"countUpViewChanged %ld", (long)countViewChanged);
     // 広告表示フラグ確認
@@ -644,7 +644,7 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
         Class class = NSClassFromString(@"UIAlertController"); // iOS8/7の切り分けフラグに使用
         if (class) {
             // iOS8の処理
-            [self actionImageTapped:indexPath];
+            [self actionImageTapped:indexPath]; // previewViewに飛ぶ
             // アクションコントローラー生成
 //            UIAlertController *actionController =
 //            [UIAlertController alertControllerWithTitle:@"Image selected"
@@ -716,7 +716,7 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
         UIAlertController *actionController =
         [UIAlertController alertControllerWithTitle:@"Edit image?"
                                             message:nil
-                                     preferredStyle:UIAlertControllerStyleActionSheet];
+                                     preferredStyle:UIAlertControllerStyleAlert];
         [actionController addAction:[UIAlertAction actionWithTitle:@"Edit this Image"
                                                              style:UIAlertActionStyleDefault
                                                            handler:^(UIAlertAction *action) {
@@ -739,8 +739,16 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
                                                                
                                                                
                                                            }]];
-        // アクションコントローラーを表示
-        [picker presentViewController:actionController animated:YES completion:nil];
+
+        
+        actionController.popoverPresentationController.sourceView = self.view;
+        
+            // アクションコントローラーを表示
+            [picker presentViewController:actionController animated:YES completion:nil];
+
+        
+        
+        
     } else{
         // iOS7の処理
         
@@ -764,22 +772,10 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
 - (void)actionShowEditor:(UIImage *)image
 {
     
-    // デバイスがiphoneであるかそうでないかで分岐
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
-        NSLog(@"iPhoneの処理");
-        secondVC *sVC = [self.storyboard instantiateViewControllerWithIdentifier:@"secondVC"];
-        sVC.selectedImage = image;
-        [_imagePicker presentViewController:sVC animated:YES completion:nil];
-        
-    }
-    else{
-        NSLog(@"iPadの処理");
-        [_imagePopController dismissPopoverAnimated:YES];
-        // secondVCを表示
-        secondVC *sVC = [self.storyboard instantiateViewControllerWithIdentifier:@"secondVC"];
-        sVC.selectedImage = image;
-        [self presentViewController:sVC animated:YES completion:nil];
-    }
+    secondVC *sVC = [self.storyboard instantiateViewControllerWithIdentifier:@"secondVC"];
+    sVC.selectedImage = image;
+    [_imagePicker presentViewController:sVC animated:YES completion:nil];
+
 }
 
 // actionAddItemボタンが押された時の処理
@@ -821,17 +817,9 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     
     [self.collectionView reloadData];
     
-    
-    // デバイスがiphoneであるかそうでないかで分岐
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
-        NSLog(@"iPhoneの処理");
-        // 最初の画面に戻る
-        [self dismissViewControllerAnimated:YES completion:nil];
-    }
-    else{
-        NSLog(@"iPadの処理");
-        [_imagePopController dismissPopoverAnimated:YES];
-    }
+    // 最初の画面に戻る
+    [self dismissViewControllerAnimated:YES completion:nil];
+
 }
 
 // action3ボタンが押された時の処理
@@ -863,12 +851,12 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
         Class class = NSClassFromString(@"UIAlertController"); // iOS8/7の切り分けフラグに使用
         if (class) {
             // iOS8の処理
-            
+            NSLog(@"ここまではきてる");
             // アクションコントローラー生成
             UIAlertController *actionController =
             [UIAlertController alertControllerWithTitle:@"Add Image"
                                                 message:nil
-                                         preferredStyle:UIAlertControllerStyleActionSheet];
+                                         preferredStyle:UIAlertControllerStyleAlert];
             [actionController addAction:[UIAlertAction actionWithTitle:@"Open CameraRoll"
                                                                  style:UIAlertActionStyleDefault
                                                                handler:^(UIAlertAction *action) {
@@ -888,6 +876,8 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
                                                                    
                                                                    
                                                                }]];
+            actionController.popoverPresentationController.sourceView = self.view;
+
             // アクションコントローラーを表示
             [self presentViewController:actionController animated:YES completion:nil];
         } else{
@@ -1082,51 +1072,75 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     NSLog(@"adView:didFailToReceiveAdWithError:%@", [error localizedDescription]);
     
     // 他の広告ネットワークの広告を表示させるなど。
+    
+    // 操作無効解除
+    [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+    // インジケーターを止める
+    [self performSelectorInBackground:@selector(indicatorStop) withObject:nil];
 }
 
 /// AdMobインタースティシャルのloadrequestが失敗したとき
 -(void)interstitial:(GADInterstitial *)interstitial didFailToReceiveAdWithError:(GADRequestError *)error{
     NSLog(@"interstitial:didFailToReceiveAdWithError:%@", [error localizedDescription]);
+    // 他の広告ネットワークの広告を表示させるなど
     
-    // 他の広告ネットワークの広告を表示させるなど。
-    // フラグ更新
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setBool:NO forKey:@"KEY_ADMOBinterstitialRecieved"];
-    [defaults synchronize];
-    
+    // 操作無効解除
+    [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+    // インジケーターを止める
+    [self performSelectorInBackground:@selector(indicatorStop) withObject:nil];
 }
 
 // AdMobのインタースティシャル広告表示
 - (void)interstitialDidReceiveAd:(GADInterstitial *)ad
 {
-    // 広告受信状況フラグ更新
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setBool:YES forKey:@"KEY_ADMOBinterstitialRecieved"];
-    [defaults synchronize];
-    NSLog(@"adfrag:%d",[defaults boolForKey:@"KEY_ADMOBinterstitialRecieved"]);
-    
+        [self performSelectorInBackground:@selector(indicatorStop) withObject:nil];
+    [[UIApplication sharedApplication] endIgnoringInteractionEvents];
      [interstitial_ presentFromRootViewController:self];
+
 
 }
 
 // AdMobインタースティシャルの再ロード
 - (void)interstitialLoad{
+    // 広告表示準備開始状況フラグ更新
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSInteger memoryCountNumberOfInterstitialDidAppear = [defaults integerForKey:@"KEY_countUpViewChanged"];
+    [defaults setInteger:memoryCountNumberOfInterstitialDidAppear forKey:@"KEY_memoryCountNumberOfInterstitialDidAppear"];
+    [defaults synchronize];
+    
     // 【Ad】インタースティシャル広告の表示
         interstitial_ = [[GADInterstitial alloc] init];
         interstitial_.adUnitID = MY_INTERSTITIAL_UNIT_ID;
         interstitial_.delegate = self;
 
-        [interstitial_ loadRequest:[GADRequest request]];
+    [interstitial_ loadRequest:[GADRequest request]];
+    [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
+    [self performSelectorInBackground:@selector(indicatorStart) withObject:nil];
+    
+
 }
 
 -(void)interstitialWillDismissScreen:(GADInterstitial *)ad{
-    // 広告表示済み状況フラグ更新
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSInteger memoryCountNumberOfInterstitialDidAppear = [defaults integerForKey:@"KEY_countUpViewChanged"];
-    [defaults setInteger:memoryCountNumberOfInterstitialDidAppear forKey:@"KEY_memoryCountNumberOfInterstitialDidAppearInPreview"];
-    [defaults synchronize];
+
+    // 操作無効解除
+    [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+    // インジケーターを止める
+    [self performSelectorInBackground:@selector(indicatorStop) withObject:nil];
+
 }
 
+- (void)indicatorStart{
+    indicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    indicator.frame = CGRectMake(100, 100, 50.0, 50.0);
+    indicator.center = self.view.center;
+    [self.view addSubview:indicator];
+
+}
+
+-(void)indicatorStop{
+    [indicator stopAnimating];
+    
+}
 #pragma mark nendDelegate
 // nend広告受け取ったらここで処理
 - (void)nadViewDidReceiveAd:(NADView *)adView{

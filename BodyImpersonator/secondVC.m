@@ -158,7 +158,7 @@
         // アクションコントローラー生成
         UIAlertController *actionController =
         [UIAlertController alertControllerWithTitle:@"Add this image?"
-                                            message:@"Message"
+                                            message:nil
                                      preferredStyle:UIAlertControllerStyleActionSheet];
         [actionController addAction:[UIAlertAction actionWithTitle:@"Add this Image"
                                                              style:UIAlertActionStyleDefault
@@ -346,8 +346,7 @@
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSInteger countViewChanged = [defaults integerForKey:@"KEY_countUpViewChanged"];
     
-    //    BOOL b = [defaults boolForKey:@"KEY_ADMOBinterstitialRecieved"];
-    NSInteger memoryCountNumberOfInterstitialDidAppear = [defaults integerForKey:@"KEY_memoryCountNumberOfInterstitialDidAppearInPreview"];
+    NSInteger memoryCountNumberOfInterstitialDidAppear = [defaults integerForKey:@"KEY_memoryCountNumberOfInterstitialDidAppear"];
     
     if (countViewChanged != memoryCountNumberOfInterstitialDidAppear) {
         if (((countViewChanged % kINTERSTITIAL_DISPLAY_RATE) == 0)) {
@@ -377,32 +376,17 @@
 /// AdMobインタースティシャルのloadrequestが失敗したとき
 -(void)interstitial:(GADInterstitial *)interstitial didFailToReceiveAdWithError:(GADRequestError *)error{
     NSLog(@"interstitial:didFailToReceiveAdWithError:%@", [error localizedDescription]);
-    
     // 他の広告ネットワークの広告を表示させるなど。
-    // フラグ更新
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setBool:NO forKey:@"KEY_ADMOBinterstitialRecieved"];
-    [defaults synchronize];
-    
 }
 
 // AdMobのインタースティシャル広告表示
 - (void)interstitialDidReceiveAd:(GADInterstitial *)ad
 {
-    // 広告受信状況フラグ更新
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setBool:YES forKey:@"KEY_ADMOBinterstitialRecieved"];
-    [defaults synchronize];
-    NSLog(@"adfrag:%d",[defaults boolForKey:@"KEY_ADMOBinterstitialRecieved"]);
-
     [interstitial_ presentFromRootViewController:self];
+
 }
 -(void)interstitialWillDismissScreen:(GADInterstitial *)ad{
-    // 広告表示済み状況フラグ更新
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSInteger memoryCountNumberOfInterstitialDidAppear = [defaults integerForKey:@"KEY_countUpViewChanged"];
-    [defaults setInteger:memoryCountNumberOfInterstitialDidAppear forKey:@"KEY_memoryCountNumberOfInterstitialDidAppearInPreview"];
-    [defaults synchronize];
+
 }
 
 
@@ -413,6 +397,11 @@
     interstitial_.adUnitID = MY_INTERSTITIAL_UNIT_ID;
     interstitial_.delegate = self;
     [interstitial_ loadRequest:[GADRequest request]];
+    // 広告表示準備完了状況フラグ更新
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSInteger memoryCountNumberOfInterstitialDidAppear = [defaults integerForKey:@"KEY_countUpViewChanged"];
+    [defaults setInteger:memoryCountNumberOfInterstitialDidAppear forKey:@"KEY_memoryCountNumberOfInterstitialDidAppear"];
+    [defaults synchronize];
 }
 
 @end
