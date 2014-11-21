@@ -509,13 +509,13 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
         }
         else{
             NSLog(@"iPadの処理");
-            if (_imagePicker) {
-                [_imagePicker dismissViewControllerAnimated:YES completion:nil];
+            if (_pickerContainerView) {
+                [_pickerContainerView dismissViewControllerAnimated:YES completion:nil];
             }
             // フォトライブラリから画像を選ぶ
 
             _pickerContainerView = [[UIViewController alloc] init];
-            [_pickerContainerView setPreferredContentSize:CGSizeMake(500, 500)];
+            [_pickerContainerView setPreferredContentSize:CGSizeMake(580, 600)];
             _pickerContainerView.modalPresentationStyle = UIModalPresentationPopover;
 
             [_pickerContainerView.view addSubview:_imagePicker.view];
@@ -524,9 +524,6 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
             _popoverPresentation.sourceRect = CGRectMake(self.view.frame.size.width/2, self.view.frame.size.height/2, 0, 0);
             [_popoverPresentation setPermittedArrowDirections:0];
             [self presentViewController:_pickerContainerView animated:YES completion:nil];
-
-            
-            
         }
     }
     
