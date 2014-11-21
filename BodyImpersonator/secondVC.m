@@ -75,16 +75,31 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+ //    Get the new view controller using [segue destinationViewController].
+ //    Pass the selected object to the new view controller.
+    // デバイスがiphoneであるかそうでないかで分岐
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
+        NSLog(@"iPhoneの処理");
+    }
+    else{
+        NSLog(@"iPadの処理");
+        if ([segue.identifier isEqualToString:@"backFromSecondVC"]) {
+
+
+//            [self dismissViewControllerAnimated:YES completion:nil];
+        }
+    }
+
+
+    
 }
-*/
+
 
 // 写真をピンチイン/アウトで拡大できるようにする
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView{
@@ -285,8 +300,17 @@
     
     [defaults synchronize];
     
-    // 最初の画面に戻る
-    [self performSegueWithIdentifier:@"backFromSecondVC" sender:self];
+    // デバイスがiphoneであるかそうでないかで分岐
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
+        NSLog(@"iPhoneの処理");
+          [self performSegueWithIdentifier:@"backFromSecondVC" sender:self];
+    }
+    else{
+        NSLog(@"iPadの処理");
+        [self dismissViewControllerAnimated:YES completion:nil];
+          [self performSegueWithIdentifier:@"backFromSecondVC" sender:self];
+    }
+
 
 }
 // iOS 7でアクションシートのボタンが押された時の処理

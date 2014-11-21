@@ -17,12 +17,14 @@
 }
 
 
+@property (strong, nonatomic) IBOutlet UIToolbar *toolBar;
 @property (weak, nonatomic) IBOutlet UINavigationBar *navigationBar;
 @property (weak, nonatomic) IBOutlet UIImageView *previewImageView;
 
 - (IBAction)removeItemBtn:(UIBarButtonItem *)sender;
 
 - (IBAction)actionBtn:(UIBarButtonItem *)sender;
+- (IBAction)btnCoverAllDisplay:(UIButton *)sender;
 
 @end
 
@@ -51,10 +53,7 @@
 
     //デフォルトのナビゲーションコントロールを非表示にする
     [self.navigationController setNavigationBarHidden:YES animated:NO];
-}
-
-- (void)viewWillAppear:(BOOL)animated{
-
+    
     // デバイスがiphoneであるかそうでないかで分岐
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
         NSLog(@"iPhoneの処理");
@@ -66,6 +65,15 @@
         // popoverなので縮小する
         [self viewSizeMake:0.5];
     }
+    
+    UIPanGestureRecognizer *backGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(backGesture:)];
+    [self.view addGestureRecognizer:backGestureRecognizer];
+
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+
+
     NSInteger countViewChanged = [[NSUserDefaults standardUserDefaults] integerForKey:@"KEY_countUpViewChanged"];
     countViewChanged ++;
     [[NSUserDefaults standardUserDefaults] setInteger:countViewChanged forKey:@"KEY_countUpViewChanged"];
@@ -91,6 +99,11 @@
             }
         }
     }
+
+}
+
+-(void)viewDidLayoutSubviews{
+
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
@@ -230,6 +243,15 @@
 
 }
 
+
+- (IBAction)btnCoverAllDisplay:(UIButton *)sender {
+    if (_navigationBar.alpha != 0) {
+        [NSObject animationHideNavBar:_navigationBar ToolBar:_toolBar];
+    }else{
+        [NSObject animationAppearNavBar:_navigationBar ToolBar:_toolBar];
+    }
+}
+
 // デバッグ用
 - (void)removeAllDocumentsFiles{
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -250,6 +272,17 @@
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    
+}
+
+#pragma mark -
+#pragma mark Gesture
+-(void)backGesture:(UIPanGestureRecognizer *)sender{
+    CGPoint transition = [sender translationInView:sender.view];
+    if (60 < transition.x) {
+        [self.navigationController popViewControllerAnimated:YES];
+        [self.view removeGestureRecognizer:sender];
+    }
     
 }
 

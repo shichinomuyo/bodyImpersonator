@@ -17,9 +17,11 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
 @interface ViewController ()
 {
     UIImagePickerController *_imagePicker;
-    UIPopoverController *_imagePopController;
+    UIViewController *_pickerContainerView;
+    UIPopoverPresentationController *_popoverPresentation;
     BICollectionViewCell *_selectedCell;
-    UIActivityIndicatorView *indicator;
+    kBIIndicator *kIndicator;
+
 }
 
 // IBOutlet Btn
@@ -138,6 +140,8 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     }
 
     [self pushImageOnNavigationBar:self.navigationBar :[UIImage imageNamed:@"MainViewHeader320x44@2x.png"]];
+    
+    kIndicator = [kBIIndicator alloc];
 }
 
 // NavigationBarに画像を配置 高さ調整
@@ -316,7 +320,20 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
 {
     if ([segue.identifier isEqualToString:@"backFromSecondVC"]) {
         // ここに必要な処理を記述
+            NSLog(@"ここまではきてる");
+        // デバイスがiphoneであるかそうでないかで分岐
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
+            NSLog(@"iPhoneの処理");
+        }
+        else{
+            NSLog(@"iPadの処理");
+            if (_pickerContainerView) {
+                          [_pickerContainerView dismissViewControllerAnimated:YES completion:nil];
+            }
+          
+        }
         [self.collectionView reloadData];
+     
     }else if ([segue.identifier isEqualToString:@"BackFromPreviewVCRemoveItemBtn"]){
         // _selectedIndexPathのアイテムを削除
         [self actionRemoveItem:_selectedIndexPath];
@@ -454,12 +471,18 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
 
 // カメラ起動のピッカー生成
 - (void)launchCam{
-    _imagePicker = [[UIImagePickerController alloc]init];
-    _imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;// シミュレーターだと'Source type 1 not available'のエラーが出るのは仕様。実機を使ってテストしてね。
-    _imagePicker.delegate = self;
-    [self presentViewController:_imagePicker
-                       animated:YES completion:nil];
-    
+    if (([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])) {
+        _imagePicker = [[UIImagePickerController alloc]init];
+        _imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;// シミュレーターだと'Source type 1 not available'のエラーが出るのは仕様。実機を使ってテストしてね。
+        _imagePicker.delegate = self;
+        _imagePicker.allowsEditing = NO;
+        
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+            [self presentViewController:_imagePicker
+                               animated:YES completion:nil];
+        }];
+    }
+
 }
 
 // カメラロールのピッカー生成
@@ -486,21 +509,23 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
         }
         else{
             NSLog(@"iPadの処理");
+            if (_imagePicker) {
+                [_imagePicker dismissViewControllerAnimated:YES completion:nil];
+            }
             // フォトライブラリから画像を選ぶ
-            [self presentViewController:_imagePicker animated:YES completion:nil];
-            // Popoverの確認・開かれている場合は一度閉じる
-            //            if (_imagePopController) {
-            //                if ([_imagePopController isPopoverVisible]) {
-            //                    [_imagePopController dismissPopoverAnimated:YES];
-            //                }
-            //            }
-            //
-            //            // popoverを開く
-            //            _imagePicker.preferredContentSize = CGSizeMake(768, 1024);
-            //            _imagePopController = [[UIPopoverController alloc] initWithContentViewController:_imagePicker];
-            //
-            //            // popoverをバーボタンから表示
-            //            [_imagePopController presentPopoverFromBarButtonItem:sender permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+
+            _pickerContainerView = [[UIViewController alloc] init];
+            [_pickerContainerView setPreferredContentSize:CGSizeMake(500, 500)];
+            _pickerContainerView.modalPresentationStyle = UIModalPresentationPopover;
+
+            [_pickerContainerView.view addSubview:_imagePicker.view];
+            _popoverPresentation = _pickerContainerView.popoverPresentationController;
+            _popoverPresentation.sourceView = self.view;
+            _popoverPresentation.sourceRect = CGRectMake(self.view.frame.size.width/2, self.view.frame.size.height/2, 0, 0);
+            [_popoverPresentation setPermittedArrowDirections:0];
+            [self presentViewController:_pickerContainerView animated:YES completion:nil];
+
+            
             
         }
     }
@@ -632,6 +657,8 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
 // collectionView内のセルが押された時の処理
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+
+
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSArray *imageNames = [defaults objectForKey:@"KEY_imageNames"];
@@ -771,10 +798,9 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
 // actionShowEditorボタンが押された時の処理
 - (void)actionShowEditor:(UIImage *)image
 {
-    
     secondVC *sVC = [self.storyboard instantiateViewControllerWithIdentifier:@"secondVC"];
     sVC.selectedImage = image;
-    [_imagePicker presentViewController:sVC animated:YES completion:nil];
+    [_pickerContainerView presentViewController:sVC animated:YES completion:nil];
 
 }
 
@@ -851,7 +877,7 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
         Class class = NSClassFromString(@"UIAlertController"); // iOS8/7の切り分けフラグに使用
         if (class) {
             // iOS8の処理
-            NSLog(@"ここまではきてる");
+
             // アクションコントローラー生成
             UIAlertController *actionController =
             [UIAlertController alertControllerWithTitle:@"Add Image"
@@ -940,17 +966,6 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     _selectedIndexPath = indexPath;
     [self.collectionView selectItemAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
     [self.collectionView reloadData];
-
-//    // デバイスがiphoneであるかそうでないかで分岐
-//    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
-//        NSLog(@"iPhoneの処理");
-//        // 最初の画面に戻る
-//        [self dismissViewControllerAnimated:YES completion:nil];
-//    }
-//    else{
-//        NSLog(@"iPadの処理");
-//        [_imagePopController dismissPopoverAnimated:YES];
-//    }
     
 }
 
@@ -1045,7 +1060,7 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     }
     else{
         NSLog(@"iPadの処理");
-        [_imagePopController dismissPopoverAnimated:YES];
+             [self dismissViewControllerAnimated:YES completion:nil];
     }
 }
 
@@ -1076,7 +1091,7 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     // 操作無効解除
     [[UIApplication sharedApplication] endIgnoringInteractionEvents];
     // インジケーターを止める
-    [self performSelectorInBackground:@selector(indicatorStop) withObject:nil];
+    [kIndicator performSelectorInBackground:@selector(indicatorStop) withObject:nil];
 }
 
 /// AdMobインタースティシャルのloadrequestが失敗したとき
@@ -1087,13 +1102,13 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     // 操作無効解除
     [[UIApplication sharedApplication] endIgnoringInteractionEvents];
     // インジケーターを止める
-    [self performSelectorInBackground:@selector(indicatorStop) withObject:nil];
+    [kIndicator performSelectorInBackground:@selector(indicatorStop) withObject:nil];
 }
 
 // AdMobのインタースティシャル広告表示
 - (void)interstitialDidReceiveAd:(GADInterstitial *)ad
 {
-        [self performSelectorInBackground:@selector(indicatorStop) withObject:nil];
+        [kIndicator performSelectorInBackground:@selector(indicatorStop) withObject:nil];
     [[UIApplication sharedApplication] endIgnoringInteractionEvents];
      [interstitial_ presentFromRootViewController:self];
 
@@ -1115,7 +1130,7 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
 
     [interstitial_ loadRequest:[GADRequest request]];
     [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
-    [self performSelectorInBackground:@selector(indicatorStart) withObject:nil];
+    [kIndicator performSelectorInBackground:@selector(indicatorStart) withObject:nil];
     
 
 }
@@ -1124,23 +1139,14 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
 
     // 操作無効解除
     [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+
     // インジケーターを止める
-    [self performSelectorInBackground:@selector(indicatorStop) withObject:nil];
+    [kIndicator performSelectorInBackground:@selector(indicatorStop) withObject:nil];
 
 }
 
-- (void)indicatorStart{
-    indicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-    indicator.frame = CGRectMake(100, 100, 50.0, 50.0);
-    indicator.center = self.view.center;
-    [self.view addSubview:indicator];
 
-}
 
--(void)indicatorStop{
-    [indicator stopAnimating];
-    
-}
 #pragma mark nendDelegate
 // nend広告受け取ったらここで処理
 - (void)nadViewDidReceiveAd:(NADView *)adView{

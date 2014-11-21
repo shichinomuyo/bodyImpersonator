@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "GADInterstitial.h"
 #import "AppDelegate.h"
+#import "NSObject+Animation.h"
 
 
 @interface previewVC : UIViewController<UIPopoverControllerDelegate,UIPopoverPresentationControllerDelegate,UIActionSheetDelegate,GADInterstitialDelegate>

@@ -14,6 +14,7 @@
     UIActionSheet *_actionSheetAlert;
 }
 
+@property (weak, nonatomic) IBOutlet UIToolbar *toolBar;
 
 @property (weak, nonatomic) IBOutlet UINavigationBar *navigationBar;
 @property (weak, nonatomic) IBOutlet UIImageView *previewImageView;
@@ -21,6 +22,7 @@
 - (IBAction)setImageBtn:(UIBarButtonItem *)sender;
 - (IBAction)btnCoverAllDisplay:(UIButton *)sender;
 - (IBAction)actionBtn:(UIBarButtonItem *)sender;
+
 
 @end
 
@@ -42,6 +44,10 @@
     
     //デフォルトのナビゲーションコントロールを非表示にする
     [self.navigationController setNavigationBarHidden:YES animated:NO];
+    
+    
+    UIPanGestureRecognizer *backGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(backGesture:)];
+    [self.view addGestureRecognizer:backGestureRecognizer];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -256,10 +262,9 @@
     }
 }
 
-- (IBAction)btnCoverAllDisplay:(UIButton *)sender {
-    [self actionSetImage:nil];
-    
-}
+
+
+
 
 // デバッグ用
 - (void)removeAllDocumentsFiles{
@@ -281,6 +286,28 @@
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    
+}
+
+
+- (IBAction)btnCoverAllDisplay:(UIButton *)sender {
+    
+    if (_navigationBar.alpha != 0) {
+        [NSObject animationHideNavBar:_navigationBar ToolBar:_toolBar];
+    }else{
+        [NSObject animationAppearNavBar:_navigationBar ToolBar:_toolBar];
+    }
+    
+}
+
+#pragma mark -
+#pragma mark Gesture
+-(void)backGesture:(UIPanGestureRecognizer *)sender{
+    CGPoint transition = [sender translationInView:sender.view];
+    if (60 < transition.x) {
+        [self.navigationController popViewControllerAnimated:YES];
+        [self.view removeGestureRecognizer:sender];
+    }
     
 }
 

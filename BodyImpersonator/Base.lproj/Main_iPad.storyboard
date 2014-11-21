@@ -372,7 +372,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="6gl-yu-fDZ" kind="unwind" unwindAction="firstViewReturnActionForSegue:" id="dpJ-Ot-LjW"/>
+                                    <action selector="btnCoverAllDisplay:" destination="Ml1-cR-wrA" eventType="touchUpInside" id="lKb-vZ-32E"/>
                                 </connections>
                             </button>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" alpha="0.79999999999999982" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Gd3-VV-hwc">
@@ -411,8 +411,11 @@
                     </view>
                     <navigationItem key="navigationItem" id="anj-bW-EAz"/>
                     <connections>
+                        <outlet property="navigationBar" destination="pHb-d5-Bo5" id="FeB-tw-PVn"/>
                         <outlet property="previewImageView" destination="EOC-7T-xUJ" id="ZrJ-kS-EdL"/>
+                        <outlet property="toolBar" destination="Gd3-VV-hwc" id="sbj-bF-so5"/>
                         <segue destination="6gl-yu-fDZ" kind="unwind" identifier="BackFromPreviewVCRemoveItemBtn" unwindAction="firstViewReturnActionForSegue:" id="EIx-j5-HZM"/>
+                        <segue destination="6gl-yu-fDZ" kind="unwind" identifier="BackFromCoverAllDisplayFromPreviewVC" unwindAction="firstViewReturnActionForSegue:" id="qgb-dI-XIb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="49u-XO-Twl" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -486,7 +489,9 @@
                     </view>
                     <navigationItem key="navigationItem" id="vlJ-Xh-K2V"/>
                     <connections>
+                        <outlet property="navigationBar" destination="UhS-kG-ITt" id="2s0-Fa-VVu"/>
                         <outlet property="previewImageView" destination="4mY-Te-FEa" id="JGJ-YD-GIh"/>
+                        <outlet property="toolBar" destination="51D-HO-sML" id="ZN7-9D-Z5x"/>
                         <segue destination="y5x-A0-10f" kind="unwind" identifier="BackFromTappedImageVCRemoveItemBtn" unwindAction="firstViewReturnActionForSegue:" id="eIj-hT-VlR"/>
                         <segue destination="y5x-A0-10f" kind="unwind" identifier="BackFromTappedImageVCSetImageBtn" unwindAction="firstViewReturnActionForSegue:" id="00Y-C1-vcb"/>
                     </connections>

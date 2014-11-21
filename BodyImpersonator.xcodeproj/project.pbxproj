@@ -353,6 +353,8 @@
 		568B968B1A1C370600368272 /* libAdapterNend_readme.txt in Resources */ = {isa = PBXBuildFile; fileRef = 568B964C1A1C370600368272 /* libAdapterNend_readme.txt */; };
 		568B968C1A1C370600368272 /* libNendAd.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 568B964F1A1C370600368272 /* libNendAd.a */; };
 		568B968D1A1C370600368272 /* NADView_readme.txt in Resources */ = {isa = PBXBuildFile; fileRef = 568B96551A1C370600368272 /* NADView_readme.txt */; };
+		568B96B51A1DB61D00368272 /* NSObject+Animation.m in Sources */ = {isa = PBXBuildFile; fileRef = 568B96B41A1DB61D00368272 /* NSObject+Animation.m */; };
+		568B96BA1A1ECF1700368272 /* kBIIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 568B96B91A1ECF1700368272 /* kBIIndicator.m */; };
 		569B431519FF79C400EF21EC /* EditorOutline320x568.png in Resources */ = {isa = PBXBuildFile; fileRef = 569B431419FF79C400EF21EC /* EditorOutline320x568.png */; };
 		569B43171A008F7100EF21EC /* YellowFrame188x188.png in Resources */ = {isa = PBXBuildFile; fileRef = 569B43161A008F7100EF21EC /* YellowFrame188x188.png */; };
 		569B43191A00902900EF21EC /* WhiteFrame188x188.png in Resources */ = {isa = PBXBuildFile; fileRef = 569B43181A00902900EF21EC /* WhiteFrame188x188.png */; };
@@ -539,6 +541,10 @@
 		568B96541A1C370600368272 /* NADView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NADView.h; sourceTree = "<group>"; };
 		568B96551A1C370600368272 /* NADView_readme.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = NADView_readme.txt; sourceTree = "<group>"; };
 		568B96561A1C370600368272 /* NendAd-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NendAd-Bridging-Header.h"; sourceTree = "<group>"; };
+		568B96B31A1DB61D00368272 /* NSObject+Animation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Animation.h"; sourceTree = "<group>"; };
+		568B96B41A1DB61D00368272 /* NSObject+Animation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Animation.m"; sourceTree = "<group>"; };
+		568B96B81A1ECF1700368272 /* kBIIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kBIIndicator.h; sourceTree = "<group>"; };
+		568B96B91A1ECF1700368272 /* kBIIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = kBIIndicator.m; sourceTree = "<group>"; };
 		569B431419FF79C400EF21EC /* EditorOutline320x568.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = EditorOutline320x568.png; sourceTree = "<group>"; };
 		569B43161A008F7100EF21EC /* YellowFrame188x188.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = YellowFrame188x188.png; sourceTree = "<group>"; };
 		569B43181A00902900EF21EC /* WhiteFrame188x188.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WhiteFrame188x188.png; sourceTree = "<group>"; };
@@ -872,11 +878,9 @@
 				56427E8219AB887E00B516A0 /* Assets */,
 				56427EA219AB897500B516A0 /* AVAudioPlayer+CustomControllers.h */,
 				56427EA319AB897500B516A0 /* AVAudioPlayer+CustomControllers.m */,
-				56427E9F19AB895300B516A0 /* UIImageView+Animation.h */,
-				56427EA019AB895300B516A0 /* UIImageView+Animation.m */,
+				568B96B61A1EBF6D00368272 /* Animations */,
 				56A4B1FD19FB70C40009CC37 /* NSArray+IndexHelper.h */,
 				56A4B1FE19FB70C40009CC37 /* NSArray+IndexHelper.m */,
-				568B96151A15DB4000368272 /* BICollectionView */,
 				56C995481A088C180006477D /* BugFixContainerView.h */,
 				56C995491A088C180006477D /* BugFixContainerView.m */,
 				56427E2519AB823200B516A0 /* AppDelegate.h */,
@@ -885,15 +889,15 @@
 				56427E2B19AB823200B516A0 /* Main_iPad.storyboard */,
 				56427E2E19AB823200B516A0 /* ViewController.h */,
 				56427E2F19AB823200B516A0 /* ViewController.m */,
+				568B96B81A1ECF1700368272 /* kBIIndicator.h */,
+				568B96B91A1ECF1700368272 /* kBIIndicator.m */,
+				568B96151A15DB4000368272 /* BICollectionView */,
 				568B96021A12351E00368272 /* BITableView */,
 				56E14FFB19FF38930029B81D /* playVC.h */,
 				56E14FFC19FF38930029B81D /* playVC.m */,
 				5686757919BED3C900AF524A /* secondVC.h */,
 				5686757A19BED3C900AF524A /* secondVC.m */,
-				564AD77919E3B4FB0069901D /* previewVC.h */,
-				564AD77A19E3B4FB0069901D /* previewVC.m */,
-				568B961C1A185CF300368272 /* tappedImageVC.h */,
-				568B961D1A185CF300368272 /* tappedImageVC.m */,
+				568B96B71A1EBFDF00368272 /* PreveiwVC */,
 				56427E3119AB823200B516A0 /* Images.xcassets */,
 				56427E1D19AB823200B516A0 /* Supporting Files */,
 			);
@@ -1151,6 +1155,28 @@
 				568B96551A1C370600368272 /* NADView_readme.txt */,
 			);
 			path = NendAd;
+			sourceTree = "<group>";
+		};
+		568B96B61A1EBF6D00368272 /* Animations */ = {
+			isa = PBXGroup;
+			children = (
+				56427E9F19AB895300B516A0 /* UIImageView+Animation.h */,
+				56427EA019AB895300B516A0 /* UIImageView+Animation.m */,
+				568B96B31A1DB61D00368272 /* NSObject+Animation.h */,
+				568B96B41A1DB61D00368272 /* NSObject+Animation.m */,
+			);
+			name = Animations;
+			sourceTree = "<group>";
+		};
+		568B96B71A1EBFDF00368272 /* PreveiwVC */ = {
+			isa = PBXGroup;
+			children = (
+				564AD77919E3B4FB0069901D /* previewVC.h */,
+				564AD77A19E3B4FB0069901D /* previewVC.m */,
+				568B961C1A185CF300368272 /* tappedImageVC.h */,
+				568B961D1A185CF300368272 /* tappedImageVC.m */,
+			);
+			name = PreveiwVC;
 			sourceTree = "<group>";
 		};
 		56A4B1D219F772260009CC37 /* collectionViewTestImages */ = {
@@ -1682,7 +1708,9 @@
 				569B43231A00A89300EF21EC /* FrameOutCollectionViewFlowLayout.m in Sources */,
 				56427EA119AB895300B516A0 /* UIImageView+Animation.m in Sources */,
 				568B95F51A11CF5600368272 /* BISettingViewController.m in Sources */,
+				568B96B51A1DB61D00368272 /* NSObject+Animation.m in Sources */,
 				56C9954A1A088C180006477D /* BugFixContainerView.m in Sources */,
+				568B96BA1A1ECF1700368272 /* kBIIndicator.m in Sources */,
 				568B961E1A185CF300368272 /* tappedImageVC.m in Sources */,
 				568B95F81A11D50A00368272 /* BITableViewCellHaveFourItems.m in Sources */,
 				56427E2719AB823200B516A0 /* AppDelegate.m in Sources */,
