@@ -11,19 +11,25 @@
 @implementation kBIIndicator
 
 - (void)indicatorStart{
-    //indicatorBaseView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 320)];
+    indicatorBaseView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 320)];
     indicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-    indicator.frame = CGRectMake(0, 0, 320, 320);
-    UIViewController *presentingVC = [[UIViewController alloc] presentingViewController];
-    [indicatorBaseView setCenter:presentingVC.view.center];
+    indicator.frame = CGRectMake(0, 0, 0, 0);
+    
+    UIViewController *topController = [UIApplication sharedApplication].keyWindow.rootViewController;
+    while (topController.presentedViewController) {
+        topController = topController.presentedViewController;
+    }
+    
+    [indicator setCenter:indicatorBaseView.center];
+    [indicatorBaseView setCenter:topController.view.center];
+
     [indicatorBaseView setBackgroundColor:[UIColor grayColor]];
     [indicatorBaseView setAlpha:0.6];
-    [indicatorBaseView addSubview:indicator];
     
-    [indicator setCenter:presentingVC.view.center];
-    [indicator startAnimating];
-	
-    [presentingVC.view addSubview:indicator];
+    [indicatorBaseView addSubview:indicator];
+
+    [indicator startAnimating];	
+    [topController.view addSubview:indicatorBaseView];
 }
 
 - (void)indicatorStop{

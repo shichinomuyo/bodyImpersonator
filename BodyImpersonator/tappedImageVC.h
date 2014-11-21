@@ -10,6 +10,7 @@
 #import "GADInterstitial.h"
 #import "AppDelegate.h"
 #import "NSObject+Animation.h"
+#import "kBIIndicator.h"
 
 
 @interface tappedImageVC : UIViewController<UIPopoverControllerDelegate,UIPopoverPresentationControllerDelegate,UIActionSheetDelegate,GADInterstitialDelegate>

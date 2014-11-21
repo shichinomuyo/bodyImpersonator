@@ -10,6 +10,7 @@
 #import "GADInterstitial.h"
 #import "AppDelegate.h"
 #import "NSObject+Animation.h"
+#import "kBIIndicator.h"
 
 
 @interface previewVC : UIViewController<UIPopoverControllerDelegate,UIPopoverPresentationControllerDelegate,UIActionSheetDelegate,GADInterstitialDelegate>

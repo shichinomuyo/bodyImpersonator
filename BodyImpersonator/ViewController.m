@@ -20,7 +20,7 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     UIViewController *_pickerContainerView;
     UIPopoverPresentationController *_popoverPresentation;
     BICollectionViewCell *_selectedCell;
-    kBIIndicator *kIndicator;
+    kBIIndicator *_kIndicator;
 
 }
 
@@ -141,7 +141,7 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
 
     [self pushImageOnNavigationBar:self.navigationBar :[UIImage imageNamed:@"MainViewHeader320x44@2x.png"]];
     
-    kIndicator = [kBIIndicator alloc];
+    _kIndicator = [kBIIndicator alloc];
 }
 
 // NavigationBarに画像を配置 高さ調整
@@ -152,7 +152,7 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     CGSize imageSize = CGSizeMake(image.size.width,image.size.height);
     CGSize size = CGSizeMake(imageSize.width * (height / imageSize.height), height);
     
-    NSLog(@"imagesize(%.2f,%.2f)",image.size.width,image.size.height);
+//    NSLog(@"imagesize(%.2f,%.2f)",image.size.width,image.size.height);
     UIImageView *imgView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, size.width, height)];
     imgView.image = image;
     
@@ -371,7 +371,7 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
 
 // セルの内容
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-    NSLog(@"-----------------------------------------");
+//    NSLog(@"-----------------------------------------");
 
     // セルを作成する
     BICollectionViewCell *cell;
@@ -383,7 +383,7 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     NSString *selectedImageName = [defaults objectForKey:@"KEY_selectedImageName"];
 
     if ([imageNames safeObjectAtIndex:(int)(indexPath.row)] == nil) {
-        NSLog(@"nilだ");
+//        NSLog(@"nilだ");
         UIImage *image = [UIImage imageNamed:@"AddImage.png"];
         [cell.imageView setImage:image];
         // frameをつける
@@ -393,12 +393,12 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
         //        NSLog(@"黒いFrameつけるお");
     } else{
         // NSDataからUIImageを作成
-        NSLog(@"nilじゃない");
+//        NSLog(@"nilじゃない");
         NSString *imageName = [imageNames objectAtIndex:(int)(indexPath.row)];
         NSString *filePath = [NSString stringWithFormat:@"%@%@",[NSHomeDirectory() stringByAppendingString:@"/Documents"],imageName];
         UIImage *image = [UIImage imageWithContentsOfFile:filePath];
-        NSLog(@"filePath:%@",filePath);
-        NSLog(@"imageName:%@",imageName);
+//        NSLog(@"filePath:%@",filePath);
+//        NSLog(@"imageName:%@",imageName);
 
         
         if ([imageName isEqualToString:selectedImageName]) {// 黄色い三角形を右上に表示させる
@@ -420,9 +420,9 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
                                  
                              }];
             [_selectedCell.imageView setImage:image];
-            NSLog(@"選択中Frameつけるお");
-            NSLog(@"imageviewSizeSelected:(%.2f,%.2f)",cell.imageView.frame.size.width,cell.imageView.frame.size.height);
-            NSLog(@"imageviewFrameRect:(%.2f,%.2f,%.2f,%.2f)",cell.imageViewFrame.frame.origin.x, cell.imageViewFrame.frame.origin.y, cell.imageViewFrame.frame.size.width,cell.imageViewFrame.frame.size.height);
+//            NSLog(@"選択中Frameつけるお");
+//            NSLog(@"imageviewSizeSelected:(%.2f,%.2f)",cell.imageView.frame.size.width,cell.imageView.frame.size.height);
+//            NSLog(@"imageviewFrameRect:(%.2f,%.2f,%.2f,%.2f)",cell.imageViewFrame.frame.origin.x, cell.imageViewFrame.frame.origin.y, cell.imageViewFrame.frame.size.width,cell.imageViewFrame.frame.size.height);
         }
                 [cell.imageView setImage:image];
 
@@ -1028,14 +1028,14 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     CGFloat ratio = (widthRatio < heightRatio) ? widthRatio : heightRatio;
     //
     if (ratio >= 1.0) {
-        NSLog(@"image.size (%.2f,%.2f)", image.size.width,image.size.height);
+
         return image;
     }
     
     CGRect rect = CGRectMake(0, 0,
                              image.size.width  * ratio,
                              image.size.height * ratio);
-    NSLog(@"rect.size (%.2f,%.2f)", rect.size.width,rect.size.height);
+
     UIGraphicsBeginImageContext(rect.size);
     
     [image drawInRect:rect];
@@ -1079,6 +1079,26 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
 
 #pragma mark -
 #pragma mark AdMobDelegate
+// AdMobインタースティシャルの再ロード
+- (void)interstitialLoad{
+    // 広告表示準備開始状況フラグ更新
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSInteger memoryCountNumberOfInterstitialDidAppear = [defaults integerForKey:@"KEY_countUpViewChanged"];
+    [defaults setInteger:memoryCountNumberOfInterstitialDidAppear forKey:@"KEY_memoryCountNumberOfInterstitialDidAppear"];
+    [defaults synchronize];
+    
+    // 【Ad】インタースティシャル広告の表示
+    interstitial_ = [[GADInterstitial alloc] init];
+    interstitial_.adUnitID = MY_INTERSTITIAL_UNIT_ID;
+    interstitial_.delegate = self;
+    
+    [interstitial_ loadRequest:[GADRequest request]];
+    [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
+    [_kIndicator performSelectorInBackground:@selector(indicatorStart) withObject:nil];
+    
+    
+}
+
 // AdMobバナーのloadrequestが失敗したとき
 -(void)adView:(GADBannerView *)bannerView didFailToReceiveAdWithError:(GADRequestError *)error{
     NSLog(@"adView:didFailToReceiveAdWithError:%@", [error localizedDescription]);
@@ -1088,7 +1108,7 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     // 操作無効解除
     [[UIApplication sharedApplication] endIgnoringInteractionEvents];
     // インジケーターを止める
-    [kIndicator performSelectorInBackground:@selector(indicatorStop) withObject:nil];
+    [_kIndicator performSelectorInBackground:@selector(indicatorStop) withObject:nil];
 }
 
 /// AdMobインタースティシャルのloadrequestが失敗したとき
@@ -1099,36 +1119,16 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     // 操作無効解除
     [[UIApplication sharedApplication] endIgnoringInteractionEvents];
     // インジケーターを止める
-    [kIndicator performSelectorInBackground:@selector(indicatorStop) withObject:nil];
+    [_kIndicator performSelectorInBackground:@selector(indicatorStop) withObject:nil];
 }
 
 // AdMobのインタースティシャル広告表示
 - (void)interstitialDidReceiveAd:(GADInterstitial *)ad
 {
-        [kIndicator performSelectorInBackground:@selector(indicatorStop) withObject:nil];
+        [_kIndicator performSelectorInBackground:@selector(indicatorStop) withObject:nil];
     [[UIApplication sharedApplication] endIgnoringInteractionEvents];
      [interstitial_ presentFromRootViewController:self];
 
-
-}
-
-// AdMobインタースティシャルの再ロード
-- (void)interstitialLoad{
-    // 広告表示準備開始状況フラグ更新
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSInteger memoryCountNumberOfInterstitialDidAppear = [defaults integerForKey:@"KEY_countUpViewChanged"];
-    [defaults setInteger:memoryCountNumberOfInterstitialDidAppear forKey:@"KEY_memoryCountNumberOfInterstitialDidAppear"];
-    [defaults synchronize];
-    
-    // 【Ad】インタースティシャル広告の表示
-        interstitial_ = [[GADInterstitial alloc] init];
-        interstitial_.adUnitID = MY_INTERSTITIAL_UNIT_ID;
-        interstitial_.delegate = self;
-
-    [interstitial_ loadRequest:[GADRequest request]];
-    [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
-    [kIndicator performSelectorInBackground:@selector(indicatorStart) withObject:nil];
-    
 
 }
 
@@ -1138,10 +1138,9 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     [[UIApplication sharedApplication] endIgnoringInteractionEvents];
 
     // インジケーターを止める
-    [kIndicator performSelectorInBackground:@selector(indicatorStop) withObject:nil];
+    [_kIndicator performSelectorInBackground:@selector(indicatorStop) withObject:nil];
 
 }
-
 
 
 #pragma mark nendDelegate

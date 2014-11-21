@@ -12,7 +12,8 @@
 
 @interface previewVC (){
         UIActionSheet *_actionSheetAlert;
-    UIActivityIndicatorView *indicator;
+    kBIIndicator *_kIndicator;
+    
 
 }
 
@@ -288,29 +289,6 @@
 
 #pragma mark -
 #pragma mark AdMobDelegate
-
-
-/// AdMobインタースティシャルのloadrequestが失敗したとき
--(void)interstitial:(GADInterstitial *)interstitial didFailToReceiveAdWithError:(GADRequestError *)error{
-    NSLog(@"interstitial:didFailToReceiveAdWithError:%@", [error localizedDescription]);
-    // 他の広告ネットワークの広告を表示させるなど
-    
-    // 操作無効解除
-    [[UIApplication sharedApplication] endIgnoringInteractionEvents];
-    // インジケーターを止める
-    [self performSelectorInBackground:@selector(indicatorStop) withObject:nil];
-}
-
-// AdMobのインタースティシャル広告表示
-- (void)interstitialDidReceiveAd:(GADInterstitial *)ad
-{
-    [self performSelectorInBackground:@selector(indicatorStop) withObject:nil];
-    [[UIApplication sharedApplication] endIgnoringInteractionEvents];
-    [interstitial_ presentFromRootViewController:self];
-    
-    
-}
-
 // AdMobインタースティシャルの再ロード
 - (void)interstitialLoad{
     // 広告表示準備開始状況フラグ更新
@@ -326,7 +304,28 @@
     
     [interstitial_ loadRequest:[GADRequest request]];
     [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
-    [self performSelectorInBackground:@selector(indicatorStart) withObject:nil];
+    [_kIndicator performSelectorInBackground:@selector(indicatorStart) withObject:nil];
+    
+    
+}
+
+/// AdMobインタースティシャルのloadrequestが失敗したとき
+-(void)interstitial:(GADInterstitial *)interstitial didFailToReceiveAdWithError:(GADRequestError *)error{
+    NSLog(@"interstitial:didFailToReceiveAdWithError:%@", [error localizedDescription]);
+    // 他の広告ネットワークの広告を表示させるなど
+    
+    // 操作無効解除
+    [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+    // インジケーターを止める
+    [_kIndicator performSelectorInBackground:@selector(indicatorStop) withObject:nil];
+}
+
+// AdMobのインタースティシャル広告表示
+- (void)interstitialDidReceiveAd:(GADInterstitial *)ad
+{
+    [_kIndicator performSelectorInBackground:@selector(indicatorStop) withObject:nil];
+    [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+    [interstitial_ presentFromRootViewController:self];
     
     
 }
@@ -335,22 +334,9 @@
     
     // 操作無効解除
     [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+    
     // インジケーターを止める
-    [self performSelectorInBackground:@selector(indicatorStop) withObject:nil];
+    [_kIndicator performSelectorInBackground:@selector(indicatorStop) withObject:nil];
     
 }
-
-- (void)indicatorStart{
-    indicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-    indicator.frame = CGRectMake(100, 100, 50.0, 50.0);
-    indicator.center = self.view.center;
-    [self.view addSubview:indicator];
-    
-}
-
--(void)indicatorStop{
-    [indicator stopAnimating];
-    
-}
-
 @end
