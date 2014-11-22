@@ -200,7 +200,6 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
 - (void)viewDidAppear:(BOOL)animated
 {
 
-
     // 最初のviewControllerに戻ったときplayVCで表示完了した回数が3の倍数かつインタースティシャル広告の準備ができていればインタースティシャル広告表示
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSInteger countViewChanged = [defaults integerForKey:@"KEY_countUpViewChanged"];
@@ -226,7 +225,11 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
             }
         }
     }
-    
+    if (_limitNumberOfImagesRemoved == NO) {
+        _limitedNumberOfImages = kLIMITED_ITEM_NUMBER; // 9個
+    } else {
+        _limitedNumberOfImages = kMAX_ITEM_NUMBER; // 18個
+    }
 }
 
 -(void)viewDidLayoutSubviews{
@@ -535,18 +538,20 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
 
     [self actionShowOrg];
 }
-
 // 画面遷移できないときのアラート表示
 - (void)actionShowAlert{
+    
+    NSString *title = [[NSString alloc] initWithFormat:NSLocalizedString(@"First,PleaseAddImage.", nil)];
+    NSString *message = [[NSString alloc] initWithFormat:NSLocalizedString(@"Tap+IconToAddImageFromAlbumOrCam", nil)];
+    
     //処理
     Class class = NSClassFromString(@"UIAlertController"); // iOS8/7の切り分けフラグに使用
     if (class) {
         // iOS8の処理
-        
         // アクションコントローラー生成
         UIAlertController *actionController =
-        [UIAlertController alertControllerWithTitle:@"First,Please tap + icon to add Image."
-                                            message:nil
+        [UIAlertController alertControllerWithTitle:title
+                                            message:message
                                      preferredStyle:UIAlertControllerStyleAlert];
         
         [actionController addAction:[UIAlertAction actionWithTitle:@"OK"
@@ -561,17 +566,11 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
         // iOS7の処理
         
         // UIActionSheetを生成
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"First,Please tap + icon to add Image"
-                                                       message:nil
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:title
+                                                       message:message
                                                       delegate:self
                                              cancelButtonTitle:@"OK"
                                              otherButtonTitles:nil, nil];
-        //        UIActionSheet *actionSheet = [[UIActionSheet alloc]init];
-        //        actionSheet.delegate = self;
-        //        actionSheet.title = @"First,Please tap + icon to add Image.?";
-        //        [actionSheet addButtonWithTitle:@"Cancel"];
-        //        //        actionSheet.destructiveButtonIndex = 0;
-        //        actionSheet.cancelButtonIndex = 0;
         
         // アクションシートを表示
         [alert show];
@@ -583,15 +582,25 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
 // 保存できる画像を９個までに制限するアラート
 - (void)actionShowSaveLimitAlert{
     //処理
+    NSString *tmp = NSLocalizedString(@"ImagesThatCanBeSavedIs%d", nil);
+    NSString *title = [NSString stringWithFormat:tmp, _limitedNumberOfImages];
+    NSString *message;
+    if (_adsRemoved) {
+        message = nil;
+    }else{
+        message = [[NSString alloc] initWithFormat:NSLocalizedString(@"UpgradeFrom9To18InSetting", nil)];
+    }
+
+
     Class class = NSClassFromString(@"UIAlertController"); // iOS8/7の切り分けフラグに使用
     if (class) {
         // iOS8の処理
-    
-        NSString *string = [NSString stringWithFormat:@"It is up to %d can be saved",_limitedNumberOfImages];
+
+        
         // アクションコントローラー生成
         UIAlertController *actionController =
-        [UIAlertController alertControllerWithTitle:string
-                                            message:nil
+        [UIAlertController alertControllerWithTitle:title
+                                            message:message
                                      preferredStyle:UIAlertControllerStyleAlert];
         
         [actionController addAction:[UIAlertAction actionWithTitle:@"OK"
@@ -606,17 +615,11 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
         // iOS7の処理
         
         // UIActionSheetを生成
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"It is up to 9 can be saved."
-                                                       message:nil
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:title
+                                                       message:message
                                                       delegate:self
                                              cancelButtonTitle:@"OK"
                                              otherButtonTitles:nil, nil];
-        //        UIActionSheet *actionSheet = [[UIActionSheet alloc]init];
-        //        actionSheet.delegate = self;
-        //        actionSheet.title = @"First,Please tap + icon to add Image.?";
-        //        [actionSheet addButtonWithTitle:@"Cancel"];
-        //        //        actionSheet.destructiveButtonIndex = 0;
-        //        actionSheet.cancelButtonIndex = 0;
         
         // アクションシートを表示
         [alert show];
@@ -654,61 +657,15 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
 // collectionView内のセルが押された時の処理
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-
-
-    
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSArray *imageNames = [defaults objectForKey:@"KEY_imageNames"];
     
     if ([imageNames safeObjectAtIndex:(int)indexPath.row] == nil) {
         [self actionShowOrg];
-        
     } else{
-        //処理
-        Class class = NSClassFromString(@"UIAlertController"); // iOS8/7の切り分けフラグに使用
-        if (class) {
-            // iOS8の処理
-            [self actionImageTapped:indexPath]; // previewViewに飛ぶ
-            // アクションコントローラー生成
-//            UIAlertController *actionController =
-//            [UIAlertController alertControllerWithTitle:@"Image selected"
-//                                                message:nil
-//                                         preferredStyle:UIAlertControllerStyleActionSheet];
-//            [actionController addAction:[UIAlertAction actionWithTitle:@"Set this Image"
-//                                                                 style:UIAlertActionStyleDefault
-//                                                               handler:^(UIAlertAction *action) {
-//                                                                   [self actionSetSelectedImage:indexPath];
-//                                                               }]];
-//            
-//            [actionController addAction:[UIAlertAction actionWithTitle:@"Cancel"
-//                                                                 style:UIAlertActionStyleCancel
-//                                                               handler:^(UIAlertAction *action) {
-//                                                                   // Cancel タップ時の処理
-//                                                               }]];
-//            // アクションコントローラーを表示
-//            [self presentViewController:actionController animated:YES completion:nil];
-            
-            
-        } else{
-            // iOS7の処理
-            
-            // UIActionSheetを生成
-            UIActionSheet *actionSheet = [[UIActionSheet alloc]init];
-            actionSheet.delegate = self;
-            actionSheet.title = @"Edit Image?";
-            [actionSheet addButtonWithTitle:@"Set this Image"];
-            [actionSheet addButtonWithTitle:@"Cancel"];
-            //        actionSheet.destructiveButtonIndex = 0;
-            actionSheet.cancelButtonIndex = 1;
-            
-            // アクションシートを表示
-            [actionSheet showInView:self.view];
-            
-        }
-        
+        // iOS8の処理
+        [self actionImageTapped:indexPath]; // previewViewに飛ぶ
     }
-    
-    
 }
 
 #pragma mark -
@@ -732,28 +689,36 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     
     // selectedPhotoImageに画像を設定
     [self.selectedPhotoImage setImage:[self imageWithImage:imagePicked ConvertToSize:finalSize]];
+    
+    // アクションコントローラーのLocalizedStringを定義
+    NSString *title = [[NSString alloc] initWithFormat:NSLocalizedString(@"EditImage?", nil)];
+    NSString *action1 = [[NSString alloc] initWithFormat:NSLocalizedString(@"EditThisImage", nil)];
+    NSString *action2 = [[NSString alloc] initWithFormat:NSLocalizedString(@"AddThisImageWithoutEditing", nil)];
+    NSString *action3 = [[NSString alloc] initWithFormat:NSLocalizedString(@"Cancel", nil)];
+
+    
     Class class = NSClassFromString(@"UIAlertController"); // iOS8/7の切り分けフラグに使用
     if (class) {
         // iOS8の処理
-        
+
         // アクションコントローラー生成
         UIAlertController *actionController =
-        [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Edit image?", nil);
+        [UIAlertController alertControllerWithTitle:title
                                             message:nil
                                      preferredStyle:UIAlertControllerStyleAlert];
-        [actionController addAction:[UIAlertAction actionWithTitle:@"Edit this Image"
+        [actionController addAction:[UIAlertAction actionWithTitle:action1
                                                              style:UIAlertActionStyleDefault
                                                            handler:^(UIAlertAction *action) {
                                                                [self actionShowEditor:self.selectedPhotoImage.image];
                                                                
                                                            }]];
-        [actionController addAction:[UIAlertAction actionWithTitle:@"Add this Image"
+        [actionController addAction:[UIAlertAction actionWithTitle:action2
                                                              style:UIAlertActionStyleDefault
                                                            handler:^(UIAlertAction *action) {
                                                                [self actionAddItem:self.selectedPhotoImage.image];
                                                                
                                                            }]];
-        [actionController addAction:[UIAlertAction actionWithTitle:@"Cancel"
+        [actionController addAction:[UIAlertAction actionWithTitle:action3
                                                              style:UIAlertActionStyleCancel
                                                            handler:^(UIAlertAction *action) {
                                                                // カメラ起動した場合は消さないとビューが止まっちゃうので
@@ -779,10 +744,10 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
         // UIActionSheetを生成
         UIActionSheet *actionSheet = [[UIActionSheet alloc]init];
         actionSheet.delegate = self;
-        actionSheet.title = @"Edit Image?";
-        [actionSheet addButtonWithTitle:@"Edit this Image"];
-        [actionSheet addButtonWithTitle:@"Add this Image"];
-        [actionSheet addButtonWithTitle:@"Cancel"];
+        actionSheet.title = title;
+        [actionSheet addButtonWithTitle:action1];
+        [actionSheet addButtonWithTitle:action2];
+        [actionSheet addButtonWithTitle:action3];
         //        actionSheet.destructiveButtonIndex = 0;
         actionSheet.cancelButtonIndex = 2;
         
@@ -861,38 +826,39 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSArray *array = [defaults objectForKey:@"KEY_imageNames"];
     NSLog(@"%d",_limitNumberOfImagesRemoved);
-    if (_limitNumberOfImagesRemoved == NO) {
-        _limitedNumberOfImages = kLIMITED_ITEM_NUMBER; // 9個
-    } else {
-        _limitedNumberOfImages = kMAX_ITEM_NUMBER; // 18個
-    }
+
+    
+    // アクションコントローラーのLocalizedStringを定義
+    NSString *title = [[NSString alloc] initWithFormat:NSLocalizedString(@"AddImage", nil)];
+    NSString *action1 = [[NSString alloc] initWithFormat:NSLocalizedString(@"OpenAlbum", nil)];
+    NSString *action2 = [[NSString alloc] initWithFormat:NSLocalizedString(@"TakeAPhoto", nil)];
+    NSString *action3 = [[NSString alloc] initWithFormat:NSLocalizedString(@"Cancel", nil)];
     
     if ([array count] >= _limitedNumberOfImages) { // 保存できる画像を9個/18個に制限
         [self actionShowSaveLimitAlert];
     }else{
         //処理
         Class class = NSClassFromString(@"UIAlertController"); // iOS8/7の切り分けフラグに使用
-        if (class) {
-            // iOS8の処理
-
+        if (class) {// iOS8の処理
+    
             // アクションコントローラー生成
             UIAlertController *actionController =
-            [UIAlertController alertControllerWithTitle:@"Add Image"
+            [UIAlertController alertControllerWithTitle:title
                                                 message:nil
                                          preferredStyle:UIAlertControllerStyleAlert];
-            [actionController addAction:[UIAlertAction actionWithTitle:@"Open CameraRoll"
+            [actionController addAction:[UIAlertAction actionWithTitle:action1
                                                                  style:UIAlertActionStyleDefault
                                                                handler:^(UIAlertAction *action) {
                                                                    [self launchOrg];
                                                                    
                                                                }]];
-            [actionController addAction:[UIAlertAction actionWithTitle:@"Take a Photo"
+            [actionController addAction:[UIAlertAction actionWithTitle:action2
                                                                  style:UIAlertActionStyleDefault
                                                                handler:^(UIAlertAction *action) {
                                                                    [self launchCam];
                                                                    
                                                                }]];
-            [actionController addAction:[UIAlertAction actionWithTitle:@"Cancel"
+            [actionController addAction:[UIAlertAction actionWithTitle:action3
                                                                  style:UIAlertActionStyleCancel
                                                                handler:^(UIAlertAction *action) {
                                                                    // Cancel タップ時の処理
@@ -909,10 +875,10 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
             // UIActionSheetを生成
             UIActionSheet *actionSheet = [[UIActionSheet alloc]init];
             actionSheet.delegate = self;
-            actionSheet.title = @"Add Image";
-            [actionSheet addButtonWithTitle:@"Open CameraRoll"];
-            [actionSheet addButtonWithTitle:@"Take a Photo"];
-            [actionSheet addButtonWithTitle:@"Cancel"];
+            actionSheet.title = title;
+            [actionSheet addButtonWithTitle:action1];
+            [actionSheet addButtonWithTitle:action2];
+            [actionSheet addButtonWithTitle:action3];
             //        actionSheet.destructiveButtonIndex = 0;
             actionSheet.cancelButtonIndex = 2;
             
@@ -928,7 +894,7 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     NSString *buttonTitle = [actionSheet buttonTitleAtIndex:buttonIndex];
-    if ([buttonTitle isEqualToString:@"Open CameraRoll"]) {
+    if ([buttonTitle isEqualToString:@"Open Album"]) {
         [self launchOrg];
     }else if ([buttonTitle isEqualToString:@"Take a Photo"]){
         [self launchCam];

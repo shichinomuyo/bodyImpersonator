@@ -1,0 +1,27 @@
+/* 
+  Localizable.strings
+  BodyImpersonator
+
+  Created by 七野祐太 on 2014/11/22.
+  Copyright (c) 2014年 shichino yuta. All rights reserved.
+*/
+"AddImage" = "画像を追加";
+"OpenAlbum" = "アルバムを開く";
+"TakeAPhoto" = "写真を撮る";
+"Cancel" = "キャンセル";
+"EditImage?" = "画像を編集しますか?";
+"EditThisImage" = "編集する";
+"AddThisImageWithoutEditing" = "編集せずに追加する";
+"First,PleaseAddImage." = "最初に画像を追加してください。";
+"Tap+IconToAddImageFromAlbumOrCam" = "+アイコンをタップしアルバム、カメラ撮影より画像を追加できます。";
+"ImagesThatCanBeSavedIs%d" = "保存できる画像は%d個までです。";
+"UpgradeFrom9To18InSetting" = "設定で保存できる画像を9個から18個へアップグレードできます。";
+// secondViewController
+"AddThisImage?" = "この画像を追加しますか?";
+"AddThisImage" = "追加する";
+// previewViewController
+"RemoveThisImage?" = "この画像を削除しますか?";
+"RemoveThisImageFromThisApp." = "このApp内から削除します。";
+"RemoveThisImage" = "削除する";
+"SetThisImage?" = "この画像を設定しますか?";
+"SetThisImage" = "設定する";

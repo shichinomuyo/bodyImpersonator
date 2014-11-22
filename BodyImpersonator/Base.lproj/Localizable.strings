@@ -1,0 +1,27 @@
+/* 
+  Localizable.strings
+  BodyImpersonator
+
+  Created by 七野祐太 on 2014/11/22.
+  Copyright (c) 2014年 shichino yuta. All rights reserved.
+*/
+"AddImage" = "Add Image";
+"OpenAlbum" = "Open Album";
+"TakeAPhoto" = "Take a Photo";
+"Cancel" = "Cancel";
+"EditImage?" = "Edit Image?";
+"EditThisImage" = "Edit this Image";
+"AddThisImageWithouEditing" = "Add this Image without Editing";
+"First,PleaseAddImage." = "First, please add Image.";
+"Tap+IconToAddImageFromAlbumOrCam" = "Tap +Icon to add Image from Albam or Cam.";
+"ImagesThatCanBeSavedIs%d" = "Images that can be saved is %d.";
+"UpgradeFrom9To18InSetting" = "Upgrade Images can be saved from 9 to 18 in setting.";
+// secondViewController
+"AddThisImage?" = "Add this Image?";
+"AddThisImage" = "Add this Image";
+// previewViewController
+"RemoveThisImage?" = "Remove this Image?";
+"RemoveThisImageFromThisApp." = "Remove this Image from this App.";
+"RemoveThisImage" = "Remove this Image";
+"SetThisImage?" = "Set this Image?";
+"SetThisImage" = "Set this Image";

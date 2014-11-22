@@ -5,4 +5,6 @@
   Created by 七野祐太 on 2014/11/22.
   Copyright (c) 2014年 shichino yuta. All rights reserved.
 */
-"testlocalization" = "日本語";
+"testLocalization" = "日本語";
+"AddImage" = "画像を追加";
+"EditImage" = "画像を編集";

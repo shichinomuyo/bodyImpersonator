@@ -10,32 +10,31 @@
 
 @implementation NSObject (Animation)
 + (void)animationHideNavBar:(UINavigationBar *)nav ToolBar:(UIToolbar *)tool{
-    [UIView animateWithDuration:0.5f
+    [UIView animateWithDuration:0.2f
                           delay:0
                         options:UIViewAnimationOptionCurveEaseOut
                      animations:^{
-                         nav.center = CGPointMake(nav.center.x, nav.center.y - 32);
+                         nav.center = CGPointMake(nav.center.x, nav.center.y - 48);
                          tool.center = CGPointMake(tool.center.x, tool.center.y + 32);
-                         [nav setAlpha:0];
-                         [tool setAlpha:0];
                      } completion:^(BOOL finished){
- 
+                         [nav setHidden:1];
+                         [tool setHidden:1];
                          [[UIApplication sharedApplication] setStatusBarHidden:YES];
                      }
      ];
     
 }
 + (void)animationAppearNavBar:(UINavigationBar *)nav ToolBar:(UIToolbar *)tool{
-    [UIView animateWithDuration:0.5f
+    [nav setHidden:0];
+    [tool setHidden:0];
+    [UIView animateWithDuration:0.2f
                           delay:0
                         options:UIViewAnimationOptionCurveEaseOut
                      animations:^{
-                         [nav setAlpha:0.7];
-                         [tool setAlpha:0.7];
-
-                         nav.center = CGPointMake(nav.center.x, nav.center.y + 32);
+                         nav.center = CGPointMake(nav.center.x, nav.center.y + 48);
                          tool.center = CGPointMake(tool.center.x, tool.center.y - 32);
                      } completion:^(BOOL finished){
+
                          [[UIApplication sharedApplication] setStatusBarHidden:NO];
                      }
 

@@ -195,31 +195,65 @@
 
 
 - (IBAction)removeItemBtn:(UIBarButtonItem *)sender {
-    // アクションコントローラー生成
-    UIAlertController *actionController = [UIAlertController alertControllerWithTitle:@"Remove this Image?" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-    [actionController addAction:[UIAlertAction actionWithTitle:@"Remove this Image" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+    NSString *title = [[NSString alloc] initWithFormat:NSLocalizedString(@"RemoveThisImage?", nil)];
+    NSString *message = [[NSString alloc] initWithFormat:NSLocalizedString(@"RemoveThisImageFromThisApp.", nil)];
+    NSString *action1 = [[NSString alloc] initWithFormat:NSLocalizedString(@"RemoveThisImage", nil)];
+    NSString *action2 = [[NSString alloc] initWithFormat:NSLocalizedString(@"Cancel", nil)];
+    Class class = NSClassFromString(@"UIAlertController"); // iOS8/7の切り分けフラグに使用
+    if (class) {
+        // アクションコントローラー生成
+        UIAlertController *actionController = [UIAlertController alertControllerWithTitle:title
+                                                                                  message:message
+                                                                           preferredStyle:UIAlertControllerStyleActionSheet];
+        [actionController addAction:[UIAlertAction actionWithTitle:action1
+                                                             style:UIAlertActionStyleDefault
+                                                           handler:^(UIAlertAction *action) {
+                                                               
+                                                               // 最初の画面にBackFromPreviewVCRemoveItemBtnで戻ると削除メソッドが動く
+                                                               [self performSegueWithIdentifier:@"BackFromPreviewVCRemoveItemBtn" sender:self];
+                                                           }]];
+        [actionController addAction:[UIAlertAction actionWithTitle:action2
+                                                             style:UIAlertActionStyleCancel
+                                                           handler:^(UIAlertAction *action) {
+                                                               // キャンセルタップ時の処理
+                                                           }]];
         
-        // 最初の画面にBackFromPreviewVCRemoveItemBtnで戻ると削除メソッドが動く
-        [self performSegueWithIdentifier:@"BackFromPreviewVCRemoveItemBtn" sender:self];
-    }]];
-    [actionController addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-        // キャンセルタップ時の処理
-    }]];
-    
-    // デバイスがiphoneであるかそうでないかで分岐
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
-        NSLog(@"iPhoneの処理");
+        // デバイスがiphoneであるかそうでないかで分岐
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
+            NSLog(@"iPhoneの処理");
             [self presentViewController:actionController animated:YES completion:nil];
+        }
+        else{
+            NSLog(@"iPadの処理");
+            UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:actionController];
+            [popover presentPopoverFromBarButtonItem:sender permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+        }
+    }else{
+        // iOS7の処理
+        
+        // UIActionSheetを生成
+        UIActionSheet *actionSheet = [[UIActionSheet alloc]init];
+        actionSheet.delegate = self;
+        actionSheet.title = title;
+        [actionSheet addButtonWithTitle:action1];
+        [actionSheet addButtonWithTitle:action2];
+        actionSheet.cancelButtonIndex = 1;
+        
+        // デバイスがiphoneであるかそうでないかで分岐
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
+            NSLog(@"iPhoneの処理");
+            // アクションシートを表示
+            [actionSheet showInView:self.view.superview]; // self.view.superviewにしないとずれる
+        }
+        else{
+            NSLog(@"iPadの処理");
+            // アクションシートをpopoverで表示
+            UIBarButtonItem *btn = sender;
+            [actionSheet showFromBarButtonItem:btn animated:YES];
+        }
+        
     }
-    else{
-        NSLog(@"iPadの処理");
-        UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:actionController];
-        [popover presentPopoverFromBarButtonItem:sender permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-    }
-
-
     
-
 }
 
 
@@ -252,7 +286,7 @@
 
 
 - (IBAction)btnCoverAllDisplay:(UIButton *)sender {
-    if (_navigationBar.alpha != 0) {
+    if (!_navigationBar.hidden) {
         [NSObject animationHideNavBar:_navigationBar ToolBar:_toolBar];
     }else{
         [NSObject animationAppearNavBar:_navigationBar ToolBar:_toolBar];

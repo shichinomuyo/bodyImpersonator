@@ -177,20 +177,24 @@
     NSLog(@"scrollviewSize:%@",NSStringFromCGSize(_imageScrollView.frame.size));
      NSLog(@"editImageViewSize:%@",NSStringFromCGSize(_editImageView.frame.size));
          NSLog(@"editImageViewOrigin:%@",NSStringFromCGPoint(_editImageView.bounds.origin));
+    
+    NSString *title = [[NSString alloc] initWithFormat:NSLocalizedString(@"AddThisImage?", nil)];
+    NSString *action1 = [[NSString alloc] initWithFormat:NSLocalizedString(@"AddThisImage", nil)];
+    NSString *action2 = [[NSString alloc] initWithFormat:NSLocalizedString(@"Cancel", nil)];
     Class class = NSClassFromString(@"UIAlertController"); // iOS8/7の切り分けフラグに使用
     if (class) {
         // アクションコントローラー生成
         UIAlertController *actionController =
-        [UIAlertController alertControllerWithTitle:@"Add this image?"
+        [UIAlertController alertControllerWithTitle:title
                                             message:nil
                                      preferredStyle:UIAlertControllerStyleActionSheet];
-        [actionController addAction:[UIAlertAction actionWithTitle:@"Add this Image"
+        [actionController addAction:[UIAlertAction actionWithTitle:action1
                                                              style:UIAlertActionStyleDefault
                                                            handler:^(UIAlertAction *action) {
                                                                [self actionAddImage];
                                                                
                                                            }]];
-        [actionController addAction:[UIAlertAction actionWithTitle:@"Cancel"
+        [actionController addAction:[UIAlertAction actionWithTitle:action2
                                                              style:UIAlertActionStyleCancel
                                                            handler:^(UIAlertAction *action) {
                                                                
@@ -222,9 +226,9 @@
         // UIActionSheetを生成
         UIActionSheet *actionSheet = [[UIActionSheet alloc]init];
         actionSheet.delegate = self;
-        actionSheet.title = @"Add this Image?";
-        [actionSheet addButtonWithTitle:@"Add this Image"];
-        [actionSheet addButtonWithTitle:@"Cancel"];
+        actionSheet.title = title;
+        [actionSheet addButtonWithTitle:action1];
+        [actionSheet addButtonWithTitle:action2];
         actionSheet.cancelButtonIndex = 1;
         
         // デバイスがiphoneであるかそうでないかで分岐
