@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5617B4C41A2050D700586645 /* Localization.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5617B4C61A2050D700586645 /* Localization.strings */; };
 		56427E1719AB823200B516A0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427E1619AB823200B516A0 /* Foundation.framework */; };
 		56427E1919AB823200B516A0 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427E1819AB823200B516A0 /* CoreGraphics.framework */; };
 		56427E1B19AB823200B516A0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427E1A19AB823200B516A0 /* UIKit.framework */; };
@@ -400,6 +401,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5617B4BE1A20437800586645 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		5617B4BF1A20437800586645 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Main_iPhone.strings; sourceTree = "<group>"; };
+		5617B4C01A20437800586645 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Main_iPad.strings; sourceTree = "<group>"; };
+		5617B4C11A20437800586645 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		5617B4C31A204F9400586645 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main_iPad.strings; sourceTree = "<group>"; };
+		5617B4C51A2050D700586645 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localization.strings; sourceTree = "<group>"; };
+		5617B4C71A2050F600586645 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localization.strings; sourceTree = "<group>"; };
+		5617B4C91A2052CC00586645 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main_iPhone.strings; sourceTree = "<group>"; };
 		56427E1319AB823200B516A0 /* BodyImpersonator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BodyImpersonator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		56427E1619AB823200B516A0 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		56427E1819AB823200B516A0 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -907,6 +916,7 @@
 		56427E1D19AB823200B516A0 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				5617B4C61A2050D700586645 /* Localization.strings */,
 				56427E1E19AB823200B516A0 /* BodyImpersonator-Info.plist */,
 				56427E1F19AB823200B516A0 /* InfoPlist.strings */,
 				56427E2219AB823200B516A0 /* main.m */,
@@ -1443,6 +1453,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ja,
 			);
 			mainGroup = 56427E0A19AB823200B516A0;
 			productRefGroup = 56427E1419AB823200B516A0 /* Products */;
@@ -1506,6 +1517,7 @@
 				56A4B1E919F93E6A0009CC37 /* BarButtonOrgIconx40.png in Resources */,
 				56A4B1D919F772260009CC37 /* image3.png in Resources */,
 				56A4B1CF19F4FB040009CC37 /* AppIconInApp01.png in Resources */,
+				5617B4C41A2050D700586645 /* Localization.strings in Resources */,
 				568B96451A1B17DE00368272 /* PlayBtn320x92@2x.png in Resources */,
 				565E97D21A0C887800C18266 /* PlayBtnRoundSunFlower@2x.png in Resources */,
 				56427E2A19AB823200B516A0 /* Main_iPhone.storyboard in Resources */,
@@ -1867,10 +1879,20 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		5617B4C61A2050D700586645 /* Localization.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5617B4C51A2050D700586645 /* Base */,
+				5617B4C71A2050F600586645 /* ja */,
+			);
+			name = Localization.strings;
+			sourceTree = "<group>";
+		};
 		56427E1F19AB823200B516A0 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
 				56427E2019AB823200B516A0 /* en */,
+				5617B4BE1A20437800586645 /* ja */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -1879,6 +1901,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				56427E2919AB823200B516A0 /* Base */,
+				5617B4BF1A20437800586645 /* ja */,
+				5617B4C91A2052CC00586645 /* en */,
 			);
 			name = Main_iPhone.storyboard;
 			sourceTree = "<group>";
@@ -1887,6 +1911,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				56427E2C19AB823200B516A0 /* Base */,
+				5617B4C01A20437800586645 /* ja */,
+				5617B4C31A204F9400586645 /* en */,
 			);
 			name = Main_iPad.storyboard;
 			sourceTree = "<group>";
@@ -1895,6 +1921,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				56427E4219AB823200B516A0 /* en */,
+				5617B4C11A20437800586645 /* ja */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";

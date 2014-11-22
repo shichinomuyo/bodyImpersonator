@@ -738,7 +738,7 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
         
         // アクションコントローラー生成
         UIAlertController *actionController =
-        [UIAlertController alertControllerWithTitle:@"Edit image?"
+        [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Edit image?", nil);
                                             message:nil
                                      preferredStyle:UIAlertControllerStyleAlert];
         [actionController addAction:[UIAlertAction actionWithTitle:@"Edit this Image"
