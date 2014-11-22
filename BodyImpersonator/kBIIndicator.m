@@ -24,28 +24,22 @@
     [labelLoadingMassage setFont:[UIFont systemFontOfSize:22]];
     [labelLoadingMassage setTextAlignment:NSTextAlignmentCenter];
     [labelLoadingMassage setAdjustsFontSizeToFitWidth:YES];
-
-
+    
+    
     // インジケーター
     indicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
     indicator.frame = CGRectMake(0, 0, 100, 100);
     
     UIViewController *topVC = [self topMostController];
-
-//
-//    UIViewController *topController = [UIApplication sharedApplication].keyWindow.rootViewController;
-
-//    while (topController.presentedViewController) {
-//        topController = topController.presentedViewController;
-//    }
-//    
+    
+    
     [indicator setCenter:indicatorBaseView.center];
     [labelLoadingMassage setCenter:CGPointMake(indicatorBaseView.frame.size.width/2, indicatorBaseView.frame.size.height / 6 * 5)];
     [indicatorBaseView addSubview:labelLoadingMassage];
     [indicatorBaseView setCenter:topVC.view.center];
     [indicatorBaseView addSubview:indicator];
-
-    [indicator startAnimating];	
+    
+    [indicator startAnimating];
     [topVC.view addSubview:indicatorBaseView];
     NSLog(@"topViewController:%@",topVC);
 }
@@ -57,14 +51,7 @@
     
 }
 
-- (UIViewController *)topViewController{
-    UIWindow *window = [UIApplication sharedApplication].keyWindow;
-    UIViewController *rootViewController = window.rootViewController;
-    return rootViewController;
-}
-
-- (UIViewController*) topMostController
-{
+- (UIViewController*) topMostController{
     UIViewController *topController = [UIApplication sharedApplication].keyWindow.rootViewController;
     while (topController.presentedViewController) {
         topController = topController.presentedViewController;
