@@ -68,6 +68,14 @@
     // navigationBarとtoolBarを表示する
     [_navigationBar setHidden:0];
     [_toolBar setHidden:0];
+    
+    NSInteger countViewChanged = [[NSUserDefaults standardUserDefaults] integerForKey:@"KEY_countUpViewChanged"];
+    countViewChanged ++;
+    [[NSUserDefaults standardUserDefaults] setInteger:countViewChanged forKey:@"KEY_countUpViewChanged"];
+    [[NSUserDefaults standardUserDefaults]synchronize];
+    NSLog(@"viewchanged:%d",countViewChanged);
+    
+      _kIndicator = [kBIIndicator alloc];
 }
 
 - (void)didReceiveMemoryWarning
@@ -361,10 +369,7 @@
 }
 
 -(void)viewWillAppear:(BOOL)animated{
-    NSInteger countViewChanged = [[NSUserDefaults standardUserDefaults] integerForKey:@"KEY_countUpViewChanged"];
-    countViewChanged ++;
-    [[NSUserDefaults standardUserDefaults] setInteger:countViewChanged forKey:@"KEY_countUpViewChanged"];
-    [[NSUserDefaults standardUserDefaults]synchronize];
+
 }
 -(void)viewDidAppear:(BOOL)animated{
     // インタースティシャル広告表示
@@ -427,7 +432,7 @@
 {
     [_kIndicator performSelectorInBackground:@selector(indicatorStop) withObject:nil];
     [[UIApplication sharedApplication] endIgnoringInteractionEvents];
-    [interstitial_ presentFromRootViewController:self];
+    [ad presentFromRootViewController:self];
     
     
 }

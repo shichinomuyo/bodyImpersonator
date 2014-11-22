@@ -1079,23 +1079,27 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
 
 #pragma mark -
 #pragma mark AdMobDelegate
-// AdMobインタースティシャルの再ロード
-- (void)interstitialLoad{
-    // 広告表示準備開始状況フラグ更新
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSInteger memoryCountNumberOfInterstitialDidAppear = [defaults integerForKey:@"KEY_countUpViewChanged"];
-    [defaults setInteger:memoryCountNumberOfInterstitialDidAppear forKey:@"KEY_memoryCountNumberOfInterstitialDidAppear"];
-    [defaults synchronize];
-    
+- (void)interstitalLoadRequest {
     // 【Ad】インタースティシャル広告の表示
     interstitial_ = [[GADInterstitial alloc] init];
     interstitial_.adUnitID = MY_INTERSTITIAL_UNIT_ID;
     interstitial_.delegate = self;
     
     [interstitial_ loadRequest:[GADRequest request]];
+
+}
+
+// AdMobインタースティシャルの再ロード
+- (void)interstitialLoad{
     [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
-    [_kIndicator performSelectorInBackground:@selector(indicatorStart) withObject:nil];
+    [_kIndicator indicatorStart];
+    // 広告表示準備開始状況フラグ更新
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSInteger memoryCountNumberOfInterstitialDidAppear = [defaults integerForKey:@"KEY_countUpViewChanged"];
+    [defaults setInteger:memoryCountNumberOfInterstitialDidAppear forKey:@"KEY_memoryCountNumberOfInterstitialDidAppear"];
+    [defaults synchronize];
     
+    [self performSelector:@selector(interstitalLoadRequest) withObject:nil];
     
 }
 
@@ -1108,7 +1112,7 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     // 操作無効解除
     [[UIApplication sharedApplication] endIgnoringInteractionEvents];
     // インジケーターを止める
-    [_kIndicator performSelectorInBackground:@selector(indicatorStop) withObject:nil];
+    [_kIndicator indicatorStop];
 }
 
 /// AdMobインタースティシャルのloadrequestが失敗したとき
@@ -1119,15 +1123,15 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     // 操作無効解除
     [[UIApplication sharedApplication] endIgnoringInteractionEvents];
     // インジケーターを止める
-    [_kIndicator performSelectorInBackground:@selector(indicatorStop) withObject:nil];
+    [_kIndicator indicatorStop];
 }
 
 // AdMobのインタースティシャル広告表示
 - (void)interstitialDidReceiveAd:(GADInterstitial *)ad
 {
-        [_kIndicator performSelectorInBackground:@selector(indicatorStop) withObject:nil];
+    [_kIndicator indicatorStop];
     [[UIApplication sharedApplication] endIgnoringInteractionEvents];
-     [interstitial_ presentFromRootViewController:self];
+     [ad presentFromRootViewController:self];
 
 
 }
@@ -1138,7 +1142,7 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     [[UIApplication sharedApplication] endIgnoringInteractionEvents];
 
     // インジケーターを止める
-    [_kIndicator performSelectorInBackground:@selector(indicatorStop) withObject:nil];
+    [_kIndicator indicatorStop];
 
 }
 

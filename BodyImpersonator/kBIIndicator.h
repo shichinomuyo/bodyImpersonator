@@ -11,6 +11,7 @@
 @interface kBIIndicator : NSObject{
     UIView *indicatorBaseView;
     UIActivityIndicatorView *indicator;
+    UILabel *labelLoadingMassage;
 }
 - (void)indicatorStart;
 - (void)indicatorStop;

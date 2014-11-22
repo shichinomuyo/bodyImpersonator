@@ -49,6 +49,14 @@
     
     UIPanGestureRecognizer *backGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(backGesture:)];
     [self.view addGestureRecognizer:backGestureRecognizer];
+    
+    NSInteger countViewChanged = [[NSUserDefaults standardUserDefaults] integerForKey:@"KEY_countUpViewChanged"];
+    countViewChanged ++;
+    [[NSUserDefaults standardUserDefaults] setInteger:countViewChanged forKey:@"KEY_countUpViewChanged"];
+    [[NSUserDefaults standardUserDefaults]synchronize];
+    NSLog(@"viewchanged:%d",countViewChanged);
+    
+      _kIndicator = [kBIIndicator alloc];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -64,10 +72,6 @@
         // popoverなので縮小する
         [self viewSizeMake:0.5];
     }
-    NSInteger countViewChanged = [[NSUserDefaults standardUserDefaults] integerForKey:@"KEY_countUpViewChanged"];
-    countViewChanged ++;
-    [[NSUserDefaults standardUserDefaults] setInteger:countViewChanged forKey:@"KEY_countUpViewChanged"];
-    [[NSUserDefaults standardUserDefaults]synchronize];
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -350,7 +354,7 @@
 {
     [_kIndicator performSelectorInBackground:@selector(indicatorStop) withObject:nil];
     [[UIApplication sharedApplication] endIgnoringInteractionEvents];
-    [interstitial_ presentFromRootViewController:self];
+    [ad presentFromRootViewController:self];
     
     
 }
