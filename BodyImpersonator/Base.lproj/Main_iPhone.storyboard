@@ -30,31 +30,6 @@
                             <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4Ch-Od-A9z" userLabel="selectedPhotoImage">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                             </imageView>
-                            <view hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="x8R-5O-1S4" userLabel="nestView">
-                                <rect key="frame" x="80" y="142" width="160" height="284"/>
-                                <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="v9w-6V-fkw" userLabel="previewImageView">
-                                        <rect key="frame" x="0.0" y="0.0" width="160" height="284"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </imageView>
-                                    <navigationBar alpha="0.59999999999999964" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZEd-0V-Iv1">
-                                        <rect key="frame" x="0.0" y="0.0" width="160" height="44"/>
-                                        <items>
-                                            <navigationItem title="1/2 Scale" id="baJ-Ez-5fg"/>
-                                        </items>
-                                    </navigationBar>
-                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J2f-Zl-dsq" userLabel="nestViewCtrlBtn">
-                                        <rect key="frame" x="-26" y="-76" width="320" height="568"/>
-                                        <state key="normal">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="nestViewCtrlBtn:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="OzY-GX-4eR"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="jjl-Ge-y0R">
                                 <rect key="frame" x="0.0" y="64" width="320" height="318"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -147,9 +122,7 @@
                         <outlet property="collectionView" destination="jjl-Ge-y0R" id="TnM-m4-gac"/>
                         <outlet property="ctrlBtn" destination="fRx-QP-7Su" id="IfP-0K-7sf"/>
                         <outlet property="navigationBar" destination="bve-WN-prz" id="mhj-np-iH4"/>
-                        <outlet property="nestViewCtrlBtn" destination="J2f-Zl-dsq" id="3oQ-nP-T8T"/>
                         <outlet property="previewIcon" destination="Bg4-9g-yWL" id="OtI-1r-vhN"/>
-                        <outlet property="previewImageView" destination="v9w-6V-fkw" id="xWF-RR-zP0"/>
                         <outlet property="selectedPhotoImage" destination="4Ch-Od-A9z" id="6ua-47-mrh"/>
                         <outlet property="toolBar" destination="Wnz-Xy-9jT" id="Wdz-he-q5e"/>
                     </connections>

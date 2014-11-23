@@ -37,18 +37,10 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
 // IBOutlet toolBar
 @property (strong, nonatomic) IBOutlet UIToolbar *toolBar;
 
-// previewImageViewの表示をコントールするために宣言
-@property (weak, nonatomic) IBOutlet UIButton *nestViewCtrlBtn;
-@property (weak, nonatomic) IBOutlet UIImageView *previewImageView;
-@property (weak, nonatomic) IBOutlet UIView *nestView;
 
 // IBAction Btn
 - (IBAction)previewBtn:(UIBarButtonItem *)sender;
 - (IBAction)showOrgBtn:(UIBarButtonItem *)sender;
-
-
-// IBAction プレビューウィンドウをポップアップの子ビューにするときの非表示ボタン
-- (IBAction)nestViewCtrlBtn:(UIButton *)sender;
 
 @end
 
@@ -451,12 +443,6 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
 
 #pragma mark -
 #pragma mark touchAction
-
-// previewImageViewが乗ったnestViewの表示を消す
-- (IBAction)nestViewCtrlBtn:(UIButton *)sender {
-    [self.nestView setHidden:1];
-    [self.nestViewCtrlBtn setHidden:1];
-}
 
 - (IBAction)previewBtn:(UIBarButtonItem *)sender {
     // デバイスがiphoneであるかそうでないかで分岐
