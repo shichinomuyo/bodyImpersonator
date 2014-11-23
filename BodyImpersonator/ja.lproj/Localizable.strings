@@ -25,3 +25,8 @@
 "RemoveThisImage" = "削除する";
 "SetThisImage?" = "この画像を設定しますか?";
 "SetThisImage" = "設定する";
+// BITableViewController
+"Error" = "エラー";
+"InAppPurchaceIsLimited." = "Error:アプリ内課金が制限されています。";
+"OK" = "OK";
+"ItemIDIsInvalid." = "アイテムIDが無効です。";

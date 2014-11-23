@@ -25,3 +25,9 @@
 "RemoveThisImage" = "Remove this Image";
 "SetThisImage?" = "Set this Image?";
 "SetThisImage" = "Set this Image";
+// BITableViewController
+"Error" = "Error";
+"InAppPurchaceIsLimited." = "InAppPurchace is limited.";
+"OK" = "OK";
+"Cancel" = "Cancel";
+"ItemIDIsInvalid." = "ItemID is Invalid.";

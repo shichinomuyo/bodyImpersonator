@@ -270,80 +270,47 @@
 - (BOOL)checkInAppPurchaseEnable
 {
     if (![SKPaymentQueue canMakePayments]) {
-//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"エラー"
-//                                                        message:@"アプリ内課金が制限されています。"
-//                                                       delegate:nil
-//                                              cancelButtonTitle:nil
-//                                              otherButtonTitles:@"OK", nil];
-//        [alert show];
         return NO; // 制限有りの場合、NO
     }
     return YES; // 制限無しの場合、YES
 }
 
 - (void)actionShowAppPurchaseLimitAlert {
+    // アクションコントローラーのLocalizedStringを定義
+    NSString *title = [[NSString alloc] initWithFormat:NSLocalizedString(@"Error", nil)];
+    NSString *message = [[NSString alloc] initWithFormat:NSLocalizedString(@"InAppPurchaceIsLimited.", nil)];
+    NSString *action1 = [[NSString alloc] initWithFormat:NSLocalizedString(@"OK", nil)];
     Class class = NSClassFromString(@"UIAlertController"); // iOS8/7の切り分けフラグに使用
     if (class) {
+
+
         // アクションコントローラー生成
         UIAlertController *actionController =
-        [UIAlertController alertControllerWithTitle:@"Error"
-                                            message:@"アプリ内課金が制限されています。"
+        [UIAlertController alertControllerWithTitle:title
+                                            message:message
                                      preferredStyle:UIAlertControllerStyleActionSheet];
-        [actionController addAction:[UIAlertAction actionWithTitle:@"OK"
+        [actionController addAction:[UIAlertAction actionWithTitle:action1
                                                              style:UIAlertActionStyleDefault
                                                            handler:^(UIAlertAction *action) {
 
                                                                
                                                            }]];
-        [actionController addAction:[UIAlertAction actionWithTitle:@"Cancel"
-                                                             style:UIAlertActionStyleCancel
-                                                           handler:^(UIAlertAction *action) {
-                                                               
-                                                           }]];
-        // iOS8の処理
-        // デバイスがiphoneであるかそうでないかで分岐
-        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
-            NSLog(@"iPhoneの処理");
+
+        actionController.popoverPresentationController.sourceView = self.view;
             // アクションコントローラーを表示
             [self presentViewController:actionController animated:YES completion:nil];
-        }
-        else{
-            NSLog(@"iPadの処理");
-            // popoverを開く
-//            UIBarButtonItem *btn = sender;
-//            
-//            actionController.popoverPresentationController.sourceView = self.view;
-//            actionController.popoverPresentationController.sourceRect = CGRectMake(100.0, 100.0, 20.0, 20.0);
-//            actionController.popoverPresentationController.barButtonItem = btn;
-//            // アクションコントローラーを表示
-//            [self presentViewController:actionController animated:YES completion:nil];
-            
-        }
+
         
         
     } else{
         // iOS7の処理
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
+                                                        message:message
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil, nil];
         
-        // UIActionSheetを生成
-        UIActionSheet *actionSheet = [[UIActionSheet alloc]init];
-        actionSheet.delegate = self;
-        actionSheet.title = @"Error:アプリ内課金が制限されています。";
-        [actionSheet addButtonWithTitle:@"OK"];
-        [actionSheet addButtonWithTitle:@"Cancel"];
-        actionSheet.cancelButtonIndex = 1;
-        
-        // デバイスがiphoneであるかそうでないかで分岐
-        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
-            NSLog(@"iPhoneの処理");
-            // アクションシートを表示
-            [actionSheet showInView:self.view.superview]; // self.view.superviewにしないとずれる
-        }
-        else{
-            NSLog(@"iPadの処理");
-            // アクションシートをpopoverで表示
-//            UIBarButtonItem *btn = sender;
-//            [actionSheet showFromBarButtonItem:btn animated:YES];
-        }
+        [alert show];
     }
 
 }
@@ -367,15 +334,35 @@
 
 // 購入処理の開始
 - (void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response {
+    // アクションコントローラーのLocalizedStringを定義
+    NSString *title = [[NSString alloc] initWithFormat:NSLocalizedString(@"Error", nil)];
+    NSString *message = [[NSString alloc] initWithFormat:NSLocalizedString(@"ItemIDIsInvalid.", nil)];
+    NSString *action1 = [[NSString alloc] initWithFormat:NSLocalizedString(@"OK", nil)];
+
     // 無効なアイテムがないかチェック
     if ([response.invalidProductIdentifiers count] > 0) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"エラー"
-                                                        message:@"アイテムIDが不正です。"
-                                                       delegate:nil
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles:nil, nil];
-        [alert show];
+        Class class = NSClassFromString(@"UIAlertController"); // iOS8/7の切り分けフラグに使用
+        if (class) { // iOS8の処理
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title
+                                                                                  message:message
+                                                                           preferredStyle:UIAlertControllerStyleAlert];
+        [alertController addAction:[UIAlertAction actionWithTitle:action1
+                                                            style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction *action) {
+                                                              
+                                                          }]];
 
+
+            [self presentViewController:alertController animated:YES completion:nil];
+        
+        }else{ // iOS7の処理
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
+                                                            message:message
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil, nil];
+            [alert show];
+        }
         return;
     }
     // 購入処理開始
@@ -409,12 +396,32 @@
                 // ユーザが購入処理をキャンセルした場合もここにくる
                 // TODO: 失敗のアラート表示等
                 {
-                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"エラー"
-                                                                    message:[transaction.error localizedDescription]
-                                                                   delegate:nil
-                                                          cancelButtonTitle:nil
-                                                          otherButtonTitles:@"OK", nil];
-                    [alert show];
+                    // アクションコントローラーのLocalizedStringを定義
+                    NSString *title = [[NSString alloc] initWithFormat:NSLocalizedString(@"Error", nil)];
+                    NSString *action1 = [[NSString alloc] initWithFormat:NSLocalizedString(@"OK", nil)];
+                    Class class = NSClassFromString(@"UIAlertController"); // iOS8/7の切り分けフラグに使用
+                    if (class) {// iOS8の処理
+                        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title
+                                                                                                 message:[transaction.error localizedDescription]
+                                                                                          preferredStyle:UIAlertControllerStyleAlert];
+                        [alertController addAction:[UIAlertAction actionWithTitle:action1
+                                                                            style:UIAlertActionStyleDefault
+                                                                          handler:^(UIAlertAction *action) {
+                                                                              
+                                                                          }]];
+                        
+
+                        [self presentViewController:alertController animated:YES completion:nil];
+
+
+                    }else{ // iOS7の処理
+                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"エラー"
+                                                                        message:[transaction.error localizedDescription]
+                                                                       delegate:nil
+                                                              cancelButtonTitle:@"OK"
+                                                              otherButtonTitles:nil, nil];
+                        [alert show];
+                    }
                 }
                 break;
             case SKPaymentTransactionStateRestored:
