@@ -7,6 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		56017B831A221B0B001E6CEF /* Gear44x44UIBtn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 56017B7F1A221B0B001E6CEF /* Gear44x44UIBtn@2x.png */; };
+		56017B841A221B0B001E6CEF /* PlayUIBtn_320x102@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 56017B801A221B0B001E6CEF /* PlayUIBtn_320x102@2x.png */; };
+		56017B851A221B0B001E6CEF /* PreviewIconUIBtn44x44@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 56017B811A221B0B001E6CEF /* PreviewIconUIBtn44x44@2x.png */; };
+		56017B861A221B0B001E6CEF /* Roope44x44UIBtn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 56017B821A221B0B001E6CEF /* Roope44x44UIBtn@2x.png */; };
+		56017B8B1A222045001E6CEF /* TitleLogo768x44_ja@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 56017B8A1A222045001E6CEF /* TitleLogo768x44_ja@2x.png */; };
+		56017B8E1A222256001E6CEF /* TitleLogo320x44_ja@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 56017B8D1A222256001E6CEF /* TitleLogo320x44_ja@2x.png */; };
+		56017B911A2223FF001E6CEF /* TitleLogo320x44_base@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 56017B8F1A2223FF001E6CEF /* TitleLogo320x44_base@2x.png */; };
+		56017B921A2223FF001E6CEF /* TitleLogo768x44_base@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 56017B901A2223FF001E6CEF /* TitleLogo768x44_base@2x.png */; };
+		56017B941A222878001E6CEF /* LineRed768x4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 56017B931A222878001E6CEF /* LineRed768x4@2x.png */; };
+		56017B971A2305F5001E6CEF /* kBITableViewCellHaveSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = 56017B961A2305F5001E6CEF /* kBITableViewCellHaveSwitch.m */; };
+		56017B9A1A2310E3001E6CEF /* kBITableViewCellHavePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 56017B991A2310E3001E6CEF /* kBITableViewCellHavePicker.m */; };
+		56017BA01A23776D001E6CEF /* kBISoundEffectSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56017B9F1A23776D001E6CEF /* kBISoundEffectSettingsViewController.m */; };
+		56017BAA1A240F15001E6CEF /* kBISettingColorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56017BA91A240F15001E6CEF /* kBISettingColorViewController.m */; };
 		56427E1719AB823200B516A0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427E1619AB823200B516A0 /* Foundation.framework */; };
 		56427E1919AB823200B516A0 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427E1819AB823200B516A0 /* CoreGraphics.framework */; };
 		56427E1B19AB823200B516A0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427E1A19AB823200B516A0 /* UIKit.framework */; };
@@ -401,6 +414,23 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		56017B7F1A221B0B001E6CEF /* Gear44x44UIBtn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Gear44x44UIBtn@2x.png"; sourceTree = "<group>"; };
+		56017B801A221B0B001E6CEF /* PlayUIBtn_320x102@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PlayUIBtn_320x102@2x.png"; sourceTree = "<group>"; };
+		56017B811A221B0B001E6CEF /* PreviewIconUIBtn44x44@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PreviewIconUIBtn44x44@2x.png"; sourceTree = "<group>"; };
+		56017B821A221B0B001E6CEF /* Roope44x44UIBtn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Roope44x44UIBtn@2x.png"; sourceTree = "<group>"; };
+		56017B8A1A222045001E6CEF /* TitleLogo768x44_ja@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "TitleLogo768x44_ja@2x.png"; path = "Images/@2x/TitleLogo768x44_ja@2x.png"; sourceTree = "<group>"; };
+		56017B8D1A222256001E6CEF /* TitleLogo320x44_ja@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "TitleLogo320x44_ja@2x.png"; path = "Images/@2x/TitleLogo320x44_ja@2x.png"; sourceTree = "<group>"; };
+		56017B8F1A2223FF001E6CEF /* TitleLogo320x44_base@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "TitleLogo320x44_base@2x.png"; path = "Images/@2x/TitleLogo320x44_base@2x.png"; sourceTree = "<group>"; };
+		56017B901A2223FF001E6CEF /* TitleLogo768x44_base@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "TitleLogo768x44_base@2x.png"; path = "Images/@2x/TitleLogo768x44_base@2x.png"; sourceTree = "<group>"; };
+		56017B931A222878001E6CEF /* LineRed768x4@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "LineRed768x4@2x.png"; path = "Images/@2x/LineRed768x4@2x.png"; sourceTree = "<group>"; };
+		56017B951A2305F5001E6CEF /* kBITableViewCellHaveSwitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kBITableViewCellHaveSwitch.h; sourceTree = "<group>"; };
+		56017B961A2305F5001E6CEF /* kBITableViewCellHaveSwitch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = kBITableViewCellHaveSwitch.m; sourceTree = "<group>"; };
+		56017B981A2310E3001E6CEF /* kBITableViewCellHavePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kBITableViewCellHavePicker.h; sourceTree = "<group>"; };
+		56017B991A2310E3001E6CEF /* kBITableViewCellHavePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = kBITableViewCellHavePicker.m; sourceTree = "<group>"; };
+		56017B9E1A23776D001E6CEF /* kBISoundEffectSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = kBISoundEffectSettingsViewController.h; path = ../kBISoundEffectSettingsViewController.h; sourceTree = "<group>"; };
+		56017B9F1A23776D001E6CEF /* kBISoundEffectSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = kBISoundEffectSettingsViewController.m; path = ../kBISoundEffectSettingsViewController.m; sourceTree = "<group>"; };
+		56017BA81A240F15001E6CEF /* kBISettingColorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kBISettingColorViewController.h; sourceTree = "<group>"; };
+		56017BA91A240F15001E6CEF /* kBISettingColorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = kBISettingColorViewController.m; sourceTree = "<group>"; };
 		5617B4BE1A20437800586645 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		5617B4BF1A20437800586645 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Main_iPhone.strings; sourceTree = "<group>"; };
 		5617B4C01A20437800586645 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Main_iPad.strings; sourceTree = "<group>"; };
@@ -820,6 +850,51 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		56017B7E1A221B0B001E6CEF /* viewControllerBottomUIView */ = {
+			isa = PBXGroup;
+			children = (
+				56017B7F1A221B0B001E6CEF /* Gear44x44UIBtn@2x.png */,
+				56017B801A221B0B001E6CEF /* PlayUIBtn_320x102@2x.png */,
+				56017B811A221B0B001E6CEF /* PreviewIconUIBtn44x44@2x.png */,
+				56017B821A221B0B001E6CEF /* Roope44x44UIBtn@2x.png */,
+			);
+			name = viewControllerBottomUIView;
+			path = "Images/@2x/viewControllerBottomUIView";
+			sourceTree = "<group>";
+		};
+		56017B871A221EF8001E6CEF /* iPad */ = {
+			isa = PBXGroup;
+			children = (
+				56017B931A222878001E6CEF /* LineRed768x4@2x.png */,
+				56017B8A1A222045001E6CEF /* TitleLogo768x44_ja@2x.png */,
+				56017B901A2223FF001E6CEF /* TitleLogo768x44_base@2x.png */,
+				56017B7E1A221B0B001E6CEF /* viewControllerBottomUIView */,
+			);
+			name = iPad;
+			sourceTree = "<group>";
+		};
+		56017B8C1A222242001E6CEF /* iPhone */ = {
+			isa = PBXGroup;
+			children = (
+				56017B8D1A222256001E6CEF /* TitleLogo320x44_ja@2x.png */,
+				56017B8F1A2223FF001E6CEF /* TitleLogo320x44_base@2x.png */,
+			);
+			name = iPhone;
+			sourceTree = "<group>";
+		};
+		56017BA41A24070F001E6CEF /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				568B95F31A11CF5600368272 /* BISettingViewController.h */,
+				568B95F41A11CF5600368272 /* BISettingViewController.m */,
+				56017B9E1A23776D001E6CEF /* kBISoundEffectSettingsViewController.h */,
+				56017B9F1A23776D001E6CEF /* kBISoundEffectSettingsViewController.m */,
+				56017BA81A240F15001E6CEF /* kBISettingColorViewController.h */,
+				56017BA91A240F15001E6CEF /* kBISettingColorViewController.m */,
+			);
+			name = ViewController;
+			sourceTree = "<group>";
+		};
 		56427E0A19AB823200B516A0 = {
 			isa = PBXGroup;
 			children = (
@@ -885,28 +960,21 @@
 			children = (
 				56427E6219AB87A300B516A0 /* AD */,
 				56427E8219AB887E00B516A0 /* Assets */,
-				56427EA219AB897500B516A0 /* AVAudioPlayer+CustomControllers.h */,
-				56427EA319AB897500B516A0 /* AVAudioPlayer+CustomControllers.m */,
-				568B96B61A1EBF6D00368272 /* Animations */,
-				56A4B1FD19FB70C40009CC37 /* NSArray+IndexHelper.h */,
-				56A4B1FE19FB70C40009CC37 /* NSArray+IndexHelper.m */,
-				56C995481A088C180006477D /* BugFixContainerView.h */,
-				56C995491A088C180006477D /* BugFixContainerView.m */,
-				56427E2519AB823200B516A0 /* AppDelegate.h */,
-				56427E2619AB823200B516A0 /* AppDelegate.m */,
+				56A9A9F11A24A0B600DBE7F4 /* Objects */,
+				568B96B61A1EBF6D00368272 /* MyCategory */,
 				56427E2819AB823200B516A0 /* Main_iPhone.storyboard */,
 				56427E2B19AB823200B516A0 /* Main_iPad.storyboard */,
+				56427E2519AB823200B516A0 /* AppDelegate.h */,
+				56427E2619AB823200B516A0 /* AppDelegate.m */,
 				56427E2E19AB823200B516A0 /* ViewController.h */,
 				56427E2F19AB823200B516A0 /* ViewController.m */,
-				568B96B81A1ECF1700368272 /* kBIIndicator.h */,
-				568B96B91A1ECF1700368272 /* kBIIndicator.m */,
-				568B96151A15DB4000368272 /* BICollectionView */,
-				568B96021A12351E00368272 /* BITableView */,
 				56E14FFB19FF38930029B81D /* playVC.h */,
 				56E14FFC19FF38930029B81D /* playVC.m */,
 				5686757919BED3C900AF524A /* secondVC.h */,
 				5686757A19BED3C900AF524A /* secondVC.m */,
 				568B96B71A1EBFDF00368272 /* PreveiwVC */,
+				568B96151A15DB4000368272 /* BICollectionView */,
+				568B96021A12351E00368272 /* BITableView */,
 				56427E3119AB823200B516A0 /* Images.xcassets */,
 				56427E1D19AB823200B516A0 /* Supporting Files */,
 			);
@@ -1057,12 +1125,8 @@
 		568B96021A12351E00368272 /* BITableView */ = {
 			isa = PBXGroup;
 			children = (
-				568B95F31A11CF5600368272 /* BISettingViewController.h */,
-				568B95F41A11CF5600368272 /* BISettingViewController.m */,
-				568B95F61A11D50A00368272 /* BITableViewCellHaveFourItems.h */,
-				568B95F71A11D50A00368272 /* BITableViewCellHaveFourItems.m */,
-				568B95FF1A12350500368272 /* BIFeedbakAndActionCell.h */,
-				568B96001A12350500368272 /* BIFeedbakAndActionCell.m */,
+				56017BA41A24070F001E6CEF /* ViewController */,
+				56A9A9F01A24A03500DBE7F4 /* TableViewCell */,
 			);
 			name = BITableView;
 			sourceTree = "<group>";
@@ -1167,15 +1231,14 @@
 			path = NendAd;
 			sourceTree = "<group>";
 		};
-		568B96B61A1EBF6D00368272 /* Animations */ = {
+		568B96B61A1EBF6D00368272 /* MyCategory */ = {
 			isa = PBXGroup;
 			children = (
-				56427E9F19AB895300B516A0 /* UIImageView+Animation.h */,
-				56427EA019AB895300B516A0 /* UIImageView+Animation.m */,
-				568B96B31A1DB61D00368272 /* NSObject+Animation.h */,
-				568B96B41A1DB61D00368272 /* NSObject+Animation.m */,
+				56A4B1FD19FB70C40009CC37 /* NSArray+IndexHelper.h */,
+				56A4B1FE19FB70C40009CC37 /* NSArray+IndexHelper.m */,
+				56A9A9F21A24A0E600DBE7F4 /* Animation */,
 			);
-			name = Animations;
+			name = MyCategory;
 			sourceTree = "<group>";
 		};
 		568B96B71A1EBFDF00368272 /* PreveiwVC */ = {
@@ -1201,9 +1264,50 @@
 			path = collectionViewTestImages;
 			sourceTree = "<group>";
 		};
+		56A9A9F01A24A03500DBE7F4 /* TableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				56017B981A2310E3001E6CEF /* kBITableViewCellHavePicker.h */,
+				56017B991A2310E3001E6CEF /* kBITableViewCellHavePicker.m */,
+				56017B951A2305F5001E6CEF /* kBITableViewCellHaveSwitch.h */,
+				56017B961A2305F5001E6CEF /* kBITableViewCellHaveSwitch.m */,
+				568B95F61A11D50A00368272 /* BITableViewCellHaveFourItems.h */,
+				568B95F71A11D50A00368272 /* BITableViewCellHaveFourItems.m */,
+				568B95FF1A12350500368272 /* BIFeedbakAndActionCell.h */,
+				568B96001A12350500368272 /* BIFeedbakAndActionCell.m */,
+			);
+			name = TableViewCell;
+			sourceTree = "<group>";
+		};
+		56A9A9F11A24A0B600DBE7F4 /* Objects */ = {
+			isa = PBXGroup;
+			children = (
+				56427EA219AB897500B516A0 /* AVAudioPlayer+CustomControllers.h */,
+				56427EA319AB897500B516A0 /* AVAudioPlayer+CustomControllers.m */,
+				56C995481A088C180006477D /* BugFixContainerView.h */,
+				56C995491A088C180006477D /* BugFixContainerView.m */,
+				568B96B81A1ECF1700368272 /* kBIIndicator.h */,
+				568B96B91A1ECF1700368272 /* kBIIndicator.m */,
+			);
+			name = Objects;
+			sourceTree = "<group>";
+		};
+		56A9A9F21A24A0E600DBE7F4 /* Animation */ = {
+			isa = PBXGroup;
+			children = (
+				56427E9F19AB895300B516A0 /* UIImageView+Animation.h */,
+				56427EA019AB895300B516A0 /* UIImageView+Animation.m */,
+				568B96B31A1DB61D00368272 /* NSObject+Animation.h */,
+				568B96B41A1DB61D00368272 /* NSObject+Animation.m */,
+			);
+			name = Animation;
+			sourceTree = "<group>";
+		};
 		56C9954B1A09F6CA0006477D /* @2x */ = {
 			isa = PBXGroup;
 			children = (
+				56017B8C1A222242001E6CEF /* iPhone */,
+				56017B871A221EF8001E6CEF /* iPad */,
 				568B96421A1B17DE00368272 /* PlayBtn_320x142@2x.png */,
 				568B96431A1B17DE00368272 /* PlayBtn320x92@2x.png */,
 				568B961A1A15EAB000368272 /* Roope44-2@2x.png */,
@@ -1480,7 +1584,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				56017B8B1A222045001E6CEF /* TitleLogo768x44_ja@2x.png in Resources */,
+				56017B831A221B0B001E6CEF /* Gear44x44UIBtn@2x.png in Resources */,
 				569B43191A00902900EF21EC /* WhiteFrame188x188.png in Resources */,
+				56017B861A221B0B001E6CEF /* Roope44x44UIBtn@2x.png in Resources */,
+				56017B921A2223FF001E6CEF /* TitleLogo768x44_base@2x.png in Resources */,
 				568B961B1A15EAB000368272 /* Roope44-2@2x.png in Resources */,
 				567DF04F1A0BA0040092165D /* karadamonomaneLogo@2x.png in Resources */,
 				56A4B1EE19FA13C20009CC37 /* PlayBtn_iphone320x88.png in Resources */,
@@ -1491,15 +1599,19 @@
 				56A4B1D819F772260009CC37 /* image2.png in Resources */,
 				564AD9F919F1F3E20069901D /* PlayBtn.png in Resources */,
 				568B960E1A1456B000368272 /* Roope44@2x.png in Resources */,
+				56017B841A221B0B001E6CEF /* PlayUIBtn_320x102@2x.png in Resources */,
+				56017B941A222878001E6CEF /* LineRed768x4@2x.png in Resources */,
 				56A4B1EA19F93E6A0009CC37 /* BarButtonPreviewIconx40.png in Resources */,
 				568B96441A1B17DE00368272 /* PlayBtn_320x142@2x.png in Resources */,
 				565E97D41A0C8A6600C18266 /* PlayBtnRoundSunFlowerBtnOnly@2x.png in Resources */,
 				568B95EF1A11108700368272 /* NavigationBarTitle@2x.png in Resources */,
 				565E97CE1A0C84B400C18266 /* PlayBtnSolid@2x.png in Resources */,
+				56017B911A2223FF001E6CEF /* TitleLogo320x44_base@2x.png in Resources */,
 				56427E2D19AB823200B516A0 /* Main_iPad.storyboard in Resources */,
 				56A4B1F819FB2C950009CC37 /* CamIcon44x44.png in Resources */,
 				569B43171A008F7100EF21EC /* YellowFrame188x188.png in Resources */,
 				568B95FC1A11FDC100368272 /* NavigationBarTitle2@2x.png in Resources */,
+				56017B851A221B0B001E6CEF /* PreviewIconUIBtn44x44@2x.png in Resources */,
 				568B96171A15E99700368272 /* Gear44@2x.png in Resources */,
 				56427E3219AB823200B516A0 /* Images.xcassets in Resources */,
 				56A4B1E419F93C800009CC37 /* PlayBtn02.png in Resources */,
@@ -1518,6 +1630,7 @@
 				56A4B1D919F772260009CC37 /* image3.png in Resources */,
 				56A4B1CF19F4FB040009CC37 /* AppIconInApp01.png in Resources */,
 				568B96451A1B17DE00368272 /* PlayBtn320x92@2x.png in Resources */,
+				56017B8E1A222256001E6CEF /* TitleLogo320x44_ja@2x.png in Resources */,
 				565E97D21A0C887800C18266 /* PlayBtnRoundSunFlower@2x.png in Resources */,
 				56427E2A19AB823200B516A0 /* Main_iPhone.storyboard in Resources */,
 				56E14FFA19FD26DB0029B81D /* AddImage188x188.png in Resources */,
@@ -1718,10 +1831,12 @@
 				56427EA819AB897500B516A0 /* AVAudioPlayer+CustomControllers.m in Sources */,
 				569B43291A00BCB700EF21EC /* BICollectionViewCell.m in Sources */,
 				569B43231A00A89300EF21EC /* FrameOutCollectionViewFlowLayout.m in Sources */,
+				56017B971A2305F5001E6CEF /* kBITableViewCellHaveSwitch.m in Sources */,
 				56427EA119AB895300B516A0 /* UIImageView+Animation.m in Sources */,
 				568B95F51A11CF5600368272 /* BISettingViewController.m in Sources */,
 				568B96B51A1DB61D00368272 /* NSObject+Animation.m in Sources */,
 				56C9954A1A088C180006477D /* BugFixContainerView.m in Sources */,
+				56017BAA1A240F15001E6CEF /* kBISettingColorViewController.m in Sources */,
 				568B96BA1A1ECF1700368272 /* kBIIndicator.m in Sources */,
 				568B961E1A185CF300368272 /* tappedImageVC.m in Sources */,
 				568B95F81A11D50A00368272 /* BITableViewCellHaveFourItems.m in Sources */,
@@ -1729,7 +1844,9 @@
 				568B96011A12350500368272 /* BIFeedbakAndActionCell.m in Sources */,
 				56427E2319AB823200B516A0 /* main.m in Sources */,
 				564AD77B19E3B4FB0069901D /* previewVC.m in Sources */,
+				56017BA01A23776D001E6CEF /* kBISoundEffectSettingsViewController.m in Sources */,
 				56E14FFD19FF38930029B81D /* playVC.m in Sources */,
+				56017B9A1A2310E3001E6CEF /* kBITableViewCellHavePicker.m in Sources */,
 				56A4B1FF19FB70C40009CC37 /* NSArray+IndexHelper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

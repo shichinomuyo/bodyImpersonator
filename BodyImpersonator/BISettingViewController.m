@@ -10,6 +10,7 @@
 
 @interface BISettingViewController ()
 @property (nonatomic, strong) NSArray *sectionList;
+@property (nonatomic, strong) NSArray *dataSourceSettings;
 @property (nonatomic, strong) NSArray *dataSourceAddOn;
 @property (nonatomic, strong) NSArray *dataSourceAddOnImages;
 @property (nonatomic, strong) NSArray *dataSourceAddOnDesc;
@@ -33,8 +34,10 @@
     self.tableView.dataSource = self;
     
     // section名のListを作成
-    self.sectionList = @[@"Add On",@"Feedback / Share This App", @"Other Apps"];
+    self.sectionList = @[@"Settings", @"Add On", @"Feedback / Share This App", @"Other Apps"];
     // table表示したいデータソースを設定
+    self.dataSourceSettings = @[@"Sound&Effect"];
+    
     self.dataSourceAddOn = @[@"Remove AD & Registrable Cap ",@"Restore"];
     self.dataSourceAddOnImages = [NSArray arrayWithObjects:@"RemoveAD60@2x.png",@"RemoveAD60@2x.png", nil];
     self.dataSourceAddOnDesc = @[@"Remove All AD & Registrable number of Images Increase 9 to 18",@"購入状態を復元します。"];
@@ -47,6 +50,10 @@
     self.dataSourceOtherAppsImages = [NSArray arrayWithObjects:@"ICONRollToCrashForLink60@2x.png", nil];
     self.dataSourceOtherAppsDesc = @[@"ドラムロール→クラッシュシンバルの音を鳴らせるアプリです。"];
     
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+     [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:NO];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -80,12 +87,15 @@
     NSInteger dataCount;
     switch (section) {
         case 0:
-            dataCount = [self.dataSourceAddOn count];
+            dataCount = [self.dataSourceSettings count];
             break;
         case 1:
-            dataCount = [self.dataSourceFeedbackAndShare count];
+            dataCount = [self.dataSourceAddOn count];
             break;
         case 2:
+            dataCount = [self.dataSourceFeedbackAndShare count];
+            break;
+        case 3:
             dataCount = [self.dataSourceOtherApps count];
             break;
         default:
@@ -96,12 +106,23 @@
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSArray *identifiers = @[@"CellHaveFourItems", @"CellFeedbackAndShare", @"CellHaveFourItems"];
+    NSArray *identifiers = @[@"CellHaveOneLabel", @"CellHaveFourItems", @"CellFeedbackAndShare", @"CellHaveFourItems"];
     NSString *CellIdentifier = identifiers[indexPath.section];
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     switch (indexPath.section) {
         case 0:
+        {
+            UITableViewCell *settingsCell = (UITableViewCell *)cell;
+            UILabel *labelSettings = (UILabel *)[settingsCell viewWithTag:1];
+
+            [labelSettings setText:self.dataSourceSettings[indexPath.row]];
+            [labelSettings setAdjustsFontSizeToFitWidth:YES];
+            [labelSettings setLineBreakMode:NSLineBreakByClipping];
+            [labelSettings setMinimumScaleFactor:4];
+        }
+            break;
+        case 1:
         {
             
             BITableViewCellHaveFourItems *addOnCell = (BITableViewCellHaveFourItems *)cell;
@@ -126,7 +147,7 @@
 
         }
              break;
-        case 1:
+        case 2:
         {
             
             BIFeedbakAndActionCell *feedbackAndShareCell = (BIFeedbakAndActionCell *)cell;
@@ -137,7 +158,7 @@
             [labelFeedbackAction setText:self.dataSourceFeedbackAndShare[indexPath.row]];
         }
             break;
-        case 2:
+        case 3:
         {
 
             BITableViewCellHaveFourItems *otherAppsCell = (BITableViewCellHaveFourItems *)cell;
@@ -164,6 +185,7 @@
             break;
     }
     
+
     return cell;
 }
 
@@ -177,12 +199,15 @@
     CGFloat rowHeight;
     switch (indexPath.section) {
         case 0:
-            rowHeight = [BITableViewCellHaveFourItems rowHeight];
+            rowHeight = [kBITableViewCellHaveSwitch rowHeight];
             break;
         case 1:
-            rowHeight = [BIFeedbakAndActionCell rowHeight];
+            rowHeight = [BITableViewCellHaveFourItems rowHeight];
             break;
         case 2:
+            rowHeight = [BIFeedbakAndActionCell rowHeight];
+            break;
+        case 3:
             rowHeight = [BITableViewCellHaveFourItems rowHeight];
             break;
         default:
@@ -195,9 +220,17 @@
 // tableCell is tapped
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
+   [self.tableView reloadData];
     // cellがタップされた際の処理
     switch (indexPath.section) {
-        case 0: //Add On
+        case 0:
+            if (indexPath.row == 0) {
+                   kBISoundEffectSettingsViewController *sesVC = [self.storyboard instantiateViewControllerWithIdentifier:@"SoundEffectSettingsVC"];
+                [self presentViewController:sesVC animated:YES completion:nil];
+            }
+            break;
+        case 1: //Add On
             if (indexPath.row == 0) {
                 if ([self checkInAppPurchaseEnable] == YES){ // アプリ内課金制限がない場合はYES、制限有りはNO
                     [self startInAppPurchase];
@@ -211,14 +244,14 @@
             }
     
             break;
-        case 1: // Feedback / Share this App
+        case 2: // Feedback / Share this App
             if (indexPath.row == 0) { // App Store Review
                 [self actionPostAppStoreReview];
             }else if (indexPath.row == 1) { // PostActivities
-                [self actionPostActivity];
+                [self actionPostActivity:indexPath];
             }
             break;
-        case 2: // Other Apps
+        case 3: // Other Apps
             if (indexPath.row == 0) {
                 [self actionJumpToRollToCrash];
             }
@@ -229,8 +262,15 @@
     
 }
 
+
+- (void)actionPostAppStoreReview{
+    NSString *urlString = @"itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=942520127"; // karadamonomanizerのレビューページに飛ぶ
+    NSURL *url = [NSURL URLWithString:urlString];
+    [[UIApplication sharedApplication] openURL:url];
+}
+
 // actions
-- (void)actionPostActivity{
+- (void)actionPostActivity:(NSIndexPath *)indexPath{
     NSString *textToShare = @"#KARADA MONOMANIZER NOW!";
     NSString *urlString = @"http://itunes.apple.com/app/id942520127"; // KARADAMONOMANIZERのappstoreURL
     NSURL *url = [NSURL URLWithString:urlString];
@@ -243,17 +283,19 @@
     // Add to Reading Listをactivityから除外
     NSArray *excludedActivityTypes = @[UIActivityTypeAddToReadingList];
     activityVC.excludedActivityTypes = excludedActivityTypes;
+    
+    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
 
+    activityVC.popoverPresentationController.sourceView = cell.contentView;
+    activityVC.popoverPresentationController.sourceRect = cell.bounds;
+
+    
     // アクティビティコントローラーを表示する
     [self presentViewController:activityVC animated:YES completion:nil];
     
 }
 
-- (void)actionPostAppStoreReview{
-    NSString *urlString = @"itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=942520127"; // karadamonomanizerのレビューページに飛ぶ
-    NSURL *url = [NSURL URLWithString:urlString];
-    [[UIApplication sharedApplication] openURL:url];
-}
+
 
 - (void)actionJumpToRollToCrash{
     NSString *urlString = @"itms-apps://itunes.apple.com/app/id912275000"; // rolltocrashのページに飛ぶ
@@ -467,5 +509,11 @@
     BOOL limitNumberOfImagesRemoved = YES;
     [[NSUserDefaults standardUserDefaults] setBool:limitNumberOfImagesRemoved forKey:@"KEY_RemoveLimitNumberOfImagesRemoved"];
     [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+#pragma - mark segue
+// previewVCとplayVCから戻ってきたときの処理
+- (IBAction)settingsVCReturnActionForSegue:(UIStoryboardSegue *)segue{
+    
 }
 @end

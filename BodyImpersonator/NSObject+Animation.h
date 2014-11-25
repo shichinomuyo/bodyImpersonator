@@ -11,5 +11,5 @@
 @interface NSObject (Animation)
 + (void)animationHideNavBar:(UINavigationBar *)nav ToolBar:(UIToolbar *)tool;
 + (void)animationAppearNavBar:(UINavigationBar *)nav ToolBar:(UIToolbar *)tool;
-
++ (void)pickerViewAppear:(UIPickerView *)picker;
 @end

@@ -28,17 +28,18 @@
     rollPlayer_alt.volume = 0.0;
 }
 // クラッシュを再生するメソッドを実装
--(void)playCrashStopRolls:(AVAudioPlayer *)rollPlayer_tmp :(AVAudioPlayer *)rollPlayer_alt
-{
-    // ループしているドラムロールを止める
-    [rollPlayer_tmp stop];
-    rollPlayer_tmp.currentTime = 0.0;
-    [rollPlayer_alt stop];
-    rollPlayer_alt.currentTime = 0.0;
-    
-    // クラッシュを再生する
-    [self play];
-}
+//-(void)playCrashStopRolls:(AVAudioPlayer *)rollPlayer_tmp :(AVAudioPlayer *)rollPlayer_alt
+//{
+//    
+//    // ループしているドラムロールを止める
+//    [rollPlayer_tmp stop];
+//    rollPlayer_tmp.currentTime = 0.0;
+//    [rollPlayer_alt stop];
+//    rollPlayer_alt.currentTime = 0.0;
+//    
+//    // クラッシュを再生する
+//    [self play];
+//}
 
 // ロールをループさせるためにaltPlayerを再生しクロスフェード管理用フラグをアクティブにするメソッドを実装
 - (void)startAltPlayerSetStartTime:(float)startTime setVolume:(float)volume{

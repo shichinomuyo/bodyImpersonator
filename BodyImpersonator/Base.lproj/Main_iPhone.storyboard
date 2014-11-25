@@ -22,6 +22,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="64" id="kWY-IL-Per"/>
                                 </constraints>
+                                <color key="barTintColor" red="0.067062042650000001" green="0.13338275250000001" blue="0.18701528009999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <textAttributes key="titleTextAttributes">
                                     <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -71,21 +72,6 @@
                                     <outlet property="delegate" destination="vXZ-lx-hvc" id="A7G-aX-0pg"/>
                                 </connections>
                             </collectionView>
-                            <button tag="2" contentMode="scaleAspectFit" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fRx-QP-7Su" userLabel="ctrlBtn">
-                                <rect key="frame" x="0.0" y="382" width="320" height="92"/>
-                                <color key="backgroundColor" red="0.90588235855102539" green="0.29803922772407532" blue="0.27058824896812439" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="27"/>
-                                <state key="normal" image="PlayBtn320x92.png">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <segue destination="xz1-qg-4jT" kind="modal" identifier="moveToPlayVC" modalTransitionStyle="crossDissolve" id="dnt-X1-NKi"/>
-                                </connections>
-                            </button>
-                            <view hidden="YES" alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TFc-KJ-FbI" userLabel="ADBannerSample">
-                                <rect key="frame" x="0.0" y="518" width="320" height="50"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
                             <toolbar clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wnz-Xy-9jT">
                                 <rect key="frame" x="0.0" y="474" width="320" height="44"/>
                                 <items>
@@ -112,6 +98,58 @@
                                 </items>
                                 <color key="barTintColor" red="0.17254902422428131" green="0.24313725531101227" blue="0.31372550129890442" alpha="1" colorSpace="calibratedRGB"/>
                             </toolbar>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4O9-DG-1wD">
+                                <rect key="frame" x="0.0" y="382" width="320" height="136"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="LineRed768x4.png" translatesAutoresizingMaskIntoConstraints="NO" id="2uP-6u-HkB">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="4"/>
+                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NbV-Q0-nlv" userLabel="SearchUIBtn">
+                                        <rect key="frame" x="4" y="92" width="44" height="44"/>
+                                        <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <state key="normal" image="Roope44x44UIBtn.png">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="searchUIBtn:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="J26-1y-soD"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oyw-sU-6qa" userLabel="PreviewUIBtn">
+                                        <rect key="frame" x="228" y="92" width="44" height="44"/>
+                                        <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <state key="normal" image="PreviewIconUIBtn44x44.png">
+                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ybG-VO-CVg" userLabel="SettingsUIBtn">
+                                        <rect key="frame" x="268" y="92" width="44" height="44"/>
+                                        <state key="normal" image="Gear44x44UIBtn.png">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <segue destination="YQN-mj-a54" kind="modal" id="ecn-rX-rmX"/>
+                                        </connections>
+                                    </button>
+                                    <button tag="2" contentMode="scaleAspectFit" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PYk-rG-LMN" userLabel="ctrlBtn">
+                                        <rect key="frame" x="100" y="8" width="120" height="128"/>
+                                        <color key="backgroundColor" red="0.067062042650000001" green="0.13338275250000001" blue="0.18701528009999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="27"/>
+                                        <state key="normal" image="PlayBtn320x92.png">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <segue destination="xz1-qg-4jT" kind="modal" identifier="moveToPlayVC" modalTransitionStyle="crossDissolve" id="dFq-uP-Nws"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.067062042650000001" green="0.13338275250000001" blue="0.18701528009999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                            <view hidden="YES" alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TFc-KJ-FbI" userLabel="ADBannerSample">
+                                <rect key="frame" x="0.0" y="518" width="320" height="50"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.067062042650000001" green="0.13338275250000001" blue="0.18701528009999999" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
@@ -120,7 +158,7 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="collectionView" destination="jjl-Ge-y0R" id="TnM-m4-gac"/>
-                        <outlet property="ctrlBtn" destination="fRx-QP-7Su" id="IfP-0K-7sf"/>
+                        <outlet property="ctrlBtn" destination="PYk-rG-LMN" id="G5H-KM-j75"/>
                         <outlet property="navigationBar" destination="bve-WN-prz" id="mhj-np-iH4"/>
                         <outlet property="previewIcon" destination="Bg4-9g-yWL" id="OtI-1r-vhN"/>
                         <outlet property="selectedPhotoImage" destination="4Ch-Od-A9z" id="6ua-47-mrh"/>
@@ -546,14 +584,21 @@
     <resources>
         <image name="EditorOutline.png" width="320" height="568"/>
         <image name="Gear44-2.png" width="44" height="44"/>
+        <image name="Gear44x44UIBtn.png" width="44" height="44"/>
         <image name="LightsFromCenter.png" width="320" height="504"/>
+        <image name="LineRed768x4.png" width="768" height="4"/>
         <image name="PlayBtn320x92.png" width="320" height="92"/>
         <image name="PreviewIcon2.png" width="44" height="44"/>
+        <image name="PreviewIconUIBtn44x44.png" width="44" height="44"/>
         <image name="Roope44-2.png" width="44" height="44"/>
+        <image name="Roope44x44UIBtn.png" width="44" height="44"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="ecn-rX-rmX"/>
+    </inferredMetricsTieBreakers>
 </document>

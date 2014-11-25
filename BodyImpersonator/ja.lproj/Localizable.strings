@@ -30,3 +30,5 @@
 "InAppPurchaceIsLimited." = "Error:アプリ内課金が制限されています。";
 "OK" = "OK";
 "ItemIDIsInvalid." = "アイテムIDが無効です。";
+"titleImageiPhone" = "TitleLogo320x44_ja@2x.png";
+"titleImageiPad" = "TitleLogo768x44_ja@2x.png";

@@ -25,8 +25,6 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
 }
 
 // IBOutlet Btn
-
-- (IBAction)searchBtn:(UIBarButtonItem *)sender;
 @property (weak, nonatomic) IBOutlet UIButton *ctrlBtn;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *previewIcon;
 // IBOutlet Image
@@ -39,8 +37,10 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
 
 
 // IBAction Btn
+- (IBAction)searchBtn:(UIBarButtonItem *)sender;
 - (IBAction)previewBtn:(UIBarButtonItem *)sender;
 - (IBAction)showOrgBtn:(UIBarButtonItem *)sender;
+- (IBAction)searchUIBtn:(UIButton *)sender;
 
 @end
 
@@ -57,6 +57,8 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     [appDefaults setObject:array forKey:@"KEY_imageNames"];
     // collectionViewに表示する画像に番号を振るために整数値を作成・初期化
     [appDefaults setObject:@"0" forKey:@"KEY_imageCount"];
+    // 再生中のバックグランドカラーを初期化
+    [appDefaults setObject:@"Black" forKey:@"KEY_PlayVCBGColor"];
     // アプリ内課金状況を初期化
     [appDefaults setObject:@"NO" forKey:@"KEY_adsRemoved"]; // 広告表示する
     [appDefaults setObject:@"NO" forKey:@"KEY_RemoveLimitNumberOfImagesRemoved"];
@@ -131,7 +133,20 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
         self.naviBarHeight.constant = 64;
     }
 
-    [self pushImageOnNavigationBar:self.navigationBar :[UIImage imageNamed:@"MainViewHeader320x44@2x.png"]];
+    NSString *titleImageiPhone = NSLocalizedString(@"titleImageiPhone", nil);
+    NSString *titleImageiPad = NSLocalizedString(@"titleImageiPad", nil);
+    // デバイスがiphoneであるかそうでないかで分岐
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
+        NSLog(@"iPhoneの処理");
+            [self pushImageOnNavigationBar:self.navigationBar :[UIImage imageNamed:titleImageiPhone]];
+    }
+    else{
+        NSLog(@"iPadの処理");
+        self.navigationBar.alpha = 1;
+            [self pushImageOnNavigationBar:self.navigationBar :[UIImage imageNamed:titleImageiPad]];
+    }
+
+
     
     _kIndicator = [kBIIndicator alloc];
 }
@@ -443,7 +458,7 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
 
 #pragma mark -
 #pragma mark touchAction
-
+// previewVCを開く
 - (IBAction)previewBtn:(UIBarButtonItem *)sender {
     // デバイスがiphoneであるかそうでないかで分岐
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
@@ -456,6 +471,20 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
         // storyboard上でポップアップ表示処理は完結。画像表示処理をpreviewVCで実装。
     }
     
+}
+
+// サファリを起動
+- (IBAction)searchBtn:(UIBarButtonItem *)sender { // BarButton用
+    
+    NSURL *url = [NSURL URLWithString:@"https://www.google.com/search?tbm=isch&q="];
+    
+    [[UIApplication sharedApplication] openURL:url];
+}
+- (IBAction)searchUIBtn:(UIButton *)sender { // UIButton用
+    
+    NSURL *url = [NSURL URLWithString:@"https://www.google.com/search?tbm=isch&q="];
+    
+    [[UIApplication sharedApplication] openURL:url];
 }
 
 // カメラ起動のピッカー生成
@@ -1119,14 +1148,8 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
 
 // ステータスバーの文字色を設定
 - (UIStatusBarStyle)preferredStatusBarStyle {
-//    return UIStatusBarStyleLightContent; //文字を白くする
-       return UIStatusBarStyleDefault; // デフォルト値（文字色は黒色）
+    return UIStatusBarStyleLightContent; //文字を白くする
+   //    return UIStatusBarStyleDefault; // デフォルト値（文字色は黒色）
 }
-// サファリを起動
-- (IBAction)searchBtn:(UIBarButtonItem *)sender {
-    
-    NSURL *url = [NSURL URLWithString:@"https://www.google.com/search?tbm=isch&q="];
 
-    [[UIApplication sharedApplication] openURL:url];
-}
 @end

@@ -41,5 +41,12 @@
      ];
 }
 
++ (void)pickerViewAppear:(UIPickerView *)picker{
+    [UIView animateWithDuration:0.2
+                     animations:^{
+                         [picker setCenter:CGPointMake(picker.superview.center.x, picker.superview.frame.size.height - picker.frame.size.height)];
+                     } completion:nil];
+}
+
 
 @end

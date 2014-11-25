@@ -11,7 +11,7 @@
 @interface AVAudioPlayer (CustomControllers)
 
 - (void)playRollStopCrash:(AVAudioPlayer *)crashPlayer setVolumeZero:(AVAudioPlayer *)rollPlayer_alt;
-- (void)playCrashStopRolls:(AVAudioPlayer *)rollPlayer_tmp :(AVAudioPlayer *)rollPlayer_alt;
+//- (void)playCrashStopRolls:(AVAudioPlayer *)rollPlayer_tmp :(AVAudioPlayer *)rollPlayer_alt;
 
 - (void)startAltPlayerSetStartTime:(float)startTime setVolume:(float)volume;
 - (void)stopPlayer;

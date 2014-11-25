@@ -71,11 +71,20 @@
          object:[UIApplication sharedApplication]];
         
     }
-     // (audioplayer)再生する効果音のパスを取得しインスタンス生成
-    [self initializeAVAudioPlayers];
+    
     // selectedPhotoImageを非表示に設定
     [self.BFCV.knobImageView setHidden:1];
-    [self playDrumRoll];
+        [self.BFCV.knobImageView setImage:_selectedImage];
+    
+    // settingsStateLoad
+    self.rollSoundOn = [[NSUserDefaults standardUserDefaults]boolForKey:@"KEY_RollSoundOn"];
+    self.crashSoundOn = [[NSUserDefaults standardUserDefaults]boolForKey:@"KEY_CrashSoundOn"];
+    self.flashOn = [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_FlashEffectOn"];
+    self.bgColorName = [[NSUserDefaults standardUserDefaults] objectForKey:@"KEY_PlayVCBGColor"];
+    NSLog(@"bgColorName:%@",self.bgColorName);
+    [self initializeAVAudioPlayers];
+    
+    [self playStart];
 
 }
 
@@ -190,19 +199,22 @@
 #pragma mark actionControlls
 - (IBAction)stopBtn:(UIButton *)sender {
     if (_rollPlayerAlt.isPlaying || _rollPlayerTmp.isPlaying) {
-        [self stopDrumRoll];
+        [self stopDrumRoll]; // ロールを止めてクラッシュを鳴らす
     }else{
-        [self performSegueWithIdentifier:@"unwindFromPlayVC" sender:self];
+        if (self.BFCV.knobImageView.hidden == 1) {
+            [self playCrash]; // ロールがなっていないのでクラッシュだけを鳴らす
+        }else{
+            [self performSegueWithIdentifier:@"unwindFromPlayVC" sender:self];
+        }
+
     }
-    
 }
 
 -(void)stopDrumRoll{
 
         // ドラムロール再生中にctrlBtnが押されたときクラッシュ再生
-        
         // ドラムロールを止めcrash再生
-        [_crashPlayer playCrashStopRolls:_rollPlayerTmp :_rollPlayerAlt];
+        [self playCrashStopRolls:_rollPlayerTmp :_rollPlayerAlt];
         
         // プレイヤータイマーを破棄する
         [_playTimer invalidate];
@@ -214,43 +226,97 @@
         [UIView animateWithDuration:0.25
                          animations:^{
                              self.BFCV.backgroundColor = [UIColor whiteColor];
-                             
                          } completion:nil];
-    [self.BFCV.knobImageView setImage:_selectedImage];
 
     // 拡大してくるアニメーション
     [self.BFCV.knobImageView appearWithScaleUp];
 }
 
--(void)playDrumRoll{
+// クラッシュを再生するメソッドを実装
+-(void)playCrashStopRolls:(AVAudioPlayer *)rollPlayer_tmp :(AVAudioPlayer *)rollPlayer_alt
+{
+    // ループしているドラムロールを止める
+    [rollPlayer_tmp stop];
+    rollPlayer_tmp.currentTime = 0.0;
+    [rollPlayer_alt stop];
+    rollPlayer_alt.currentTime = 0.0;
+    
+    if (self.crashSoundOn) {
+        // クラッシュを再生する
+        [_crashPlayer play];
+    }
 
-    // ドラムロールを再生する
-    [_rollPlayerTmp playRollStopCrash:_crashPlayer setVolumeZero:_rollPlayerAlt ];
-    // playerControllを一定間隔で呼び出すタイマーを作る
-    [self playerControll];
+}
+
+- (void)playCrash{
+    if (self.crashSoundOn) { // crashOn
+        // クラッシュを再生
+        [_crashPlayer play];
+    } // crashOff
     
     // アニメーションタイマーを破棄する
     [self animationTimerInvalidate];
     
     
-    // Btn,Icon,Logoを非表示にする
-    
-    // viewのバックグラウンドカラーをnearlyBlackにする
+    // viewのバックグラウンドカラーを白にする
     [UIView animateWithDuration:0.25
-                          delay:0
-                        options:UIViewAnimationOptionCurveEaseIn
                      animations:^{
-                         self.BFCV.backgroundColor = RGB(17, 34, 48);//nearlyBlack
+                         self.BFCV.backgroundColor = [UIColor whiteColor];
+                         
                      } completion:nil];
     
-    // flashAnimation開始
-    _flashAnimationTimer =
-    [NSTimer scheduledTimerWithTimeInterval:0.9f
-                                     target:self.lightEffectImageView
-                                   selector:@selector(flashAnimation)
-                                   userInfo:nil
-                                    repeats:YES];
+    // 拡大してくるアニメーション
+    [self.BFCV.knobImageView appearWithScaleUp];
+}
+
+
+#pragma mark - playStart
+-(void)playStart{
+    if (self.rollSoundOn) {
+        // ドラムロールを再生する
+        [_rollPlayerTmp playRollStopCrash:_crashPlayer setVolumeZero:_rollPlayerAlt ];
+        // playerControllを一定間隔で呼び出すタイマーを作る
+        [self playerControll];
+    }
+
     
+    // アニメーションタイマーを破棄する
+    [self animationTimerInvalidate];
+    
+    [self setBackgroundColorWithAnimation];
+    [self setFlashAnimation];
+}
+
+- (void)setBackgroundColorWithAnimation {
+    if ([self.bgColorName isEqualToString:@"Black"]) {
+        [UIView animateWithDuration:0.25
+                              delay:0
+                            options:UIViewAnimationOptionCurveEaseIn
+                         animations:^{
+                             self.BFCV.backgroundColor = RGB(17, 34, 48);//nearlyBlack
+                             NSLog(@"black?");
+                         } completion:nil];
+    }else if ([self.bgColorName isEqualToString:@"White"]){
+        [UIView animateWithDuration:0.25
+                              delay:0
+                            options:UIViewAnimationOptionCurveEaseIn
+                         animations:^{
+                             self.BFCV.backgroundColor = RGB(255, 255, 255);//White
+                             NSLog(@"White?");
+                         } completion:nil];
+    }
+}
+
+- (void)setFlashAnimation {
+    if (self.flashOn) {
+        // flashAnimation開始
+        _flashAnimationTimer =
+        [NSTimer scheduledTimerWithTimeInterval:0.9f
+                                         target:self.lightEffectImageView
+                                       selector:@selector(flashAnimation)
+                                       userInfo:nil
+                                        repeats:YES];
+    }
 }
 
 

@@ -11,7 +11,7 @@
 "Cancel" = "Cancel";
 "EditImage?" = "Edit Image?";
 "EditThisImage" = "Edit this Image";
-"AddThisImageWithouEditing" = "Add this Image without Editing";
+"AddThisImageWithoutEditing" = "Add this Image without Editing";
 "First,PleaseAddImage." = "First, please add Image.";
 "Tap+IconToAddImageFromAlbumOrCam" = "Tap +Icon to add Image from Albam or Cam.";
 "ImagesThatCanBeSavedIs%d" = "Images that can be saved is %d.";
@@ -31,3 +31,5 @@
 "OK" = "OK";
 "Cancel" = "Cancel";
 "ItemIDIsInvalid." = "ItemID is Invalid.";
+"titleImageiPhone" = "TitleLogo320x44_base@2x.png";
+"titleImageiPad" = "TitleLogo768x44_base@2x.png";

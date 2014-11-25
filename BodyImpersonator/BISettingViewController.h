@@ -9,6 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "BIFeedbakAndActionCell.h"
 #import "BITableViewCellHaveFourItems.h"
+#import "kBITableViewCellHaveSwitch.h"
+#import "kBITableViewCellHavePicker.h"
+#import "kBISoundEffectSettingsViewController.h"
 #import <StoreKit/StoreKit.h>
 
 @interface BISettingViewController : UIViewController<UIActionSheetDelegate,UITableViewDataSource,UITableViewDelegate,SKProductsRequestDelegate,SKPaymentTransactionObserver>
