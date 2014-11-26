@@ -60,8 +60,8 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     // 再生中のバックグランドカラーを初期化
     [appDefaults setObject:@"Black" forKey:@"KEY_PlayVCBGColor"];
     // アプリ内課金状況を初期化
-    [appDefaults setObject:@"NO" forKey:@"KEY_adsRemoved"]; // 広告表示する
-    [appDefaults setObject:@"NO" forKey:@"KEY_RemoveLimitNumberOfImagesRemoved"];
+    [appDefaults setObject:@"NO" forKey:@"KEY_AdsRemoved"]; // 広告表示する
+    [appDefaults setObject:@"NO" forKey:@"KEY_LimitNumberOfImagesRemoved"];
 
     // ユーザーデフォルトの初期値に設定する
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];

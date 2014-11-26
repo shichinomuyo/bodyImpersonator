@@ -16,6 +16,8 @@
 
 @interface BISettingViewController : UIViewController<UIActionSheetDelegate,UITableViewDataSource,UITableViewDelegate,SKProductsRequestDelegate,SKPaymentTransactionObserver>
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
+@property BOOL AdsRemoved;
+@property BOOL LimitNumberOfImagesRemoved;
 
 
 @end

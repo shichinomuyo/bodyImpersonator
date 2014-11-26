@@ -27,6 +27,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    //購入済みかチェック
+    self.AdsRemoved = [[NSUserDefaults standardUserDefaults] objectForKey:@"KEY_AdsRemoved"];
+    self.LimitNumberOfImagesRemoved = [[NSUserDefaults standardUserDefaults] objectForKey:@"KEY_LimitNumberOfImagesRemoved"];
     
 //    [self.tableView registerClass:[BIOtherAppsTableViewCell class] forCellReuseIdentifier:@"CellOtherApps"];
     // デリゲートメソッドをこのクラスで実装
@@ -111,7 +114,7 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     switch (indexPath.section) {
-        case 0:
+        case 0: // タップするとsettingViewを表示するセル
         {
             UITableViewCell *settingsCell = (UITableViewCell *)cell;
             UILabel *labelSettings = (UILabel *)[settingsCell viewWithTag:1];
@@ -122,7 +125,7 @@
             [labelSettings setMinimumScaleFactor:4];
         }
             break;
-        case 1:
+        case 1: // addOn購入とリストア
         {
             
             BITableViewCellHaveFourItems *addOnCell = (BITableViewCellHaveFourItems *)cell;
@@ -144,10 +147,20 @@
             [labelDescription setAdjustsFontSizeToFitWidth:YES];
             [labelDescription setLineBreakMode:NSLineBreakByClipping];
             [labelDescription setMinimumScaleFactor:4];
+            
+            if (indexPath.row == 1) {// 購入セルををタップできるようにする。/できないようにする。
+                if (self.AdsRemoved) {
+                    [addOnCell setSelectionStyle:UITableViewCellSelectionStyleNone];
+                }
+            } else if (indexPath.row == 2){ // リストアセルをタップできるようにする。/できないようにする。
+                if (!self.AdsRemoved) {
+                     [addOnCell setSelectionStyle:UITableViewCellSelectionStyleNone];
+                }
+            }
 
         }
              break;
-        case 2:
+        case 2: // feedBack&share
         {
             
             BIFeedbakAndActionCell *feedbackAndShareCell = (BIFeedbakAndActionCell *)cell;
@@ -158,7 +171,7 @@
             [labelFeedbackAction setText:self.dataSourceFeedbackAndShare[indexPath.row]];
         }
             break;
-        case 3:
+        case 3: // otherApps
         {
 
             BITableViewCellHaveFourItems *otherAppsCell = (BITableViewCellHaveFourItems *)cell;
@@ -500,14 +513,14 @@
 }
 
 - (void)upgradeRemoveAllAD{
-    BOOL adsRemoved = YES;
-    [[NSUserDefaults standardUserDefaults] setBool:adsRemoved forKey:@"KEY_adsRemoved"];
+    self.AdsRemoved = YES;
+    [[NSUserDefaults standardUserDefaults] setBool:self.AdsRemoved forKey:@"KEY_AdsRemoved"];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 - (void)upgradeRemoveLimitNumberOfImages{
-    BOOL limitNumberOfImagesRemoved = YES;
-    [[NSUserDefaults standardUserDefaults] setBool:limitNumberOfImagesRemoved forKey:@"KEY_RemoveLimitNumberOfImagesRemoved"];
+    self.LimitNumberOfImagesRemoved = YES;
+    [[NSUserDefaults standardUserDefaults] setBool:self.LimitNumberOfImagesRemoved forKey:@"KEY_LimitNumberOfImagesRemoved"];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
