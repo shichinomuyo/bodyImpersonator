@@ -22,7 +22,5 @@
     GADInterstitial *interstitial_;
 }
 
-@property BOOL adsRemoved;
-@property BOOL limitNumberOfImagesRemoved;
 @property (weak, nonatomic) IBOutlet UIImage *selectedImage;
 @end

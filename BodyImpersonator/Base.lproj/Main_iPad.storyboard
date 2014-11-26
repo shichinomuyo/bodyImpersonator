@@ -121,10 +121,6 @@
                                 <color key="backgroundColor" red="0.067062042653560638" green="0.13338275253772736" blue="0.18701528012752533" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
-                            <view hidden="YES" alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TFc-KJ-FbI" userLabel="ADBannerSample">
-                                <rect key="frame" x="0.0" y="934" width="768" height="90"/>
-                                <color key="backgroundColor" red="0.1019607857" green="0.73725491759999995" blue="0.61176472900000001" alpha="1" colorSpace="calibratedRGB"/>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.067062042650000001" green="0.13338275250000001" blue="0.18701528009999999" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
@@ -132,8 +128,13 @@
                     <navigationItem key="navigationItem" id="YGv-aa-Ewf"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="baseViewBtns" destination="bIF-jU-nng" id="zfc-iy-JUd"/>
+                        <outlet property="btnPreview" destination="ECX-E9-Y4M" id="ruQ-9h-E9s"/>
+                        <outlet property="btnSerch" destination="8Gd-Cf-jI9" id="WQc-b4-hyf"/>
+                        <outlet property="btnSettings" destination="oss-9t-IGY" id="U5k-Vd-K5R"/>
                         <outlet property="collectionView" destination="jjl-Ge-y0R" id="TnM-m4-gac"/>
                         <outlet property="ctrlBtn" destination="fRx-QP-7Su" id="IfP-0K-7sf"/>
+                        <outlet property="imageViewLIne" destination="uAU-Gb-cqS" id="n3T-XD-fLB"/>
                         <outlet property="navigationBar" destination="bve-WN-prz" id="mhj-np-iH4"/>
                         <outlet property="selectedPhotoImage" destination="4Ch-Od-A9z" id="6ua-47-mrh"/>
                     </connections>
@@ -250,9 +251,9 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="jQA-4V-gRK">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="jQA-4V-gRK">
                                 <rect key="frame" x="0.0" y="64" width="768" height="960"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Cell" id="EgV-XH-wNf">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -311,6 +312,12 @@
                                                     <nil key="highlightedColor"/>
                                                     <size key="shadowOffset" width="0.0" height="0.0"/>
                                                 </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Purchased" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g22-MZ-Dcc">
+                                                    <rect key="frame" x="678" y="21" width="82" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
@@ -318,6 +325,7 @@
                                             <outlet property="labelAppName" destination="CIp-oV-FaX" id="Ax6-iQ-tok"/>
                                             <outlet property="labelDescription" destination="FpL-56-nzI" id="Fhb-fk-BdM"/>
                                             <outlet property="labelFee" destination="hD6-ie-65p" id="aB0-FH-ymm"/>
+                                            <outlet property="labelPurchased" destination="g22-MZ-Dcc" id="hSB-lX-uUu"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CellHaveSwitch" id="tzb-XK-4rV" customClass="kBITableViewCellHaveSwitch">

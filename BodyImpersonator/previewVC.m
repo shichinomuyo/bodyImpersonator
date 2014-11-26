@@ -42,31 +42,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    // デバイスがiphoneであるかそうでないかで分岐
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
-        NSLog(@"iPhoneの処理");
-//            self.contentSizeForViewInPopover = CGSizeMake(220, 340);
-    }
-    else{
-        NSLog(@"iPadの処理");
-    }
     
-
+    // 操作無効解除
+    [[UIApplication sharedApplication] endIgnoringInteractionEvents]; // 遷移元で操作無効にしているので解除
+    
+    // 遷移元のviewControllerからもらった画像をセット
+    [_previewImageView setImage:_selectedImage];
     //デフォルトのナビゲーションコントロールを非表示にする
     [self.navigationController setNavigationBarHidden:YES animated:NO];
     
-    // デバイスがiphoneであるかそうでないかで分岐
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
-        NSLog(@"iPhoneの処理");
-        // Modalなので縮小しない
-        [self viewSizeMake:1.0];
-    }
-    else{
-        NSLog(@"iPadの処理");
-        // popoverなので縮小する
-        [self viewSizeMake:0.5];
-    }
+//    [self viewSizeMake:1.0];
     
+    // 画面戻りジェスチャー追加
     UIPanGestureRecognizer *backGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(backGesture:)];
     [self.view addGestureRecognizer:backGestureRecognizer];
     
@@ -74,39 +61,32 @@
     countViewChanged ++;
     [[NSUserDefaults standardUserDefaults] setInteger:countViewChanged forKey:@"KEY_countUpViewChanged"];
     [[NSUserDefaults standardUserDefaults]synchronize];
-    NSLog(@"viewchanged:%d",countViewChanged);
+    NSLog(@"viewchanged:%d",(int)countViewChanged);
     
       _kIndicator = [kBIIndicator alloc];
-
 }
 
 - (void)viewWillAppear:(BOOL)animated{
 
 
-
-    
-
 }
 
 -(void)viewDidAppear:(BOOL)animated{
-    // インタースティシャル広告表示
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSInteger countViewChanged = [defaults integerForKey:@"KEY_countUpViewChanged"];
-    NSInteger memoryCountNumberOfInterstitialDidAppear = [defaults integerForKey:@"KEY_memoryCountNumberOfInterstitialDidAppear"];
-    
-    if (countViewChanged != memoryCountNumberOfInterstitialDidAppear) {
-        if (((countViewChanged % kINTERSTITIAL_DISPLAY_RATE) == 0)) {
-            // 広告表示フラグ確認
-            _adsRemoved = [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_adsRemoved"];
-           
-            //    _adsRemoved = NO; // デバッグ用 YESで購入後の状態
-            if (_adsRemoved == NO) {
+    BOOL purchased = [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_Purchased"];
+    // 広告表示フラグ確認
+    if (purchased == NO) {
+        // インタースティシャル広告表示
+        NSInteger countViewChanged = [[NSUserDefaults standardUserDefaults] integerForKey:@"KEY_countUpViewChanged"];
+        NSInteger memoryCountNumberOfInterstitialDidAppear = [[NSUserDefaults standardUserDefaults] integerForKey:@"KEY_memoryCountNumberOfInterstitialDidAppear"];
+        
+        if (countViewChanged != memoryCountNumberOfInterstitialDidAppear) {
+            if (((countViewChanged % kINTERSTITIAL_DISPLAY_RATE) == 0)) {
                 // 広告表示
                 [self interstitialLoad];
+                
             }
         }
     }
-
 }
 
 -(void)viewDidLayoutSubviews{

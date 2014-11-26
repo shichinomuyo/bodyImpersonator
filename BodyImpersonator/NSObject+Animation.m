@@ -10,9 +10,11 @@
 
 @implementation NSObject (Animation)
 + (void)animationHideNavBar:(UINavigationBar *)nav ToolBar:(UIToolbar *)tool{
-    [UIView animateWithDuration:0.2f
+    // 操作無効
+    [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
+    [UIView animateWithDuration:0.15f
                           delay:0
-                        options:UIViewAnimationOptionCurveEaseOut
+                        options:UIViewAnimationOptionCurveLinear
                      animations:^{
                          nav.center = CGPointMake(nav.center.x, nav.center.y - 48);
                          tool.center = CGPointMake(tool.center.x, tool.center.y + 32);
@@ -20,22 +22,26 @@
                          [nav setHidden:1];
                          [tool setHidden:1];
                          [[UIApplication sharedApplication] setStatusBarHidden:YES];
+                         [[UIApplication sharedApplication] endIgnoringInteractionEvents];
                      }
      ];
     
 }
 + (void)animationAppearNavBar:(UINavigationBar *)nav ToolBar:(UIToolbar *)tool{
+    // 操作無効
+    [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
     [nav setHidden:0];
     [tool setHidden:0];
-    [UIView animateWithDuration:0.2f
+    [UIView animateWithDuration:0.15f
                           delay:0
-                        options:UIViewAnimationOptionCurveEaseOut
+                        options:UIViewAnimationOptionCurveLinear
                      animations:^{
                          nav.center = CGPointMake(nav.center.x, nav.center.y + 48);
                          tool.center = CGPointMake(tool.center.x, tool.center.y - 32);
                      } completion:^(BOOL finished){
 
                          [[UIApplication sharedApplication] setStatusBarHidden:NO];
+                         [[UIApplication sharedApplication] endIgnoringInteractionEvents];
                      }
 
      ];

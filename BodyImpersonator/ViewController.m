@@ -25,7 +25,12 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
 }
 
 // IBOutlet Btn
+@property (weak, nonatomic) IBOutlet UIView *baseViewBtns;
 @property (weak, nonatomic) IBOutlet UIButton *ctrlBtn;
+@property (weak, nonatomic) IBOutlet UIImageView *imageViewLIne;
+@property (weak, nonatomic) IBOutlet UIButton *btnSerch;
+@property (weak, nonatomic) IBOutlet UIButton *btnPreview;
+@property (weak, nonatomic) IBOutlet UIButton *btnSettings;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *previewIcon;
 // IBOutlet Image
 @property (weak, nonatomic) IBOutlet UIImageView *selectedPhotoImage; // secondVCへの画像データ渡し用
@@ -121,6 +126,12 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    // Addon購入状態を取得
+    _purchased = [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_Purchased"];
+//    _purchased = YES; // デバッグ用 YESで購入後の状態
+    //        [[NSUserDefaults standardUserDefaults] setBool:_purchased forKey:@"KEY_Purchased"]; // 購入前の状態に戻す用
+    //        [[NSUserDefaults standardUserDefaults] synchronize]; // 購入前の状態に戻す用
+    
     // ナビゲーションコントローラのステータスバーの透過表示が気に入らないので隠す。
     [self.navigationController setNavigationBarHidden:YES animated:YES];
 
@@ -146,7 +157,7 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     }
 
 
-    _purchased = [[NSUserDefaults standardUserDefaults]boolForKey:@"KEY_Purchased"];
+
     _kIndicator = [kBIIndicator alloc];
 }
 
@@ -189,32 +200,29 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
 }
 
 
-
-
-
-
 - (void)viewWillAppear:(BOOL)animated{
     // 画面が表示されたら定期ロード再開
     [self.nadView resume];
-   
+
 }
 
 -(void)viewDidLayoutSubviews{
-    
+     NSLog(@"purchased in mainview:%d",_purchased);
     // AppDelegateからの購入通知を登録する
- //   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(adjustLayoutAdsRemovedView) name:@"Purchased" object:nil];
     if (_purchased == NO) {
         // 広告表示のためのストーリボード上のレイアウト
         
     } else {
-        [self adjustLayoutAdsRemovedView];
+        //        [self adjustLayoutAdsRemovedView];
+        [self adjustLayoutPurchased];
     }
+    
+
 }
 
 // ビューが表示されたときに実行される
 - (void)viewDidAppear:(BOOL)animated
 {
-
     // 最初のviewControllerに戻ったときplayVCで表示完了した回数が3の倍数かつインタースティシャル広告の準備ができていればインタースティシャル広告表示
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSInteger countViewChanged = [defaults integerForKey:@"KEY_countUpViewChanged"];
@@ -222,10 +230,6 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
 
     NSLog(@"countUpViewChanged %ld", (long)countViewChanged);
     // 広告表示フラグ確認
-    
-    //    _purchased = NO; // デバッグ用 YESで購入後の状態
-    //    [[NSUserDefaults standardUserDefaults] setBool:_adsRemoved forKey:@"KEY_Purchased"]; // 購入前の状態に戻す用
-    //    [[NSUserDefaults standardUserDefaults] synchronize]; // 購入前の状態に戻す用
 
     if (countViewChanged != memoryCountNumberOfInterstitialDidAppear) { // 別ビューを表示してもどってきても大丈夫なように
         if (_purchased == NO) {
@@ -237,6 +241,7 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
             }
         }
     }
+    // 最大登録可能数の決定
     if (_purchased == NO) {
         _limitedNumberOfImages = kLIMITED_ITEM_NUMBER; // 9個
     } else {
@@ -250,13 +255,38 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
 }
 
 - (void)adjustLayoutAdsRemovedView{
-    NSLog(@"adsRemovedViewAdjustItemsPosition");
+
     [_collectionView setFrame:CGRectMake(0, 64, self.view.bounds.size.width, 106 * 3 + 50)];
     [_toolBar setCenter:CGPointMake(self.view.bounds.size.width/2, self.view.bounds.size.height - _toolBar.bounds.size.height/2)];
     [_ctrlBtn setCenter:CGPointMake(self.view.bounds.size.width/2, self.view.bounds.size.height - _toolBar.bounds.size.height - 46)];
 //    [_ctrlBtn setBounds:CGRectMake(0, 0, self.view.bounds.size.width, 142 - 106)];
      //CGRectMake(0, 0, self.view.bounds.size.width, 142)];
 //    [_ctrlBtn setImage:[UIImage imageNamed:@"PlayBtn_320x142@2x.png"] forState:UIControlStateNormal];
+}
+
+// AddOn購入後のレイアウト調整
+- (void)adjustLayoutPurchased{
+    NSLog(@"adjustLayoutPurchased");
+    int baseViewBtnsHeight;
+    int collectionViewHeghtOriginal;
+    int expansionY;
+    // デバイスがiphoneであるかそうでないかで分岐
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
+        NSLog(@"iPhoneの処理");
+        baseViewBtnsHeight = 136;// StoryBoard上で課金前の状態で136pxとして作成
+        collectionViewHeghtOriginal = 106 * 3;
+        expansionY = 50;
+        //        [_collectionView setFrame:CGRectMake(0, 64, self.view.bounds.size.width, 106 * 3 + 50)]; // bannerのheight50px分、heightを大きくする
+    }
+    else{
+        NSLog(@"iPadの処理");
+        baseViewBtnsHeight = 102;// StoryBoard上で課金前の状態で102pxとして作成
+        collectionViewHeghtOriginal = 256 * 3;
+        expansionY = 90;
+        //        [_collectionView setFrame:CGRectMake(0, 64, self.view.bounds.size.width,256 * 3  + 90)]; // bannerのheight90px分、heightを大きくする
+    }
+    [_collectionView setFrame:CGRectMake(0, 64, self.view.bounds.size.width, collectionViewHeghtOriginal + expansionY)];
+    [_baseViewBtns setFrame:CGRectMake(0, self.view.frame.size.height - baseViewBtnsHeight, self.view.frame.size.width, baseViewBtnsHeight)];
 }
 - (void)dealloc{
     // AdMobBannerviewの開放
@@ -665,7 +695,7 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
         tappedImgVC.selectedImage = image;
         [self.navigationController pushViewController:tappedImgVC animated:YES];
     }
-    
+
 
 
 }
@@ -673,6 +703,9 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
 // collectionView内のセルが押された時の処理
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    // 操作無効
+    [[UIApplication sharedApplication] beginIgnoringInteractionEvents]; // 次の画面が表示されたら解除
+    
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSArray *imageNames = [defaults objectForKey:@"KEY_imageNames"];
     
@@ -778,7 +811,17 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
 {
     secondVC *sVC = [self.storyboard instantiateViewControllerWithIdentifier:@"secondVC"];
     sVC.selectedImage = image;
-    [_pickerContainerView presentViewController:sVC animated:YES completion:nil];
+    // デバイスがiphoneであるかそうでないかで分岐
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
+        NSLog(@"iPhoneの処理");
+        [_imagePicker presentViewController:sVC animated:YES completion:nil];
+    }
+    else{
+        NSLog(@"iPadの処理");
+            [_pickerContainerView presentViewController:sVC animated:YES completion:nil];
+    }
+
+
 
 }
 
@@ -839,6 +882,7 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
 // カメラロール表示orカメラ起動を選択するアクションコントローラー生成
 - (void)actionShowOrg
 {
+    [[UIApplication sharedApplication] endIgnoringInteractionEvents];
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSArray *array = [defaults objectForKey:@"KEY_imageNames"];
     

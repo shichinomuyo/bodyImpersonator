@@ -13,6 +13,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *labelAppName;
 @property (weak, nonatomic) IBOutlet UILabel *labelFee;
 @property (weak, nonatomic) IBOutlet UILabel *labelDescription;
+@property (weak, nonatomic) IBOutlet UILabel *labelPurchased;
 + (CGFloat)rowHeight;
 
 @end

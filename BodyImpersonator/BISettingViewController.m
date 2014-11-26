@@ -31,8 +31,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     //購入済みかチェック
-    _purchased = [[NSUserDefaults standardUserDefaults] objectForKey:@"KEY_Purchased"];
-    
+    _purchased = [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_Purchased"];
+//    _purchased = YES; // デバッグ用
+    NSLog(@"purchased:%d",_purchased);
 //    [self.tableView registerClass:[BIOtherAppsTableViewCell class] forCellReuseIdentifier:@"CellOtherApps"];
     // デリゲートメソッドをこのクラスで実装
     self.tableView.delegate = self;
@@ -45,7 +46,7 @@
     
     self.dataSourceAddOn = @[@"Remove AD & Registrable Cap ",@"Restore"];
     self.dataSourceAddOnImages = [NSArray arrayWithObjects:@"RemoveAD60@2x.png",@"RemoveAD60@2x.png", nil];
-    self.dataSourceAddOnDesc = @[@"Remove All AD & Registrable number of Images Increase 9 to 18",@"購入状態を復元します。"];
+    self.dataSourceAddOnDesc = @[@"Remove All AD & Registrable number of Images Increase 9 to 18",@"Restore AddOn"];
     
     
     self.dataSourceFeedbackAndShare = @[@"App Store review", @"Share This App"];
@@ -180,7 +181,8 @@
             UILabel *labelAddOn = (UILabel *)[addOnCell viewWithTag:2];
             UILabel *labelDescTitle = (UILabel *)[addOnCell viewWithTag:3];
             UILabel *labelDescription = (UILabel *)[addOnCell viewWithTag:4];
-            
+            UILabel *labelPurchased = (UILabel *)[addOnCell viewWithTag:5];
+            [labelPurchased setHidden:1];
             [imageViewAddOn setImage:[UIImage imageNamed:self.dataSourceAddOnImages[indexPath.row]]];
             
             [labelAddOn setText:self.dataSourceAddOn[indexPath.row]];
@@ -195,15 +197,17 @@
             [labelDescription setLineBreakMode:NSLineBreakByClipping];
             [labelDescription setMinimumScaleFactor:4];
             
-            if (indexPath.row == 1) {// 購入セルををタップできるようにする。/できないようにする。
+            if (indexPath.row == 0) {// 購入セルををタップできるようにする。/できないようにする。
                 if (_purchased) {
                     [addOnCell setSelectionStyle:UITableViewCellSelectionStyleNone];
-                    UILabel *purchasedString = @"Purchased";
+                    [labelPurchased setHidden:0];
+                    [addOnCell setBackgroundColor:RGB(230, 235, 240)];
 
                 }
-            } else if (indexPath.row == 2){ // リストアセルをタップできるようにする。/できないようにする。
+            } else if (indexPath.row == 1){ // リストアセルをタップできるようにする。/できないようにする。
                 if (!_purchased) {
-                     [addOnCell setSelectionStyle:UITableViewCellSelectionStyleNone];
+                    [addOnCell setSelectionStyle:UITableViewCellSelectionStyleNone];
+                    [addOnCell setBackgroundColor:RGB(230, 235, 240)];
                 }
             }
 
@@ -229,6 +233,8 @@
             UILabel *labelAppName = (UILabel *)[otherAppsCell viewWithTag:2];
             UILabel *labelFee = (UILabel *)[otherAppsCell viewWithTag:3];
             UILabel *labelDescription = (UILabel *)[otherAppsCell viewWithTag:4];
+            UILabel *labelPurchased = (UILabel *)[otherAppsCell viewWithTag:5];
+            [labelPurchased removeFromSuperview];
             
             [imageViewAppIcon setImage:[UIImage imageNamed:self.dataSourceOtherAppsImages[indexPath.row]]];
             [labelAppName setText:self.dataSourceOtherApps[indexPath.row]];
@@ -294,15 +300,23 @@
             break;
         case 1: //Add On
             if (indexPath.row == 0) {
-                if ([self checkInAppPurchaseEnable] == YES){ // アプリ内課金制限がない場合はYES、制限有りはNO
-                    [self startProductRequest];
-                } else {
-                    // NOの場合のアラート表示
-                    [self actionShowAppPurchaseLimitAlert];
+                
+                if (!_purchased) { // 購入してないときだけpaymentqueue生成
+                    if ([self checkInAppPurchaseEnable] == YES){ // アプリ内課金制限がない場合はYES、制限有りはNO
+                        [self startProductRequest];
+                    } else {
+                        // NOの場合のアラート表示
+                        [self actionShowAppPurchaseLimitAlert];
+                    }
                 }
+
             }else if(indexPath.row == 1){
-                // TODO:リストア処理
-                [self startRestore];
+                if (_purchased) { // 購入してる時だけpeymentqueue生成
+                    // TODO:リストア処理
+                    [[SKPaymentQueue defaultQueue] restoreCompletedTransactions];
+                    [_kIndicator indicatorStart];
+                }
+
             }
     
             break;

@@ -73,7 +73,6 @@
     countViewChanged ++;
     [[NSUserDefaults standardUserDefaults] setInteger:countViewChanged forKey:@"KEY_countUpViewChanged"];
     [[NSUserDefaults standardUserDefaults]synchronize];
-    NSLog(@"viewchanged:%d",countViewChanged);
     
       _kIndicator = [kBIIndicator alloc];
 }
@@ -376,20 +375,18 @@
 
 }
 -(void)viewDidAppear:(BOOL)animated{
-    // インタースティシャル広告表示
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSInteger countViewChanged = [defaults integerForKey:@"KEY_countUpViewChanged"];
-    
-    NSInteger memoryCountNumberOfInterstitialDidAppear = [defaults integerForKey:@"KEY_memoryCountNumberOfInterstitialDidAppear"];
-    
-    if (countViewChanged != memoryCountNumberOfInterstitialDidAppear) {
-        if (((countViewChanged % kINTERSTITIAL_DISPLAY_RATE) == 0)) {
-            // 広告表示フラグ確認
-            _adsRemoved = [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_adsRemoved"];
-            //    _adsRemoved = NO; // デバッグ用 YESで購入後の状態
-            if (_adsRemoved == NO) {
+    BOOL purchased = [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_Purchased"];
+    // 広告表示フラグ確認
+    if (purchased == NO) {
+        // インタースティシャル広告表示
+        NSInteger countViewChanged = [[NSUserDefaults standardUserDefaults] integerForKey:@"KEY_countUpViewChanged"];
+        NSInteger memoryCountNumberOfInterstitialDidAppear = [[NSUserDefaults standardUserDefaults] integerForKey:@"KEY_memoryCountNumberOfInterstitialDidAppear"];
+        
+        if (countViewChanged != memoryCountNumberOfInterstitialDidAppear) {
+            if (((countViewChanged % kINTERSTITIAL_DISPLAY_RATE) == 0)) {
                 // 広告表示
                 [self interstitialLoad];
+                
             }
         }
     }

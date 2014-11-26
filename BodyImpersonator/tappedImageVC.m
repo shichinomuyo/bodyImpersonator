@@ -32,16 +32,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    // デバイスがiphoneであるかそうでないかで分岐
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
-        NSLog(@"iPhoneの処理");
-        //            self.contentSizeForViewInPopover = CGSizeMake(220, 340);
-    }
-    else{
-        NSLog(@"iPadの処理");
-    }
     
-
+    // 操作無効解除
+    [[UIApplication sharedApplication] endIgnoringInteractionEvents]; // 遷移元で操作無効にしているので解除
+    
+    // 遷移元のviewControllerからもらった画像をセット
+    [_previewImageView setImage:_selectedImage];
     
     //デフォルトのナビゲーションコントロールを非表示にする
     [self.navigationController setNavigationBarHidden:YES animated:NO];
@@ -60,34 +56,22 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated{
-    
-    // デバイスがiphoneであるかそうでないかで分岐
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
-        NSLog(@"iPhoneの処理");
-        // Modalなので縮小しない
-        [self viewSizeMake:1.0];
-    }
-    else{
-        NSLog(@"iPadの処理");
-        // popoverなので縮小する
-        [self viewSizeMake:0.5];
-    }
+//        [self viewSizeMake:1.0];
 }
 
 -(void)viewDidAppear:(BOOL)animated{
-    // インタースティシャル広告表示
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSInteger countViewChanged = [defaults integerForKey:@"KEY_countUpViewChanged"];
-    NSInteger memoryCountNumberOfInterstitialDidAppear = [defaults integerForKey:@"KEY_memoryCountNumberOfInterstitialDidAppear"];
-
-    if (countViewChanged != memoryCountNumberOfInterstitialDidAppear) {
-        if (((countViewChanged % kINTERSTITIAL_DISPLAY_RATE) == 0)) {
-            // 広告表示フラグ確認
-            _adsRemoved = [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_adsRemoved"];
-            //    _adsRemoved = NO; // デバッグ用 YESで購入後の状態
-            if (_adsRemoved == NO) {
+    BOOL purchased = [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_Purchased"];
+    // 広告表示フラグ確認
+    if (purchased == NO) {
+        // インタースティシャル広告表示
+        NSInteger countViewChanged = [[NSUserDefaults standardUserDefaults] integerForKey:@"KEY_countUpViewChanged"];
+        NSInteger memoryCountNumberOfInterstitialDidAppear = [[NSUserDefaults standardUserDefaults] integerForKey:@"KEY_memoryCountNumberOfInterstitialDidAppear"];
+        
+        if (countViewChanged != memoryCountNumberOfInterstitialDidAppear) {
+            if (((countViewChanged % kINTERSTITIAL_DISPLAY_RATE) == 0)) {
                 // 広告表示
                 [self interstitialLoad];
+                
             }
         }
     }
@@ -98,60 +82,60 @@
 
 }
 
-- (void)viewSizeMake:(CGFloat)scale{
-    // スクリーンサイズを取得
-    CGRect screenRect = [[UIScreen mainScreen] bounds];
-    CGSize screenSize = CGSizeMake(screenRect.size.width, screenRect.size.height);
-    // popoverするサイズを決定
-    CGSize popoverSize = CGSizeMake(screenRect.size.width*scale, screenRect.size.height*scale); // size of view in popover
-    // popoverするサイズを設定
-    self.preferredContentSize = popoverSize;
-    self.modalInPopover = YES;
-    
-    UIImage *image = _selectedImage; // 遷移元のビューから渡された画像をセット
-    // imageviewのpreviewImageViewに画像を設定
-    [self.previewImageView setImage:[self popoverWithImage:image screenSize:screenSize popoverScale:scale]];
-    
-    // previewImageViewの位置とサイズを親ビューに合わせる
-    [self.previewImageView setFrame:CGRectMake(0, 0,popoverSize.width, popoverSize.height)];
-    
-    //    NSLog(@"popoverSize (%.1f,%.1f)", popoverSize.width,popoverSize.height);
-    //    NSLog(@"self.view.frame (%.1f,%.1f,%.1f,%.1f)", self.view.frame.origin.x,self.view.frame.origin.y,self.view.frame.size.width,self.view.frame.size.height);
-    //    NSLog(@"previewImageView.frame (%.1f,%.1f,%.1f,%.1f)", self.previewImageView.frame.origin.x,self.previewImageView.frame.origin.y,self.previewImageView.frame.size.width,self.previewImageView.frame.size.height);
-}
+//- (void)viewSizeMake:(CGFloat)scale{
+//    // スクリーンサイズを取得
+//    CGRect screenRect = [[UIScreen mainScreen] bounds];
+//    CGSize screenSize = CGSizeMake(screenRect.size.width, screenRect.size.height);
+//    // popoverするサイズを決定
+//    CGSize popoverSize = CGSizeMake(screenRect.size.width*scale, screenRect.size.height*scale); // size of view in popover
+//    // popoverするサイズを設定
+//    self.preferredContentSize = popoverSize;
+//    self.modalInPopover = YES;
+//    
+//    UIImage *image = _selectedImage; // 遷移元のビューから渡された画像をセット
+//    // imageviewのpreviewImageViewに画像を設定
+//    [self.previewImageView setImage:[self popoverWithImage:image screenSize:screenSize popoverScale:scale]];
+//    
+//    // previewImageViewの位置とサイズを親ビューに合わせる
+//    [self.previewImageView setFrame:CGRectMake(0, 0,popoverSize.width, popoverSize.height)];
+//    
+//    //    NSLog(@"popoverSize (%.1f,%.1f)", popoverSize.width,popoverSize.height);
+//    //    NSLog(@"self.view.frame (%.1f,%.1f,%.1f,%.1f)", self.view.frame.origin.x,self.view.frame.origin.y,self.view.frame.size.width,self.view.frame.size.height);
+//    //    NSLog(@"previewImageView.frame (%.1f,%.1f,%.1f,%.1f)", self.previewImageView.frame.origin.x,self.previewImageView.frame.origin.y,self.previewImageView.frame.size.width,self.previewImageView.frame.size.height);
+//}
 
-// 縦横長い方に合わせて縮小する
--(UIImage *)popoverWithImage:(UIImage *)image screenSize:(CGSize)size popoverScale:(CGFloat)scale{
-    // ビューとイメージの比率を計算する
-    CGFloat widthRatio  = size.width  / image.size.width;
-    CGFloat heightRatio = size.height / image.size.height;
-    // (widthRatio < heightRatio)が真なら ratio = widthRatio/ 偽ならratio = heightRatio
-    CGFloat ratio = (widthRatio < heightRatio) ? widthRatio : heightRatio;
-    
-    NSLog(@"widthRatio:%.2f",widthRatio);
-    NSLog(@"heightRatio:%.2f",heightRatio);
-    NSLog(@"ratio:%.2f",ratio);
-    CGRect rect;
-    if (ratio > 1.0) {
-        rect = CGRectMake(0, 0,
-                          image.size.width  / ratio,
-                          image.size.height / ratio);
-    } else{
-        rect = CGRectMake(0,0,image.size.width * scale, image.size.height * scale);
-    }
-    
-    
-    UIGraphicsBeginImageContext(rect.size);
-    
-    [image drawInRect:rect];
-    
-    UIImage* shrinkedImage = UIGraphicsGetImageFromCurrentImageContext();
-    
-    UIGraphicsEndImageContext();
-    
-    NSLog(@"rect.size (%.2f,%.2f)", rect.size.width,rect.size.height);
-    return shrinkedImage;
-}
+//// 縦横長い方に合わせて縮小する
+//-(UIImage *)popoverWithImage:(UIImage *)image screenSize:(CGSize)size popoverScale:(CGFloat)scale{
+//    // ビューとイメージの比率を計算する
+//    CGFloat widthRatio  = size.width  / image.size.width;
+//    CGFloat heightRatio = size.height / image.size.height;
+//    // (widthRatio < heightRatio)が真なら ratio = widthRatio/ 偽ならratio = heightRatio
+//    CGFloat ratio = (widthRatio < heightRatio) ? widthRatio : heightRatio;
+//    
+//    NSLog(@"widthRatio:%.2f",widthRatio);
+//    NSLog(@"heightRatio:%.2f",heightRatio);
+//    NSLog(@"ratio:%.2f",ratio);
+//    CGRect rect;
+//    if (ratio > 1.0) {
+//        rect = CGRectMake(0, 0,
+//                          image.size.width  / ratio,
+//                          image.size.height / ratio);
+//    } else{
+//        rect = CGRectMake(0,0,image.size.width * scale, image.size.height * scale);
+//    }
+//    
+//    
+//    UIGraphicsBeginImageContext(rect.size);
+//    
+//    [image drawInRect:rect];
+//    
+//    UIImage* shrinkedImage = UIGraphicsGetImageFromCurrentImageContext();
+//    
+//    UIGraphicsEndImageContext();
+//    
+//    NSLog(@"rect.size (%.2f,%.2f)", rect.size.width,rect.size.height);
+//    return shrinkedImage;
+//}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
