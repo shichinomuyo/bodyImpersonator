@@ -22,14 +22,16 @@
 
 @end
 
-@implementation BISettingViewController
+@implementation BISettingViewController{
+
+    kBIIndicator *_kIndicator;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     //購入済みかチェック
-    self.AdsRemoved = [[NSUserDefaults standardUserDefaults] objectForKey:@"KEY_AdsRemoved"];
-    self.LimitNumberOfImagesRemoved = [[NSUserDefaults standardUserDefaults] objectForKey:@"KEY_LimitNumberOfImagesRemoved"];
+    _purchased = [[NSUserDefaults standardUserDefaults] objectForKey:@"KEY_Purchased"];
     
 //    [self.tableView registerClass:[BIOtherAppsTableViewCell class] forCellReuseIdentifier:@"CellOtherApps"];
     // デリゲートメソッドをこのクラスで実装
@@ -53,10 +55,54 @@
     self.dataSourceOtherAppsImages = [NSArray arrayWithObjects:@"ICONRollToCrashForLink60@2x.png", nil];
     self.dataSourceOtherAppsDesc = @[@"ドラムロール→クラッシュシンバルの音を鳴らせるアプリです。"];
     
+    _kIndicator = [kBIIndicator alloc];
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated{
      [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:NO];
+    
+    // AppDelegateからの購入通知を登録する
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    [nc addObserver:self
+           selector:@selector(purchased:)
+               name:@"Purchased"
+             object:nil];
+    [nc addObserver:self
+           selector:@selector(failed:)
+               name:@"Failed"
+             object:nil];
+    [nc addObserver:self
+           selector:@selector(purchaseCompleted:)
+               name:@"PurchaseCompleted"
+             object:nil];
+    [nc addObserver:self
+           selector:@selector(restoreCompleted:)
+               name:@"RestoreCompleted"
+             object:nil];
+    [nc addObserver:self
+           selector:@selector(restoreFailed:)
+               name:@"RestoreFailed"
+             object:nil];
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    [nc removeObserver:self
+                  name:@"Purchased"
+                object:nil];
+    [nc removeObserver:self
+                  name:@"Failed"
+                object:nil];
+    [nc removeObserver:self
+                  name:@"PurchaseCompleted"
+                object:nil];
+    [nc removeObserver:self
+                  name:@"RestoreCompleted"
+                object:nil];
+    [nc removeObserver:self
+                  name:@"RestoreFailed"
+                object:nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -134,6 +180,7 @@
             UILabel *labelAddOn = (UILabel *)[addOnCell viewWithTag:2];
             UILabel *labelDescTitle = (UILabel *)[addOnCell viewWithTag:3];
             UILabel *labelDescription = (UILabel *)[addOnCell viewWithTag:4];
+            
             [imageViewAddOn setImage:[UIImage imageNamed:self.dataSourceAddOnImages[indexPath.row]]];
             
             [labelAddOn setText:self.dataSourceAddOn[indexPath.row]];
@@ -149,11 +196,13 @@
             [labelDescription setMinimumScaleFactor:4];
             
             if (indexPath.row == 1) {// 購入セルををタップできるようにする。/できないようにする。
-                if (self.AdsRemoved) {
+                if (_purchased) {
                     [addOnCell setSelectionStyle:UITableViewCellSelectionStyleNone];
+                    UILabel *purchasedString = @"Purchased";
+
                 }
             } else if (indexPath.row == 2){ // リストアセルをタップできるようにする。/できないようにする。
-                if (!self.AdsRemoved) {
+                if (!_purchased) {
                      [addOnCell setSelectionStyle:UITableViewCellSelectionStyleNone];
                 }
             }
@@ -246,7 +295,7 @@
         case 1: //Add On
             if (indexPath.row == 0) {
                 if ([self checkInAppPurchaseEnable] == YES){ // アプリ内課金制限がない場合はYES、制限有りはNO
-                    [self startInAppPurchase];
+                    [self startProductRequest];
                 } else {
                     // NOの場合のアラート表示
                     [self actionShowAppPurchaseLimitAlert];
@@ -369,26 +418,32 @@
     }
 
 }
-// アプリ内制限有無チェック処理の結果がYESだったらこの処理を呼ぶ）
-- (void)startInAppPurchase
+
+
+- (void)startRestore{
+//    NSSet *set = [NSSet setWithObjects:@"com.muyo.bodyImpersonator.remove_ad_up_registrable_number_of_images", nil];
+//    SKProductsRequest *productsRequest = [[SKProductsRequest alloc] initWithProductIdentifiers:set];
+//    productsRequest.delegate = self;
+    [[SKPaymentQueue defaultQueue] restoreCompletedTransactions];
+    
+}
+
+
+// アプリ内課金プロダクト情報の取得開始
+- (void)startProductRequest
 {
+
     // com.companyname.application.productidは、「1-1. iTunes ConnectでManage In-App Purchasesの追加」で作成したProduct IDを設定します。
     NSSet *set = [NSSet setWithObjects:@"com.muyo.bodyImpersonator.remove_ad_up_registrable_number_of_images", nil];
     SKProductsRequest *productsRequest = [[SKProductsRequest alloc] initWithProductIdentifiers:set];
     productsRequest.delegate = self;
     [productsRequest start];
-}
-
-- (void)startRestore{
-    NSSet *set = [NSSet setWithObjects:@"com.muyo.bodyImpersonator.remove_ad_up_registrable_number_of_images", nil];
-    SKProductsRequest *productsRequest = [[SKProductsRequest alloc] initWithProductIdentifiers:set];
-    productsRequest.delegate = self;
-    [[SKPaymentQueue defaultQueue] restoreCompletedTransactions];
     
+    [_kIndicator indicatorStart];
 }
-
-// 購入処理の開始
-- (void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response {
+// プロダクト情報取得完了 // viewControllerにもコピペ
+- (void)productsRequest:(SKProductsRequest *)request
+     didReceiveResponse:(SKProductsResponse *)response {
     // アクションコントローラーのLocalizedStringを定義
     NSString *title = [[NSString alloc] initWithFormat:NSLocalizedString(@"Error", nil)];
     NSString *message = [[NSString alloc] initWithFormat:NSLocalizedString(@"ItemIDIsInvalid.", nil)];
@@ -420,113 +475,139 @@
         }
         return;
     }
-    // 購入処理開始
-    [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
+    [_kIndicator indicatorStop];
+    // プロダクトの取得
     for (SKProduct *product in response.products) {
         SKPayment *payment = [SKPayment paymentWithProduct:product];
         [[SKPaymentQueue defaultQueue] addPayment:payment];
     }
 }
 
-//アイテム購入処理
-- (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray *)transactions {
-    for (SKPaymentTransaction *transaction in transactions) {
-        switch (transaction.transactionState) {
-            case SKPaymentTransactionStatePurchasing:
-                // NSLog(@"購入処理中");
-                // TODO: インジケータなど回して頑張ってる感を出す。
-                break;
-            case SKPaymentTransactionStatePurchased:
-                // NSLog(@"購入成功");
-                // TODO: アイテム購入した処理（アップグレード版の機能制限解除処理等）
-                [self upgradeRemoveAllAD];
-                [self upgradeRemoveLimitNumberOfImages];
-                // TODO: 購入の持続的な記録
-                {
-                }
-                [queue finishTransaction:transaction];
-                break;
-            case SKPaymentTransactionStateFailed:
-                // NSLog(@"購入失敗: %@, %@", transaction.transactionIdentifier, transaction.error);
-                // ユーザが購入処理をキャンセルした場合もここにくる
-                // TODO: 失敗のアラート表示等
-                {
-                    // アクションコントローラーのLocalizedStringを定義
-                    NSString *title = [[NSString alloc] initWithFormat:NSLocalizedString(@"Error", nil)];
-                    NSString *action1 = [[NSString alloc] initWithFormat:NSLocalizedString(@"OK", nil)];
-                    Class class = NSClassFromString(@"UIAlertController"); // iOS8/7の切り分けフラグに使用
-                    if (class) {// iOS8の処理
-                        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title
-                                                                                                 message:[transaction.error localizedDescription]
-                                                                                          preferredStyle:UIAlertControllerStyleAlert];
-                        [alertController addAction:[UIAlertAction actionWithTitle:action1
-                                                                            style:UIAlertActionStyleDefault
-                                                                          handler:^(UIAlertAction *action) {
-                                                                              
-                                                                          }]];
-                        
-
-                        [self presentViewController:alertController animated:YES completion:nil];
-
-
-                    }else{ // iOS7の処理
-                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"エラー"
-                                                                        message:[transaction.error localizedDescription]
-                                                                       delegate:nil
-                                                              cancelButtonTitle:@"OK"
-                                                              otherButtonTitles:nil, nil];
-                        [alert show];
-                    }
-                }
-                break;
-            case SKPaymentTransactionStateRestored:
-                // リストア処理
-                // TODO: アイテム購入した処理（アップグレード版の機能制限解除処理等）
-                [self upgradeRemoveAllAD];
-                [self upgradeRemoveLimitNumberOfImages];
-                // NSLog(@"以前に購入した機能を復元");
-                [queue finishTransaction:transaction];
-                break;
-            default:
-                [queue finishTransaction:transaction];
-                break;
-        }
-    }
-}
+//アイテム購入処理 //appdelegateに移す
+//- (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray *)transactions {
+//    for (SKPaymentTransaction *transaction in transactions) {
+//        switch (transaction.transactionState) {
+//            case SKPaymentTransactionStatePurchasing:
+//                // NSLog(@"購入処理中");
+//                // TODO: インジケータなど回して頑張ってる感を出す。
+//                break;
+//            case SKPaymentTransactionStatePurchased:
+//                // NSLog(@"購入成功");
+//                // TODO: アイテム購入した処理（アップグレード版の機能制限解除処理等）
+//                [self upgradeRemoveAllAD];
+//                [self upgradeRemoveLimitNumberOfImages];
+//                // TODO: 購入の持続的な記録
+//                {
+//                }
+//                [queue finishTransaction:transaction];
+//                break;
+//            case SKPaymentTransactionStateFailed:
+//                // NSLog(@"購入失敗: %@, %@", transaction.transactionIdentifier, transaction.error);
+//                // ユーザが購入処理をキャンセルした場合もここにくる
+//                // TODO: 失敗のアラート表示等
+//                {
+//                    // アクションコントローラーのLocalizedStringを定義
+//                    NSString *title = [[NSString alloc] initWithFormat:NSLocalizedString(@"Error", nil)];
+//                    NSString *action1 = [[NSString alloc] initWithFormat:NSLocalizedString(@"OK", nil)];
+//                    Class class = NSClassFromString(@"UIAlertController"); // iOS8/7の切り分けフラグに使用
+//                    if (class) {// iOS8の処理
+//                        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title
+//                                                                                                 message:[transaction.error localizedDescription]
+//                                                                                          preferredStyle:UIAlertControllerStyleAlert];
+//                        [alertController addAction:[UIAlertAction actionWithTitle:action1
+//                                                                            style:UIAlertActionStyleDefault
+//                                                                          handler:^(UIAlertAction *action) {
+//                                                                              
+//                                                                          }]];
+//                        
+//
+//                        [self presentViewController:alertController animated:YES completion:nil];
+//
+//
+//                    }else{ // iOS7の処理
+//                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"エラー"
+//                                                                        message:[transaction.error localizedDescription]
+//                                                                       delegate:nil
+//                                                              cancelButtonTitle:@"OK"
+//                                                              otherButtonTitles:nil, nil];
+//                        [alert show];
+//                    }
+//                }
+//                break;
+//            case SKPaymentTransactionStateRestored:
+//                // リストア処理
+//                // TODO: アイテム購入した処理（アップグレード版の機能制限解除処理等）
+//                [self upgradeRemoveAllAD];
+//                [self upgradeRemoveLimitNumberOfImages];
+//                // NSLog(@"以前に購入した機能を復元");
+//                [queue finishTransaction:transaction];
+//                break;
+//            default:
+//                [queue finishTransaction:transaction];
+//                break;
+//        }
+//    }
+//}
 
 // レシートの確認とアイテムの付与
 
-//購入処理の終了
-- (void)paymentQueue:(SKPaymentQueue *)queue removedTransactions:(NSArray *)transactions
-{
-    [[SKPaymentQueue defaultQueue] removeTransactionObserver:self];
-}
+//購入処理の終了 // AppDelegateに移す
+//- (void)paymentQueue:(SKPaymentQueue *)queue removedTransactions:(NSArray *)transactions
+//{
+//    [[SKPaymentQueue defaultQueue] removeTransactionObserver:self];
+//}
+//
+//- (void)paymentQueue:(SKPaymentQueue *)queue restoreCompletedTransactionsFailedWithError:(NSError *)error
+//{
+//    // リストアの失敗
+//}
+//- (void)paymentQueueRestoreCompletedTransactionsFinished:(SKPaymentQueue *)queue
+//{
+//    // 全てのリストア処理が完了
+//    
+//}
 
-- (void)paymentQueue:(SKPaymentQueue *)queue restoreCompletedTransactionsFailedWithError:(NSError *)error
-{
-    // リストアの失敗
-}
-- (void)paymentQueueRestoreCompletedTransactionsFinished:(SKPaymentQueue *)queue
-{
-    // 全てのリストア処理が完了
-    
-}
-
-- (void)upgradeRemoveAllAD{
-    self.AdsRemoved = YES;
-    [[NSUserDefaults standardUserDefaults] setBool:self.AdsRemoved forKey:@"KEY_AdsRemoved"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-}
-
-- (void)upgradeRemoveLimitNumberOfImages{
-    self.LimitNumberOfImagesRemoved = YES;
-    [[NSUserDefaults standardUserDefaults] setBool:self.LimitNumberOfImagesRemoved forKey:@"KEY_LimitNumberOfImagesRemoved"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-}
+//- (void)upgradeRemoveAllAD{
+//    self.AdsRemoved = YES;
+//    [[NSUserDefaults standardUserDefaults] setBool:self.AdsRemoved forKey:@"KEY_AdsRemoved"];
+//    [[NSUserDefaults standardUserDefaults] synchronize];
+//}
+//
+//- (void)upgradeRemoveLimitNumberOfImages{
+//    self.LimitNumberOfImagesRemoved = YES;
+//    [[NSUserDefaults standardUserDefaults] setBool:self.LimitNumberOfImagesRemoved forKey:@"KEY_LimitNumberOfImagesRemoved"];
+//    [[NSUserDefaults standardUserDefaults] synchronize];
+//}
 
 #pragma - mark segue
 // previewVCとplayVCから戻ってきたときの処理
 - (IBAction)settingsVCReturnActionForSegue:(UIStoryboardSegue *)segue{
     
+}
+
+#pragma - mark AppDelegate reciever action
+-(void)purchased:(NSNotification *)notification{
+    // UIを購入状態にする
+    // TODO:セルのラベルを購入完了にして押せないようにする
+    [self.tableView reloadData];
+}
+-(void)failed:(NSNotification *)notification{
+    // Indicatorを非表示にする
+    [_kIndicator indicatorStop];
+    
+}
+-(void)purchaseCompleted:(NSNotification *)notification{
+    // Indicatorを非表示にする
+    [_kIndicator indicatorStop];
+    
+}
+-(void)restoreCompleted:(NSNotification *)notification{
+    // Indicatorを非表示にする
+    [_kIndicator indicatorStop];
+    
+}
+-(void)restoreFailed:(NSNotification *)notification{
+    // Indicatorを非表示にする
+    [_kIndicator indicatorStop];
 }
 @end

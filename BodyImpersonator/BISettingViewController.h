@@ -13,11 +13,11 @@
 #import "kBITableViewCellHavePicker.h"
 #import "kBISoundEffectSettingsViewController.h"
 #import <StoreKit/StoreKit.h>
+#import "kBIIndicator.h"
 
-@interface BISettingViewController : UIViewController<UIActionSheetDelegate,UITableViewDataSource,UITableViewDelegate,SKProductsRequestDelegate,SKPaymentTransactionObserver>
+@interface BISettingViewController : UIViewController<UIActionSheetDelegate,UITableViewDataSource,UITableViewDelegate,SKProductsRequestDelegate>
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
-@property BOOL AdsRemoved;
-@property BOOL LimitNumberOfImagesRemoved;
+@property BOOL purchased;
 
 
 @end

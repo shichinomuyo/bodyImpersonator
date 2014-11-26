@@ -60,8 +60,7 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     // 再生中のバックグランドカラーを初期化
     [appDefaults setObject:@"Black" forKey:@"KEY_PlayVCBGColor"];
     // アプリ内課金状況を初期化
-    [appDefaults setObject:@"NO" forKey:@"KEY_AdsRemoved"]; // 広告表示する
-    [appDefaults setObject:@"NO" forKey:@"KEY_LimitNumberOfImagesRemoved"];
+    [appDefaults setObject:@"NO" forKey:@"KEY_Purchased"];
 
     // ユーザーデフォルトの初期値に設定する
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
@@ -147,7 +146,7 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     }
 
 
-    
+    _purchased = [[NSUserDefaults standardUserDefaults]boolForKey:@"KEY_Purchased"];
     _kIndicator = [kBIIndicator alloc];
 }
 
@@ -191,16 +190,25 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
 
 
 
-- (void)viewWillDisappear:(BOOL)animated{
-    // 画面が隠れたらNend定期ロード中断
-    [self.nadView pause];
-}
+
 
 
 - (void)viewWillAppear:(BOOL)animated{
     // 画面が表示されたら定期ロード再開
     [self.nadView resume];
    
+}
+
+-(void)viewDidLayoutSubviews{
+    
+    // AppDelegateからの購入通知を登録する
+ //   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(adjustLayoutAdsRemovedView) name:@"Purchased" object:nil];
+    if (_purchased == NO) {
+        // 広告表示のためのストーリボード上のレイアウト
+        
+    } else {
+        [self adjustLayoutAdsRemovedView];
+    }
 }
 
 // ビューが表示されたときに実行される
@@ -214,16 +222,13 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
 
     NSLog(@"countUpViewChanged %ld", (long)countViewChanged);
     // 広告表示フラグ確認
-    _adsRemoved = [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_adsRemoved"];
-    _limitNumberOfImagesRemoved = [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_RemoveLimitNumberOfImagesRemoved"];
-    //    _adsRemoved = NO; // デバッグ用 YESで購入後の状態
-    //    _limitNumberOfImagesRemoved = NO; // デバッグ用 YESで購入後の状態
-    //    [[NSUserDefaults standardUserDefaults] setBool:_adsRemoved forKey:@"KEY_adsRemoved"]; // 購入前の状態に戻す用
-    //        [[NSUserDefaults standardUserDefaults] setBool:_limitNumberOfImagesRemoved forKey:@"KEY_RemoveLimitNumberOfImagesRemoved"]; // 購入前の状態に戻す用
+    
+    //    _purchased = NO; // デバッグ用 YESで購入後の状態
+    //    [[NSUserDefaults standardUserDefaults] setBool:_adsRemoved forKey:@"KEY_Purchased"]; // 購入前の状態に戻す用
     //    [[NSUserDefaults standardUserDefaults] synchronize]; // 購入前の状態に戻す用
 
     if (countViewChanged != memoryCountNumberOfInterstitialDidAppear) { // 別ビューを表示してもどってきても大丈夫なように
-        if (_adsRemoved == NO) {
+        if (_purchased == NO) {
             // 広告表示
             [self addAdBanners];
             if ((countViewChanged % kINTERSTITIAL_DISPLAY_RATE) == 0) {
@@ -232,20 +237,16 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
             }
         }
     }
-    if (_limitNumberOfImagesRemoved == NO) {
+    if (_purchased == NO) {
         _limitedNumberOfImages = kLIMITED_ITEM_NUMBER; // 9個
     } else {
         _limitedNumberOfImages = kMAX_ITEM_NUMBER; // 18個
     }
 }
 
--(void)viewDidLayoutSubviews{
-    if (_adsRemoved == NO) {
-        // 広告表示のためのストーリボード上のレイアウト
-
-    } else {
-        [self adjustLayoutAdsRemovedView];
-    }
+- (void)viewWillDisappear:(BOOL)animated{
+    // 画面が隠れたらNend定期ロード中断
+    [self.nadView pause];
 }
 
 - (void)adjustLayoutAdsRemovedView{
@@ -600,7 +601,7 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     NSString *tmp = NSLocalizedString(@"ImagesThatCanBeSavedIs%d", nil);
     NSString *title = [NSString stringWithFormat:tmp, _limitedNumberOfImages];
     NSString *message;
-    if (_adsRemoved) {
+    if (_purchased) {
         message = nil;
     }else{
         message = [[NSString alloc] initWithFormat:NSLocalizedString(@"UpgradeFrom9To18InSetting", nil)];
@@ -840,8 +841,6 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSArray *array = [defaults objectForKey:@"KEY_imageNames"];
-    NSLog(@"%d",_limitNumberOfImagesRemoved);
-
     
     // アクションコントローラーのLocalizedStringを定義
     NSString *title = [[NSString alloc] initWithFormat:NSLocalizedString(@"AddImage", nil)];
@@ -1134,6 +1133,7 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     
     
 }
+
 
 // スプラッシュ画面を1秒表示する
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions

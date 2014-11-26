@@ -42,9 +42,8 @@
 @property (strong,nonatomic) NSIndexPath *selectedIndexPath;
 @property (strong,nonatomic) UIImage *selectedImage;
 @property (strong,nonatomic) NSIndexPath *tappedIndexPath;
-@property BOOL adsRemoved;
-@property BOOL limitNumberOfImagesRemoved;
 @property int limitedNumberOfImages;
+@property BOOL purchased;
 
 
 @end

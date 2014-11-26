@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <StoreKit/StoreKit.h>
 #ifndef DEBUG
 #define NSLog(...)
 #endif
 static const NSInteger kINTERSTITIAL_DISPLAY_RATE = 1000;
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate, SKPaymentTransactionObserver>
 
 @property (strong, nonatomic) UIWindow *window;
 
