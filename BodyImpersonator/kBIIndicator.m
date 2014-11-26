@@ -12,13 +12,32 @@
 
 - (void)indicatorStart{
     NSLog(@"indicator start");
+    UIViewController *topVC = [self topMostController];
+    int baseViewWidth;
+    int baseViewHeight;
+
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){ // 見た目をいい感じにするために分母を変えてる
+        NSLog(@"iPhoneの処理");
+        baseViewWidth = topVC.view.frame.size.width /2;
+        baseViewHeight = baseViewWidth;
+    }
+    else{
+        NSLog(@"iPadの処理");
+        baseViewWidth = topVC.view.frame.size.width /4;
+        baseViewHeight = baseViewWidth;
+    }
+
+
+    
+    CGRect rect = CGRectMake(0, 0, baseViewWidth * 0.8, baseViewWidth * 0.8);
+
     // ベースビュー
-    indicatorBaseView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 320)];
+    indicatorBaseView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, baseViewWidth, baseViewHeight)];
     [indicatorBaseView setBackgroundColor:[UIColor grayColor]];
     [indicatorBaseView.layer setCornerRadius:28];
     [indicatorBaseView setAlpha:0.6];
     // ラベル
-    labelLoadingMassage = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320, 100)];
+    labelLoadingMassage = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, baseViewWidth, 100)];
     [labelLoadingMassage setTextColor:[UIColor whiteColor]];
     [labelLoadingMassage setText:@"Now loading..."];
     [labelLoadingMassage setFont:[UIFont systemFontOfSize:22]];
@@ -28,11 +47,9 @@
     
     // インジケーター
     indicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-    indicator.frame = CGRectMake(0, 0, 100, 100);
+    indicator.frame = rect;//CGRectMake(0, 0, 100, 100);
     
-    UIViewController *topVC = [self topMostController];
-    
-    
+
     [indicator setCenter:indicatorBaseView.center];
     [labelLoadingMassage setCenter:CGPointMake(indicatorBaseView.frame.size.width/2, indicatorBaseView.frame.size.height / 6 * 5)];
     [indicatorBaseView addSubview:labelLoadingMassage];

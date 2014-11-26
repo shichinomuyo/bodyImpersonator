@@ -200,6 +200,14 @@
             if (indexPath.row == 0) {// 購入セルををタップできるようにする。/できないようにする。
                 if (_purchased) {
                     [addOnCell setSelectionStyle:UITableViewCellSelectionStyleNone];
+
+                    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){ // iPhoneだとセル一杯に文字が詰まるので元の説明文を消す
+                        NSLog(@"iPhoneの処理");
+                        [labelPurchased setCenter:CGPointMake(addOnCell.center.x, addOnCell.center.y)];
+                        [labelDescTitle setHidden:1];
+                        [labelDescription setHidden:1];
+                    }
+
                     [labelPurchased setHidden:0];
                     [addOnCell setBackgroundColor:RGB(230, 235, 240)];
 

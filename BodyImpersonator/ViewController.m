@@ -62,11 +62,15 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     [appDefaults setObject:array forKey:@"KEY_imageNames"];
     // collectionViewに表示する画像に番号を振るために整数値を作成・初期化
     [appDefaults setObject:@"0" forKey:@"KEY_imageCount"];
+    // settingsを初期化
+    [appDefaults setObject:@"YES" forKey:@"KEY_RollSoundOn"];
+    [appDefaults setObject:@"YES" forKey:@"KEY_CrashSoundOn"];
+    [appDefaults setObject:@"YES" forKey:@"KEY_FlashEffectOn"];
     // 再生中のバックグランドカラーを初期化
     [appDefaults setObject:@"Black" forKey:@"KEY_PlayVCBGColor"];
     // アプリ内課金状況を初期化
     [appDefaults setObject:@"NO" forKey:@"KEY_Purchased"];
-
+    
     // ユーザーデフォルトの初期値に設定する
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     [userDefaults registerDefaults:appDefaults];
