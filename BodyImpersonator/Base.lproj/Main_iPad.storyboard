@@ -167,8 +167,12 @@
                                     </imageView>
                                 </subviews>
                             </scrollView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="EditorOutline.png" translatesAutoresizingMaskIntoConstraints="NO" id="hkh-YD-ZA7" userLabel="editorOutline">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="EditorOutline.png" translatesAutoresizingMaskIntoConstraints="NO" id="hkh-YD-ZA7" userLabel="editorOutline">
                                 <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="768" id="NTa-sd-k1q"/>
+                                    <constraint firstAttribute="height" constant="1024" id="iDr-yH-90N"/>
+                                </constraints>
                             </imageView>
                             <navigationBar alpha="0.79999999999999982" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dpz-WH-ihO">
                                 <rect key="frame" x="0.0" y="0.0" width="768" height="64"/>

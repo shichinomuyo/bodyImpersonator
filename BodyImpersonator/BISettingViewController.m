@@ -25,15 +25,14 @@
 @implementation BISettingViewController{
 
     kBIIndicator *_kIndicator;
+    SKProduct *_myProduct;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    //購入済みかチェック
-    _purchased = [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_Purchased"];
-//    _purchased = YES; // デバッグ用
-    NSLog(@"purchased:%d",_purchased);
+
+
 //    [self.tableView registerClass:[BIOtherAppsTableViewCell class] forCellReuseIdentifier:@"CellOtherApps"];
     // デリゲートメソッドをこのクラスで実装
     self.tableView.delegate = self;
@@ -62,7 +61,11 @@
 
 -(void)viewWillAppear:(BOOL)animated{
      [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:NO];
-    
+    [self.tableView reloadData];
+    //購入済みかチェック
+    _purchased = [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_Purchased"];
+    //    _purchased = YES; // デバッグ用
+    NSLog(@"purchased:%d",_purchased);
     // AppDelegateからの購入通知を登録する
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
     [nc addObserver:self
@@ -85,6 +88,10 @@
            selector:@selector(restoreFailed:)
                name:@"RestoreFailed"
              object:nil];
+    [nc addObserver:self
+           selector:@selector(restoreAppComplete:)
+               name:@"RestoreAppComplete"
+             object:nil];
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
@@ -103,6 +110,9 @@
                 object:nil];
     [nc removeObserver:self
                   name:@"RestoreFailed"
+                object:nil];
+    [nc removeObserver:self
+                  name:@"RestoreAppComplete"
                 object:nil];
 }
 
@@ -200,6 +210,7 @@
             if (indexPath.row == 0) {// 購入セルををタップできるようにする。/できないようにする。
                 if (_purchased) {
                     [addOnCell setSelectionStyle:UITableViewCellSelectionStyleNone];
+                    [addOnCell setBackgroundColor:RGB(230, 235, 240)];
 
                     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){ // iPhoneだとセル一杯に文字が詰まるので元の説明文を消す
                         NSLog(@"iPhoneの処理");
@@ -209,13 +220,13 @@
                     }
 
                     [labelPurchased setHidden:0];
-                    [addOnCell setBackgroundColor:RGB(230, 235, 240)];
-
                 }
             } else if (indexPath.row == 1){ // リストアセルをタップできるようにする。/できないようにする。
-                if (!_purchased) {
+                if (_purchased) {
                     [addOnCell setSelectionStyle:UITableViewCellSelectionStyleNone];
                     [addOnCell setBackgroundColor:RGB(230, 235, 240)];
+                } else{
+
                 }
             }
 
@@ -253,7 +264,6 @@
             [labelDescription setMinimumScaleFactor:4];
             [labelDescription setText:self.dataSourceOtherAppsDesc[indexPath.row]];
 
-            NSLog(@"nannde");
         }
 
             break;
@@ -263,6 +273,24 @@
     
 
     return cell;
+}
+
+// addonSectionのセルを購入済み時にタップ不可にする
+-(NSIndexPath *)tableView:(UITableView *)tableView
+ willSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    switch (indexPath.section) { // セクション1:AddOnCellのセクション
+        case 1:
+            if (_purchased) { // 購入済みのとき
+                   return nil;
+            }
+        break;
+            
+        default:
+            break;
+    }
+
+    return indexPath;
 }
 
 // セクション毎のセクション名を設定
@@ -311,7 +339,9 @@
                 
                 if (!_purchased) { // 購入してないときだけpaymentqueue生成
                     if ([self checkInAppPurchaseEnable] == YES){ // アプリ内課金制限がない場合はYES、制限有りはNO
-                        [self startProductRequest];
+                        NSLog(@"tapできてる");
+                        [self startProductRequest]; //プロダクトの取得
+
                     } else {
                         // NOの場合のアラート表示
                         [self actionShowAppPurchaseLimitAlert];
@@ -319,12 +349,10 @@
                 }
 
             }else if(indexPath.row == 1){
-                if (_purchased) { // 購入してる時だけpeymentqueue生成
                     // TODO:リストア処理
+                    NSLog(@"tapped");
                     [[SKPaymentQueue defaultQueue] restoreCompletedTransactions];
                     [_kIndicator indicatorStart];
-                }
-
             }
     
             break;
@@ -500,9 +528,12 @@
     [_kIndicator indicatorStop];
     // プロダクトの取得
     for (SKProduct *product in response.products) {
-        SKPayment *payment = [SKPayment paymentWithProduct:product];
+        _myProduct = product;
+        SKPayment *payment = [SKPayment paymentWithProduct:_myProduct]; // 購入処理開始
         [[SKPaymentQueue defaultQueue] addPayment:payment];
     }
+    
+
 }
 
 //アイテム購入処理 //appdelegateに移す
@@ -609,9 +640,8 @@
 
 #pragma - mark AppDelegate reciever action
 -(void)purchased:(NSNotification *)notification{
-    // UIを購入状態にする
-    // TODO:セルのラベルを購入完了にして押せないようにする
-    [self.tableView reloadData];
+    // Indicatorを非表示にする
+    [_kIndicator indicatorStop];
 }
 -(void)failed:(NSNotification *)notification{
     // Indicatorを非表示にする
@@ -621,9 +651,53 @@
 -(void)purchaseCompleted:(NSNotification *)notification{
     // Indicatorを非表示にする
     [_kIndicator indicatorStop];
+        [self viewWillAppear:1];
     
 }
--(void)restoreCompleted:(NSNotification *)notification{
+-(void)restoreAppComplete:(NSNotification *)notification{// 復元機能が終わったところで通知
+
+    // Indicatorを非表示にする
+    [_kIndicator indicatorStop];
+
+    
+    NSString *title = [[NSString alloc] initWithFormat:NSLocalizedString(@"RestoreCompleted.", nil)];
+    //    NSString *message = [[NSString alloc] initWithFormat:NSLocalizedString(@"Tap+IconToAddImageFromAlbumOrCam", nil)];
+    Class class = NSClassFromString(@"UIAlertController"); // iOS8/7の切り分けフラグに使用
+    if (class) {
+        // iOS8の処理
+        // アクションコントローラー生成
+        UIAlertController *actionController =
+        [UIAlertController alertControllerWithTitle:title
+                                            message:nil
+                                     preferredStyle:UIAlertControllerStyleAlert];
+        
+        [actionController addAction:[UIAlertAction actionWithTitle:@"OK"
+                                                             style:UIAlertActionStyleCancel
+                                                           handler:^(UIAlertAction *action) {
+                                                               [self viewWillAppear:1];
+                                                               
+                                                           }]];
+        // アクションコントローラーを表示
+        [self presentViewController:actionController animated:YES completion:nil];
+    } else{
+        // iOS7の処理
+        
+        // UIActionSheetを生成
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:title
+                                                       message:nil
+                                                      delegate:self
+                                             cancelButtonTitle:@"OK"
+                                             otherButtonTitles:nil, nil];
+        
+        // アクションシートを表示
+        [alert show];
+        
+    }
+
+
+
+}
+-(void)restoreCompleted:(NSNotification *)notification{ //機能復元だけじゃなくてリストア処理がひと通り終わったときの通知を受ける
     // Indicatorを非表示にする
     [_kIndicator indicatorStop];
     

@@ -36,7 +36,7 @@
                           delay:0
                         options:UIViewAnimationOptionCurveLinear
                      animations:^{
-                         nav.center = CGPointMake(nav.center.x, nav.center.y + 48);
+                         nav.center = CGPointMake(nav.center.x, 22);
                          tool.center = CGPointMake(tool.center.x, tool.center.y - 32);
                      } completion:^(BOOL finished){
 

@@ -96,6 +96,7 @@
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
+                                            <action selector="previewUIBtn:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Dhk-sM-iF6"/>
                                             <segue destination="Ml1-cR-wrA" kind="push" identifier="pushToPreviewVC" id="4pt-7j-J9r"/>
                                         </connections>
                                     </button>
@@ -105,6 +106,7 @@
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
+                                            <action selector="settingsUIBtn:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="aFH-O7-EGR"/>
                                             <segue destination="YQN-mj-a54" kind="modal" id="ecn-rX-rmX"/>
                                         </connections>
                                     </button>
@@ -243,7 +245,7 @@
                                     <navigationItem title="Settings" id="WH3-oC-BPY">
                                         <barButtonItem key="leftBarButtonItem" title="Back" style="plain" id="Egj-Ht-yY7">
                                             <connections>
-                                                <segue destination="PXh-qx-qZa" kind="unwind" unwindAction="firstViewReturnActionForSegue:" id="E7Y-kq-1RX"/>
+                                                <segue destination="PXh-qx-qZa" kind="unwind" identifier="BackFromSettingVC" unwindAction="firstViewReturnActionForSegue:" id="WR9-La-ban"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
@@ -380,7 +382,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="6gl-yu-fDZ" kind="unwind" unwindAction="firstViewReturnActionForSegue:" id="dpJ-Ot-LjW"/>
+                                    <action selector="btnCoverAllDisplay:" destination="Ml1-cR-wrA" eventType="touchUpInside" id="Uud-K6-KTV"/>
                                 </connections>
                             </button>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" alpha="0.79999999999999982" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Gd3-VV-hwc">
@@ -419,7 +421,9 @@
                     </view>
                     <navigationItem key="navigationItem" id="anj-bW-EAz"/>
                     <connections>
+                        <outlet property="navigationBar" destination="pHb-d5-Bo5" id="V6U-me-9GH"/>
                         <outlet property="previewImageView" destination="EOC-7T-xUJ" id="ZrJ-kS-EdL"/>
+                        <outlet property="toolBar" destination="Gd3-VV-hwc" id="HtY-6n-ta7"/>
                         <segue destination="6gl-yu-fDZ" kind="unwind" identifier="BackFromPreviewVCRemoveItemBtn" unwindAction="firstViewReturnActionForSegue:" id="EIx-j5-HZM"/>
                     </connections>
                 </viewController>
@@ -494,7 +498,9 @@
                     </view>
                     <navigationItem key="navigationItem" id="vlJ-Xh-K2V"/>
                     <connections>
+                        <outlet property="navigationBar" destination="UhS-kG-ITt" id="q23-Xj-mV0"/>
                         <outlet property="previewImageView" destination="4mY-Te-FEa" id="JGJ-YD-GIh"/>
+                        <outlet property="toolBar" destination="51D-HO-sML" id="6or-VL-tKS"/>
                         <segue destination="y5x-A0-10f" kind="unwind" identifier="BackFromTappedImageVCRemoveItemBtn" unwindAction="firstViewReturnActionForSegue:" id="eIj-hT-VlR"/>
                         <segue destination="y5x-A0-10f" kind="unwind" identifier="BackFromTappedImageVCSetImageBtn" unwindAction="firstViewReturnActionForSegue:" id="00Y-C1-vcb"/>
                     </connections>

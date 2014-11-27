@@ -111,13 +111,13 @@
                 break;
             case SKPaymentTransactionStateRestored:
                 // リストア処理
-                
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"RestoreComplete" object:transaction];
+                // 機能復元完了を通知
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"RestoreAppComplete" object:transaction];
                 // TODO: アイテム購入した処理（アップグレード版の機能制限解除処理等）
                 [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"KEY_Purchased"];
 //                [self upgradeRemoveAllAD];
 //                [self upgradeRemoveLimitNumberOfImages];
-                // NSLog(@"以前に購入した機能を復元");
+                 NSLog(@"以前に購入した機能を復元");
                 [queue finishTransaction:transaction];
                 break;
             default:

@@ -330,7 +330,7 @@
 {
     
     NSString *buttonTitle = [actionSheet buttonTitleAtIndex:buttonIndex];
-    if ([buttonTitle isEqualToString:@"Add this Image"]) {
+    if ([buttonTitle isEqualToString:[[NSString alloc] initWithFormat:NSLocalizedString(@"AddThisImage", nil)]]) {
         [self actionAddImage];
     }
 //    if (actionSheet == _actionSheetAlert) {

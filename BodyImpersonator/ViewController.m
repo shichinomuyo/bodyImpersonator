@@ -21,6 +21,8 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     UIPopoverPresentationController *_popoverPresentation;
     BICollectionViewCell *_selectedCell;
     kBIIndicator *_kIndicator;
+    CGFloat _iOSVer;
+    UIPopoverController *_popoverController;
 
 }
 
@@ -31,21 +33,17 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
 @property (weak, nonatomic) IBOutlet UIButton *btnSerch;
 @property (weak, nonatomic) IBOutlet UIButton *btnPreview;
 @property (weak, nonatomic) IBOutlet UIButton *btnSettings;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *previewIcon;
+
 // IBOutlet Image
 @property (weak, nonatomic) IBOutlet UIImageView *selectedPhotoImage; // secondVCへの画像データ渡し用
 // IBOutlet collectionView
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (strong, nonatomic) IBOutlet UINavigationBar *navigationBar;
-// IBOutlet toolBar
-@property (strong, nonatomic) IBOutlet UIToolbar *toolBar;
-
-
 // IBAction Btn
-- (IBAction)searchBtn:(UIBarButtonItem *)sender;
-- (IBAction)previewBtn:(UIBarButtonItem *)sender;
-- (IBAction)showOrgBtn:(UIBarButtonItem *)sender;
 - (IBAction)searchUIBtn:(UIButton *)sender;
+- (IBAction)previewUIBtn:(UIButton *)sender;
+- (IBAction)settingsUIBtn:(UIButton *)sender;
+
 
 @end
 
@@ -130,11 +128,11 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    // Addon購入状態を取得
+    // 購入フラグを確認
     _purchased = [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_Purchased"];
-//    _purchased = YES; // デバッグ用 YESで購入後の状態
-    //        [[NSUserDefaults standardUserDefaults] setBool:_purchased forKey:@"KEY_Purchased"]; // 購入前の状態に戻す用
-    //        [[NSUserDefaults standardUserDefaults] synchronize]; // 購入前の状態に戻す用
+    // OSヴァージョンを取得
+    _iOSVer = [[[UIDevice currentDevice] systemVersion] floatValue];
+
     
     // ナビゲーションコントローラのステータスバーの透過表示が気に入らないので隠す。
     [self.navigationController setNavigationBarHidden:YES animated:YES];
@@ -207,17 +205,23 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
 - (void)viewWillAppear:(BOOL)animated{
     // 画面が表示されたら定期ロード再開
     [self.nadView resume];
+    // Addon購入状態を取得
+    NSLog(@"viewwillAppear");
+
+    //    _purchased = NO; // デバッグ用 YESで購入後の状態
+    //            [[NSUserDefaults standardUserDefaults] setBool:_purchased forKey:@"KEY_Purchased"]; // 購入前の状態に戻す用
+    //            [[NSUserDefaults standardUserDefaults] synchronize]; // 購入前の状態に戻す用
 
 }
 
 -(void)viewDidLayoutSubviews{
      NSLog(@"purchased in mainview:%d",_purchased);
     // AppDelegateからの購入通知を登録する
+        _purchased = [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_Purchased"];
     if (_purchased == NO) {
         // 広告表示のためのストーリボード上のレイアウト
         
     } else {
-        //        [self adjustLayoutAdsRemovedView];
         [self adjustLayoutPurchased];
     }
     
@@ -256,16 +260,6 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
 - (void)viewWillDisappear:(BOOL)animated{
     // 画面が隠れたらNend定期ロード中断
     [self.nadView pause];
-}
-
-- (void)adjustLayoutAdsRemovedView{
-
-    [_collectionView setFrame:CGRectMake(0, 64, self.view.bounds.size.width, 106 * 3 + 50)];
-    [_toolBar setCenter:CGPointMake(self.view.bounds.size.width/2, self.view.bounds.size.height - _toolBar.bounds.size.height/2)];
-    [_ctrlBtn setCenter:CGPointMake(self.view.bounds.size.width/2, self.view.bounds.size.height - _toolBar.bounds.size.height - 46)];
-//    [_ctrlBtn setBounds:CGRectMake(0, 0, self.view.bounds.size.width, 142 - 106)];
-     //CGRectMake(0, 0, self.view.bounds.size.width, 142)];
-//    [_ctrlBtn setImage:[UIImage imageNamed:@"PlayBtn_320x142@2x.png"] forState:UIControlStateNormal];
 }
 
 // AddOn購入後のレイアウト調整
@@ -389,6 +383,8 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
         NSLog(@"BackFromPreviewVCSetImage");
     }else if ([segue.identifier isEqualToString:@"BackFromTappedImageVCRemoveItemBtn"]){
         [self actionRemoveItem:_tappedIndexPath];
+    }else if ([segue.identifier isEqualToString:@"BackFromSettingVC"]){
+        [self viewDidLayoutSubviews];
     }
 }
 
@@ -493,8 +489,8 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
 
 #pragma mark -
 #pragma mark touchAction
-// previewVCを開く
-- (IBAction)previewBtn:(UIBarButtonItem *)sender {
+- (IBAction)previewUIBtn:(UIButton *)sender {
+    [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
     // デバイスがiphoneであるかそうでないかで分岐
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
         // iPhoneの処理
@@ -505,16 +501,22 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
         // iPadの処理
         // storyboard上でポップアップ表示処理は完結。画像表示処理をpreviewVCで実装。
     }
-    
 }
 
-// サファリを起動
-- (IBAction)searchBtn:(UIBarButtonItem *)sender { // BarButton用
-    
-    NSURL *url = [NSURL URLWithString:@"https://www.google.com/search?tbm=isch&q="];
-    
-    [[UIApplication sharedApplication] openURL:url];
+- (IBAction)settingsUIBtn:(UIButton *)sender {
+
+    // デバイスがiphoneであるかそうでないかで分岐
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
+        // iPhoneの処理
+        // storyboard上でpushでの画面遷移処理は完結。画像表示処理をpreviewVCで実装。
+        
+    }
+    else{
+        // iPadの処理
+        // storyboard上でポップアップ表示処理は完結。画像表示処理をpreviewVCで実装。
+    }
 }
+// サファリを起動
 - (IBAction)searchUIBtn:(UIButton *)sender { // UIButton用
     
     NSURL *url = [NSURL URLWithString:@"https://www.google.com/search?tbm=isch&q="];
@@ -568,15 +570,24 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
             // フォトライブラリから画像を選ぶ
 
             _pickerContainerView = [[UIViewController alloc] init];
-            [_pickerContainerView setPreferredContentSize:CGSizeMake(580, 600)];
-            _pickerContainerView.modalPresentationStyle = UIModalPresentationPopover;
 
             [_pickerContainerView.view addSubview:_imagePicker.view];
-            _popoverPresentation = _pickerContainerView.popoverPresentationController;
-            _popoverPresentation.sourceView = self.view;
-            _popoverPresentation.sourceRect = CGRectMake(self.view.frame.size.width/2, self.view.frame.size.height/2, 0, 0);
-            [_popoverPresentation setPermittedArrowDirections:0];
-            [self presentViewController:_pickerContainerView animated:YES completion:nil];
+            if (_iOSVer > 8.0) {
+                [_pickerContainerView setPreferredContentSize:CGSizeMake(580, 600)]; // 580,600
+                _pickerContainerView.modalPresentationStyle = UIModalPresentationPopover;
+                _popoverPresentation = _pickerContainerView.popoverPresentationController;
+                _popoverPresentation.sourceView = self.view;
+                _popoverPresentation.sourceRect = CGRectMake(self.view.frame.size.width/2, self.view.frame.size.height/2, 0, 0);
+                [_popoverPresentation setPermittedArrowDirections:0];
+                 [self presentViewController:_pickerContainerView animated:YES completion:nil];
+            } else{
+                if (_popoverController) {
+                    [_popoverController dismissPopoverAnimated:YES];
+                }
+                 [_pickerContainerView setPreferredContentSize:CGSizeMake(self.view.frame.size.width/1.4, self.view.frame.size.width/1.4)]; // 580,600
+                _popoverController = [[UIPopoverController alloc] initWithContentViewController:_pickerContainerView];
+                [_popoverController presentPopoverFromRect:CGRectMake(self.view.frame.size.width/2, self.view.frame.size.height/2, 1, 1) inView:self.view permittedArrowDirections:0 animated:YES];
+            }
         }
     }
     
@@ -724,11 +735,11 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
 #pragma mark -
 #pragma mark imagePickerController
 
-// chooseボタンのデリゲートメソッド
+// 写真が選ばれたとき,写真撮影後のデリゲートメソッド
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
     //   NSString *mediaType = [info objectForKey:UIImagePickerControllerMediaType];
     //    UIImage *imageEdited = [info objectForKey:UIImagePickerControllerEditedImage];
-    
+
     UIImage *imagePicked = [info objectForKey:UIImagePickerControllerOriginalImage];
     
     NSLog(@"Original width = %f height= %f ",imagePicked.size.width, imagePicked.size.height);
@@ -805,7 +816,17 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
         actionSheet.cancelButtonIndex = 2;
         
         // アクションシートを表示
-        [actionSheet showInView:picker.view];
+        // デバイスがiphoneであるかそうでないかで分岐
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
+            NSLog(@"iPhoneの処理");
+                    [actionSheet showInView:picker.view];
+        }
+        else{
+            NSLog(@"iPadの処理");
+                    [actionSheet showInView:self.view];
+        }
+
+
         
     }
 }
@@ -822,16 +843,22 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     }
     else{
         NSLog(@"iPadの処理");
-            [_pickerContainerView presentViewController:sVC animated:YES completion:nil];
+        if (_iOSVer >= 8.0) {
+            [_pickerContainerView dismissViewControllerAnimated:YES completion:^{
+                [self presentViewController:sVC animated:YES completion:nil];
+            }];
+        }else {
+             [_popoverController dismissPopoverAnimated:YES];
+            [self presentViewController:sVC animated:YES completion:nil];
+        }
     }
-
-
-
 }
 
 // actionAddItemボタンが押された時の処理
 - (void)actionAddItem:(UIImage *)image
 {
+
+
     // ビューのselectedImageに保存
     _selectedImage = image;
     
@@ -870,7 +897,16 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     
     // 最初の画面に戻る
     [self dismissViewControllerAnimated:YES completion:nil];
-
+    // デバイスがiphoneであるかそうでないかで分岐
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
+        NSLog(@"iPhoneの処理");
+    }
+    else{
+        NSLog(@"iPadの処理");
+        if (_iOSVer < 8.0) {
+            [_popoverController dismissPopoverAnimated:YES];
+        }
+    }
 }
 
 // action3ボタンが押された時の処理
@@ -887,6 +923,7 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
 - (void)actionShowOrg
 {
     [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSArray *array = [defaults objectForKey:@"KEY_imageNames"];
     
@@ -898,11 +935,11 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     
     if ([array count] >= _limitedNumberOfImages) { // 保存できる画像を9個/18個に制限
         [self actionShowSaveLimitAlert];
+
     }else{
         //処理
-        Class class = NSClassFromString(@"UIAlertController"); // iOS8/7の切り分けフラグに使用
-        if (class) {// iOS8の処理
-    
+//        Class class = NSClassFromString(@"UIAlertController"); // iOS8/7の切り分けフラグに使用
+        if (_iOSVer >=8.0) {// iOS8の処理
             // アクションコントローラー生成
             UIAlertController *actionController =
             [UIAlertController alertControllerWithTitle:title
@@ -933,7 +970,6 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
             [self presentViewController:actionController animated:YES completion:nil];
         } else{
             // iOS7の処理
-            
             // UIActionSheetを生成
             UIActionSheet *actionSheet = [[UIActionSheet alloc]init];
             actionSheet.delegate = self;
@@ -943,37 +979,49 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
             [actionSheet addButtonWithTitle:action3];
             //        actionSheet.destructiveButtonIndex = 0;
             actionSheet.cancelButtonIndex = 2;
-            
+
             // アクションシートを表示
             [actionSheet showInView:self.view];
-            
         }
 
     }
+
 }
 
 // iOS 7でアクションシートのボタンが押された時の処理
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    NSString *buttonTitle = [actionSheet buttonTitleAtIndex:buttonIndex];
-    if ([buttonTitle isEqualToString:@"Open Album"]) {
+  
+    NSString *buttonTitle = [actionSheet buttonTitleAtIndex:buttonIndex]; // ボタンのタイトルで処理を分岐させる
+    if ([buttonTitle isEqualToString:[[NSString alloc] initWithFormat:NSLocalizedString(@"OpenAlbum", nil)]]) {
         [self launchOrg];
-    }else if ([buttonTitle isEqualToString:@"Take a Photo"]){
+    }else if ([buttonTitle isEqualToString:[[NSString alloc] initWithFormat:NSLocalizedString(@"TakeAPhoto", nil)]]){
         [self launchCam];
-    }else if ([buttonTitle isEqualToString:@"Set this Image"]){
+    }else if ([buttonTitle isEqualToString:[[NSString alloc] initWithFormat:NSLocalizedString(@"SetThisImage", nil)]]){
         // タップされたセルのindexPathを取得
         NSArray *selectedItems = [self.collectionView indexPathsForSelectedItems];
         NSIndexPath *indexPath = [selectedItems objectAtIndex:0];
         [self actionSetSelectedImage:indexPath];
-    }else if ([buttonTitle isEqualToString:@"Edit this Image"]){
+    }else if ([buttonTitle isEqualToString:[[NSString alloc] initWithFormat:NSLocalizedString(@"EditThisImage", nil)]]){
         [self actionShowEditor:self.selectedPhotoImage.image];
-    }else if ([buttonTitle isEqualToString:@"Add this Image"]){
+    }else if ([buttonTitle isEqualToString:[[NSString alloc] initWithFormat:NSLocalizedString(@"AddThisImageWithoutEditing", nil)]]){
         [self actionAddItem:self.selectedPhotoImage.image];
     }
 }
 
 // 選択したセルの画像をセット
 - (void)actionSetSelectedImage:(NSIndexPath *)indexPath{
+    // デバイスがiphoneであるかそうでないかで分岐
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
+        NSLog(@"iPhoneの処理");
+    }
+    else{
+        NSLog(@"iPadの処理");
+        if (_iOSVer < 8.0) {
+              [_popoverController dismissPopoverAnimated:YES];
+        }
+    }
+
     // 選択したセルの画像をselectedImageに保存
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSArray *imageNames = [defaults objectForKey:@"KEY_imageNames"];
@@ -1199,5 +1247,4 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     return UIStatusBarStyleLightContent; //文字を白くする
    //    return UIStatusBarStyleDefault; // デフォルト値（文字色は黒色）
 }
-
 @end

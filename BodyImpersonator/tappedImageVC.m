@@ -282,6 +282,15 @@
     }
 }
 
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
+    NSString *buttonTitle = [actionSheet buttonTitleAtIndex:buttonIndex];
+    if ([buttonTitle isEqualToString:[[NSString alloc] initWithFormat:NSLocalizedString(@"SetThisImage", nil)]]) {
+        [self performSegueWithIdentifier:@"BackFromTappedImageVCSetImageBtn" sender:self];
+    } else if ([buttonTitle isEqualToString:[[NSString alloc] initWithFormat:NSLocalizedString(@"RemoveThisImage", nil)]]){
+        [self performSegueWithIdentifier:@"BackFromTappedImageVCRemoveItemBtn" sender:self];
+    }
+}
+
 - (IBAction)setImageBtn:(UIBarButtonItem *)sender {
     [self actionSetImage:sender];
     

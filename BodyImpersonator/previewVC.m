@@ -188,7 +188,6 @@
         [actionController addAction:[UIAlertAction actionWithTitle:action1
                                                              style:UIAlertActionStyleDefault
                                                            handler:^(UIAlertAction *action) {
-                                                               
                                                                // 最初の画面にBackFromPreviewVCRemoveItemBtnで戻ると削除メソッドが動く
                                                                [self performSegueWithIdentifier:@"BackFromPreviewVCRemoveItemBtn" sender:self];
                                                            }]];
@@ -228,15 +227,20 @@
         else{
             NSLog(@"iPadの処理");
             // アクションシートをpopoverで表示
-            UIBarButtonItem *btn = sender;
-            [actionSheet showFromBarButtonItem:btn animated:YES];
+            [actionSheet showFromBarButtonItem:sender animated:YES];
         }
+        
         
     }
     
 }
 
-
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
+    NSString *buttonTitle = [actionSheet buttonTitleAtIndex:buttonIndex];
+    if ([buttonTitle isEqualToString:[[NSString alloc] initWithFormat:NSLocalizedString(@"RemoveThisImage", nil)]]) {
+        [self performSegueWithIdentifier:@"BackFromPreviewVCRemoveItemBtn" sender:self];
+    }
+}
 // アクションメニューを作成・表示
 - (IBAction)actionBtn:(UIBarButtonItem *)sender {
     NSArray *activityItems = @[_selectedImage];
@@ -249,7 +253,6 @@
     NSArray *excludedActivityTypes =@[UIActivityTypePostToTwitter,UIActivityTypePostToFacebook,UIActivityTypePostToFlickr,UIActivityTypePostToTencentWeibo,UIActivityTypePostToVimeo,UIActivityTypePostToVimeo];
     activityVC.excludedActivityTypes = excludedActivityTypes;
 
-    
     // デバイスがiphoneであるかそうでないかで分岐
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
         NSLog(@"iPhoneの処理");
@@ -261,7 +264,6 @@
         UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:activityVC];
         [popover presentPopoverFromBarButtonItem:sender permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     }
-
 }
 
 
