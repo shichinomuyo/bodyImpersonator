@@ -26,6 +26,7 @@
 
     kBIIndicator *_kIndicator;
     SKProduct *_myProduct;
+    
 }
 
 - (void)viewDidLoad {
@@ -343,14 +344,16 @@
             if (indexPath.row == 0) {
                 
                 if (!_purchased) { // 購入してないときだけpaymentqueue生成
-                    if ([self checkInAppPurchaseEnable] == YES){ // アプリ内課金制限がない場合はYES、制限有りはNO
-                        NSLog(@"tapできてる");
-                        [self startProductRequest]; //プロダクトの取得
-
-                    } else {
-                        // NOの場合のアラート表示
-                        [self actionShowAppPurchaseLimitAlert];
-                    }
+                    kBIAddOnPurchaseViewController *aopVC = [self.storyboard instantiateViewControllerWithIdentifier:@"AddOnPurchaseVC"];
+                    [self.navigationController pushViewController:aopVC animated:YES];
+//                    if ([self checkInAppPurchaseEnable] == YES){ // アプリ内課金制限がない場合はYES、制限有りはNO
+//                        NSLog(@"tapできてる");
+//                        [self startProductRequest]; //プロダクトの取得
+//
+//                    } else {
+//                        // NOの場合のアラート表示
+//                        [self actionShowAppPurchaseLimitAlert];
+//                    }
                 }
 
             }else if(indexPath.row == 1){

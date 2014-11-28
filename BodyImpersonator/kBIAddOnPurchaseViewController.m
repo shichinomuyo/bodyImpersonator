@@ -9,6 +9,9 @@
 #import "kBIAddOnPurchaseViewController.h"
 
 @interface kBIAddOnPurchaseViewController ()
+@property (nonatomic, strong) NSArray *sectionList;
+@property (nonatomic, strong) NSArray *dataSourceAddOnPurchase;
+
 
 @end
 
@@ -16,6 +19,7 @@
     
     kBIIndicator *_kIndicator;
     SKProduct *_myProduct;
+    NSString *_localedPrice;
 }
 
 - (void)viewDidLoad {
@@ -24,34 +28,29 @@
     
     
     //    [self.tableView registerClass:[BIOtherAppsTableViewCell class] forCellReuseIdentifier:@"CellOtherApps"];
+    _myProduct = nil;
+    _localedPrice = @"¥";
     // デリゲートメソッドをこのクラスで実装
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     
     // section名のListを作成
-    self.sectionList = @[@"Settings", @"Add On", @"Feedback / Share This App", @"Other Apps"];
+    self.sectionList = @[@"AddOn"];
     // table表示したいデータソースを設定
-    self.dataSourceSettings = @[@"Sound&Effect",@"MotionControlls"];
-    
-    self.dataSourceAddOn = @[@"Remove AD & Registrable Cap ",@"Restore"];
-    self.dataSourceAddOnImages = [NSArray arrayWithObjects:@"RemoveAD60@2x.png",@"RemoveAD60@2x.png", nil];
-    self.dataSourceAddOnDesc = @[@"Remove All AD & Registrable number of Images Increase 9 to 18",@"Restore AddOn"];
-    
-    
-    self.dataSourceFeedbackAndShare = @[@"App Store review", @"Share This App"];
-    self.dataSourceFeedbackAndShareImages = [NSArray arrayWithObjects: @"Compose60@2x.png",@"ShareIcon60@2x.png", nil];
-    
-    self.dataSourceOtherApps = @[@"RollToCrash"];
-    self.dataSourceOtherAppsImages = [NSArray arrayWithObjects:@"ICONRollToCrashForLink60@2x.png", nil];
-    self.dataSourceOtherAppsDesc = @[@"ドラムロール→クラッシュシンバルの音を鳴らせるアプリです。"];
+    self.dataSourceAddOnPurchase = @[@"Remove AD & Registrable Cap"];
+
+   
     
     _kIndicator = [kBIIndicator alloc];
+    
+    [self startProductRequest];
     
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:NO];
     [self.tableView reloadData];
+
     //購入済みかチェック
     _purchased = [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_Purchased"];
     //    _purchased = YES; // デバッグ用
@@ -82,6 +81,10 @@
            selector:@selector(restoreAppComplete:)
                name:@"RestoreAppComplete"
              object:nil];
+}
+
+-(void)viewDidAppear:(BOOL)animated{
+
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
@@ -124,7 +127,6 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    
     // Return the number of sections.
     NSInteger sectionCount;
     sectionCount = [self.sectionList count];
@@ -137,16 +139,7 @@
     NSInteger dataCount;
     switch (section) {
         case 0:
-            dataCount = [self.dataSourceSettings count];
-            break;
-        case 1:
-            dataCount = [self.dataSourceAddOn count];
-            break;
-        case 2:
-            dataCount = [self.dataSourceFeedbackAndShare count];
-            break;
-        case 3:
-            dataCount = [self.dataSourceOtherApps count];
+            dataCount = [self.dataSourceAddOnPurchase count];
             break;
         default:
             break;
@@ -156,108 +149,40 @@
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSArray *identifiers = @[@"CellHaveOneLabel", @"CellHaveFourItems", @"CellFeedbackAndShare", @"CellHaveFourItems"];
+    NSArray *identifiers = @[@"CellHaveBtn"];
     NSString *CellIdentifier = identifiers[indexPath.section];
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     switch (indexPath.section) {
-        case 0: // タップするとsettingViewを表示するセル
+        case 0: // addOn購入とリストア
         {
-            UITableViewCell *settingsCell = (UITableViewCell *)cell;
-            UILabel *labelSettings = (UILabel *)[settingsCell viewWithTag:1];
+            UITableViewCell *addOnCell = (UITableViewCell *)cell;
+            UILabel *addOnTitle = (UILabel *)[addOnCell viewWithTag:1];
+            UIButton *purchaseBtn = (UIButton *)[addOnCell viewWithTag:2];
+
+//            [imageViewAddOn setImage:[UIImage imageNamed:self.dataSourceAddOnImages[indexPath.row]]];
             
-            [labelSettings setText:self.dataSourceSettings[indexPath.row]];
-            [labelSettings setAdjustsFontSizeToFitWidth:YES];
-            [labelSettings setLineBreakMode:NSLineBreakByClipping];
-            [labelSettings setMinimumScaleFactor:4];
-        }
-            break;
-        case 1: // addOn購入とリストア
-        {
+            [addOnTitle setText:self.dataSourceAddOnPurchase[indexPath.row]];
+            [addOnTitle setAdjustsFontSizeToFitWidth:YES];
+            [addOnTitle setLineBreakMode:NSLineBreakByClipping];
+            [addOnTitle setMinimumScaleFactor:4];
             
-            BITableViewCellHaveFourItems *addOnCell = (BITableViewCellHaveFourItems *)cell;
+            [purchaseBtn setTitle:_localedPrice forState:UIControlStateNormal];
+            NSLog(@"localedPrice%@",_localedPrice);
+            [purchaseBtn.layer setBorderColor:[[UIColor blueColor] CGColor]];
+            [purchaseBtn.layer setBorderWidth:1.0f];
             
-            UIImageView *imageViewAddOn = (UIImageView *)[addOnCell viewWithTag:1];
-            UILabel *labelAddOn = (UILabel *)[addOnCell viewWithTag:2];
-            UILabel *labelDescTitle = (UILabel *)[addOnCell viewWithTag:3];
-            UILabel *labelDescription = (UILabel *)[addOnCell viewWithTag:4];
-            UILabel *labelPurchased = (UILabel *)[addOnCell viewWithTag:5];
-            [labelPurchased setHidden:1];
-            [imageViewAddOn setImage:[UIImage imageNamed:self.dataSourceAddOnImages[indexPath.row]]];
             
-            [labelAddOn setText:self.dataSourceAddOn[indexPath.row]];
-            [labelAddOn setAdjustsFontSizeToFitWidth:YES];
-            [labelAddOn setLineBreakMode:NSLineBreakByClipping];
-            [labelAddOn setMinimumScaleFactor:4];
-            
-            [labelDescTitle setText:@"Desc:"];//説明
-            
-            [labelDescription setText:self.dataSourceAddOnDesc[indexPath.row]];
-            [labelDescription setAdjustsFontSizeToFitWidth:YES];
-            [labelDescription setLineBreakMode:NSLineBreakByClipping];
-            [labelDescription setMinimumScaleFactor:4];
-            
-            if (indexPath.row == 0) {// 購入セルををタップできるようにする。/できないようにする。
-                if (_purchased) {
-                    [addOnCell setSelectionStyle:UITableViewCellSelectionStyleNone];
-                    [addOnCell setBackgroundColor:RGB(230, 235, 240)];
-                    
-                    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){ // iPhoneだとセル一杯に文字が詰まるので元の説明文を消す
-                        NSLog(@"iPhoneの処理");
-                        [labelPurchased setCenter:CGPointMake(addOnCell.center.x, addOnCell.center.y)];
-                        [labelDescTitle setHidden:1];
-                        [labelDescription setHidden:1];
-                    }
-                    
-                    [labelPurchased setHidden:0];
-                }
-            } else if (indexPath.row == 1){ // リストアセルをタップできるようにする。/できないようにする。
-                if (_purchased) {
-                    [addOnCell setSelectionStyle:UITableViewCellSelectionStyleNone];
-                    [addOnCell setBackgroundColor:RGB(230, 235, 240)];
-                } else{
-                    
-                }
+            switch (indexPath.row) {
+                case 0: // @"PurchaseBtn"
+                    [purchaseBtn addTarget:self action:@selector(purchaseBtn:) forControlEvents:UIControlEventTouchUpInside];
+                    break;
+                default:
+                    break;
             }
-            
         }
             break;
-        case 2: // feedBack&share
-        {
-            
-            BIFeedbakAndActionCell *feedbackAndShareCell = (BIFeedbakAndActionCell *)cell;
-            
-            UIImageView *imageViewFeedbackAction = (UIImageView *)[feedbackAndShareCell viewWithTag:1];
-            UILabel *labelFeedbackAction = (UILabel *)[feedbackAndShareCell viewWithTag:2];
-            [imageViewFeedbackAction setImage:[UIImage imageNamed:self.dataSourceFeedbackAndShareImages[indexPath.row]]];
-            [labelFeedbackAction setText:self.dataSourceFeedbackAndShare[indexPath.row]];
-        }
-            break;
-        case 3: // otherApps
-        {
-            
-            BITableViewCellHaveFourItems *otherAppsCell = (BITableViewCellHaveFourItems *)cell;
-            
-            UIImageView *imageViewAppIcon = (UIImageView *)[otherAppsCell viewWithTag:1];
-            UILabel *labelAppName = (UILabel *)[otherAppsCell viewWithTag:2];
-            UILabel *labelFee = (UILabel *)[otherAppsCell viewWithTag:3];
-            UILabel *labelDescription = (UILabel *)[otherAppsCell viewWithTag:4];
-            UILabel *labelPurchased = (UILabel *)[otherAppsCell viewWithTag:5];
-            [labelPurchased removeFromSuperview];
-            
-            [imageViewAppIcon setImage:[UIImage imageNamed:self.dataSourceOtherAppsImages[indexPath.row]]];
-            [labelAppName setText:self.dataSourceOtherApps[indexPath.row]];
-            [labelFee setText:@"Free:"];
-            
-            [labelDescription setAdjustsFontSizeToFitWidth:YES];
-            [labelDescription setLineBreakMode:NSLineBreakByClipping];
-            [labelDescription setMinimumScaleFactor:4];
-            [labelDescription setText:self.dataSourceOtherAppsDesc[indexPath.row]];
-            
-        }
-            
-            break;
-        default:
+              default:
             break;
     }
     
@@ -265,23 +190,43 @@
     return cell;
 }
 
-// addonSectionのセルを購入済み時にタップ不可にする
--(NSIndexPath *)tableView:(UITableView *)tableView
- willSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    switch (indexPath.section) { // セクション1:AddOnCellのセクション
-        case 1:
-            if (_purchased) { // 購入済みのとき
-                return nil;
-            }
-            break;
-            
-        default:
-            break;
-    }
+-(void)purchaseBtn:(UIButton *)sender{
+
+        if (!_purchased) { // 購入してないときだけpaymentqueue生成
+                            NSLog(@"tapされてるか");
+            if ([self checkInAppPurchaseEnable] == YES){ // アプリ内課金制限がない場合はYES、制限有りはNO
+                NSLog(@"tapできてる");
+//                [self startProductRequest]; //プロダクトの取得
     
-    return indexPath;
+                SKPayment *payment = [SKPayment paymentWithProduct:_myProduct]; // 購入処理開始
+                [[SKPaymentQueue defaultQueue] addPayment:payment];
+                
+            } else {
+                // NOの場合のアラート表示
+                [self actionShowAppPurchaseLimitAlert];
+            }
+        }
+
+
+    
 }
+// addonSectionのセルをタップ不可にする
+//-(NSIndexPath *)tableView:(UITableView *)tableView
+// willSelectRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    switch (indexPath.section) { // セクション0:AddOnCellのセクション
+//        case 0:
+//
+//                return nil;
+//
+//            break;
+//            
+//        default:
+//            break;
+//    }
+//    
+//    return indexPath;
+//}
 
 // セクション毎のセクション名を設定
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
@@ -293,17 +238,9 @@
     CGFloat rowHeight;
     switch (indexPath.section) {
         case 0:
-            rowHeight = [kBITableViewCellHaveSwitch rowHeight];
+            rowHeight = 44;
             break;
-        case 1:
-            rowHeight = [BITableViewCellHaveFourItems rowHeight];
-            break;
-        case 2:
-            rowHeight = [BIFeedbakAndActionCell rowHeight];
-            break;
-        case 3:
-            rowHeight = [BITableViewCellHaveFourItems rowHeight];
-            break;
+
         default:
             break;
     }
@@ -319,100 +256,20 @@
     // cellがタップされた際の処理
     switch (indexPath.section) {
         case 0:
-            if (indexPath.row == 0) { //SoundEffectSettingsVC
-                kBISoundEffectSettingsViewController *sesVC = [self.storyboard instantiateViewControllerWithIdentifier:@"SoundEffectSettingsVC"];
-                //                [self presentViewController:sesVC animated:YES completion:nil];
-                [self.navigationController pushViewController:sesVC animated:YES];
-            } else if (indexPath.row == 1) { // MotionControlls
-                kBISettingMotionControllsViewController *smcVC = [self.storyboard instantiateViewControllerWithIdentifier:@"MotionControllSettingsVC"];
-                //                [self presentViewController:smcVC animated:YES completion:nil];
-                [self.navigationController pushViewController:smcVC animated:YES];
-            }
-            break;
-        case 1: //Add On
             if (indexPath.row == 0) {
                 
-                if (!_purchased) { // 購入してないときだけpaymentqueue生成
-                    if ([self checkInAppPurchaseEnable] == YES){ // アプリ内課金制限がない場合はYES、制限有りはNO
-                        NSLog(@"tapできてる");
-                        [self startProductRequest]; //プロダクトの取得
-                        
-                    } else {
-                        // NOの場合のアラート表示
-                        [self actionShowAppPurchaseLimitAlert];
-                    }
-                }
+
                 
-            }else if(indexPath.row == 1){
-                // TODO:リストア処理
-                NSLog(@"tapped");
-                [[SKPaymentQueue defaultQueue] restoreCompletedTransactions];
-                [_kIndicator indicatorStart];
             }
-            
-            break;
-        case 2: // Feedback / Share this App
-            if (indexPath.row == 0) { // App Store Review
-                [self actionPostAppStoreReview];
-            }else if (indexPath.row == 1) { // PostActivities
-                [self actionPostActivity:indexPath];
-            }
-            break;
-        case 3: // Other Apps
-            if (indexPath.row == 0) {
-                [self actionJumpToRollToCrash];
-            }
-            break;
+        break;
         default:
-            break;
+        break;
     }
     
 }
 
 
-- (void)actionPostAppStoreReview{
-    NSString *urlString = @"itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=942520127"; // karadamonomanizerのレビューページに飛ぶ
-    NSURL *url = [NSURL URLWithString:urlString];
-    [[UIApplication sharedApplication] openURL:url];
-}
 
-// actions
-- (void)actionPostActivity:(NSIndexPath *)indexPath{
-    NSString *textToShare = @"#KARADA MONOMANIZER NOW!";
-    NSString *urlString = @"http://itunes.apple.com/app/id942520127"; // KARADAMONOMANIZERのappstoreURL
-    NSURL *url = [NSURL URLWithString:urlString];
-    NSArray *activityItems = [[NSArray alloc] initWithObjects:textToShare,url, nil];
-    // 連携できるアプリを取得する
-    UIActivity *activity = [[UIActivity alloc]init];
-    NSArray *activities = @[activity];
-    // アクティビティコントローラーを作る
-    UIActivityViewController *activityVC = [[UIActivityViewController alloc]initWithActivityItems:activityItems applicationActivities:activities];
-    // Add to Reading Listをactivityから除外
-    NSArray *excludedActivityTypes = @[UIActivityTypeAddToReadingList];
-    activityVC.excludedActivityTypes = excludedActivityTypes;
-    
-    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
-    
-    activityVC.popoverPresentationController.sourceView = cell.contentView;
-    activityVC.popoverPresentationController.sourceRect = cell.bounds;
-    
-    
-    // アクティビティコントローラーを表示する
-    [self presentViewController:activityVC animated:YES completion:nil];
-    
-}
-
-
-
-- (void)actionJumpToRollToCrash{
-    NSString *urlString = @"itms-apps://itunes.apple.com/app/id912275000"; // rolltocrashのページに飛ぶ
-    NSURL *url = [NSURL URLWithString:urlString];
-    [[UIApplication sharedApplication] openURL:url];
-}
-
-- (void)actionRemoveAD{
-    
-}
 
 #pragma mark アプリ内課金
 // アプリ内課金制限有無を確認
@@ -477,7 +334,6 @@
 // アプリ内課金プロダクト情報の取得開始
 - (void)startProductRequest
 {
-    
     // com.companyname.application.productidは、「1-1. iTunes ConnectでManage In-App Purchasesの追加」で作成したProduct IDを設定します。
     NSSet *set = [NSSet setWithObjects:@"com.muyo.bodyImpersonator.remove_ad_up_registrable_number_of_images", nil];
     SKProductsRequest *productsRequest = [[SKProductsRequest alloc] initWithProductIdentifiers:set];
@@ -486,9 +342,10 @@
     
     [_kIndicator indicatorStart];
 }
-// プロダクト情報取得完了 // viewControllerにもコピペ
+// プロダクト情報取得完了
 - (void)productsRequest:(SKProductsRequest *)request
      didReceiveResponse:(SKProductsResponse *)response {
+    [_kIndicator indicatorStop];
     // アクションコントローラーのLocalizedStringを定義
     NSString *title = [[NSString alloc] initWithFormat:NSLocalizedString(@"Error", nil)];
     NSString *message = [[NSString alloc] initWithFormat:NSLocalizedString(@"ItemIDIsInvalid.", nil)];
@@ -522,16 +379,19 @@
         return;
     }
     
-    // プロダクトの取得
+    // プロダクトの購入
     for (SKProduct *product in response.products) {
         _myProduct = product;
-        SKPayment *payment = [SKPayment paymentWithProduct:_myProduct]; // 購入処理開始
-        [[SKPaymentQueue defaultQueue] addPayment:payment];
+
     }
-    if (_myProduct) {
-        //        [_kIndicator indicatorStart];
-    }
-    
+
+    NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+    [numberFormatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
+    [numberFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
+    [numberFormatter setLocale:_myProduct.priceLocale];
+    _localedPrice = [numberFormatter stringFromNumber:_myProduct.price];
+
+    [_tableView reloadData]; // これしないと価格表示されない
     
 }
 
