@@ -94,8 +94,7 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     _startPlayingWithBibeOn = [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_StartPlayingWithBibeOn"];
     // OSヴァージョンを取得
     _iOSVer = [[[UIDevice currentDevice] systemVersion] floatValue];
-
-    
+  
     // ナビゲーションコントローラのステータスバーの透過表示が気に入らないので隠す。
     [self.navigationController setNavigationBarHidden:YES animated:YES];
 
@@ -172,24 +171,19 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     _startPlayingByShakeOn = [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_StartPlayingByShakeOn"];
     _startPlayingWithBibeOn = [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_StartPlayingWithBibeOn"];
 
-    //    _purchased = NO; // デバッグ用 YESで購入後の状態
-    //            [[NSUserDefaults standardUserDefaults] setBool:_purchased forKey:@"KEY_Purchased"]; // 購入前の状態に戻す用
-    //            [[NSUserDefaults standardUserDefaults] synchronize]; // 購入前の状態に戻す用
-
 }
 
 -(void)viewDidLayoutSubviews{
      NSLog(@"purchased in mainview:%d",_purchased);
     // AppDelegateからの購入通知を登録する
         _purchased = [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_Purchased"];
+
     if (_purchased == NO) {
         // 広告表示のためのストーリボード上のレイアウト
         
     } else {
         [self adjustLayoutPurchased];
     }
-    
-
 }
 
 // ビューが表示されたときに実行される
@@ -423,6 +417,8 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     }else if ([segue.identifier isEqualToString:@"BackFromTappedImageVCRemoveItemBtn"]){
         [self actionRemoveItem:_tappedIndexPath];
     }else if ([segue.identifier isEqualToString:@"BackFromSettingVC"]){
+        [self viewDidLayoutSubviews];
+    }else if ([segue.identifier isEqualToString:@"BackFromPurcasedVC"]){
         [self viewDidLayoutSubviews];
     }
 }

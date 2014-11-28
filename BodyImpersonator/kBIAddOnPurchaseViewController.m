@@ -37,7 +37,7 @@
     // section名のListを作成
     self.sectionList = @[@"AddOn"];
     // table表示したいデータソースを設定
-    self.dataSourceAddOnPurchase = @[@"Remove AD & Registrable Cap"];
+    self.dataSourceAddOnPurchase = @[@"RemoveAD/RegistrableCap"];
 
    
     
@@ -160,7 +160,7 @@
             UILabel *addOnTitle = (UILabel *)[addOnCell viewWithTag:1];
             UIButton *purchaseBtn = (UIButton *)[addOnCell viewWithTag:2];
 
-//            [imageViewAddOn setImage:[UIImage imageNamed:self.dataSourceAddOnImages[indexPath.row]]];
+            [addOnCell setSelectionStyle:UITableViewCellSelectionStyleNone];
             
             [addOnTitle setText:self.dataSourceAddOnPurchase[indexPath.row]];
             [addOnTitle setAdjustsFontSizeToFitWidth:YES];
@@ -200,33 +200,31 @@
     
                 SKPayment *payment = [SKPayment paymentWithProduct:_myProduct]; // 購入処理開始
                 [[SKPaymentQueue defaultQueue] addPayment:payment];
+                   [_kIndicator indicatorStart];
                 
             } else {
                 // NOの場合のアラート表示
                 [self actionShowAppPurchaseLimitAlert];
             }
         }
-
-
-    
 }
 // addonSectionのセルをタップ不可にする
-//-(NSIndexPath *)tableView:(UITableView *)tableView
-// willSelectRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    switch (indexPath.section) { // セクション0:AddOnCellのセクション
-//        case 0:
-//
-//                return nil;
-//
-//            break;
-//            
-//        default:
-//            break;
-//    }
-//    
-//    return indexPath;
-//}
+-(NSIndexPath *)tableView:(UITableView *)tableView
+ willSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    switch (indexPath.section) { // セクション0:AddOnCellのセクション
+        case 0:
+
+                return nil;
+
+            break;
+            
+        default:
+            break;
+    }
+    
+    return indexPath;
+}
 
 // セクション毎のセクション名を設定
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
@@ -415,7 +413,7 @@
 -(void)purchaseCompleted:(NSNotification *)notification{
     // Indicatorを非表示にする
     [_kIndicator indicatorStop];
-    [self viewWillAppear:1];
+      [self performSegueWithIdentifier:@"BackFromPurcasedVC" sender:self];
     
 }
 -(void)restoreAppComplete:(NSNotification *)notification{// 復元機能が終わったところで通知

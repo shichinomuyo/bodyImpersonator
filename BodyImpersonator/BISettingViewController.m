@@ -33,28 +33,37 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 
-
-//    [self.tableView registerClass:[BIOtherAppsTableViewCell class] forCellReuseIdentifier:@"CellOtherApps"];
     // デリゲートメソッドをこのクラスで実装
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    
     // section名のListを作成
-    self.sectionList = @[@"Settings", @"Add On", @"Feedback / Share This App", @"Other Apps"];
-    // table表示したいデータソースを設定
-    self.dataSourceSettings = @[@"Sound&Effect",@"MotionControlls"];
+    NSString *settings = [[NSString alloc] initWithFormat:NSLocalizedString(@"Settings", nil)];
+    NSString *addOn = [[NSString alloc] initWithFormat:NSLocalizedString(@"AddOn", nil)];
+    NSString *feedbackShareThisApp = [[NSString alloc] initWithFormat:NSLocalizedString(@"Feedback/ShareThisApp", nil)];
+    NSString *otherApps = [[NSString alloc] initWithFormat:NSLocalizedString(@"OtherApps", nil)];
+    self.sectionList = @[settings, addOn, feedbackShareThisApp, otherApps];
+    // sectionごとにデータソースを作成
+    NSString *soundEffect = [[NSString alloc] initWithFormat:NSLocalizedString(@"Sound&Effect", nil)];
+    NSString *motionControlls = [[NSString alloc] initWithFormat:NSLocalizedString(@"MotionControlls", nil)];
+    self.dataSourceSettings = @[soundEffect , motionControlls]; // section0
     
-    self.dataSourceAddOn = @[@"Remove AD & Registrable Cap ",@"Restore"];
-    self.dataSourceAddOnImages = [NSArray arrayWithObjects:@"RemoveAD60@2x.png",@"RemoveAD60@2x.png", nil];
-    self.dataSourceAddOnDesc = @[@"Remove All AD & Registrable number of Images Increase 9 to 18",@"Restore AddOn"];
+    NSString *removeADandCap = [[NSString alloc] initWithFormat:NSLocalizedString(@"RemoveAD&RegistrableCap", nil)];
+    NSString *restore = [[NSString alloc] initWithFormat:NSLocalizedString(@"Restore", nil)];
+    NSString *addOnDesc = [[NSString alloc] initWithFormat:NSLocalizedString(@"Remove All AD & Registrable number of Images Increase 9 to 18", nil)];
+    NSString *restoreAddOn = [[NSString alloc] initWithFormat:NSLocalizedString(@"RestoreAddOn", nil)];
+    self.dataSourceAddOn = @[removeADandCap, restore]; // section1
+    self.dataSourceAddOnImages = [NSArray arrayWithObjects:@"RemoveAD60@2x.png",@"RemoveAD60@2x.png", nil]; //section1
+    self.dataSourceAddOnDesc = @[addOnDesc,restoreAddOn];//section1
     
+    NSString *appStoreReview = [[NSString alloc] initWithFormat:NSLocalizedString(@"App Store review", nil)];
+    NSString *shareThisApp = [[NSString alloc] initWithFormat:NSLocalizedString(@"Share This App", nil)];
+    self.dataSourceFeedbackAndShare = @[appStoreReview, shareThisApp];//section2
+    self.dataSourceFeedbackAndShareImages = [NSArray arrayWithObjects: @"Compose60@2x.png",@"ShareIcon60@2x.png", nil];//section2
     
-    self.dataSourceFeedbackAndShare = @[@"App Store review", @"Share This App"];
-    self.dataSourceFeedbackAndShareImages = [NSArray arrayWithObjects: @"Compose60@2x.png",@"ShareIcon60@2x.png", nil];
-    
+    NSString *rollToCrashDesc = [[NSString alloc] initWithFormat:NSLocalizedString(@"Play drumroll -> crashCymbal!", nil)]; //ドラムロール→クラッシュシンバルの音を鳴らせるアプリです。
     self.dataSourceOtherApps = @[@"RollToCrash"];
     self.dataSourceOtherAppsImages = [NSArray arrayWithObjects:@"ICONRollToCrashForLink60@2x.png", nil];
-    self.dataSourceOtherAppsDesc = @[@"ドラムロール→クラッシュシンバルの音を鳴らせるアプリです。"];
+    self.dataSourceOtherAppsDesc = @[rollToCrashDesc];
     
     _kIndicator = [kBIIndicator alloc];
     
