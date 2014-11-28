@@ -12,6 +12,7 @@ static const NSInteger kLIMITED_ITEM_NUMBER = 9;
 static const NSInteger kMAX_ITEM_NUMBER = 18;
 
 #define MY_BANNER_UNIT_ID @"ca-app-pub-5959590649595305/8782306070"
+#define MY_BANNER_UNIT_ID_FOR_iPAD @"ca-app-pub-5959590649595305/6784511271"
 #define MY_INTERSTITIAL_UNIT_ID @"ca-app-pub-5959590649595305/1259039270"
 
 @interface ViewController ()
@@ -60,12 +61,16 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     [appDefaults setObject:array forKey:@"KEY_imageNames"];
     // collectionViewに表示する画像に番号を振るために整数値を作成・初期化
     [appDefaults setObject:@"0" forKey:@"KEY_imageCount"];
+    // 選択中の画像の名前を入れておくKEY_selectedImageNameをNO_IMAGEで初期化
+    [appDefaults setObject:@"NO_IMAGE" forKey:@"KEY_selectedImageName"];
     // settingsを初期化
     [appDefaults setObject:@"YES" forKey:@"KEY_RollSoundOn"];
     [appDefaults setObject:@"YES" forKey:@"KEY_CrashSoundOn"];
     [appDefaults setObject:@"YES" forKey:@"KEY_FlashEffectOn"];
-    [appDefaults setObject:@"YES" forKey:@"KEY_StartPlayingByMotionOn"];
-    [appDefaults setObject:@"YES" forKey:@"KEY_FinishPlayingByMotionOn"];
+    [appDefaults setObject:@"YES" forKey:@"KEY_StartPlayingByShakeOn"];
+    [appDefaults setObject:@"YES" forKey:@"KEY_FinishPlayingByShakeOn"];
+    [appDefaults setObject:@"NO"  forKey:@"KEY_StartPlayingWithBibeOn"];
+    [appDefaults setObject:@"YES" forKey:@"KEY_FinishPlayingWithBibeOn"];
     // 再生中のバックグランドカラーを初期化
     [appDefaults setObject:@"Black" forKey:@"KEY_PlayVCBGColor"];
     // アプリ内課金状況を初期化
@@ -76,53 +81,6 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     [userDefaults registerDefaults:appDefaults];
 }
 
-- (void)addAdBanners{
-        // サイズを指定してAdMobインスタンスを生成
-        bannerView_ = [[GADBannerView alloc] initWithAdSize:kGADAdSizeSmartBannerPortrait];
-    
-        // AdMobのパブリッシャーIDを指定
-        bannerView_.adUnitID = MY_BANNER_UNIT_ID;
-    
-        // AdMob広告を表示するViewController(自分自身)を指定し、ビューに広告を追加
-        bannerView_.rootViewController = self;
-        [self.view addSubview:bannerView_];
-    
-        // ビューの一番下に表示
-        [bannerView_ setCenter:CGPointMake(self.view.bounds.size.width/2, self.view.bounds.size.height - bannerView_.bounds.size.height/2)];
-    
-        // 【Ad】AdMob広告データの読み込みを要求
-        [bannerView_ loadRequest:[GADRequest request]];
-        // AdMobバナーの回転時のautosize
-//        bannerView_.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
-    
-    
-        //NADViewの作成
-//        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
-//            NSLog(@"iPhoneの処理");
-//            self.nadView = [[NADView alloc] initWithFrame:CGRectMake(0, 0, 320, 50)];
-//            [self.nadView setCenter:CGPointMake(self.view.bounds.size.width/2, self.nadView.bounds.size.height/2)];
-//            // (3) ログ出力の指定
-//            [self.nadView setIsOutputLog:YES];
-//            // (4) set apiKey, spotId.
-//            //        [self.nadView setNendID:@"a6eca9dd074372c898dd1df549301f277c53f2b9" spotID:@"3172"]; // テスト用
-//            [self.nadView setNendID:@"139154ca4d546a7370695f0ba43c9520730f9703" spotID:@"208229"];
-//    
-//        }
-//        else{
-//            NSLog(@"iPadの処理");
-//            self.nadView = [[NADView alloc] initWithFrame:CGRectMake(0, 0, 728, 90)];
-//            [self.nadView setCenter:CGPointMake(self.view.bounds.size.width/2, self.nadView.bounds.size.height/2)]; // ヘッダー
-//            // (3) ログ出力の指定
-//            [self.nadView setIsOutputLog:NO];
-//            // (4) set apiKey, spotId.
-//            //      [self.nadView setNendID:@"2e0b9e0b3f40d952e6000f1a8c4d455fffc4ca3a" spotID:@"70999"]; // テスト用
-//            [self.nadView setNendID:@"19d17a40ad277a000f27111f286dc6aaa0ad146b" spotID:@"220604"];
-//    
-//        }
-//        [self.nadView setDelegate:self]; //(5)
-//        [self.nadView load]; //(6)
-//        [self.view addSubview:self.nadView]; // 最初から表示する場合
-}
 
 #pragma mark -
 
@@ -132,6 +90,8 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     // Do any additional setup after loading the view, typically from a nib.
     // 購入フラグを確認
     _purchased = [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_Purchased"];
+    _startPlayingByShakeOn = [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_StartPlayingByShakeOn"];
+    _startPlayingWithBibeOn = [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_StartPlayingWithBibeOn"];
     // OSヴァージョンを取得
     _iOSVer = [[[UIDevice currentDevice] systemVersion] floatValue];
 
@@ -209,6 +169,8 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     [self.nadView resume];
     // Addon購入状態を取得
     NSLog(@"viewwillAppear");
+    _startPlayingByShakeOn = [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_StartPlayingByShakeOn"];
+    _startPlayingWithBibeOn = [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_StartPlayingWithBibeOn"];
 
     //    _purchased = NO; // デバッグ用 YESで購入後の状態
     //            [[NSUserDefaults standardUserDefaults] setBool:_purchased forKey:@"KEY_Purchased"]; // 購入前の状態に戻す用
@@ -239,18 +201,25 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     NSInteger memoryCountNumberOfInterstitialDidAppear = [defaults integerForKey:@"KEY_memoryCountNumberOfInterstitialDidAppear"];
 
     NSLog(@"countUpViewChanged %ld", (long)countViewChanged);
-    // 広告表示フラグ確認
 
-    if (countViewChanged != memoryCountNumberOfInterstitialDidAppear) { // 別ビューを表示してもどってきても大丈夫なように
-        if (_purchased == NO) {
-            // 広告表示
-            [self addAdBanners];
+    // 広告表示
+    if (!_purchased) {
+        // バナー広告表示
+        [self addAdBanners];
+        
+        // インタースティシャル広告表示
+        if (countViewChanged != memoryCountNumberOfInterstitialDidAppear) { // 別ビューを表示してもどってきても大丈夫なように
             if ((countViewChanged % kINTERSTITIAL_DISPLAY_RATE) == 0) {
-            [self interstitialLoad];
-                   NSLog(@"インタースティシャルロードチェック");
+                [self interstitialLoad];
+                NSLog(@"インタースティシャルロードチェック");
             }
         }
+    }else{
+        if (bannerView_){
+            [bannerView_ removeFromSuperview];
+        }
     }
+    
     // 最大登録可能数の決定
     if (_purchased == NO) {
         _limitedNumberOfImages = kLIMITED_ITEM_NUMBER; // 9個
@@ -307,6 +276,73 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     // Dispose of any resources that can be recreated.
 }
 
+
+- (void)addAdBanners{
+    NSLog(@"AdBanners");
+    // サイズを指定してAdMobインスタンスを生成
+    bannerView_ = [[GADBannerView alloc] initWithAdSize:kGADAdSizeSmartBannerPortrait];
+    
+    // AdMobのパブリッシャーIDを指定
+    NSString *bannerUnitID;
+    
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){ // nendのバナー広告をメディエーションで組み込んでおり、nendのバナー広告は自動でサイズ調整を行わないので２つのADMOBバナー広告を用意している。
+        bannerUnitID = MY_BANNER_UNIT_ID;
+    }
+    else{
+        bannerUnitID = MY_BANNER_UNIT_ID;
+//        bannerUnitID = MY_BANNER_UNIT_ID_FOR_iPAD;
+    }
+    bannerView_.adUnitID = bannerUnitID;
+    
+    // AdMob広告を表示するViewController(自分自身)を指定し、ビューに広告を追加
+    bannerView_.rootViewController = self;
+    [self.view addSubview:bannerView_];
+    
+    // ビューの一番下に表示
+    [bannerView_ setCenter:CGPointMake(self.view.bounds.size.width/2, self.view.bounds.size.height - bannerView_.bounds.size.height/2)];
+    
+    // 【Ad】AdMob広告データの読み込みを要求
+    {
+    GADRequest *testRequest = [GADRequest request];
+    testRequest.testDevices = [NSArray arrayWithObjects:
+                               @"",@"45f1d4a8dbc44781969f09433ccac7e0", nil];
+    [bannerView_ loadRequest:testRequest];
+    }
+//    [bannerView_ loadRequest:[GADRequest request]]; // 本番はこの行だけでいい
+    
+
+    // AdMobバナーの回転時のautosize
+    //        bannerView_.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
+    
+    
+    //NADViewの作成
+    //        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
+    //            NSLog(@"iPhoneの処理");
+    //            self.nadView = [[NADView alloc] initWithFrame:CGRectMake(0, 0, 320, 50)];
+    //            [self.nadView setCenter:CGPointMake(self.view.bounds.size.width/2, self.nadView.bounds.size.height/2)];
+    //            // (3) ログ出力の指定
+    //            [self.nadView setIsOutputLog:YES];
+    //            // (4) set apiKey, spotId.
+    //            //        [self.nadView setNendID:@"a6eca9dd074372c898dd1df549301f277c53f2b9" spotID:@"3172"]; // テスト用
+    //            [self.nadView setNendID:@"139154ca4d546a7370695f0ba43c9520730f9703" spotID:@"208229"];
+    //
+    //        }
+    //        else{
+    //            NSLog(@"iPadの処理");
+    //            self.nadView = [[NADView alloc] initWithFrame:CGRectMake(0, 0, 728, 90)];
+    //            [self.nadView setCenter:CGPointMake(self.view.bounds.size.width/2, self.nadView.bounds.size.height/2)]; // ヘッダー
+    //            // (3) ログ出力の指定
+    //            [self.nadView setIsOutputLog:NO];
+    //            // (4) set apiKey, spotId.
+    //            //      [self.nadView setNendID:@"2e0b9e0b3f40d952e6000f1a8c4d455fffc4ca3a" spotID:@"70999"]; // テスト用
+    //            [self.nadView setNendID:@"19d17a40ad277a000f27111f286dc6aaa0ad146b" spotID:@"220604"];
+    //
+    //        }
+    //        [self.nadView setDelegate:self]; //(5)
+    //        [self.nadView load]; //(6)
+    //        [self.view addSubview:self.nadView]; // 最初から表示する場合
+}
+
 #pragma mark -
 #pragma mark Segue
 // previewVCとplayVCへ遷移するときの値渡し
@@ -334,14 +370,15 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
 
 // previewVCとplayVCへ遷移するときの条件設定
 -(BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender{
+    
     if ([identifier isEqualToString:@"pushToPreviewVC"] || [identifier isEqualToString:@"moveToPlayVC"]) {
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         NSArray *imageNames = [defaults objectForKey:@"KEY_imageNames"];
         // 選択していた_selectedIndexPath.rowにimageNamesが無い場合は画面遷移させない
-        if ([imageNames safeObjectAtIndex:(int)(_selectedIndexPath.row)] == nil) {
+        if ([imageNames safeObjectAtIndex:(int)(_selectedIndexPath.row)] == nil) { // 画像の登録が０のとき
             [self actionShowAlert];
             return NO;
-        }else {
+        }else { // 選択中の画像がimageNamesにないとき
             NSString *imageName = [imageNames objectAtIndex:(int)(_selectedIndexPath.row)];
             NSString *selectedImageName = [defaults objectForKey:@"KEY_selectedImageName"];
             NSLog(@"imageNameAtIndexPath.row:%@",imageName);
@@ -489,10 +526,29 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
 //    return reusableView;
 //}
 
+
+#pragma - mart motionAction
+-(void)motionBegan:(UIEventSubtype)motion withEvent:(UIEvent *)event{
+    // 選択中の画像がimageNamesにないとき
+        NSString *selectedImageName = [[NSUserDefaults standardUserDefaults] objectForKey:@"KEY_selectedImageName"];
+        NSLog(@"selectedImageName:%@",selectedImageName);
+        // 選択していた_selectedIndexPath.rowのimageNameとselectedImageNameが異なる場合は遷移させない
+        if ([selectedImageName isEqualToString:@"NO_IMAGE"]) {
+            [self actionShowAlert];
+        }else {
+            if (_startPlayingByShakeOn) {
+                if (_startPlayingWithBibeOn) {
+                    AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+                }
+                [self performSegueWithIdentifier:@"moveToPlayVC" sender:self];
+            }
+
+        }
+}
 #pragma mark -
 #pragma mark touchAction
 - (IBAction)previewUIBtn:(UIButton *)sender {
-    [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
+//    [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
     // デバイスがiphoneであるかそうでないかで分岐
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
         // iPhoneの処理
@@ -603,7 +659,7 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
 }
 // 画面遷移できないときのアラート表示
 - (void)actionShowAlert{
-    
+
     NSString *title = [[NSString alloc] initWithFormat:NSLocalizedString(@"First,PleaseAddImage.", nil)];
     NSString *message = [[NSString alloc] initWithFormat:NSLocalizedString(@"Tap+IconToAddImageFromAlbumOrCam", nil)];
     
@@ -1055,7 +1111,7 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
         // KEY_selectedImageNameを更新することでとなりのセルを選択状態にする
         if ((int)(indexPath.row) == 0) { // 削除するのが配列の一番最初のアイテムだった場合
             if ([imageNames count] == 1) { // かつ最後のひとつのアイテムだった場合
-                [defaults setObject:@"NO Images." forKey:@"KEY_selectedImageName"]; // No Images
+                [defaults setObject:@"NO_IMAGE" forKey:@"KEY_selectedImageName"]; // No Images
             }else{// アイテムが2つ以上残っている場合
                 NSString *rightImageName = [imageNames objectAtIndex:(int)(indexPath.row)+1];
                 [defaults setObject:rightImageName forKey:@"KEY_selectedImageName"];
@@ -1186,9 +1242,6 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     NSLog(@"adView:didFailToReceiveAdWithError:%@", [error localizedDescription]);
     
     // 他の広告ネットワークの広告を表示させるなど。
-    
-    // 操作無効解除
-    [[UIApplication sharedApplication] endIgnoringInteractionEvents];
     // インジケーターを止める
     [_kIndicator indicatorStop];
 }

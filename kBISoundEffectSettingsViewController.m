@@ -202,7 +202,8 @@
         case 1: //Background Color
             if (indexPath.row == 0) {
                 kBISettingColorViewController *settingColorVC = [self.storyboard instantiateViewControllerWithIdentifier:@"SettingColorVC"];
-                [self presentViewController:settingColorVC animated:YES completion:nil];
+//                [self presentViewController:settingColorVC animated:YES completion:nil];
+                [self.navigationController pushViewController:settingColorVC animated:YES];
             }
             break;
         default:

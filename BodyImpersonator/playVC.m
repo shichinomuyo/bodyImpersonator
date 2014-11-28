@@ -81,6 +81,8 @@
     self.crashSoundOn = [[NSUserDefaults standardUserDefaults]boolForKey:@"KEY_CrashSoundOn"];
     self.flashOn = [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_FlashEffectOn"];
     self.bgColorName = [[NSUserDefaults standardUserDefaults] objectForKey:@"KEY_PlayVCBGColor"];
+    self.finishPlayingByShakeOn = [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_FinishPlayingByShakeOn"];
+    self.finishPlayingWithBibeOn= [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_FinishPlayingWithBibeOn"];
     NSLog(@"bgColorName:%@",self.bgColorName);
     [self initializeAVAudioPlayers];
     
@@ -324,11 +326,16 @@
 #pragma mark motionAction
 - (void)motionBegan:(UIEventSubtype)motion withEvent:(UIEvent *)event{
     // selectedPhotoImageが非表示(起動時の画面)のときにだけ反応
-    if (self.BFCV.knobImageView.hidden == 1) {
-        // バイブレーションを動作させる
-        AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
-        [self stopDrumRoll];
-
+    if (_finishPlayingByShakeOn) {
+        if (self.BFCV.knobImageView.hidden == 1) {
+            if (_finishPlayingWithBibeOn) {
+                // バイブレーションを動作させる
+                AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+            }
+            // ドラムロールを止めてクラッシュ再生と画像表示
+            [self stopDrumRoll];
+            
+        }
     }
 }
 

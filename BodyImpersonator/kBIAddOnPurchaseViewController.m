@@ -1,29 +1,19 @@
 //
-//  BISettingViewController.m
+//  kBIAddOnPurchaseViewController.m
 //  BodyImpersonator
 //
-//  Created by 七野祐太 on 2014/11/11.
+//  Created by 七野祐太 on 2014/11/28.
 //  Copyright (c) 2014年 shichino yuta. All rights reserved.
 //
 
-#import "BISettingViewController.h"
+#import "kBIAddOnPurchaseViewController.h"
 
-@interface BISettingViewController ()
-@property (nonatomic, strong) NSArray *sectionList;
-@property (nonatomic, strong) NSArray *dataSourceSettings;
-@property (nonatomic, strong) NSArray *dataSourceAddOn;
-@property (nonatomic, strong) NSArray *dataSourceAddOnImages;
-@property (nonatomic, strong) NSArray *dataSourceAddOnDesc;
-@property (nonatomic, strong) NSArray *dataSourceFeedbackAndShare;
-@property (nonatomic, strong) NSArray *dataSourceFeedbackAndShareImages;
-@property (nonatomic, strong) NSArray *dataSourceOtherApps;
-@property (nonatomic, strong) NSArray *dataSourceOtherAppsImages;
-@property (nonatomic, strong) NSArray *dataSourceOtherAppsDesc;
+@interface kBIAddOnPurchaseViewController ()
 
 @end
 
-@implementation BISettingViewController{
-
+@implementation kBIAddOnPurchaseViewController{
+    
     kBIIndicator *_kIndicator;
     SKProduct *_myProduct;
 }
@@ -31,9 +21,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-
-
-//    [self.tableView registerClass:[BIOtherAppsTableViewCell class] forCellReuseIdentifier:@"CellOtherApps"];
+    
+    
+    //    [self.tableView registerClass:[BIOtherAppsTableViewCell class] forCellReuseIdentifier:@"CellOtherApps"];
     // デリゲートメソッドをこのクラスで実装
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -60,7 +50,7 @@
 }
 
 -(void)viewWillAppear:(BOOL)animated{
-     [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:NO];
+    [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:NO];
     [self.tableView reloadData];
     //購入済みかチェック
     _purchased = [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_Purchased"];
@@ -122,14 +112,14 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 #pragma mark - Table view data source
 
@@ -175,7 +165,7 @@
         {
             UITableViewCell *settingsCell = (UITableViewCell *)cell;
             UILabel *labelSettings = (UILabel *)[settingsCell viewWithTag:1];
-
+            
             [labelSettings setText:self.dataSourceSettings[indexPath.row]];
             [labelSettings setAdjustsFontSizeToFitWidth:YES];
             [labelSettings setLineBreakMode:NSLineBreakByClipping];
@@ -211,14 +201,14 @@
                 if (_purchased) {
                     [addOnCell setSelectionStyle:UITableViewCellSelectionStyleNone];
                     [addOnCell setBackgroundColor:RGB(230, 235, 240)];
-
+                    
                     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){ // iPhoneだとセル一杯に文字が詰まるので元の説明文を消す
                         NSLog(@"iPhoneの処理");
                         [labelPurchased setCenter:CGPointMake(addOnCell.center.x, addOnCell.center.y)];
                         [labelDescTitle setHidden:1];
                         [labelDescription setHidden:1];
                     }
-
+                    
                     [labelPurchased setHidden:0];
                 }
             } else if (indexPath.row == 1){ // リストアセルをタップできるようにする。/できないようにする。
@@ -226,12 +216,12 @@
                     [addOnCell setSelectionStyle:UITableViewCellSelectionStyleNone];
                     [addOnCell setBackgroundColor:RGB(230, 235, 240)];
                 } else{
-
+                    
                 }
             }
-
+            
         }
-             break;
+            break;
         case 2: // feedBack&share
         {
             
@@ -245,9 +235,9 @@
             break;
         case 3: // otherApps
         {
-
+            
             BITableViewCellHaveFourItems *otherAppsCell = (BITableViewCellHaveFourItems *)cell;
-
+            
             UIImageView *imageViewAppIcon = (UIImageView *)[otherAppsCell viewWithTag:1];
             UILabel *labelAppName = (UILabel *)[otherAppsCell viewWithTag:2];
             UILabel *labelFee = (UILabel *)[otherAppsCell viewWithTag:3];
@@ -258,20 +248,20 @@
             [imageViewAppIcon setImage:[UIImage imageNamed:self.dataSourceOtherAppsImages[indexPath.row]]];
             [labelAppName setText:self.dataSourceOtherApps[indexPath.row]];
             [labelFee setText:@"Free:"];
-
+            
             [labelDescription setAdjustsFontSizeToFitWidth:YES];
             [labelDescription setLineBreakMode:NSLineBreakByClipping];
             [labelDescription setMinimumScaleFactor:4];
             [labelDescription setText:self.dataSourceOtherAppsDesc[indexPath.row]];
-
+            
         }
-
+            
             break;
         default:
             break;
     }
     
-
+    
     return cell;
 }
 
@@ -282,14 +272,14 @@
     switch (indexPath.section) { // セクション1:AddOnCellのセクション
         case 1:
             if (_purchased) { // 購入済みのとき
-                   return nil;
+                return nil;
             }
-        break;
+            break;
             
         default:
             break;
     }
-
+    
     return indexPath;
 }
 
@@ -317,7 +307,7 @@
         default:
             break;
     }
-
+    
     return rowHeight;
 }
 
@@ -325,17 +315,17 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-   [self.tableView reloadData];
+    [self.tableView reloadData];
     // cellがタップされた際の処理
     switch (indexPath.section) {
         case 0:
             if (indexPath.row == 0) { //SoundEffectSettingsVC
-                   kBISoundEffectSettingsViewController *sesVC = [self.storyboard instantiateViewControllerWithIdentifier:@"SoundEffectSettingsVC"];
-//                [self presentViewController:sesVC animated:YES completion:nil];
+                kBISoundEffectSettingsViewController *sesVC = [self.storyboard instantiateViewControllerWithIdentifier:@"SoundEffectSettingsVC"];
+                //                [self presentViewController:sesVC animated:YES completion:nil];
                 [self.navigationController pushViewController:sesVC animated:YES];
             } else if (indexPath.row == 1) { // MotionControlls
                 kBISettingMotionControllsViewController *smcVC = [self.storyboard instantiateViewControllerWithIdentifier:@"MotionControllSettingsVC"];
-//                [self presentViewController:smcVC animated:YES completion:nil];
+                //                [self presentViewController:smcVC animated:YES completion:nil];
                 [self.navigationController pushViewController:smcVC animated:YES];
             }
             break;
@@ -346,20 +336,20 @@
                     if ([self checkInAppPurchaseEnable] == YES){ // アプリ内課金制限がない場合はYES、制限有りはNO
                         NSLog(@"tapできてる");
                         [self startProductRequest]; //プロダクトの取得
-
+                        
                     } else {
                         // NOの場合のアラート表示
                         [self actionShowAppPurchaseLimitAlert];
                     }
                 }
-
+                
             }else if(indexPath.row == 1){
-                    // TODO:リストア処理
-                    NSLog(@"tapped");
-                    [[SKPaymentQueue defaultQueue] restoreCompletedTransactions];
-                    [_kIndicator indicatorStart];
+                // TODO:リストア処理
+                NSLog(@"tapped");
+                [[SKPaymentQueue defaultQueue] restoreCompletedTransactions];
+                [_kIndicator indicatorStart];
             }
-    
+            
             break;
         case 2: // Feedback / Share this App
             if (indexPath.row == 0) { // App Store Review
@@ -402,10 +392,10 @@
     activityVC.excludedActivityTypes = excludedActivityTypes;
     
     UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
-
+    
     activityVC.popoverPresentationController.sourceView = cell.contentView;
     activityVC.popoverPresentationController.sourceRect = cell.bounds;
-
+    
     
     // アクティビティコントローラーを表示する
     [self presentViewController:activityVC animated:YES completion:nil];
@@ -421,7 +411,7 @@
 }
 
 - (void)actionRemoveAD{
-
+    
 }
 
 #pragma mark アプリ内課金
@@ -441,8 +431,8 @@
     NSString *action1 = [[NSString alloc] initWithFormat:NSLocalizedString(@"OK", nil)];
     Class class = NSClassFromString(@"UIAlertController"); // iOS8/7の切り分けフラグに使用
     if (class) {
-
-
+        
+        
         // アクションコントローラー生成
         UIAlertController *actionController =
         [UIAlertController alertControllerWithTitle:title
@@ -451,14 +441,14 @@
         [actionController addAction:[UIAlertAction actionWithTitle:action1
                                                              style:UIAlertActionStyleDefault
                                                            handler:^(UIAlertAction *action) {
-
+                                                               
                                                                
                                                            }]];
-
+        
         actionController.popoverPresentationController.sourceView = self.view;
-            // アクションコントローラーを表示
-            [self presentViewController:actionController animated:YES completion:nil];
-
+        // アクションコントローラーを表示
+        [self presentViewController:actionController animated:YES completion:nil];
+        
         
         
     } else{
@@ -471,14 +461,14 @@
         
         [alert show];
     }
-
+    
 }
 
 
 - (void)startRestore{
-//    NSSet *set = [NSSet setWithObjects:@"com.muyo.bodyImpersonator.remove_ad_up_registrable_number_of_images", nil];
-//    SKProductsRequest *productsRequest = [[SKProductsRequest alloc] initWithProductIdentifiers:set];
-//    productsRequest.delegate = self;
+    //    NSSet *set = [NSSet setWithObjects:@"com.muyo.bodyImpersonator.remove_ad_up_registrable_number_of_images", nil];
+    //    SKProductsRequest *productsRequest = [[SKProductsRequest alloc] initWithProductIdentifiers:set];
+    //    productsRequest.delegate = self;
     [[SKPaymentQueue defaultQueue] restoreCompletedTransactions];
     
 }
@@ -487,7 +477,7 @@
 // アプリ内課金プロダクト情報の取得開始
 - (void)startProductRequest
 {
-
+    
     // com.companyname.application.productidは、「1-1. iTunes ConnectでManage In-App Purchasesの追加」で作成したProduct IDを設定します。
     NSSet *set = [NSSet setWithObjects:@"com.muyo.bodyImpersonator.remove_ad_up_registrable_number_of_images", nil];
     SKProductsRequest *productsRequest = [[SKProductsRequest alloc] initWithProductIdentifiers:set];
@@ -503,24 +493,24 @@
     NSString *title = [[NSString alloc] initWithFormat:NSLocalizedString(@"Error", nil)];
     NSString *message = [[NSString alloc] initWithFormat:NSLocalizedString(@"ItemIDIsInvalid.", nil)];
     NSString *action1 = [[NSString alloc] initWithFormat:NSLocalizedString(@"OK", nil)];
-
+    
     // 無効なアイテムがないかチェック
     if ([response.invalidProductIdentifiers count] > 0) {
-            [_kIndicator indicatorStop];
+        [_kIndicator indicatorStop];
         Class class = NSClassFromString(@"UIAlertController"); // iOS8/7の切り分けフラグに使用
         if (class) { // iOS8の処理
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title
-                                                                                  message:message
-                                                                           preferredStyle:UIAlertControllerStyleAlert];
-        [alertController addAction:[UIAlertAction actionWithTitle:action1
-                                                            style:UIAlertActionStyleDefault
-                                                          handler:^(UIAlertAction *action) {
-                                                              
-                                                          }]];
-
-
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title
+                                                                                     message:message
+                                                                              preferredStyle:UIAlertControllerStyleAlert];
+            [alertController addAction:[UIAlertAction actionWithTitle:action1
+                                                                style:UIAlertActionStyleDefault
+                                                              handler:^(UIAlertAction *action) {
+                                                                  
+                                                              }]];
+            
+            
             [self presentViewController:alertController animated:YES completion:nil];
-        
+            
         }else{ // iOS7の処理
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
                                                             message:message
@@ -531,7 +521,7 @@
         }
         return;
     }
-
+    
     // プロダクトの取得
     for (SKProduct *product in response.products) {
         _myProduct = product;
@@ -539,10 +529,10 @@
         [[SKPaymentQueue defaultQueue] addPayment:payment];
     }
     if (_myProduct) {
-//        [_kIndicator indicatorStart];
+        //        [_kIndicator indicatorStart];
     }
     
-
+    
 }
 
 
@@ -565,14 +555,14 @@
 -(void)purchaseCompleted:(NSNotification *)notification{
     // Indicatorを非表示にする
     [_kIndicator indicatorStop];
-        [self viewWillAppear:1];
+    [self viewWillAppear:1];
     
 }
 -(void)restoreAppComplete:(NSNotification *)notification{// 復元機能が終わったところで通知
-
+    
     // Indicatorを非表示にする
     [_kIndicator indicatorStop];
-
+    
     
     NSString *title = [[NSString alloc] initWithFormat:NSLocalizedString(@"RestoreCompleted.", nil)];
     //    NSString *message = [[NSString alloc] initWithFormat:NSLocalizedString(@"Tap+IconToAddImageFromAlbumOrCam", nil)];
@@ -607,7 +597,7 @@
         [alert show];
         
     }
-
+    
 }
 -(void)restoreCompleted:(NSNotification *)notification{ //機能復元だけじゃなくてリストア処理がひと通り終わったときの通知を受ける
     // Indicatorを非表示にする
@@ -653,4 +643,5 @@
     [_kIndicator indicatorStop];
     NSLog(@"restorefailed");
 }
+
 @end

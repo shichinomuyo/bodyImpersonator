@@ -22,6 +22,8 @@
 @property BOOL rollSoundOn;
 @property BOOL crashSoundOn;
 @property BOOL flashOn;
+@property BOOL finishPlayingByShakeOn;
+@property BOOL finishPlayingWithBibeOn;
 @property NSString *bgColorName;
 
 @end

@@ -56,30 +56,32 @@
     for (SKPaymentTransaction *transaction in transactions) {
         switch (transaction.transactionState) {
             case SKPaymentTransactionStatePurchasing:
+            {
                 // NSLog(@"購入処理中");
                 // TODO: インジケータなど回して頑張ってる感を出す。
+
+            }
                 break;
             case SKPaymentTransactionStatePurchased:
+            {
                 // NSLog(@"購入成功");
                 // 購入完了したことを通知する
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"Purchased" object:transaction];
                 // TODO: アイテム購入した処理（アップグレード版の機能制限解除処理等）
                 [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"KEY_Purchased"];
-//                [self upgradeRemoveAllAD];
-//                [self upgradeRemoveLimitNumberOfImages];
+
                 // TODO: 購入の持続的な記録
-            {
             }
+                
                 [queue finishTransaction:transaction];
                 break;
             case SKPaymentTransactionStateFailed:
+            {
                 // NSLog(@"購入失敗: %@, %@", transaction.transactionIdentifier, transaction.error);
                 // ユーザが購入処理をキャンセルした場合もここにくる
                 // TODO: 失敗のアラート表示等
-                
-            {
                 [queue finishTransaction:transaction];
-                    [[NSNotificationCenter defaultCenter] postNotificationName:@"RestoreFailed" object:transaction];
+                   [[NSNotificationCenter defaultCenter] postNotificationName:@"Failed" object:transactions];
 
                 // アクションコントローラーのLocalizedStringを定義
 //                NSString *title = [[NSString alloc] initWithFormat:NSLocalizedString(@"Error", nil)];
@@ -110,15 +112,17 @@
             }
                 break;
             case SKPaymentTransactionStateRestored:
+            {
                 // リストア処理
                 // 機能復元完了を通知
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"RestoreAppComplete" object:transaction];
                 // TODO: アイテム購入した処理（アップグレード版の機能制限解除処理等）
                 [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"KEY_Purchased"];
-//                [self upgradeRemoveAllAD];
-//                [self upgradeRemoveLimitNumberOfImages];
-                 NSLog(@"以前に購入した機能を復元");
+                NSLog(@"以前に購入した機能を復元");
                 [queue finishTransaction:transaction];
+
+            }
+
                 break;
             default:
                 [queue finishTransaction:transaction];

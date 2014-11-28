@@ -44,7 +44,7 @@
 @property (strong,nonatomic) NSIndexPath *tappedIndexPath;
 @property int limitedNumberOfImages;
 @property BOOL purchased;
-
-
+@property BOOL startPlayingByShakeOn;
+@property BOOL startPlayingWithBibeOn;
 
 @end
