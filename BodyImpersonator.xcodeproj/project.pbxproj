@@ -398,6 +398,7 @@
 		56A4B1FA19FB2C950009CC37 /* PreviewIcon44x44.png in Resources */ = {isa = PBXBuildFile; fileRef = 56A4B1F719FB2C950009CC37 /* PreviewIcon44x44.png */; };
 		56A4B1FC19FB2DB10009CC37 /* CollectionViewCellFrame188x188.png in Resources */ = {isa = PBXBuildFile; fileRef = 56A4B1FB19FB2DB10009CC37 /* CollectionViewCellFrame188x188.png */; };
 		56A4B1FF19FB70C40009CC37 /* NSArray+IndexHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 56A4B1FE19FB70C40009CC37 /* NSArray+IndexHelper.m */; };
+		56A9A9F61A2804A700DBE7F4 /* kBISettingMotionControllsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56A9A9F41A2804A700DBE7F4 /* kBISettingMotionControllsViewController.m */; };
 		56C9954A1A088C180006477D /* BugFixContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 56C995491A088C180006477D /* BugFixContainerView.m */; };
 		56E14FFA19FD26DB0029B81D /* AddImage188x188.png in Resources */ = {isa = PBXBuildFile; fileRef = 56E14FF919FD26DB0029B81D /* AddImage188x188.png */; };
 		56E14FFD19FF38930029B81D /* playVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 56E14FFC19FF38930029B81D /* playVC.m */; };
@@ -616,6 +617,8 @@
 		56A4B1FB19FB2DB10009CC37 /* CollectionViewCellFrame188x188.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CollectionViewCellFrame188x188.png; sourceTree = "<group>"; };
 		56A4B1FD19FB70C40009CC37 /* NSArray+IndexHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+IndexHelper.h"; sourceTree = "<group>"; };
 		56A4B1FE19FB70C40009CC37 /* NSArray+IndexHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+IndexHelper.m"; sourceTree = "<group>"; };
+		56A9A9F31A2804A700DBE7F4 /* kBISettingMotionControllsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kBISettingMotionControllsViewController.h; sourceTree = "<group>"; };
+		56A9A9F41A2804A700DBE7F4 /* kBISettingMotionControllsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = kBISettingMotionControllsViewController.m; sourceTree = "<group>"; };
 		56C995481A088C180006477D /* BugFixContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BugFixContainerView.h; sourceTree = "<group>"; };
 		56C995491A088C180006477D /* BugFixContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BugFixContainerView.m; sourceTree = "<group>"; };
 		56E14FF919FD26DB0029B81D /* AddImage188x188.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AddImage188x188.png; sourceTree = "<group>"; };
@@ -887,6 +890,8 @@
 			children = (
 				568B95F31A11CF5600368272 /* BISettingViewController.h */,
 				568B95F41A11CF5600368272 /* BISettingViewController.m */,
+				56A9A9F31A2804A700DBE7F4 /* kBISettingMotionControllsViewController.h */,
+				56A9A9F41A2804A700DBE7F4 /* kBISettingMotionControllsViewController.m */,
 				56017B9E1A23776D001E6CEF /* kBISoundEffectSettingsViewController.h */,
 				56017B9F1A23776D001E6CEF /* kBISoundEffectSettingsViewController.m */,
 				56017BA81A240F15001E6CEF /* kBISettingColorViewController.h */,
@@ -1846,6 +1851,7 @@
 				564AD77B19E3B4FB0069901D /* previewVC.m in Sources */,
 				56017BA01A23776D001E6CEF /* kBISoundEffectSettingsViewController.m in Sources */,
 				56E14FFD19FF38930029B81D /* playVC.m in Sources */,
+				56A9A9F61A2804A700DBE7F4 /* kBISettingMotionControllsViewController.m in Sources */,
 				56017B9A1A2310E3001E6CEF /* kBITableViewCellHavePicker.m in Sources */,
 				56A4B1FF19FB70C40009CC37 /* NSArray+IndexHelper.m in Sources */,
 			);

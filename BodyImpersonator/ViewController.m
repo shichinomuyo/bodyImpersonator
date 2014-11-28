@@ -64,6 +64,8 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     [appDefaults setObject:@"YES" forKey:@"KEY_RollSoundOn"];
     [appDefaults setObject:@"YES" forKey:@"KEY_CrashSoundOn"];
     [appDefaults setObject:@"YES" forKey:@"KEY_FlashEffectOn"];
+    [appDefaults setObject:@"YES" forKey:@"KEY_StartPlayingByMotionOn"];
+    [appDefaults setObject:@"YES" forKey:@"KEY_FinishPlayingByMotionOn"];
     // 再生中のバックグランドカラーを初期化
     [appDefaults setObject:@"Black" forKey:@"KEY_PlayVCBGColor"];
     // アプリ内課金状況を初期化

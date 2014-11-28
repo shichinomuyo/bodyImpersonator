@@ -12,6 +12,7 @@
 #import "kBITableViewCellHaveSwitch.h"
 #import "kBITableViewCellHavePicker.h"
 #import "kBISoundEffectSettingsViewController.h"
+#import "kBISettingMotionControllsViewController.h"
 #import <StoreKit/StoreKit.h>
 #import "kBIIndicator.h"
 

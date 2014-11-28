@@ -41,7 +41,7 @@
     // section名のListを作成
     self.sectionList = @[@"Settings", @"Add On", @"Feedback / Share This App", @"Other Apps"];
     // table表示したいデータソースを設定
-    self.dataSourceSettings = @[@"Sound&Effect"];
+    self.dataSourceSettings = @[@"Sound&Effect",@"MotionControlls"];
     
     self.dataSourceAddOn = @[@"Remove AD & Registrable Cap ",@"Restore"];
     self.dataSourceAddOnImages = [NSArray arrayWithObjects:@"RemoveAD60@2x.png",@"RemoveAD60@2x.png", nil];
@@ -329,9 +329,14 @@
     // cellがタップされた際の処理
     switch (indexPath.section) {
         case 0:
-            if (indexPath.row == 0) {
+            if (indexPath.row == 0) { //SoundEffectSettingsVC
                    kBISoundEffectSettingsViewController *sesVC = [self.storyboard instantiateViewControllerWithIdentifier:@"SoundEffectSettingsVC"];
-                [self presentViewController:sesVC animated:YES completion:nil];
+//                [self presentViewController:sesVC animated:YES completion:nil];
+                [self.navigationController pushViewController:sesVC animated:YES];
+            } else if (indexPath.row == 1) { // MotionControlls
+                kBISettingMotionControllsViewController *smcVC = [self.storyboard instantiateViewControllerWithIdentifier:@"MotionControllSettingsVC"];
+//                [self presentViewController:smcVC animated:YES completion:nil];
+                [self.navigationController pushViewController:smcVC animated:YES];
             }
             break;
         case 1: //Add On
