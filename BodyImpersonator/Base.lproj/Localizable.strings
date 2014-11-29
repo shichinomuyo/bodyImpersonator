@@ -5,6 +5,8 @@
   Created by 七野祐太 on 2014/11/22.
   Copyright (c) 2014年 shichino yuta. All rights reserved.
 */
+"titleImageiPhone" = "TitleLogo320x44_base@2x.png";
+"titleImageiPad" = "TitleLogo768x44_base@2x.png";
 "AddImage" = "Add Image";
 "OpenAlbum" = "Open Album";
 "TakeAPhoto" = "Take a Photo";
@@ -25,11 +27,63 @@
 "RemoveThisImage" = "Remove this Image";
 "SetThisImage?" = "Set this Image?";
 "SetThisImage" = "Set this Image";
-// BITableViewController
+
+// BISettingVC
 "Error" = "Error";
 "InAppPurchaceIsLimited." = "InAppPurchace is limited.";
 "OK" = "OK";
 "Cancel" = "Cancel";
 "ItemIDIsInvalid." = "ItemID is Invalid.";
-"titleImageiPhone" = "TitleLogo320x44_base@2x.png";
-"titleImageiPad" = "TitleLogo768x44_base@2x.png";
+"RestoreCompleted" = "Restore Completed";
+
+
+// BISettingVC sectionList
+"Settings" = "Settings";
+"AddOn" = "AddOn";
+"Feedback/ShareThisApp" = "Feedback / Share This App";
+"OtherApps" = "Other Apps";
+
+// BISettingVC dataSourceSettings section:0
+"Sound&Effect" = "Sound & Effect";
+"MotionControlls" = "Motion Controlls";
+
+// BISettingVC dataSourceAddOn dataSourceAddOnDesc section:1
+"RemoveAD&RegistrableCap" = "RemoveAD & RegistrableCap";
+"Restore" = "Restore";
+"Remove All AD & Registrable number of Images Increase 9 to 18" = "Remove All AD & Registrable number of Images Increase 9 to 18";
+"RestoreAddOn" = "Restore AddOn";
+
+
+// BISettingVC dataSourceFeedbackAndShare section:2
+"App Store review" = "App Store review";
+"Share This App" = "Share This App";
+
+// BISettingVC dataSourceOtherAppsDesc section:3
+"Play drumroll -> crashCymbal!" = "Play drumroll -> crashCymbal!"; //ドラムロール→クラッシュシンバルの音を鳴らせるアプリです。
+
+// kBIAddOnPuchaseVC
+
+// kBISettingMotionControllsVC
+// sectionList
+"VibrationSettings" = "Vibration Settings";
+// section0
+"StartPlayingByShake" = "Start Playing By Shake";
+"FinishPlayingByShake" = "Finish Playing By Shake";
+// section1
+"StartPlayingWithViberation" = "Start Playing With Vibration";
+"FinishPlayingWithViberation" = "Finish Playing With Vibration";
+
+// kBISoundEffectSettingsVC
+// sectionList
+"Sound&Effect" = "Sound & Effect";
+"BackgroundColorWhilePlaying" = "Background Color While Playing";
+// section0
+"RollSound" = "RollSound";
+"CrashSound" = "CrashSound";
+"FlashEffect" = "FlashEffect";
+// section1
+"BackgroundColor" = "BackgroundColor";
+
+// kBISettingColorVC
+"Black" = "Black";
+"White" = "White";

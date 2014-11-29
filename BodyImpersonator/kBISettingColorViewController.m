@@ -22,8 +22,12 @@
     self.tableView.dataSource = self;
 
     // Do any additional setup after loading the view.
+    // sectionList
     self.sectionList = @[@"BackgroundColor"];
-    self.dataSourceBackgroundColors = @[@"Black",@"White"];
+    // section0
+    NSString *black = [[NSString alloc] initWithFormat:NSLocalizedString(@"Black", nil)];
+    NSString *white = [[NSString alloc] initWithFormat:NSLocalizedString(@"White", nil)];
+    self.dataSourceBackgroundColors = @[black, white];
 }
 
 -(void)viewWillAppear:(BOOL)animated{

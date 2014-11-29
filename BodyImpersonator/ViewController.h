@@ -45,6 +45,6 @@
 @property int limitedNumberOfImages;
 @property BOOL purchased;
 @property BOOL startPlayingByShakeOn;
-@property BOOL startPlayingWithBibeOn;
+@property BOOL startPlayingWithVibeOn;
 
 @end

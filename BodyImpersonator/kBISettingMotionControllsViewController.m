@@ -11,7 +11,7 @@
 @interface kBISettingMotionControllsViewController ()
 @property (nonatomic, strong) NSArray *sectionList;
 @property (nonatomic, strong) NSArray *dataSourceMotionControlls;
-@property (nonatomic, strong) NSArray *dataSourceBibrationSettings;
+@property (nonatomic, strong) NSArray *dataSourceVibrationSettings;
 
 @end
 
@@ -27,19 +27,25 @@
     
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    
-    self.sectionList = @[@"MotionControlls",@"BibrationSettings"];
+    // sectionList
+    NSString *motionControlls = [[NSString alloc] initWithFormat:NSLocalizedString(@"MotionControlls", nil)];
+    NSString *vibrationSettings = [[NSString alloc] initWithFormat:NSLocalizedString(@"VibrationSettings", nil)];
+    self.sectionList = @[motionControlls, vibrationSettings];
     // section1
-    self.dataSourceMotionControlls = @[@"StartPlaying",@"FinishPlaying"];
-    
+    NSString *startPlayingByShake = [[NSString alloc] initWithFormat:NSLocalizedString(@"StartPlayingByShake", nil)];
+    NSString *finishPlayingByShake = [[NSString alloc] initWithFormat:NSLocalizedString(@"FinishPlayingByShake", nil)];
+    self.dataSourceMotionControlls = @[startPlayingByShake, finishPlayingByShake];
+    // シェイクジェスチャーEnableフラグ確認
     self.startPlayingByShakeOn = [[NSUserDefaults standardUserDefaults]boolForKey:@"KEY_StartPlayingByShakeOn"];
     self.finishPlayingByShakeOn = [[NSUserDefaults standardUserDefaults]boolForKey:@"KEY_FinishPlayingByShakeOn"];
     
     // section2
-    self.dataSourceBibrationSettings = @[@"StartPlayingWithBibeOn",@"FinishPlayingWithBibeOn"];
-    
-    self.startPlayingWithBibeOn = [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_StartPlayingWithBibeOn"];
-    self.finishPlayingWithBibeOn = [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_FinishPlayingWithBibeOn"];
+    NSString *startPlayingWithVibration = [[NSString alloc] initWithFormat:NSLocalizedString(@"StartPlayingWithVibration", nil)];
+    NSString *finishPlayingWithVibration = [[NSString alloc] initWithFormat:NSLocalizedString(@"FinishPlayingWithVibration", nil)];
+    self.dataSourceVibrationSettings = @[startPlayingWithVibration,finishPlayingWithVibration];
+    //　バイブEnableフラグ確認
+    self.startPlayingWithVibeOn = [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_StartPlayingWithVibeOn"];
+    self.finishPlayingWithVibeOn = [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_FinishPlayingWithVibeOn"];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -88,7 +94,7 @@
             // デバイスがiphoneであるかそうでないかで分岐
             if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
                 NSLog(@"iPhoneの処理");
-                     dataCount = [self.dataSourceBibrationSettings count];
+                     dataCount = [self.dataSourceVibrationSettings count];
             }
             else{ // iPadはBibe機能が無いのでセルを作らない
                 NSLog(@"iPadの処理");
@@ -142,21 +148,21 @@
             }
         }
             break;
-        case 1: // bibrationSettings
+        case 1: // VibrationSettings
         {
-            kBITableViewCellHaveSwitch *bibrationSettings = (kBITableViewCellHaveSwitch *)cell;
-            bibrationSettings.selectionStyle = UITableViewCellSelectionStyleNone;
-            UILabel *labelSettings = (UILabel *)[bibrationSettings viewWithTag:1];
-            [labelSettings setText:self.dataSourceBibrationSettings[indexPath.row]];
+            kBITableViewCellHaveSwitch *VibrationSettings = (kBITableViewCellHaveSwitch *)cell;
+            VibrationSettings.selectionStyle = UITableViewCellSelectionStyleNone;
+            UILabel *labelSettings = (UILabel *)[VibrationSettings viewWithTag:1];
+            [labelSettings setText:self.dataSourceVibrationSettings[indexPath.row]];
             [labelSettings setAdjustsFontSizeToFitWidth:YES];
             [labelSettings setLineBreakMode:NSLineBreakByClipping];
             [labelSettings setMinimumScaleFactor:4];
             
-            UISwitch *sw = (UISwitch *)[bibrationSettings viewWithTag:2];
+            UISwitch *sw = (UISwitch *)[VibrationSettings viewWithTag:2];
             switch (indexPath.row) {
                 case 0: // @"StartPlaying"
                     [sw addTarget:self action:@selector(tapStartPlayingWithBibeSW:) forControlEvents:UIControlEventTouchUpInside];
-                    if (self.startPlayingWithBibeOn) {
+                    if (self.startPlayingWithVibeOn) {
                         sw.on =YES;
                     }else{
                         sw.on = NO;
@@ -164,7 +170,7 @@
                     break;
                 case 1: //　@"FinishPlaying"
                     [sw addTarget:self action:@selector(tapFinishPlayingWithBibeSW:) forControlEvents:UIControlEventTouchUpInside];
-                    if (self.finishPlayingWithBibeOn) {
+                    if (self.finishPlayingWithVibeOn) {
                         [sw setOn:YES];
                     }else{
                         [sw setOn:NO];
@@ -223,6 +229,23 @@
     
 }
 
+// UIButtonで操作するのでセル自体をタップ不可にする
+-(NSIndexPath *)tableView:(UITableView *)tableView
+ willSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    switch (indexPath.section) { // セクション0:AddOnCellのセクション
+        case 0:
+            return nil;
+            break;
+        case 1:
+            return nil;
+            break;
+        default:
+            break;
+    }
+    return indexPath;
+}
+
 #pragma mark - actions
 
 -(void)tapStartPlayingByMotionSW:(UISwitch *)sender{
@@ -250,21 +273,21 @@
 -(void)tapStartPlayingWithBibeSW:(UISwitch *)sender{
     UISwitch *sw = sender;
     if(sw.on){
-        _startPlayingWithBibeOn = YES;
+        _startPlayingWithVibeOn = YES;
     }else{
-        _startPlayingWithBibeOn = NO;
+        _startPlayingWithVibeOn = NO;
     }
-    [[NSUserDefaults standardUserDefaults] setBool:_startPlayingWithBibeOn forKey:@"KEY_StartPlayingWithBibeOn"];
+    [[NSUserDefaults standardUserDefaults] setBool:_startPlayingWithVibeOn forKey:@"KEY_StartPlayingWithVibeOn"];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 -(void)tapFinishPlayingWithBibeSW:(UISwitch *)sender{
     if(sender.on){
-        _finishPlayingWithBibeOn = YES;
+        _finishPlayingWithVibeOn = YES;
     }else{
-        _finishPlayingWithBibeOn = NO;
+        _finishPlayingWithVibeOn = NO;
     }
-    [[NSUserDefaults standardUserDefaults] setBool:_finishPlayingWithBibeOn forKey:@"KEY_FinishPlayingWithBibeOn"];
+    [[NSUserDefaults standardUserDefaults] setBool:_finishPlayingWithVibeOn forKey:@"KEY_FinishPlayingWithVibeOn"];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
 }

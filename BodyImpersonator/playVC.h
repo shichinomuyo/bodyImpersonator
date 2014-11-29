@@ -23,7 +23,7 @@
 @property BOOL crashSoundOn;
 @property BOOL flashOn;
 @property BOOL finishPlayingByShakeOn;
-@property BOOL finishPlayingWithBibeOn;
+@property BOOL finishPlayingWithVibeOn;
 @property NSString *bgColorName;
 
 @end

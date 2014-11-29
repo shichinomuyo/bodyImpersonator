@@ -28,23 +28,26 @@
     
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    
-    self.sectionList = @[@"Sound&Effect", @"Color"];
-    
-    self.dataSourceSoundEffectSettings = @[@"RollSound", @"CrashSound", @"FlashEffect"];
-
-    self.dataSourceColorSettings = @[@"BackgroundColorWhilePlaying"];
+    // sectionList
+    NSString *soundEffectt = [[NSString alloc] initWithFormat:NSLocalizedString(@"Sound&Effect", nil)];
+    NSString *backgroundColorWhilePlaying = [[NSString alloc] initWithFormat:NSLocalizedString(@"BackgroundColorWhilePlaying", nil)];
+    self.sectionList = @[soundEffectt, backgroundColorWhilePlaying];
+    // section0
+    NSString *rollSound = [[NSString alloc] initWithFormat:NSLocalizedString(@"RollSound", nil)];
+    NSString *crashSound = [[NSString alloc] initWithFormat:NSLocalizedString(@"CrashSound", nil)];
+    NSString *flashEffect = [[NSString alloc] initWithFormat:NSLocalizedString(@"FlashEffect", nil)];
+    self.dataSourceSoundEffectSettings = @[rollSound, crashSound, flashEffect];
+    // section1
+    NSString *backgroundColor = [[NSString alloc] initWithFormat:NSLocalizedString(@"BackgroundColor", nil)];
+    self.dataSourceColorSettings = @[backgroundColor];
     
     self.rollSoundOn = [[NSUserDefaults standardUserDefaults]boolForKey:@"KEY_RollSoundOn"];
     self.crashSoundOn = [[NSUserDefaults standardUserDefaults]boolForKey:@"KEY_CrashSoundOn"];
     self.flashOn = [[NSUserDefaults standardUserDefaults]boolForKey:@"KEY_FlashEffectOn"];
-    
-
-
 }
 
 -(void)viewWillAppear:(BOOL)animated{
-        [self.tableView reloadData];
+    [self.tableView reloadData];
     [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:NO];
 
 }
@@ -57,7 +60,6 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    
     // Return the number of sections.
     NSInteger sectionCount;
     sectionCount = [self.sectionList count];
@@ -65,8 +67,6 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    
-    // Return the number of rows in the section.
     // Return the number of rows in the section.
     NSInteger dataCount;
     switch (section) {
@@ -202,7 +202,6 @@
         case 1: //Background Color
             if (indexPath.row == 0) {
                 kBISettingColorViewController *settingColorVC = [self.storyboard instantiateViewControllerWithIdentifier:@"SettingColorVC"];
-//                [self presentViewController:settingColorVC animated:YES completion:nil];
                 [self.navigationController pushViewController:settingColorVC animated:YES];
             }
             break;

@@ -19,14 +19,11 @@
 @property (nonatomic, strong) NSArray *dataSourceOtherApps;
 @property (nonatomic, strong) NSArray *dataSourceOtherAppsImages;
 @property (nonatomic, strong) NSArray *dataSourceOtherAppsDesc;
-
 @end
 
 @implementation BISettingViewController{
-
     kBIIndicator *_kIndicator;
     SKProduct *_myProduct;
-    
 }
 
 - (void)viewDidLoad {
@@ -223,7 +220,6 @@
                     [addOnCell setBackgroundColor:RGB(230, 235, 240)];
 
                     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){ // iPhoneだとセル一杯に文字が詰まるので元の説明文を消す
-                        NSLog(@"iPhoneの処理");
                         [labelPurchased setCenter:CGPointMake(addOnCell.center.x, addOnCell.center.y)];
                         [labelDescTitle setHidden:1];
                         [labelDescription setHidden:1];
@@ -275,13 +271,10 @@
             [labelDescription setText:self.dataSourceOtherAppsDesc[indexPath.row]];
 
         }
-
             break;
         default:
             break;
     }
-    
-
     return cell;
 }
 
@@ -334,41 +327,28 @@
 // tableCell is tapped
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
    [self.tableView reloadData];
     // cellがタップされた際の処理
     switch (indexPath.section) {
         case 0:
             if (indexPath.row == 0) { //SoundEffectSettingsVC
                    kBISoundEffectSettingsViewController *sesVC = [self.storyboard instantiateViewControllerWithIdentifier:@"SoundEffectSettingsVC"];
-//                [self presentViewController:sesVC animated:YES completion:nil];
                 [self.navigationController pushViewController:sesVC animated:YES];
             } else if (indexPath.row == 1) { // MotionControlls
                 kBISettingMotionControllsViewController *smcVC = [self.storyboard instantiateViewControllerWithIdentifier:@"MotionControllSettingsVC"];
-//                [self presentViewController:smcVC animated:YES completion:nil];
                 [self.navigationController pushViewController:smcVC animated:YES];
             }
             break;
         case 1: //Add On
-            if (indexPath.row == 0) {
-                
-                if (!_purchased) { // 購入してないときだけpaymentqueue生成
+            if (indexPath.row == 0) { // addOnPurchaseVCへ遷移
+                if (!_purchased) {
                     kBIAddOnPurchaseViewController *aopVC = [self.storyboard instantiateViewControllerWithIdentifier:@"AddOnPurchaseVC"];
                     [self.navigationController pushViewController:aopVC animated:YES];
-//                    if ([self checkInAppPurchaseEnable] == YES){ // アプリ内課金制限がない場合はYES、制限有りはNO
-//                        NSLog(@"tapできてる");
-//                        [self startProductRequest]; //プロダクトの取得
-//
-//                    } else {
-//                        // NOの場合のアラート表示
-//                        [self actionShowAppPurchaseLimitAlert];
-//                    }
                 }
 
-            }else if(indexPath.row == 1){
-                    // TODO:リストア処理
-                    NSLog(@"tapped");
+            }else if(indexPath.row == 1){ // リストア処理
                     [[SKPaymentQueue defaultQueue] restoreCompletedTransactions];
+                    // インジケータースタート
                     [_kIndicator indicatorStart];
             }
     
@@ -515,10 +495,9 @@
     NSString *title = [[NSString alloc] initWithFormat:NSLocalizedString(@"Error", nil)];
     NSString *message = [[NSString alloc] initWithFormat:NSLocalizedString(@"ItemIDIsInvalid.", nil)];
     NSString *action1 = [[NSString alloc] initWithFormat:NSLocalizedString(@"OK", nil)];
-
+    [_kIndicator indicatorStop];
     // 無効なアイテムがないかチェック
     if ([response.invalidProductIdentifiers count] > 0) {
-            [_kIndicator indicatorStop];
         Class class = NSClassFromString(@"UIAlertController"); // iOS8/7の切り分けフラグに使用
         if (class) { // iOS8の処理
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title
@@ -550,16 +529,11 @@
         SKPayment *payment = [SKPayment paymentWithProduct:_myProduct]; // 購入処理開始
         [[SKPaymentQueue defaultQueue] addPayment:payment];
     }
-    if (_myProduct) {
-//        [_kIndicator indicatorStart];
-    }
-    
-
 }
 
 
 #pragma - mark segue
-// previewVCとplayVCから戻ってきたときの処理
+// 戻ってきたときの処理
 - (IBAction)settingsVCReturnActionForSegue:(UIStoryboardSegue *)segue{
     
 }
@@ -577,17 +551,14 @@
 -(void)purchaseCompleted:(NSNotification *)notification{
     // Indicatorを非表示にする
     [_kIndicator indicatorStop];
-        [self viewWillAppear:1];
-    
 }
 -(void)restoreAppComplete:(NSNotification *)notification{// 復元機能が終わったところで通知
 
     // Indicatorを非表示にする
     [_kIndicator indicatorStop];
 
-    
-    NSString *title = [[NSString alloc] initWithFormat:NSLocalizedString(@"RestoreCompleted.", nil)];
-    //    NSString *message = [[NSString alloc] initWithFormat:NSLocalizedString(@"Tap+IconToAddImageFromAlbumOrCam", nil)];
+    NSString *title = [[NSString alloc] initWithFormat:NSLocalizedString(@"RestoreCompleted", nil)];
+
     Class class = NSClassFromString(@"UIAlertController"); // iOS8/7の切り分けフラグに使用
     if (class) {
         // iOS8の処理
@@ -614,19 +585,16 @@
                                                       delegate:self
                                              cancelButtonTitle:@"OK"
                                              otherButtonTitles:nil, nil];
-        
         // アクションシートを表示
         [alert show];
-        
     }
-
 }
+
 -(void)restoreCompleted:(NSNotification *)notification{ //機能復元だけじゃなくてリストア処理がひと通り終わったときの通知を受ける
     // Indicatorを非表示にする
     [_kIndicator indicatorStop];
     NSLog(@"restoreCompleted");
-    NSString *title = [[NSString alloc] initWithFormat:NSLocalizedString(@"RestoreCompleted.", nil)];
-    //    NSString *message = [[NSString alloc] initWithFormat:NSLocalizedString(@"Tap+IconToAddImageFromAlbumOrCam", nil)];
+    NSString *title = [[NSString alloc] initWithFormat:NSLocalizedString(@"RestoreCompleted", nil)];
     Class class = NSClassFromString(@"UIAlertController"); // iOS8/7の切り分けフラグに使用
     if (class) {
         // iOS8の処理
@@ -653,13 +621,11 @@
                                                       delegate:self
                                              cancelButtonTitle:@"OK"
                                              otherButtonTitles:nil, nil];
-        
         // アクションシートを表示
         [alert show];
-        
     }
-    
 }
+
 -(void)restoreFailed:(NSNotification *)notification{
     // Indicatorを非表示にする
     [_kIndicator indicatorStop];

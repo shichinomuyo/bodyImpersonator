@@ -69,8 +69,8 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     [appDefaults setObject:@"YES" forKey:@"KEY_FlashEffectOn"];
     [appDefaults setObject:@"YES" forKey:@"KEY_StartPlayingByShakeOn"];
     [appDefaults setObject:@"YES" forKey:@"KEY_FinishPlayingByShakeOn"];
-    [appDefaults setObject:@"NO"  forKey:@"KEY_StartPlayingWithBibeOn"];
-    [appDefaults setObject:@"YES" forKey:@"KEY_FinishPlayingWithBibeOn"];
+    [appDefaults setObject:@"NO"  forKey:@"KEY_StartPlayingWithVibeOn"];
+    [appDefaults setObject:@"YES" forKey:@"KEY_FinishPlayingWithVibeOn"];
     // 再生中のバックグランドカラーを初期化
     [appDefaults setObject:@"Black" forKey:@"KEY_PlayVCBGColor"];
     // アプリ内課金状況を初期化
@@ -91,7 +91,7 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     // 購入フラグを確認
     _purchased = [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_Purchased"];
     _startPlayingByShakeOn = [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_StartPlayingByShakeOn"];
-    _startPlayingWithBibeOn = [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_StartPlayingWithBibeOn"];
+    _startPlayingWithVibeOn = [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_StartPlayingWithVibeOn"];
     // OSヴァージョンを取得
     _iOSVer = [[[UIDevice currentDevice] systemVersion] floatValue];
   
@@ -169,7 +169,7 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     // Addon購入状態を取得
     NSLog(@"viewwillAppear");
     _startPlayingByShakeOn = [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_StartPlayingByShakeOn"];
-    _startPlayingWithBibeOn = [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_StartPlayingWithBibeOn"];
+    _startPlayingWithVibeOn = [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_StartPlayingWithVibeOn"];
 
 }
 
@@ -533,7 +533,7 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
             [self actionShowAlert];
         }else {
             if (_startPlayingByShakeOn) {
-                if (_startPlayingWithBibeOn) {
+                if (_startPlayingWithVibeOn) {
                     AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
                 }
                 [self performSegueWithIdentifier:@"moveToPlayVC" sender:self];

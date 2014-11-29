@@ -82,7 +82,7 @@
     self.flashOn = [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_FlashEffectOn"];
     self.bgColorName = [[NSUserDefaults standardUserDefaults] objectForKey:@"KEY_PlayVCBGColor"];
     self.finishPlayingByShakeOn = [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_FinishPlayingByShakeOn"];
-    self.finishPlayingWithBibeOn= [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_FinishPlayingWithBibeOn"];
+    self.finishPlayingWithVibeOn= [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_FinishPlayingWithVibeOn"];
     NSLog(@"bgColorName:%@",self.bgColorName);
     [self initializeAVAudioPlayers];
     
@@ -328,7 +328,7 @@
     // selectedPhotoImageが非表示(起動時の画面)のときにだけ反応
     if (_finishPlayingByShakeOn) {
         if (self.BFCV.knobImageView.hidden == 1) {
-            if (_finishPlayingWithBibeOn) {
+            if (_finishPlayingWithVibeOn) {
                 // バイブレーションを動作させる
                 AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
             }

@@ -34,10 +34,12 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     
+    NSString *addOn= [[NSString alloc] initWithFormat:NSLocalizedString(@"AddOn", nil)];
+    NSString *removeADRegistrableCap = [[NSString alloc] initWithFormat:NSLocalizedString(@"RemoveAD&RegistrableCap", nil)];
     // section名のListを作成
-    self.sectionList = @[@"AddOn"];
+    self.sectionList = @[addOn];
     // table表示したいデータソースを設定
-    self.dataSourceAddOnPurchase = @[@"RemoveAD/RegistrableCap"];
+    self.dataSourceAddOnPurchase = @[removeADRegistrableCap];
 
    
     
@@ -134,7 +136,6 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    
     // Return the number of rows in the section.
     NSInteger dataCount;
     switch (section) {
@@ -193,11 +194,8 @@
 -(void)purchaseBtn:(UIButton *)sender{
 
         if (!_purchased) { // 購入してないときだけpaymentqueue生成
-                            NSLog(@"tapされてるか");
             if ([self checkInAppPurchaseEnable] == YES){ // アプリ内課金制限がない場合はYES、制限有りはNO
-                NSLog(@"tapできてる");
 //                [self startProductRequest]; //プロダクトの取得
-    
                 SKPayment *payment = [SKPayment paymentWithProduct:_myProduct]; // 購入処理開始
                 [[SKPaymentQueue defaultQueue] addPayment:payment];
                    [_kIndicator indicatorStart];
@@ -208,21 +206,17 @@
             }
         }
 }
-// addonSectionのセルをタップ不可にする
+// UIButtonで操作するのでセル自体をタップ不可にする
 -(NSIndexPath *)tableView:(UITableView *)tableView
  willSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     switch (indexPath.section) { // セクション0:AddOnCellのセクション
         case 0:
-
                 return nil;
-
             break;
-            
         default:
             break;
     }
-    
     return indexPath;
 }
 
@@ -249,15 +243,11 @@
 // tableCell is tapped
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
     [self.tableView reloadData];
     // cellがタップされた際の処理
     switch (indexPath.section) {
         case 0:
             if (indexPath.row == 0) {
-                
-
-                
             }
         break;
         default:
@@ -413,7 +403,8 @@
 -(void)purchaseCompleted:(NSNotification *)notification{
     // Indicatorを非表示にする
     [_kIndicator indicatorStop];
-      [self performSegueWithIdentifier:@"BackFromPurcasedVC" sender:self];
+    // 最初の画面に戻る
+    [self performSegueWithIdentifier:@"BackFromPurcasedVC" sender:self];
     
 }
 -(void)restoreAppComplete:(NSNotification *)notification{// 復元機能が終わったところで通知
@@ -461,7 +452,7 @@
     // Indicatorを非表示にする
     [_kIndicator indicatorStop];
     NSLog(@"restoreCompleted");
-    NSString *title = [[NSString alloc] initWithFormat:NSLocalizedString(@"RestoreCompleted.", nil)];
+    NSString *title = [[NSString alloc] initWithFormat:NSLocalizedString(@"RestoreCompleted", nil)];
     //    NSString *message = [[NSString alloc] initWithFormat:NSLocalizedString(@"Tap+IconToAddImageFromAlbumOrCam", nil)];
     Class class = NSClassFromString(@"UIAlertController"); // iOS8/7の切り分けフラグに使用
     if (class) {
@@ -475,7 +466,7 @@
         [actionController addAction:[UIAlertAction actionWithTitle:@"OK"
                                                              style:UIAlertActionStyleCancel
                                                            handler:^(UIAlertAction *action) {
-                                                               [self viewWillAppear:1];
+
                                                                
                                                            }]];
         // アクションコントローラーを表示

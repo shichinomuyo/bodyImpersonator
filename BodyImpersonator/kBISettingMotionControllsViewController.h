@@ -16,6 +16,6 @@
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property BOOL startPlayingByShakeOn;
 @property BOOL finishPlayingByShakeOn;
-@property BOOL startPlayingWithBibeOn;
-@property BOOL finishPlayingWithBibeOn;
+@property BOOL startPlayingWithVibeOn;
+@property BOOL finishPlayingWithVibeOn;
 @end
