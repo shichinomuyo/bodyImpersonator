@@ -1,15 +1,60 @@
 
+/* Class = "IBUINavigationItem"; title = "BackgroundColor"; ObjectID = "4zP-wU-FVF"; */
+"4zP-wU-FVF.title" = "BackgroundColor";
+
+/* Class = "IBUILabel"; text = "desctitel"; ObjectID = "8qz-Ua-g99"; */
+"8qz-Ua-g99.text" = "desctitel";
+
 /* Class = "IBUILabel"; text = "header"; ObjectID = "CIp-oV-FaX"; */
 "CIp-oV-FaX.text" = "header";
+
+/* Class = "IBUILabel"; text = "LabelSwitchTitle:"; ObjectID = "DWF-a9-zzl"; */
+"DWF-a9-zzl.text" = "LabelSwitchTitle:";
+
+/* Class = "IBUIBarButtonItem"; title = "Back"; ObjectID = "Egj-Ht-yY7"; */
+"Egj-Ht-yY7.title" = "Back";
+
+/* Class = "IBUILabel"; text = "Detail"; ObjectID = "EuL-WD-RAn"; */
+"EuL-WD-RAn.text" = "Detail";
 
 /* Class = "IBUILabel"; text = "Description"; ObjectID = "FpL-56-nzI"; */
 "FpL-56-nzI.text" = "Description";
 
+/* Class = "IBUILabel"; text = "CellHaveBtn"; ObjectID = "Ld3-IE-tP0"; */
+"Ld3-IE-tP0.text" = "CellHaveBtn";
+
 /* Class = "IBUINavigationItem"; title = "Title"; ObjectID = "Llo-gx-sLs"; */
 "Llo-gx-sLs.title" = "Title";
 
+/* Class = "IBUILabel"; text = "LabelSwitchTitle:"; ObjectID = "MDp-4V-Ce3"; */
+"MDp-4V-Ce3.text" = "LabelSwitchTitle:";
+
 /* Class = "IBUIViewController"; title = "previewVC"; ObjectID = "Ml1-cR-wrA"; */
 "Ml1-cR-wrA.title" = "previewVC";
+
+/* Class = "IBUIBarButtonItem"; title = "Back"; ObjectID = "NWW-2M-fsr"; */
+"NWW-2M-fsr.title" = "Back";
+
+/* Class = "IBUILabel"; text = "SwitchState"; ObjectID = "Nj3-l2-Qmv"; */
+"Nj3-l2-Qmv.text" = "SwitchState";
+
+/* Class = "IBUINavigationItem"; title = "AddOnPurcase"; ObjectID = "Obt-cA-mlZ"; */
+"Obt-cA-mlZ.title" = "AddOnPurcase";
+
+/* Class = "IBUILabel"; text = "Detail"; ObjectID = "PF7-D5-OVR"; */
+"PF7-D5-OVR.text" = "Detail";
+
+/* Class = "IBUILabel"; text = "Description"; ObjectID = "Pc3-04-Sp8"; */
+"Pc3-04-Sp8.text" = "Description";
+
+/* Class = "IBUILabel"; text = "header"; ObjectID = "QLL-kt-Hf3"; */
+"QLL-kt-Hf3.text" = "header";
+
+/* Class = "IBUILabel"; text = "SwitchState"; ObjectID = "RJ6-DJ-U47"; */
+"RJ6-DJ-U47.text" = "SwitchState";
+
+/* Class = "IBUILabel"; text = "CellHavePicker"; ObjectID = "W5B-10-mZn"; */
+"W5B-10-mZn.text" = "CellHavePicker";
 
 /* Class = "IBUINavigationItem"; title = "Settings"; ObjectID = "WH3-oC-BPY"; */
 "WH3-oC-BPY.title" = "Settings";
@@ -17,26 +62,89 @@
 /* Class = "IBUIViewController"; title = "SettingVC"; ObjectID = "YQN-mj-a54"; */
 "YQN-mj-a54.title" = "SettingVC";
 
+/* Class = "IBUINavigationItem"; title = "Sound&EffectSettings"; ObjectID = "Zuh-qZ-ulZ"; */
+"Zuh-qZ-ulZ.title" = "Sound&EffectSettings";
+
+/* Class = "IBUILabel"; text = "labelFeedbackAndShare"; ObjectID = "a99-ac-G5w"; */
+"a99-ac-G5w.text" = "labelFeedbackAndShare";
+
 /* Class = "IBUINavigationItem"; title = "Edit Image"; ObjectID = "aFI-se-5pz"; */
 "aFI-se-5pz.title" = "Edit Image";
+
+/* Class = "IBUINavigationItem"; title = "MotionControlls"; ObjectID = "aTg-ia-TyQ"; */
+"aTg-ia-TyQ.title" = "MotionControlls";
+
+/* Class = "IBUILabel"; text = "CellHaveOneLabel"; ObjectID = "b5Q-Ob-E3m"; */
+"b5Q-Ob-E3m.text" = "CellHaveOneLabel";
 
 /* Class = "IBUINavigationItem"; title = "Selected Image Preview"; ObjectID = "bN0-Fe-ar9"; */
 "bN0-Fe-ar9.title" = "Selected Image Preview";
 
-/* Class = "IBUINavigationItem"; title = "1/2 Scale"; ObjectID = "baJ-Ez-5fg"; */
-"baJ-Ez-5fg.title" = "1/2 Scale";
+/* Class = "IBUILabel"; text = "CellHaveRightDetail"; ObjectID = "by8-4V-rMi"; */
+"by8-4V-rMi.text" = "CellHaveRightDetail";
+
+/* Class = "IBUILabel"; text = "CellHaveSwitch"; ObjectID = "cGY-2M-589"; */
+"cGY-2M-589.text" = "CellHaveSwitch";
+
+/* Class = "IBUILabel"; text = "Title"; ObjectID = "cRU-dV-eSj"; */
+"cRU-dV-eSj.text" = "Title";
 
 /* Class = "IBUINavigationItem"; title = "Tapped Image"; ObjectID = "d9y-v8-iuA"; */
 "d9y-v8-iuA.title" = "Tapped Image";
 
+/* Class = "IBUILabel"; text = "CellHaveRightDetail"; ObjectID = "e83-Ve-CJj"; */
+"e83-Ve-CJj.text" = "CellHaveRightDetail";
+
+/* Class = "IBUILabel"; text = "Purchased"; ObjectID = "g22-MZ-Dcc"; */
+"g22-MZ-Dcc.text" = "Purchased";
+
+/* Class = "IBUILabel"; text = "CellHaveRightDetail"; ObjectID = "g8J-Ur-vJH"; */
+"g8J-Ur-vJH.text" = "CellHaveRightDetail";
+
+/* Class = "IBUIBarButtonItem"; title = "Back"; ObjectID = "gdH-Nr-qLe"; */
+"gdH-Nr-qLe.title" = "Back";
+
 /* Class = "IBUILabel"; text = "desctitel"; ObjectID = "hD6-ie-65p"; */
 "hD6-ie-65p.text" = "desctitel";
+
+/* Class = "IBUILabel"; text = "Detail"; ObjectID = "hiV-7M-XiS"; */
+"hiV-7M-XiS.text" = "Detail";
+
+/* Class = "IBUILabel"; text = "CellHaveOneLabel"; ObjectID = "jCE-75-3t6"; */
+"jCE-75-3t6.text" = "CellHaveOneLabel";
 
 /* Class = "IBUILabel"; text = "labelFeedbackAndShare"; ObjectID = "jDj-g3-tUD"; */
 "jDj-g3-tUD.text" = "labelFeedbackAndShare";
 
+/* Class = "IBUIBarButtonItem"; title = "Back"; ObjectID = "oJB-YZ-QcM"; */
+"oJB-YZ-QcM.title" = "Back";
+
+/* Class = "IBUILabel"; text = "Title"; ObjectID = "qEQ-2G-oXn"; */
+"qEQ-2G-oXn.text" = "Title";
+
+/* Class = "IBUILabel"; text = "LabelPickerTitle:"; ObjectID = "re4-yU-p78"; */
+"re4-yU-p78.text" = "LabelPickerTitle:";
+
+/* Class = "IBUILabel"; text = "CellHaveSwitch"; ObjectID = "t8k-MH-54u"; */
+"t8k-MH-54u.text" = "CellHaveSwitch";
+
+/* Class = "IBUILabel"; text = "CellHavePicker"; ObjectID = "v9W-Zo-tIV"; */
+"v9W-Zo-tIV.text" = "CellHavePicker";
+
+/* Class = "IBUILabel"; text = "Purchased"; ObjectID = "vrd-5t-4C0"; */
+"vrd-5t-4C0.text" = "Purchased";
+
 /* Class = "IBUIViewController"; title = "playVC"; ObjectID = "xz1-qg-4jT"; */
 "xz1-qg-4jT.title" = "playVC";
 
+/* Class = "IBUIBarButtonItem"; title = "Back"; ObjectID = "xzf-Dp-eze"; */
+"xzf-Dp-eze.title" = "Back";
+
 /* Class = "IBUIViewController"; title = "tappedImageVC"; ObjectID = "yAO-Md-pSK"; */
 "yAO-Md-pSK.title" = "tappedImageVC";
+
+/* Class = "IBUILabel"; text = "Title"; ObjectID = "yLh-hq-WkK"; */
+"yLh-hq-WkK.text" = "Title";
+
+/* Class = "IBUILabel"; text = "LabelPickerTitle:"; ObjectID = "zZs-8R-WOT"; */
+"zZs-8R-WOT.text" = "LabelPickerTitle:";

@@ -434,11 +434,7 @@
 		56017BA81A240F15001E6CEF /* kBISettingColorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kBISettingColorViewController.h; sourceTree = "<group>"; };
 		56017BA91A240F15001E6CEF /* kBISettingColorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = kBISettingColorViewController.m; sourceTree = "<group>"; };
 		5617B4BE1A20437800586645 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		5617B4BF1A20437800586645 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Main_iPhone.strings; sourceTree = "<group>"; };
-		5617B4C01A20437800586645 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Main_iPad.strings; sourceTree = "<group>"; };
 		5617B4C11A20437800586645 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		5617B4C31A204F9400586645 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main_iPad.strings; sourceTree = "<group>"; };
-		5617B4C91A2052CC00586645 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main_iPhone.strings; sourceTree = "<group>"; };
 		56427E1319AB823200B516A0 /* BodyImpersonator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BodyImpersonator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		56427E1619AB823200B516A0 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		56427E1819AB823200B516A0 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -622,6 +618,10 @@
 		56A9A9F41A2804A700DBE7F4 /* kBISettingMotionControllsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = kBISettingMotionControllsViewController.m; sourceTree = "<group>"; };
 		56A9A9F81A284AA100DBE7F4 /* kBIAddOnPurchaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kBIAddOnPurchaseViewController.h; sourceTree = "<group>"; };
 		56A9A9F91A284AA100DBE7F4 /* kBIAddOnPurchaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = kBIAddOnPurchaseViewController.m; sourceTree = "<group>"; };
+		56A9AA041A29B5EE00DBE7F4 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Main_iPad.strings; sourceTree = "<group>"; };
+		56A9AA061A29B61400DBE7F4 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Main_iPhone.strings; sourceTree = "<group>"; };
+		56A9AA081A29B61700DBE7F4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main_iPhone.strings; sourceTree = "<group>"; };
+		56A9AA0A1A29B62300DBE7F4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main_iPad.strings; sourceTree = "<group>"; };
 		56C995481A088C180006477D /* BugFixContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BugFixContainerView.h; sourceTree = "<group>"; };
 		56C995491A088C180006477D /* BugFixContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BugFixContainerView.m; sourceTree = "<group>"; };
 		56E14FF919FD26DB0029B81D /* AddImage188x188.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AddImage188x188.png; sourceTree = "<group>"; };
@@ -968,6 +968,7 @@
 		56427E1C19AB823200B516A0 /* BodyImpersonator */ = {
 			isa = PBXGroup;
 			children = (
+				56A9A9FD1A29AF3700DBE7F4 /* scripts */,
 				56427E6219AB87A300B516A0 /* AD */,
 				56427E8219AB887E00B516A0 /* Assets */,
 				56A9A9F11A24A0B600DBE7F4 /* Objects */,
@@ -1311,6 +1312,13 @@
 				568B96B41A1DB61D00368272 /* NSObject+Animation.m */,
 			);
 			name = Animation;
+			sourceTree = "<group>";
+		};
+		56A9A9FD1A29AF3700DBE7F4 /* scripts */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = scripts;
 			sourceTree = "<group>";
 		};
 		56C9954B1A09F6CA0006477D /* @2x */ = {
@@ -2021,8 +2029,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				56427E2919AB823200B516A0 /* Base */,
-				5617B4BF1A20437800586645 /* ja */,
-				5617B4C91A2052CC00586645 /* en */,
+				56A9AA061A29B61400DBE7F4 /* ja */,
+				56A9AA081A29B61700DBE7F4 /* en */,
 			);
 			name = Main_iPhone.storyboard;
 			sourceTree = "<group>";
@@ -2031,8 +2039,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				56427E2C19AB823200B516A0 /* Base */,
-				5617B4C01A20437800586645 /* ja */,
-				5617B4C31A204F9400586645 /* en */,
+				56A9AA041A29B5EE00DBE7F4 /* ja */,
+				56A9AA0A1A29B62300DBE7F4 /* en */,
 			);
 			name = Main_iPad.storyboard;
 			sourceTree = "<group>";
