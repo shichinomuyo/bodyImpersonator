@@ -25,6 +25,7 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     CGFloat _iOSVer;
     UIPopoverController *_popoverController;
 
+
 }
 
 // IBOutlet Btn
@@ -123,6 +124,10 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
 
 
     _kIndicator = [kBIIndicator alloc];
+    
+    // iPhone4/4sの3.5inch端末のUIを調整するためにディスプレイサイズを取得
+//    _displaySize = [[UIScreen mainScreen] bounds];
+//    NSLog(@"%@",NSStringFromCGRect(_displaySize));
 }
 
 // NavigationBarに画像を配置 高さ調整
@@ -177,11 +182,14 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
 -(void)viewDidLayoutSubviews{
      NSLog(@"purchased in mainview:%d",_purchased);
     // AppDelegateからの購入通知を登録する
-        _purchased = [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_Purchased"];
+    _purchased = [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_Purchased"];
 
     if (_purchased == NO) {
         // 広告表示のためのストーリボード上のレイアウト
-        
+//        if (_displaySize.size.width == 320) {
+//            [_baseViewBtns setFrame:CGRectMake(0, 294, 320, _baseViewBtns.frame.size.height)];
+//        }
+
     } else {
         [self adjustLayoutPurchased];
     }

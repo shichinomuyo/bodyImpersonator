@@ -191,7 +191,7 @@
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" alpha="0.79999999999999982" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Mdg-Hj-rDV">
                                 <rect key="frame" x="0.0" y="524" width="320" height="44"/>
                                 <items>
-                                    <barButtonItem systemItem="reply" id="hyF-1P-da9">
+                                    <barButtonItem image="IconRedo" id="hyF-1P-da9">
                                         <connections>
                                             <action selector="undo:" destination="ha8-TI-9eX" id="s1L-Cj-YGB"/>
                                         </connections>
@@ -1126,6 +1126,7 @@
         <image name="EditorOutline.png" width="320" height="568"/>
         <image name="IconGear" width="44" height="44"/>
         <image name="IconPreview" width="44" height="44"/>
+        <image name="IconRedo" width="44" height="44"/>
         <image name="IconRoope" width="44" height="44"/>
         <image name="LightsFromCenter.png" width="320" height="504"/>
         <image name="LineRed768x4.png" width="768" height="4"/>
