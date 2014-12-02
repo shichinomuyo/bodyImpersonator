@@ -102,13 +102,13 @@
 "jDj-g3-tUD.text" = "labelFeedbackAndShare";
 
 /* Class = "IBUINavigationItem"; title = "MotionControlls"; ObjectID = "jr1-9R-Y2X"; */
-"jr1-9R-Y2X.title" = "モーション操作";
+"jr1-9R-Y2X.title" = "モーションコントロール";
 
 /* Class = "IBUILabel"; text = "header"; ObjectID = "lxH-25-ibV"; */
 "lxH-25-ibV.text" = "header";
 
 /* Class = "IBUIBarButtonItem"; title = "Back"; ObjectID = "oL9-6r-dnO"; */
-"oL9-6r-dnO.title" = "Back";
+"oL9-6r-dnO.title" = "戻る";
 
 /* Class = "IBUILabel"; text = "CellHavePicker"; ObjectID = "pg0-nx-1eE"; */
 "pg0-nx-1eE.text" = "CellHavePicker";

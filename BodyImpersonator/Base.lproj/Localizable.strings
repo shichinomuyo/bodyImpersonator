@@ -6,7 +6,7 @@
   Copyright (c) 2014年 shichino yuta. All rights reserved.
 */
 "titleImageiPhone" = "TitleLogo320x44_base@2x.png";
-"titleImageiPad" = "TitleLogo768x44_base@2x.png";
+"titleImageiPad" = "TitleImageBackNoneLogoOnly";
 "AddImage" = "Add Image";
 "OpenAlbum" = "Open Album";
 "TakeAPhoto" = "Take a Photo";

@@ -25,10 +25,63 @@
 "RemoveThisImage" = "削除する";
 "SetThisImage?" = "この画像を設定しますか?";
 "SetThisImage" = "設定する";
-// BITableViewController
+
+// BISettingVC
 "Error" = "エラー";
 "InAppPurchaceIsLimited." = "Error:アプリ内課金が制限されています。";
 "OK" = "OK";
 "ItemIDIsInvalid." = "アイテムIDが無効です。";
 "titleImageiPhone" = "TitleLogo320x44_ja@2x.png";
-"titleImageiPad" = "TitleLogo768x44_ja@2x.png";
+"titleImageiPad" = "TitleImageBackNoneLogoOnly_ja";
+"RestoreCompleted" = "リストア完了";
+
+// BISettingVC sectionList
+"Settings" = "設定";
+"AddOn" = "アドオン";
+"Feedback/ShareThisApp" = "フィードバック/このアプリについて共有";
+"OtherApps" = "他のApp";
+
+// BISettingVC dataSourceSettings section:0
+"Sound&Effect" = "サウンド&視覚効果";
+"MotionControlls" = "モーションコントロール";
+
+// BISettingVC dataSourceAddOn dataSourceAddOnDesc section:1
+"RemoveAD&RegistrableCap" = "広告非表示&画像登録上限数UP";
+"Restore" = "購入状況の復元";
+"Remove All AD & Registrable number of Images Increase 9 to 18" = "広告をすべて非表示&画像登録上限数9個から18個へUP";
+"RestoreAddOn" = "過去に購入済みのアドオンを復元";
+
+
+// BISettingVC dataSourceFeedbackAndShare section:2
+"App Store review" = "Appストアレビューを書く";
+"Share This App" = "このアプリについて共有";
+
+// BISettingVC dataSourceOtherAppsDesc section:3
+"Play drumroll -> crashCymbal!" = "ドラムロール→クラッシュシンバルの音を鳴らせるアプリです。"; //ドラムロール→クラッシュシンバルの音を鳴らせるアプリです。
+
+// kBIAddOnPuchaseVC
+
+// kBISettingMotionControllsVC
+// sectionList
+"VibrationSettings" = "振動";
+// section0
+"StartPlayingByShake" = "シェイク操作で開始";
+"FinishPlayingByShake" = "シェイク操作で終了";
+// section1
+"StartPlayingWithViberation" = "開始時に振動";
+"FinishPlayingWithViberation" = "終了時の振動";
+
+// kBISoundEffectSettingsVC
+// sectionList
+"Sound&Effect" = "サウンド&視覚効果";
+"BackgroundColorWhilePlaying" = "再生中のバックグラウンドカラー";
+// section0
+"RollSound" = "ドラムロール音";
+"CrashSound" = "クラッシュ音";
+"FlashEffect" = "フラッシュエフェクト";
+// section1
+"BackgroundColor" = "バックグラウンドカラー";
+
+// kBISettingColorVC
+"Black" = "黒";
+"White" = "白";

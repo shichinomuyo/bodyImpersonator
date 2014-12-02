@@ -73,13 +73,14 @@
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bIF-jU-nng">
                                 <rect key="frame" x="0.0" y="832" width="768" height="102"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="LineRed768x4.png" translatesAutoresizingMaskIntoConstraints="NO" id="uAU-Gb-cqS">
+                                    <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uAU-Gb-cqS">
                                         <rect key="frame" x="0.0" y="0.0" width="768" height="4"/>
+                                        <color key="backgroundColor" red="1" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Gd-Cf-jI9" userLabel="SearchUIBtn">
-                                        <rect key="frame" x="8" y="58" width="44" height="44"/>
+                                        <rect key="frame" x="8" y="54" width="44" height="44"/>
                                         <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        <state key="normal" image="Roope44x44UIBtn.png">
+                                        <state key="normal" image="IconRoope">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -87,9 +88,9 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ECX-E9-Y4M" userLabel="PreviewUIBtn">
-                                        <rect key="frame" x="665" y="58" width="44" height="44"/>
+                                        <rect key="frame" x="665" y="54" width="44" height="44"/>
                                         <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        <state key="normal" image="PreviewIconUIBtn44x44.png">
+                                        <state key="normal" image="IconPreview">
                                             <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -98,7 +99,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oss-9t-IGY" userLabel="SettingsUIBtn">
-                                        <rect key="frame" x="716" y="58" width="44" height="44"/>
+                                        <rect key="frame" x="716" y="54" width="44" height="44"/>
                                         <state key="normal" image="Gear44x44UIBtn.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -107,10 +108,9 @@
                                         </connections>
                                     </button>
                                     <button tag="2" contentMode="scaleAspectFit" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fRx-QP-7Su" userLabel="ctrlBtn">
-                                        <rect key="frame" x="204" y="4" width="360" height="98"/>
-                                        <color key="backgroundColor" red="0.067062042650000001" green="0.13338275250000001" blue="0.18701528009999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <rect key="frame" x="204" y="2" width="360" height="98"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="27"/>
-                                        <state key="normal" image="PlayUIBtn_320x102.png">
+                                        <state key="normal" image="BtnPlay">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -118,7 +118,7 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" red="0.067062042653560638" green="0.13338275253772736" blue="0.18701528012752533" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.17254902422428131" green="0.24313725531101227" blue="0.31372550129890442" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
                         </subviews>
@@ -266,17 +266,17 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CellFeedbackAndShare" rowHeight="54" id="BzN-kH-Mmh" customClass="BIFeedbakAndActionCell">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CellFeedbackAndShare" rowHeight="64" id="BzN-kH-Mmh" customClass="BIFeedbakAndActionCell">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="BzN-kH-Mmh" id="gBK-30-lXk">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7Zd-Fb-jNE">
-                                                    <rect key="frame" x="2" y="2" width="50" height="50"/>
+                                                    <rect key="frame" x="8" y="2" width="60" height="60"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="labelFeedbackAndShare" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jDj-g3-tUD">
-                                                    <rect key="frame" x="69" y="17" width="243" height="21"/>
+                                                    <rect key="frame" x="76" y="21" width="243" height="21"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
@@ -295,16 +295,16 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="urb-mW-rpa">
-                                                    <rect key="frame" x="2" y="2" width="60" height="60"/>
+                                                    <rect key="frame" x="8" y="2" width="60" height="60"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="header" lineBreakMode="clip" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CIp-oV-FaX">
-                                                    <rect key="frame" x="78" y="8" width="240" height="21"/>
+                                                    <rect key="frame" x="76" y="8" width="240" height="21"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="3" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="desctitel" lineBreakMode="clip" baselineAdjustment="alignBaselines" minimumFontSize="4" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hD6-ie-65p">
-                                                    <rect key="frame" x="78" y="36" width="39" height="21"/>
+                                                    <rect key="frame" x="76" y="36" width="39" height="21"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
@@ -684,7 +684,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="CellHaveSwitch" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t8k-MH-54u">
-                                                    <rect key="frame" x="8" y="12" width="164" height="21"/>
+                                                    <rect key="frame" x="8" y="13" width="400" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
@@ -732,7 +732,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ec2-rP-lAq" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="qFZ-MV-hev" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="802" y="3180"/>
+            <point key="canvasLocation" x="802" y="3179"/>
         </scene>
         <!--KBI Add On Purchase View Controller-->
         <scene sceneID="6h4-1T-yJv">
@@ -1176,13 +1176,12 @@
         </scene>
     </scenes>
     <resources>
+        <image name="BtnPlay" width="360" height="98"/>
         <image name="EditorOutline.png" width="320" height="568"/>
         <image name="Gear44x44UIBtn.png" width="44" height="44"/>
+        <image name="IconPreview" width="44" height="44"/>
+        <image name="IconRoope" width="44" height="44"/>
         <image name="LightsFromCenter.png" width="320" height="504"/>
-        <image name="LineRed768x4.png" width="768" height="4"/>
-        <image name="PlayUIBtn_320x102.png" width="320" height="102"/>
-        <image name="PreviewIconUIBtn44x44.png" width="44" height="44"/>
-        <image name="Roope44x44UIBtn.png" width="44" height="44"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

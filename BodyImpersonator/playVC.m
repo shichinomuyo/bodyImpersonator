@@ -290,7 +290,9 @@
 }
 
 - (void)setBackgroundColorWithAnimation {
-    if ([self.bgColorName isEqualToString:@"Black"]) {
+    NSString *localizedBlack = [[NSString alloc] initWithFormat:NSLocalizedString(@"Black", nil)];
+    NSString *localizedWhite = [[NSString alloc] initWithFormat:NSLocalizedString(@"White", nil)];
+    if ([self.bgColorName isEqualToString:localizedBlack]) {
         [UIView animateWithDuration:0.25
                               delay:0
                             options:UIViewAnimationOptionCurveEaseIn
@@ -298,7 +300,7 @@
                              self.BFCV.backgroundColor = RGB(17, 34, 48);//nearlyBlack
                              NSLog(@"black?");
                          } completion:nil];
-    }else if ([self.bgColorName isEqualToString:@"White"]){
+    }else if ([self.bgColorName isEqualToString:localizedWhite]){
         [UIView animateWithDuration:0.25
                               delay:0
                             options:UIViewAnimationOptionCurveEaseIn

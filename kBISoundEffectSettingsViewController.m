@@ -140,8 +140,8 @@
             [labelTitle setAdjustsFontSizeToFitWidth:YES];
             [labelTitle setLineBreakMode:NSLineBreakByClipping];
             [labelTitle setMinimumScaleFactor:4];
-            
-            NSString *selectedBackgroundColor = [[NSUserDefaults standardUserDefaults] objectForKey:@"KEY_PlayVCBGColor"];
+            NSString *selectedBackgroundColor = [[NSString alloc] initWithFormat:NSLocalizedString([[NSUserDefaults standardUserDefaults] objectForKey:@"KEY_PlayVCBGColor"], nil)];
+
             [labelRightDetal setText:selectedBackgroundColor];
 
         }

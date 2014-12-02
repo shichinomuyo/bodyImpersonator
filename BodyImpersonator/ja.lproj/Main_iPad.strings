@@ -72,7 +72,7 @@
 "aFI-se-5pz.title" = "編集";
 
 /* Class = "IBUINavigationItem"; title = "MotionControlls"; ObjectID = "aTg-ia-TyQ"; */
-"aTg-ia-TyQ.title" = "モーション操作";
+"aTg-ia-TyQ.title" = "モーションコントロール";
 
 /* Class = "IBUILabel"; text = "CellHaveOneLabel"; ObjectID = "b5Q-Ob-E3m"; */
 "b5Q-Ob-E3m.text" = "CellHaveOneLabel";

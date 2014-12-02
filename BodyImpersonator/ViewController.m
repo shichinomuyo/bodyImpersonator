@@ -72,7 +72,8 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     [appDefaults setObject:@"NO"  forKey:@"KEY_StartPlayingWithVibeOn"];
     [appDefaults setObject:@"YES" forKey:@"KEY_FinishPlayingWithVibeOn"];
     // 再生中のバックグランドカラーを初期化
-    [appDefaults setObject:@"Black" forKey:@"KEY_PlayVCBGColor"];
+    NSString *initColor = [[NSString alloc] initWithFormat:NSLocalizedString(@"Black", nil)];
+    [appDefaults setObject:initColor forKey:@"KEY_PlayVCBGColor"];
     // アプリ内課金状況を初期化
     [appDefaults setObject:@"NO" forKey:@"KEY_Purchased"];
     
@@ -270,73 +271,6 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     // Dispose of any resources that can be recreated.
 }
 
-
-- (void)addAdBanners{
-    NSLog(@"AdBanners");
-    // サイズを指定してAdMobインスタンスを生成
-    bannerView_ = [[GADBannerView alloc] initWithAdSize:kGADAdSizeSmartBannerPortrait];
-    
-    // AdMobのパブリッシャーIDを指定
-    NSString *bannerUnitID;
-    
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){ // nendのバナー広告をメディエーションで組み込んでおり、nendのバナー広告は自動でサイズ調整を行わないので２つのADMOBバナー広告を用意している。
-        bannerUnitID = MY_BANNER_UNIT_ID;
-    }
-    else{
-        bannerUnitID = MY_BANNER_UNIT_ID;
-//        bannerUnitID = MY_BANNER_UNIT_ID_FOR_iPAD;
-    }
-    bannerView_.adUnitID = bannerUnitID;
-    
-    // AdMob広告を表示するViewController(自分自身)を指定し、ビューに広告を追加
-    bannerView_.rootViewController = self;
-    [self.view addSubview:bannerView_];
-    
-    // ビューの一番下に表示
-    [bannerView_ setCenter:CGPointMake(self.view.bounds.size.width/2, self.view.bounds.size.height - bannerView_.bounds.size.height/2)];
-    
-    // 【Ad】AdMob広告データの読み込みを要求
-    {
-    GADRequest *testRequest = [GADRequest request];
-    testRequest.testDevices = [NSArray arrayWithObjects:
-                               @"",@"45f1d4a8dbc44781969f09433ccac7e0", nil];
-    [bannerView_ loadRequest:testRequest];
-    }
-//    [bannerView_ loadRequest:[GADRequest request]]; // 本番はこの行だけでいい
-    
-
-    // AdMobバナーの回転時のautosize
-    //        bannerView_.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
-    
-    
-    //NADViewの作成
-    //        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
-    //            NSLog(@"iPhoneの処理");
-    //            self.nadView = [[NADView alloc] initWithFrame:CGRectMake(0, 0, 320, 50)];
-    //            [self.nadView setCenter:CGPointMake(self.view.bounds.size.width/2, self.nadView.bounds.size.height/2)];
-    //            // (3) ログ出力の指定
-    //            [self.nadView setIsOutputLog:YES];
-    //            // (4) set apiKey, spotId.
-    //            //        [self.nadView setNendID:@"a6eca9dd074372c898dd1df549301f277c53f2b9" spotID:@"3172"]; // テスト用
-    //            [self.nadView setNendID:@"139154ca4d546a7370695f0ba43c9520730f9703" spotID:@"208229"];
-    //
-    //        }
-    //        else{
-    //            NSLog(@"iPadの処理");
-    //            self.nadView = [[NADView alloc] initWithFrame:CGRectMake(0, 0, 728, 90)];
-    //            [self.nadView setCenter:CGPointMake(self.view.bounds.size.width/2, self.nadView.bounds.size.height/2)]; // ヘッダー
-    //            // (3) ログ出力の指定
-    //            [self.nadView setIsOutputLog:NO];
-    //            // (4) set apiKey, spotId.
-    //            //      [self.nadView setNendID:@"2e0b9e0b3f40d952e6000f1a8c4d455fffc4ca3a" spotID:@"70999"]; // テスト用
-    //            [self.nadView setNendID:@"19d17a40ad277a000f27111f286dc6aaa0ad146b" spotID:@"220604"];
-    //
-    //        }
-    //        [self.nadView setDelegate:self]; //(5)
-    //        [self.nadView load]; //(6)
-    //        [self.view addSubview:self.nadView]; // 最初から表示する場合
-}
-
 #pragma mark -
 #pragma mark Segue
 // previewVCとplayVCへ遷移するときの値渡し
@@ -460,7 +394,7 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
 
     if ([imageNames safeObjectAtIndex:(int)(indexPath.row)] == nil) {
 //        NSLog(@"nilだ");
-        UIImage *image = [UIImage imageNamed:@"AddImage.png"];
+        UIImage *image = [UIImage imageNamed:@"AddImage"];
         [cell.imageView setImage:image];
         // frameをつける
 //        cell.backgroundColor = [UIColor whiteColor];
@@ -483,7 +417,7 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
             
 
             // frameをつける
-            UIImage *imageFrame = [UIImage imageNamed:@"SelectTag@2x.png"];
+            UIImage *imageFrame = [UIImage imageNamed:@"SelectTag"]; // from AssetCatalog
             [cell.imageViewSelectedFrame setImage:imageFrame];
             [cell.imageViewSelectedFrame setAlpha:0.4];
 
@@ -1209,6 +1143,73 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
 
 #pragma mark -
 #pragma mark AdMobDelegate
+
+- (void)addAdBanners{
+    NSLog(@"AdBanners");
+    // サイズを指定してAdMobインスタンスを生成
+    bannerView_ = [[GADBannerView alloc] initWithAdSize:kGADAdSizeSmartBannerPortrait];
+    
+    // AdMobのパブリッシャーIDを指定
+    NSString *bannerUnitID;
+    
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){ // nendのバナー広告をメディエーションで組み込んでおり、nendのバナー広告は自動でサイズ調整を行わないので２つのADMOBバナー広告を用意している。
+        bannerUnitID = MY_BANNER_UNIT_ID;
+    }
+    else{
+        bannerUnitID = MY_BANNER_UNIT_ID;
+        //        bannerUnitID = MY_BANNER_UNIT_ID_FOR_iPAD;
+    }
+    bannerView_.adUnitID = bannerUnitID;
+    
+    // AdMob広告を表示するViewController(自分自身)を指定し、ビューに広告を追加
+    bannerView_.rootViewController = self;
+    [self.view addSubview:bannerView_];
+    
+    // ビューの一番下に表示
+    [bannerView_ setCenter:CGPointMake(self.view.bounds.size.width/2, self.view.bounds.size.height - bannerView_.bounds.size.height/2)];
+    
+    // 【Ad】AdMob広告データの読み込みを要求
+    {
+        GADRequest *testRequest = [GADRequest request];
+        testRequest.testDevices = [NSArray arrayWithObjects:
+                                   @"",@"45f1d4a8dbc44781969f09433ccac7e0", nil];
+        [bannerView_ loadRequest:testRequest];
+    }
+    //    [bannerView_ loadRequest:[GADRequest request]]; // 本番はこの行だけでいい
+    
+    
+    // AdMobバナーの回転時のautosize
+    //        bannerView_.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
+    
+    
+    //NADViewの作成
+    //        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
+    //            NSLog(@"iPhoneの処理");
+    //            self.nadView = [[NADView alloc] initWithFrame:CGRectMake(0, 0, 320, 50)];
+    //            [self.nadView setCenter:CGPointMake(self.view.bounds.size.width/2, self.nadView.bounds.size.height/2)];
+    //            // (3) ログ出力の指定
+    //            [self.nadView setIsOutputLog:YES];
+    //            // (4) set apiKey, spotId.
+    //            //        [self.nadView setNendID:@"a6eca9dd074372c898dd1df549301f277c53f2b9" spotID:@"3172"]; // テスト用
+    //            [self.nadView setNendID:@"139154ca4d546a7370695f0ba43c9520730f9703" spotID:@"208229"];
+    //
+    //        }
+    //        else{
+    //            NSLog(@"iPadの処理");
+    //            self.nadView = [[NADView alloc] initWithFrame:CGRectMake(0, 0, 728, 90)];
+    //            [self.nadView setCenter:CGPointMake(self.view.bounds.size.width/2, self.nadView.bounds.size.height/2)]; // ヘッダー
+    //            // (3) ログ出力の指定
+    //            [self.nadView setIsOutputLog:NO];
+    //            // (4) set apiKey, spotId.
+    //            //      [self.nadView setNendID:@"2e0b9e0b3f40d952e6000f1a8c4d455fffc4ca3a" spotID:@"70999"]; // テスト用
+    //            [self.nadView setNendID:@"19d17a40ad277a000f27111f286dc6aaa0ad146b" spotID:@"220604"];
+    //
+    //        }
+    //        [self.nadView setDelegate:self]; //(5)
+    //        [self.nadView load]; //(6)
+    //        [self.view addSubview:self.nadView]; // 最初から表示する場合
+}
+
 - (void)interstitalLoadRequest {
     // 【Ad】インタースティシャル広告の表示
     interstitial_ = [[GADInterstitial alloc] init];

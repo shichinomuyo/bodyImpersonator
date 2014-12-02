@@ -49,17 +49,17 @@
     NSString *addOnDesc = [[NSString alloc] initWithFormat:NSLocalizedString(@"Remove All AD & Registrable number of Images Increase 9 to 18", nil)];
     NSString *restoreAddOn = [[NSString alloc] initWithFormat:NSLocalizedString(@"RestoreAddOn", nil)];
     self.dataSourceAddOn = @[removeADandCap, restore]; // section1
-    self.dataSourceAddOnImages = [NSArray arrayWithObjects:@"RemoveAD60@2x.png",@"RemoveAD60@2x.png", nil]; //section1
+    self.dataSourceAddOnImages = [NSArray arrayWithObjects:@"TableCellIconRemoveAD",@"TableCellIconRestore", nil]; //section1
     self.dataSourceAddOnDesc = @[addOnDesc,restoreAddOn];//section1
     
     NSString *appStoreReview = [[NSString alloc] initWithFormat:NSLocalizedString(@"App Store review", nil)];
     NSString *shareThisApp = [[NSString alloc] initWithFormat:NSLocalizedString(@"Share This App", nil)];
     self.dataSourceFeedbackAndShare = @[appStoreReview, shareThisApp];//section2
-    self.dataSourceFeedbackAndShareImages = [NSArray arrayWithObjects: @"Compose60@2x.png",@"ShareIcon60@2x.png", nil];//section2
+    self.dataSourceFeedbackAndShareImages = [NSArray arrayWithObjects: @"TableCellIconCompose",@"TableCellIconShareThisApp", nil];//section2
     
     NSString *rollToCrashDesc = [[NSString alloc] initWithFormat:NSLocalizedString(@"Play drumroll -> crashCymbal!", nil)]; //ドラムロール→クラッシュシンバルの音を鳴らせるアプリです。
     self.dataSourceOtherApps = @[@"RollToCrash"];
-    self.dataSourceOtherAppsImages = [NSArray arrayWithObjects:@"ICONRollToCrashForLink60@2x.png", nil];
+    self.dataSourceOtherAppsImages = [NSArray arrayWithObjects:@"TableCellIconRollToCrash", nil];
     self.dataSourceOtherAppsDesc = @[rollToCrashDesc];
     
     _kIndicator = [kBIIndicator alloc];

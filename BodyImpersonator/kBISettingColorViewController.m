@@ -144,10 +144,10 @@
         case 0:
         {
             if (indexPath.row == 0) { // Black
-                color = @"Black";
+                color = [[NSString alloc] initWithFormat:NSLocalizedString(@"Black", nil)];
 
             }else if(indexPath.row == 1){ // White
-                color = @"White";
+                color = [[NSString alloc] initWithFormat:NSLocalizedString(@"White", nil)];;
             }
             [[NSUserDefaults standardUserDefaults] setObject:color forKey:@"KEY_PlayVCBGColor"];
             [[NSUserDefaults standardUserDefaults] synchronize];
