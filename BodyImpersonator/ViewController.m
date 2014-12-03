@@ -46,6 +46,7 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
 - (IBAction)previewUIBtn:(UIButton *)sender;
 - (IBAction)settingsUIBtn:(UIButton *)sender;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *containerVeiwHaveBtnsVerticalSpaceFromBottom;
 
 @end
 
@@ -94,6 +95,7 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     _purchased = [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_Purchased"];
     _startPlayingByShakeOn = [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_StartPlayingByShakeOn"];
     _startPlayingWithVibeOn = [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_StartPlayingWithVibeOn"];
+    
     // OSヴァージョンを取得
     _iOSVer = [[[UIDevice currentDevice] systemVersion] floatValue];
   
@@ -183,7 +185,8 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
      NSLog(@"purchased in mainview:%d",_purchased);
     // AppDelegateからの購入通知を登録する
     _purchased = [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_Purchased"];
-
+    _purchased = YES;
+    
     if (_purchased == NO) {
         // 広告表示のためのストーリボード上のレイアウト
 //        if (_displaySize.size.width == 320) {
@@ -249,16 +252,19 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
         collectionViewHeghtOriginal = 106 * 3;
         expansionY = 50;
         //        [_collectionView setFrame:CGRectMake(0, 64, self.view.bounds.size.width, 106 * 3 + 50)]; // bannerのheight50px分、heightを大きくする
+                self.containerVeiwHaveBtnsVerticalSpaceFromBottom.constant = 0;
     }
     else{
         NSLog(@"iPadの処理");
         baseViewBtnsHeight = 102;// StoryBoard上で課金前の状態で102pxとして作成
         collectionViewHeghtOriginal = 256 * 3;
         expansionY = 90;
-        //        [_collectionView setFrame:CGRectMake(0, 64, self.view.bounds.size.width,256 * 3  + 90)]; // bannerのheight90px分、heightを大きくする
+        
+        [_collectionView setFrame:CGRectMake(0, 64, self.view.bounds.size.width, collectionViewHeghtOriginal + expansionY)];// bannerのheight90px分、heightを大きくする
+        [_baseViewBtns setFrame:CGRectMake(0, self.view.frame.size.height - baseViewBtnsHeight, self.view.frame.size.width, baseViewBtnsHeight)];
+
+
     }
-    [_collectionView setFrame:CGRectMake(0, 64, self.view.bounds.size.width, collectionViewHeghtOriginal + expansionY)];
-    [_baseViewBtns setFrame:CGRectMake(0, self.view.frame.size.height - baseViewBtnsHeight, self.view.frame.size.width, baseViewBtnsHeight)];
 }
 - (void)dealloc{
     // AdMobBannerviewの開放
