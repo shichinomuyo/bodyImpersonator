@@ -5,7 +5,7 @@
   Created by 七野祐太 on 2014/11/22.
   Copyright (c) 2014年 shichino yuta. All rights reserved.
 */
-"titleImageiPhone" = "TitleLogo320x44_base@2x.png";
+"titleImageiPhone" = "TitleImageBackNoneLogoOnly";
 "titleImageiPad" = "TitleImageBackNoneLogoOnly";
 "AddImage" = "Add Image";
 "OpenAlbum" = "Open Album";

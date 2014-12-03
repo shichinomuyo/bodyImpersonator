@@ -277,10 +277,10 @@
                                             <rect key="frame" x="0.0" y="0.0" width="106" height="106"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Aa5-4K-1cF">
+                                                <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Aa5-4K-1cF">
                                                     <rect key="frame" x="0.0" y="0.0" width="106" height="106"/>
                                                 </imageView>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Fb7-4c-cRg" userLabel="Image View SelectedFrame">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Fb7-4c-cRg" userLabel="Image View SelectedFrame">
                                                     <rect key="frame" x="0.0" y="0.0" width="106" height="106"/>
                                                 </imageView>
                                             </subviews>
@@ -336,7 +336,7 @@
                             </collectionView>
                             <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4Ch-Od-A9z" userLabel="selectedPhotoImage">
                                 <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="-80" y="-31" width="24" height="85"/>
+                                    <rect key="frame" x="33" y="-36" width="86" height="12"/>
                                 </variation>
                             </imageView>
                         </subviews>
@@ -364,14 +364,14 @@
                                 <exclude reference="ZNH-y9-ncO"/>
                                 <exclude reference="oDg-JM-H3B"/>
                                 <exclude reference="qxV-7b-nAw"/>
-                                <exclude reference="Bkk-Ep-fes"/>
-                                <exclude reference="Ij5-re-F8t"/>
                                 <exclude reference="0vC-Yb-tak"/>
                                 <exclude reference="3Xx-tW-j5f"/>
                                 <exclude reference="IEE-Nf-OCQ"/>
                                 <exclude reference="J4b-f7-qGK"/>
                                 <exclude reference="WfN-Su-9Jr"/>
                                 <exclude reference="hAi-3U-I83"/>
+                                <exclude reference="Bkk-Ep-fes"/>
+                                <exclude reference="Ij5-re-F8t"/>
                                 <exclude reference="2g0-Ml-463"/>
                                 <exclude reference="89A-nR-icB"/>
                                 <exclude reference="BeM-Iu-kR5"/>
@@ -384,14 +384,14 @@
                                 <include reference="ZNH-y9-ncO"/>
                                 <include reference="oDg-JM-H3B"/>
                                 <include reference="qxV-7b-nAw"/>
-                                <exclude reference="Bkk-Ep-fes"/>
-                                <exclude reference="Ij5-re-F8t"/>
                                 <include reference="0vC-Yb-tak"/>
                                 <exclude reference="3Xx-tW-j5f"/>
                                 <exclude reference="IEE-Nf-OCQ"/>
                                 <include reference="J4b-f7-qGK"/>
                                 <include reference="WfN-Su-9Jr"/>
                                 <include reference="hAi-3U-I83"/>
+                                <exclude reference="Bkk-Ep-fes"/>
+                                <exclude reference="Ij5-re-F8t"/>
                                 <include reference="2g0-Ml-463"/>
                                 <include reference="89A-nR-icB"/>
                                 <include reference="BeM-Iu-kR5"/>
@@ -1221,13 +1221,13 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="JTN-sh-0H0" id="osn-fJ-jTy">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="CellHaveSwitch" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yPU-Jf-uvt">
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="CellHaveSwitch" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yPU-Jf-uvt">
                                                     <rect key="frame" x="8" y="12" width="164" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <switch opaque="NO" tag="2" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="c3L-G0-8lp">
+                                                <switch opaque="NO" tag="2" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="c3L-G0-8lp">
                                                     <rect key="frame" x="263" y="6" width="51" height="31"/>
                                                     <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
                                                         <rect key="frame" x="331" y="7" width="51" height="31"/>

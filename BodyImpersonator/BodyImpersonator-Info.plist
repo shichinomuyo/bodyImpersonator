@@ -28,8 +28,6 @@
 	<array>
 		<string>audio</string>
 	</array>
-	<key>UILaunchStoryboardName</key>
-	<string>Launch Screen</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main_iPhone</string>
 	<key>UIMainStoryboardFile~ipad</key>
