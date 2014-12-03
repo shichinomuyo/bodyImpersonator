@@ -345,6 +345,7 @@
 		56A4B1FF19FB70C40009CC37 /* NSArray+IndexHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 56A4B1FE19FB70C40009CC37 /* NSArray+IndexHelper.m */; };
 		56A9A9F61A2804A700DBE7F4 /* kBISettingMotionControllsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56A9A9F41A2804A700DBE7F4 /* kBISettingMotionControllsViewController.m */; };
 		56A9A9FA1A284AA100DBE7F4 /* kBIAddOnPurchaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56A9A9F91A284AA100DBE7F4 /* kBIAddOnPurchaseViewController.m */; };
+		56A9AA181A2EDCAD00DBE7F4 /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 56A9AA171A2EDCAD00DBE7F4 /* Launch Screen.xib */; };
 		56C9954A1A088C180006477D /* BugFixContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 56C995491A088C180006477D /* BugFixContainerView.m */; };
 		56E14FFD19FF38930029B81D /* playVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 56E14FFC19FF38930029B81D /* playVC.m */; };
 /* End PBXBuildFile section */
@@ -520,6 +521,7 @@
 		56A9AA061A29B61400DBE7F4 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Main_iPhone.strings; sourceTree = "<group>"; };
 		56A9AA081A29B61700DBE7F4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main_iPhone.strings; sourceTree = "<group>"; };
 		56A9AA0A1A29B62300DBE7F4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main_iPad.strings; sourceTree = "<group>"; };
+		56A9AA171A2EDCAD00DBE7F4 /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Launch Screen.xib"; sourceTree = "<group>"; };
 		56C995481A088C180006477D /* BugFixContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BugFixContainerView.h; sourceTree = "<group>"; };
 		56C995491A088C180006477D /* BugFixContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BugFixContainerView.m; sourceTree = "<group>"; };
 		56E14FFB19FF38930029B81D /* playVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = playVC.h; sourceTree = "<group>"; };
@@ -878,6 +880,7 @@
 				568B96151A15DB4000368272 /* BICollectionView */,
 				568B96021A12351E00368272 /* BITableView */,
 				56427E3119AB823200B516A0 /* Images.xcassets */,
+				56A9AA171A2EDCAD00DBE7F4 /* Launch Screen.xib */,
 				56427E1D19AB823200B516A0 /* Supporting Files */,
 			);
 			path = BodyImpersonator;
@@ -1497,6 +1500,7 @@
 				56017B861A221B0B001E6CEF /* Roope44x44UIBtn@2x.png in Resources */,
 				56017B921A2223FF001E6CEF /* TitleLogo768x44_base@2x.png in Resources */,
 				568B96411A1B03BB00368272 /* README.txt in Resources */,
+				56A9AA181A2EDCAD00DBE7F4 /* Launch Screen.xib in Resources */,
 				56427E4F19AB82C200B516A0 /* .gitignore in Resources */,
 				56017B841A221B0B001E6CEF /* PlayUIBtn_320x102@2x.png in Resources */,
 				56017B941A222878001E6CEF /* LineRed768x4@2x.png in Resources */,

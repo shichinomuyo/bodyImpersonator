@@ -25,7 +25,6 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     CGFloat _iOSVer;
     UIPopoverController *_popoverController;
 
-
 }
 
 // IBOutlet Btn
@@ -185,13 +184,10 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
      NSLog(@"purchased in mainview:%d",_purchased);
     // AppDelegateからの購入通知を登録する
     _purchased = [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_Purchased"];
-    _purchased = YES;
+//    _purchased = YES;
     
     if (_purchased == NO) {
         // 広告表示のためのストーリボード上のレイアウト
-//        if (_displaySize.size.width == 320) {
-//            [_baseViewBtns setFrame:CGRectMake(0, 294, 320, _baseViewBtns.frame.size.height)];
-//        }
 
     } else {
         [self adjustLayoutPurchased];
@@ -405,16 +401,17 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     NSArray *imageNames = [defaults objectForKey:@"KEY_imageNames"];
     
     NSString *selectedImageName = [defaults objectForKey:@"KEY_selectedImageName"];
-
+    
+//    [cell.imageView setFrame:cell.frame];
+//    [cell.imageViewSelectedFrame setFrame:cell.frame];
     if ([imageNames safeObjectAtIndex:(int)(indexPath.row)] == nil) {
 //        NSLog(@"nilだ");
         UIImage *image = [UIImage imageNamed:@"AddImage"];
         [cell.imageView setImage:image];
-        // frameをつける
-//        cell.backgroundColor = [UIColor whiteColor];
-//        UIImage *imageFrame = [UIImage imageNamed:@"CollectionViewCellFrame188x188.png"];
-//        [cell.imageViewFrame setImage:imageFrame];
-        //        NSLog(@"黒いFrameつけるお");
+        NSLog(@"imageViewSize:%@",NSStringFromCGSize(cell.imageView.frame.size));
+        NSLog(@"addViewSize:%@",NSStringFromCGSize(cell.imageViewSelectedFrame.frame.size));
+        
+
     } else{
         // NSDataからUIImageを作成
 //        NSLog(@"nilじゃない");
@@ -424,18 +421,17 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
 //        NSLog(@"filePath:%@",filePath);
 //        NSLog(@"imageName:%@",imageName);
 
-        
         if ([imageName isEqualToString:selectedImageName]) {// 黄色い三角形を右上に表示させる
             _selectedIndexPath = indexPath; // 画像追加時はうまく動く
             _selectedImage = image;
             
-
             // frameをつける
             UIImage *imageFrame = [UIImage imageNamed:@"SelectTag"]; // from AssetCatalog
             [cell.imageViewSelectedFrame setImage:imageFrame];
             [cell.imageViewSelectedFrame setAlpha:0.4];
 
-
+NSLog(@"selectTagViewSize:%@",NSStringFromCGSize(cell.imageViewSelectedFrame.frame.size));
+            
             [UIView animateWithDuration:0.6
                              animations:^{
                                   [cell.imageViewSelectedFrame setAlpha:1];
@@ -444,9 +440,7 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
                                  
                              }];
             [_selectedCell.imageView setImage:image];
-//            NSLog(@"選択中Frameつけるお");
-//            NSLog(@"imageviewSizeSelected:(%.2f,%.2f)",cell.imageView.frame.size.width,cell.imageView.frame.size.height);
-//            NSLog(@"imageviewFrameRect:(%.2f,%.2f,%.2f,%.2f)",cell.imageViewFrame.frame.origin.x, cell.imageViewFrame.frame.origin.y, cell.imageViewFrame.frame.size.width,cell.imageViewFrame.frame.size.height);
+
         }
                 [cell.imageView setImage:image];
 
@@ -454,6 +448,41 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     }
     return cell;
 }
+
+//-(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
+//    CGFloat cellWidth = floor(_collectionView.bounds.size.width / 3);
+//    CGFloat cellHeight = cellWidth;
+//    CGSize size = CGSizeMake(cellWidth, cellHeight);
+//    NSLog(@"colVWidth:%f",_collectionView.bounds.size.width);
+//    NSLog(@"cellSize:%@", NSStringFromCGSize(size));
+//    return size;
+//    
+//}
+//-(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{
+//    CGFloat viewWidth = _collectionView.bounds.size.width;
+//    int cellMargin = (int)viewWidth % 3;
+//    UIEdgeInsets spacing;
+//    if (cellMargin == 0) {
+//        spacing = UIEdgeInsetsMake(0, 0, 0, 0);
+//    } else if (cellMargin == 2){
+//        spacing = UIEdgeInsetsMake(0, 1, 0, 1);
+//    }
+//    return spacing;
+//}
+//
+//- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
+//{
+//    CGFloat spacing;
+//    spacing = 0;
+//    return spacing;
+//}
+//
+//- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
+//{
+//    CGFloat spacing;
+//    spacing = 0;
+//    return spacing;
+//}
 
 // セクションヘッダーに画像を追加
 

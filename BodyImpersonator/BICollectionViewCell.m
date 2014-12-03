@@ -16,4 +16,9 @@
     _imageViewSelectedFrame.image = nil;
 }
 
++ (CGFloat)cellWidth{
+    CGRect rect = [[UIScreen mainScreen]bounds];
+    CGFloat width = (int)(rect.size.width / 3);
+    return width;
+}
 @end
