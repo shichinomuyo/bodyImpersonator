@@ -449,40 +449,41 @@ NSLog(@"selectTagViewSize:%@",NSStringFromCGSize(cell.imageViewSelectedFrame.fra
     return cell;
 }
 
-//-(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
-//    CGFloat cellWidth = floor(_collectionView.bounds.size.width / 3);
-//    CGFloat cellHeight = cellWidth;
-//    CGSize size = CGSizeMake(cellWidth, cellHeight);
-//    NSLog(@"colVWidth:%f",_collectionView.bounds.size.width);
-//    NSLog(@"cellSize:%@", NSStringFromCGSize(size));
-//    return size;
-//    
-//}
-//-(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{
-//    CGFloat viewWidth = _collectionView.bounds.size.width;
-//    int cellMargin = (int)viewWidth % 3;
-//    UIEdgeInsets spacing;
-//    if (cellMargin == 0) {
-//        spacing = UIEdgeInsetsMake(0, 0, 0, 0);
-//    } else if (cellMargin == 2){
-//        spacing = UIEdgeInsetsMake(0, 1, 0, 1);
-//    }
-//    return spacing;
-//}
-//
-//- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
-//{
-//    CGFloat spacing;
-//    spacing = 0;
-//    return spacing;
-//}
-//
-//- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
-//{
-//    CGFloat spacing;
-//    spacing = 0;
-//    return spacing;
-//}
+// UICollectionViewDelegateFlowLayout
+-(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
+    CGFloat cellWidth = floor(_collectionView.bounds.size.width / 3);
+    CGFloat cellHeight = cellWidth;
+    CGSize size = CGSizeMake(cellWidth, cellHeight);
+    NSLog(@"colVWidth:%f",_collectionView.bounds.size.width);
+    NSLog(@"cellSize:%@", NSStringFromCGSize(size));
+    return size;
+    
+}
+-(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{
+    CGFloat viewWidth = _collectionView.bounds.size.width;
+    int cellMargin = (int)viewWidth % 3;
+    UIEdgeInsets spacing;
+    if (cellMargin == 0) {
+        spacing = UIEdgeInsetsMake(0, 0, 0, 0);
+    } else if (cellMargin == 2){
+        spacing = UIEdgeInsetsMake(0, 1, 0, 1);
+    }
+    return spacing;
+}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
+{
+    CGFloat spacing;
+    spacing = 0;
+    return spacing;
+}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
+{
+    CGFloat spacing;
+    spacing = 0;
+    return spacing;
+}
 
 // セクションヘッダーに画像を追加
 
