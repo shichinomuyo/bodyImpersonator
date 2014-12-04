@@ -173,7 +173,8 @@
 
 
 - (IBAction)cancelBtn:(UIBarButtonItem *)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
+//    [self dismissViewControllerAnimated:YES completion:nil];
+    [self performSegueWithIdentifier:@"backFromSecondVC" sender:self];
 }
 
 // Doneタップ時のアクションコントローラーを作成

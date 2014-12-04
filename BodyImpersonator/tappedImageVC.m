@@ -50,7 +50,7 @@
     countViewChanged ++;
     [[NSUserDefaults standardUserDefaults] setInteger:countViewChanged forKey:@"KEY_countUpViewChanged"];
     [[NSUserDefaults standardUserDefaults]synchronize];
-    NSLog(@"viewchanged:%d",countViewChanged);
+    NSLog(@"viewchanged:%ld",(long)countViewChanged);
     
       _kIndicator = [kBIIndicator alloc];
 }

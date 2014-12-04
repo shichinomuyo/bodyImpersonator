@@ -1055,14 +1055,15 @@
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" alpha="0.80000001192092896" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="51D-HO-sML">
                                 <rect key="frame" x="0.0" y="980" width="768" height="44"/>
                                 <items>
-                                    <barButtonItem image="IconSelecteThisImage" id="zvS-Hp-hzq">
-                                        <connections>
-                                            <action selector="setImageBtn:" destination="yAO-Md-pSK" id="1kr-Hg-zqJ"/>
-                                        </connections>
-                                    </barButtonItem>
                                     <barButtonItem systemItem="action" id="d0h-5o-lEf">
                                         <connections>
                                             <action selector="actionBtn:" destination="yAO-Md-pSK" id="1Wi-tb-Vuh"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="pxp-j4-5eh"/>
+                                    <barButtonItem image="IconSelecteThisImage" id="zvS-Hp-hzq">
+                                        <connections>
+                                            <action selector="setImageBtn:" destination="yAO-Md-pSK" id="1kr-Hg-zqJ"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="poa-rc-yds"/>

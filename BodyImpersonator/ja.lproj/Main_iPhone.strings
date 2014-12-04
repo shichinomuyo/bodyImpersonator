@@ -51,7 +51,7 @@
 "Omk-Az-b6R.text" = "CellHaveRightDetail";
 
 /* Class = "IBUINavigationItem"; title = "AddOnPurcase"; ObjectID = "PJn-0W-bec"; */
-"PJn-0W-bec.title" = "AddOnPurcase";
+"PJn-0W-bec.title" = "アドオンの購入";
 
 /* Class = "IBUIBarButtonItem"; title = "Back"; ObjectID = "PkU-0a-Voa"; */
 "PkU-0a-Voa.title" = "戻る";
@@ -84,7 +84,7 @@
 "aFI-se-5pz.title" = "編集";
 
 /* Class = "IBUINavigationItem"; title = "Selected Image Preview"; ObjectID = "bN0-Fe-ar9"; */
-"bN0-Fe-ar9.title" = "Selected Image Preview";
+"bN0-Fe-ar9.title" = "選択中の画像";
 
 /* Class = "IBUINavigationItem"; title = "Tapped Image"; ObjectID = "d9y-v8-iuA"; */
 "d9y-v8-iuA.title" = "Tapped Image";

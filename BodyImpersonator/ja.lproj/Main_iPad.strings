@@ -39,7 +39,7 @@
 "Nj3-l2-Qmv.text" = "SwitchState";
 
 /* Class = "IBUINavigationItem"; title = "AddOnPurcase"; ObjectID = "Obt-cA-mlZ"; */
-"Obt-cA-mlZ.title" = "AddOnPurcase";
+"Obt-cA-mlZ.title" = "アドオンの購入";
 
 /* Class = "IBUILabel"; text = "Detail"; ObjectID = "PF7-D5-OVR"; */
 "PF7-D5-OVR.text" = "詳細";
@@ -78,7 +78,7 @@
 "b5Q-Ob-E3m.text" = "CellHaveOneLabel";
 
 /* Class = "IBUINavigationItem"; title = "Selected Image Preview"; ObjectID = "bN0-Fe-ar9"; */
-"bN0-Fe-ar9.title" = "Selected Image Preview";
+"bN0-Fe-ar9.title" = "選択中の画像";
 
 /* Class = "IBUILabel"; text = "CellHaveRightDetail"; ObjectID = "by8-4V-rMi"; */
 "by8-4V-rMi.text" = "CellHaveRightDetail";

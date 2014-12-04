@@ -380,7 +380,8 @@
 
 // actions
 - (void)actionPostActivity:(NSIndexPath *)indexPath{
-    NSString *textToShare = @"#KARADA MONOMANIZER NOW!";
+    NSString *localeTextToShare = [[NSString alloc] initWithFormat:NSLocalizedString(@"#INSTANT MASK NOW!", nil)];
+    NSString *textToShare = localeTextToShare;
     NSString *urlString = @"http://itunes.apple.com/app/id942520127"; // KARADAMONOMANIZERのappstoreURL
     NSURL *url = [NSURL URLWithString:urlString];
     NSArray *activityItems = [[NSArray alloc] initWithObjects:textToShare,url, nil];

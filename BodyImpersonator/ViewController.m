@@ -184,7 +184,6 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
      NSLog(@"purchased in mainview:%d",_purchased);
     // AppDelegateからの購入通知を登録する
     _purchased = [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_Purchased"];
-//    _purchased = YES;
     
     if (_purchased == NO) {
         // 広告表示のためのストーリボード上のレイアウト
@@ -258,8 +257,10 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
         
         [_collectionView setFrame:CGRectMake(0, 64, self.view.bounds.size.width, collectionViewHeghtOriginal + expansionY)];// bannerのheight90px分、heightを大きくする
         [_baseViewBtns setFrame:CGRectMake(0, self.view.frame.size.height - baseViewBtnsHeight, self.view.frame.size.width, baseViewBtnsHeight)];
-
-
+    }
+    
+    if (bannerView_) {
+        [bannerView_ removeFromSuperview];
     }
 }
 - (void)dealloc{
@@ -346,7 +347,6 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
             if (_pickerContainerView) {
                           [_pickerContainerView dismissViewControllerAnimated:YES completion:nil];
             }
-          
         }
         [self.collectionView reloadData];
      
@@ -604,7 +604,7 @@ NSLog(@"selectTagViewSize:%@",NSStringFromCGSize(cell.imageViewSelectedFrame.fra
             _pickerContainerView = [[UIViewController alloc] init];
 
             [_pickerContainerView.view addSubview:_imagePicker.view];
-            if (_iOSVer > 8.0) {
+            if (_iOSVer > 8.0) { // iOS8のとき
                 [_pickerContainerView setPreferredContentSize:CGSizeMake(580, 600)]; // 580,600
                 _pickerContainerView.modalPresentationStyle = UIModalPresentationPopover;
                 _popoverPresentation = _pickerContainerView.popoverPresentationController;
@@ -612,7 +612,7 @@ NSLog(@"selectTagViewSize:%@",NSStringFromCGSize(cell.imageViewSelectedFrame.fra
                 _popoverPresentation.sourceRect = CGRectMake(self.view.frame.size.width/2, self.view.frame.size.height/2, 0, 0);
                 [_popoverPresentation setPermittedArrowDirections:0];
                  [self presentViewController:_pickerContainerView animated:YES completion:nil];
-            } else{
+            } else{ // iOS7のとき
                 if (_popoverController) {
                     [_popoverController dismissPopoverAnimated:YES];
                 }
@@ -875,14 +875,21 @@ NSLog(@"selectTagViewSize:%@",NSStringFromCGSize(cell.imageViewSelectedFrame.fra
     }
     else{
         NSLog(@"iPadの処理");
-        if (_iOSVer >= 8.0) {
-            [_pickerContainerView dismissViewControllerAnimated:YES completion:^{
+        if (_imagePicker.sourceType == UIImagePickerControllerSourceTypeCamera) {
+            [_imagePicker dismissViewControllerAnimated:YES completion:^{
                 [self presentViewController:sVC animated:YES completion:nil];
             }];
-        }else {
-             [_popoverController dismissPopoverAnimated:YES];
-            [self presentViewController:sVC animated:YES completion:nil];
+        } else{
+            if (_iOSVer >= 8.0) {
+                [_pickerContainerView dismissViewControllerAnimated:YES completion:^{
+                    [self presentViewController:sVC animated:YES completion:nil];
+                }];
+            }else {
+                [_popoverController dismissPopoverAnimated:YES];
+                [self presentViewController:sVC animated:YES completion:nil];
+            }
         }
+
     }
 }
 
@@ -1213,13 +1220,13 @@ NSLog(@"selectTagViewSize:%@",NSStringFromCGSize(cell.imageViewSelectedFrame.fra
     [bannerView_ setCenter:CGPointMake(self.view.bounds.size.width/2, self.view.bounds.size.height - bannerView_.bounds.size.height/2)];
     
     // 【Ad】AdMob広告データの読み込みを要求
-    {
-        GADRequest *testRequest = [GADRequest request];
-        testRequest.testDevices = [NSArray arrayWithObjects:
-                                   @"",@"45f1d4a8dbc44781969f09433ccac7e0", nil];
-        [bannerView_ loadRequest:testRequest];
-    }
-    //    [bannerView_ loadRequest:[GADRequest request]]; // 本番はこの行だけでいい
+//    { // iPadテスト用バナー表示
+//        GADRequest *testRequest = [GADRequest request];
+//        testRequest.testDevices = [NSArray arrayWithObjects:
+//                                   @"",@"45f1d4a8dbc44781969f09433ccac7e0", nil];
+//        [bannerView_ loadRequest:testRequest];
+//    }
+        [bannerView_ loadRequest:[GADRequest request]]; // 本番はこの行だけでいい
     
     
     // AdMobバナーの回転時のautosize
