@@ -406,7 +406,7 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
 //    [cell.imageViewSelectedFrame setFrame:cell.frame];
     if ([imageNames safeObjectAtIndex:(int)(indexPath.row)] == nil) {
 //        NSLog(@"nilだ");
-        UIImage *image = [UIImage imageNamed:@"AddImage"];
+        UIImage *image = [UIImage imageNamed:@"AddImageSoftWhitePink"];
         [cell.imageView setImage:image];
         NSLog(@"imageViewSize:%@",NSStringFromCGSize(cell.imageView.frame.size));
         NSLog(@"addViewSize:%@",NSStringFromCGSize(cell.imageViewSelectedFrame.frame.size));

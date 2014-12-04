@@ -216,7 +216,7 @@
     }
 }
 
-- (void)actionSetImage:(UIBarButtonItem *)sender{
+- (void)actionSetImage:(UIBarButtonItem *)barBtn UIBtn:(UIButton *)uiBtn{
     NSString *title = [[NSString alloc] initWithFormat:NSLocalizedString(@"SetThisImage?", nil)];
     NSString *action1 = [[NSString alloc] initWithFormat:NSLocalizedString(@"SetThisImage", nil)];
     NSString *action2 = [[NSString alloc] initWithFormat:NSLocalizedString(@"Cancel", nil)];
@@ -245,14 +245,14 @@
     }
     else{
         NSLog(@"iPadの処理");
-        if (sender == nil) {
+        if (barBtn == nil) {
             actionController.popoverPresentationController.sourceView = self.view;
             actionController.popoverPresentationController.sourceRect = CGRectMake(self.view.frame.size.width/2, self.view.frame.size.height/2, 0, 0);
             [actionController.popoverPresentationController setPermittedArrowDirections:0];
             [self presentViewController:actionController animated:YES completion:nil];
         }else{
             UIPopoverController *popover = [[UIPopoverController alloc]initWithContentViewController:actionController];
-            [popover presentPopoverFromBarButtonItem:sender permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+            [popover presentPopoverFromBarButtonItem:barBtn permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
         }
         
     }
@@ -276,7 +276,7 @@
         else{
             NSLog(@"iPadの処理");
             // アクションシートをpopoverで表示
-            UIBarButtonItem *btn = sender;
+            UIBarButtonItem *btn = barBtn;
             [actionSheet showFromBarButtonItem:btn animated:YES];
         }
     }
@@ -292,7 +292,7 @@
 }
 
 - (IBAction)setImageBtn:(UIBarButtonItem *)sender {
-    [self actionSetImage:sender];
+    [self actionSetImage:sender UIBtn:nil];
     
 }
 
@@ -348,12 +348,12 @@
 
 
 - (IBAction)btnCoverAllDisplay:(UIButton *)sender {
-    if (!_navigationBar.hidden) {
-        [NSObject animationHideNavBar:_navigationBar ToolBar:_toolBar];
-    }else{
-        [NSObject animationAppearNavBar:_navigationBar ToolBar:_toolBar];
-    }
-    
+//    if (!_navigationBar.hidden) {
+//        [NSObject animationHideNavBar:_navigationBar ToolBar:_toolBar];
+//    }else{
+//        [NSObject animationAppearNavBar:_navigationBar ToolBar:_toolBar];
+//    }
+    [self actionSetImage:nil UIBtn:sender];
 }
 
 #pragma mark -

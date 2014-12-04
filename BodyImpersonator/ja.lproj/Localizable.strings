@@ -31,8 +31,8 @@
 "InAppPurchaceIsLimited." = "Error:アプリ内課金が制限されています。";
 "OK" = "OK";
 "ItemIDIsInvalid." = "アイテムIDが無効です。";
-"titleImageiPhone" = "TitleImageBackNoneLogoOnly_ja";
-"titleImageiPad" = "TitleImageBackNoneLogoOnly_ja";
+"titleImageiPhone" = "TitleImage9SQUERES_ja";
+"titleImageiPad" = "TitleImage9SQUERES_ja";
 "RestoreCompleted" = "リストア完了";
 
 // BISettingVC sectionList

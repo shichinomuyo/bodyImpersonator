@@ -13,6 +13,7 @@
     UIActionSheet *_actionSheetAlert;
     CGPoint _startCenterPoint;
     kBIIndicator *_kIndicator;
+    BOOL _edited;
 }
 
 // IBOutlet
@@ -26,6 +27,7 @@
 - (IBAction)tapDoneBarBtn:(UIBarButtonItem *)sender;
 - (IBAction)dragging:(UIPanGestureRecognizer *)sender;
 - (IBAction)undo:(UIBarButtonItem *)sender;
+- (IBAction)undoUIBtn:(UIButton *)sender;
 
 @end
 
@@ -75,6 +77,7 @@
     [[NSUserDefaults standardUserDefaults]synchronize];
     
       _kIndicator = [kBIIndicator alloc];
+    _edited = NO;
 }
 
 - (void)didReceiveMemoryWarning
@@ -126,6 +129,7 @@
         CGRect zoomRect = [self zoomRectForScale:newScale];
         // タップした位置を拡大する
         [_imageScrollView zoomToRect:zoomRect animated:YES];
+        _edited = YES;
         
     } else{
         // 倍率１に戻す
@@ -156,6 +160,7 @@
     _editImageView.center = homeLoc;
     // ドラッグ開始位置をリセットする
     [sender setTranslation:CGPointZero inView:self.view];
+    _edited = YES;
     
 }
 
@@ -360,15 +365,33 @@
 
 // このビューを開いた時の状態に画像を調節
 - (IBAction)undo:(UIBarButtonItem *)sender {
-    // 倍率１、センターに戻す
-    [_imageScrollView setZoomScale:1.0 animated:YES];
-    [UIView animateWithDuration:0.2
-                          delay:0
-                        options:UIViewAnimationOptionCurveEaseInOut
-                     animations:^{
-                          [_editImageView setCenter:_startCenterPoint];
-                     } completion:nil];
-   
+    if (_edited) {
+        // 倍率１、センターに戻す
+        [_imageScrollView setZoomScale:1.0 animated:YES];
+        [UIView animateWithDuration:0.2
+                              delay:0
+                            options:UIViewAnimationOptionCurveEaseInOut
+                         animations:^{
+                             [_editImageView setCenter:_startCenterPoint];
+                         } completion:nil];
+        _edited = NO;
+    }
+}
+
+// このビューを開いた時の状態に画像を調節
+- (IBAction)undoUIBtn:(UIButton *)sender {
+    if (_edited) {
+        // 倍率１、センターに戻す
+        [_imageScrollView setZoomScale:1.0 animated:YES];
+        [UIView animateWithDuration:0.2
+                              delay:0
+                            options:UIViewAnimationOptionCurveEaseInOut
+                         animations:^{
+                             [_editImageView setCenter:_startCenterPoint];
+                         } completion:nil];
+            _edited = NO;
+    }
+
 }
 
 -(void)viewWillAppear:(BOOL)animated{
