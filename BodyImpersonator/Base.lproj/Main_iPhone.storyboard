@@ -799,6 +799,21 @@
                                     <action selector="btnCoverAllDisplay:" destination="Ml1-cR-wrA" eventType="touchUpInside" id="Uud-K6-KTV"/>
                                 </connections>
                             </button>
+                            <navigationBar alpha="0.69999999999999973" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pHb-d5-Bo5">
+                                <rect key="frame" x="0.0" y="-5" width="320" height="64"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="64" id="jqB-aT-U4e"/>
+                                </constraints>
+                                <items>
+                                    <navigationItem title="Selected Image Preview" id="bN0-Fe-ar9">
+                                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="HbL-4b-MOz">
+                                            <connections>
+                                                <segue destination="6gl-yu-fDZ" kind="unwind" identifier="cancel" unwindAction="firstViewReturnActionForSegue:" id="ufg-i3-4th"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" alpha="0.79999999999999982" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Gd3-VV-hwc">
                                 <rect key="frame" x="0.0" y="524" width="320" height="44"/>
                                 <items>
@@ -815,21 +830,6 @@
                                     </barButtonItem>
                                 </items>
                             </toolbar>
-                            <navigationBar alpha="0.69999999999999973" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pHb-d5-Bo5">
-                                <rect key="frame" x="0.0" y="-5" width="320" height="64"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="64" id="jqB-aT-U4e"/>
-                                </constraints>
-                                <items>
-                                    <navigationItem title="Selected Image Preview" id="bN0-Fe-ar9">
-                                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="HbL-4b-MOz">
-                                            <connections>
-                                                <segue destination="6gl-yu-fDZ" kind="unwind" identifier="cancel" unwindAction="firstViewReturnActionForSegue:" id="ufg-i3-4th"/>
-                                            </connections>
-                                        </barButtonItem>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -850,11 +850,13 @@
                             <constraint firstAttribute="bottomMargin" secondItem="EOC-7T-xUJ" secondAttribute="bottom" id="LkI-gi-BJn"/>
                             <constraint firstItem="pHb-d5-Bo5" firstAttribute="leading" secondItem="N5p-lA-Ife" secondAttribute="leading" id="OO3-ze-EmU"/>
                             <constraint firstItem="xGd-cJ-Pwp" firstAttribute="top" secondItem="uE7-Vv-hb6" secondAttribute="bottom" id="Qbu-im-KLy"/>
+                            <constraint firstItem="xGd-cJ-Pwp" firstAttribute="top" secondItem="Gd3-VV-hwc" secondAttribute="bottom" id="Rpj-7X-m9l"/>
                             <constraint firstAttribute="trailing" secondItem="uE7-Vv-hb6" secondAttribute="trailing" id="Tz1-Ff-cKn"/>
                             <constraint firstItem="uE7-Vv-hb6" firstAttribute="leading" secondItem="N5p-lA-Ife" secondAttribute="leading" id="VHe-mP-z6U"/>
                             <constraint firstItem="EOC-7T-xUJ" firstAttribute="top" secondItem="N5p-lA-Ife" secondAttribute="top" id="ZZQ-QS-5Rt"/>
                             <constraint firstAttribute="trailing" secondItem="EOC-7T-xUJ" secondAttribute="trailing" id="kfa-l6-v9D"/>
                             <constraint firstItem="EOC-7T-xUJ" firstAttribute="leading" secondItem="N5p-lA-Ife" secondAttribute="leading" id="lBr-e3-rLp"/>
+                            <constraint firstAttribute="bottom" secondItem="EOC-7T-xUJ" secondAttribute="bottom" id="rxa-As-VJU"/>
                             <constraint firstAttribute="trailing" secondItem="Gd3-VV-hwc" secondAttribute="trailing" id="sAH-YW-pkm"/>
                             <constraint firstItem="EOC-7T-xUJ" firstAttribute="top" secondItem="N5p-lA-Ife" secondAttribute="topMargin" id="zOA-6l-JIk"/>
                         </constraints>
@@ -868,15 +870,16 @@
                                 <exclude reference="ZZQ-QS-5Rt"/>
                                 <exclude reference="kfa-l6-v9D"/>
                                 <exclude reference="lBr-e3-rLp"/>
+                                <exclude reference="rxa-As-VJU"/>
                                 <exclude reference="zOA-6l-JIk"/>
+                                <exclude reference="0XM-xe-SH0"/>
+                                <exclude reference="BvZ-hZ-JWj"/>
+                                <exclude reference="OO3-ze-EmU"/>
                                 <exclude reference="1ov-jc-lN1"/>
                                 <exclude reference="3cA-cU-sFh"/>
                                 <exclude reference="6KZ-il-4mH"/>
                                 <exclude reference="Tz1-Ff-cKn"/>
                                 <exclude reference="VHe-mP-z6U"/>
-                                <exclude reference="0XM-xe-SH0"/>
-                                <exclude reference="BvZ-hZ-JWj"/>
-                                <exclude reference="OO3-ze-EmU"/>
                                 <exclude reference="2UB-8H-NUq"/>
                                 <exclude reference="Bnl-lf-qnJ"/>
                                 <exclude reference="GdI-g8-lHe"/>
@@ -884,6 +887,7 @@
                                 <exclude reference="sAH-YW-pkm"/>
                                 <exclude reference="9qg-IV-Zag"/>
                                 <exclude reference="Qbu-im-KLy"/>
+                                <exclude reference="Rpj-7X-m9l"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -896,22 +900,24 @@
                                 <include reference="ZZQ-QS-5Rt"/>
                                 <include reference="kfa-l6-v9D"/>
                                 <include reference="lBr-e3-rLp"/>
+                                <include reference="rxa-As-VJU"/>
                                 <exclude reference="zOA-6l-JIk"/>
+                                <include reference="0XM-xe-SH0"/>
+                                <include reference="BvZ-hZ-JWj"/>
+                                <include reference="OO3-ze-EmU"/>
                                 <exclude reference="1ov-jc-lN1"/>
                                 <include reference="3cA-cU-sFh"/>
                                 <exclude reference="6KZ-il-4mH"/>
                                 <include reference="Tz1-Ff-cKn"/>
                                 <include reference="VHe-mP-z6U"/>
-                                <include reference="0XM-xe-SH0"/>
-                                <include reference="BvZ-hZ-JWj"/>
-                                <include reference="OO3-ze-EmU"/>
                                 <exclude reference="2UB-8H-NUq"/>
                                 <exclude reference="Bnl-lf-qnJ"/>
-                                <include reference="GdI-g8-lHe"/>
+                                <exclude reference="GdI-g8-lHe"/>
                                 <include reference="K7V-MD-Yrj"/>
                                 <include reference="sAH-YW-pkm"/>
-                                <include reference="9qg-IV-Zag"/>
+                                <exclude reference="9qg-IV-Zag"/>
                                 <include reference="Qbu-im-KLy"/>
+                                <include reference="Rpj-7X-m9l"/>
                             </mask>
                         </variation>
                     </view>
