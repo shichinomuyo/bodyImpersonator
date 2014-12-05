@@ -53,7 +53,7 @@
                                         </constraints>
                                         <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <inset key="contentEdgeInsets" minX="1" minY="1" maxX="1" maxY="1"/>
-                                        <state key="normal" image="IconRoopeSoftWhitePink">
+                                        <state key="normal" image="IconRoopeSKINWHITE">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <variation key="default">
@@ -80,7 +80,7 @@
                                         </constraints>
                                         <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <inset key="contentEdgeInsets" minX="1" minY="1" maxX="1" maxY="1"/>
-                                        <state key="normal" image="IconPreviewSoftWhitePink">
+                                        <state key="normal" image="IconPreviewSKINWHITE">
                                             <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -109,7 +109,7 @@
                                             <constraint firstAttribute="height" constant="44" id="slL-Nt-A6V"/>
                                         </constraints>
                                         <inset key="contentEdgeInsets" minX="4" minY="4" maxX="4" maxY="4"/>
-                                        <state key="normal" image="IconGearSoftWhitePink">
+                                        <state key="normal" image="IconGearSKINWHITE">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <variation key="default">
@@ -136,7 +136,7 @@
                                             <constraint firstAttribute="height" constant="90" id="ZGy-gn-xxP"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="27"/>
-                                        <state key="normal" image="BtnPlaySoftWhitePink">
+                                        <state key="normal" image="BtnPlayCREAMWHITE">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <variation key="default">
@@ -336,7 +336,7 @@
                             </collectionView>
                             <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4Ch-Od-A9z" userLabel="selectedPhotoImage">
                                 <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="-63" y="30" width="16" height="19"/>
+                                    <rect key="frame" x="8" y="73" width="55" height="77"/>
                                 </variation>
                             </imageView>
                         </subviews>
@@ -1275,9 +1275,6 @@
                                                 </label>
                                                 <switch opaque="NO" tag="2" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="c3L-G0-8lp">
                                                     <rect key="frame" x="263" y="6" width="51" height="31"/>
-                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                                        <rect key="frame" x="331" y="7" width="51" height="31"/>
-                                                    </variation>
                                                     <connections>
                                                         <action selector="soundOnOffSwitch:" destination="JTN-sh-0H0" eventType="valueChanged" id="WMu-kk-4Zk"/>
                                                     </connections>
@@ -1870,7 +1867,7 @@
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" tag="2" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DGF-4s-jzE">
+                                                <button opaque="NO" tag="2" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DGF-4s-jzE">
                                                     <rect key="frame" x="240" y="8" width="72" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="36" id="cbS-4v-gO2"/>
@@ -1974,12 +1971,12 @@
         </scene>
     </scenes>
     <resources>
-        <image name="BtnPlaySoftWhitePink" width="212" height="64"/>
+        <image name="BtnPlayCREAMWHITE" width="212" height="64"/>
         <image name="EditorOutline.png" width="320" height="568"/>
-        <image name="IconGearSoftWhitePink" width="44" height="44"/>
-        <image name="IconPreviewSoftWhitePink" width="44" height="44"/>
+        <image name="IconGearSKINWHITE" width="44" height="44"/>
+        <image name="IconPreviewSKINWHITE" width="44" height="44"/>
         <image name="IconRedoTintColoredAdjustedSize" width="32" height="32"/>
-        <image name="IconRoopeSoftWhitePink" width="44" height="44"/>
+        <image name="IconRoopeSKINWHITE" width="44" height="44"/>
         <image name="IconSelecteThisImage" width="32" height="32"/>
         <image name="LightsFromCenter.png" width="320" height="504"/>
         <image name="LineRed768x4.png" width="768" height="4"/>

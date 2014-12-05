@@ -80,7 +80,7 @@
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Gd-Cf-jI9" userLabel="SearchUIBtn">
                                         <rect key="frame" x="8" y="54" width="44" height="44"/>
                                         <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        <state key="normal" image="IconRoopeSoftWhitePink">
+                                        <state key="normal" image="IconRoopeSKINWHITE">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -90,7 +90,7 @@
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ECX-E9-Y4M" userLabel="PreviewUIBtn">
                                         <rect key="frame" x="665" y="54" width="44" height="44"/>
                                         <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        <state key="normal" image="IconPreviewSoftWhitePink">
+                                        <state key="normal" image="IconPreviewSKINWHITE">
                                             <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -101,7 +101,7 @@
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oss-9t-IGY" userLabel="SettingsUIBtn">
                                         <rect key="frame" x="716" y="54" width="44" height="44"/>
                                         <inset key="contentEdgeInsets" minX="1" minY="1" maxX="1" maxY="1"/>
-                                        <state key="normal" image="IconGearSoftWhitePink">
+                                        <state key="normal" image="IconGearSKINWHITE">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -111,7 +111,7 @@
                                     <button tag="2" contentMode="scaleAspectFit" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fRx-QP-7Su" userLabel="ctrlBtn">
                                         <rect key="frame" x="204" y="2" width="360" height="98"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="27"/>
-                                        <state key="normal" image="BtnPlaySoftWhitePink">
+                                        <state key="normal" image="BtnPlayCREAMWHITE">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -241,7 +241,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="I4N-rQ-4XD">
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="I4N-rQ-4XD">
                                 <rect key="frame" x="0.0" y="0.0" width="768" height="64"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="64" id="ZIX-hk-anN"/>
@@ -405,7 +405,11 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="I4N-rQ-4XD" secondAttribute="trailing" id="OCh-ao-L1v"/>
+                            <constraint firstItem="I4N-rQ-4XD" firstAttribute="top" secondItem="Xij-VU-HN1" secondAttribute="top" id="PBZ-n8-mLQ"/>
                             <constraint firstItem="jQA-4V-gRK" firstAttribute="top" secondItem="I4N-rQ-4XD" secondAttribute="bottom" id="t38-ML-59l"/>
+                            <constraint firstItem="I4N-rQ-4XD" firstAttribute="leading" secondItem="Xij-VU-HN1" secondAttribute="leading" id="z2y-JV-AV0"/>
+                            <constraint firstAttribute="centerX" secondItem="I4N-rQ-4XD" secondAttribute="centerX" id="zkE-QV-vMC"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="bet-Nt-oXP"/>
@@ -503,7 +507,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NNu-oN-bV9">
+                            <navigationBar contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NNu-oN-bV9">
                                 <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="64" id="u0m-aH-ctO"/>
@@ -603,6 +607,11 @@
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="NNu-oN-bV9" firstAttribute="top" secondItem="KGx-ja-5vL" secondAttribute="top" id="A1U-tI-Fdf"/>
+                            <constraint firstAttribute="trailing" secondItem="NNu-oN-bV9" secondAttribute="trailing" id="Urb-bL-75T"/>
+                            <constraint firstItem="NNu-oN-bV9" firstAttribute="leading" secondItem="KGx-ja-5vL" secondAttribute="leading" id="ZFJ-Rd-yqD"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="tableView" destination="D3k-io-DMo" id="1cQ-cc-Lgp"/>
@@ -1178,12 +1187,12 @@
         </scene>
     </scenes>
     <resources>
-        <image name="BtnPlaySoftWhitePink" width="360" height="98"/>
+        <image name="BtnPlayCREAMWHITE" width="360" height="98"/>
         <image name="EditorOutline.png" width="320" height="568"/>
-        <image name="IconGearSoftWhitePink" width="44" height="44"/>
-        <image name="IconPreviewSoftWhitePink" width="44" height="44"/>
+        <image name="IconGearSKINWHITE" width="44" height="44"/>
+        <image name="IconPreviewSKINWHITE" width="44" height="44"/>
         <image name="IconRedoTintColoredAdjustedSize" width="32" height="32"/>
-        <image name="IconRoopeSoftWhitePink" width="44" height="44"/>
+        <image name="IconRoopeSKINWHITE" width="44" height="44"/>
         <image name="IconSelecteThisImage" width="32" height="32"/>
         <image name="LightsFromCenter.png" width="320" height="504"/>
     </resources>

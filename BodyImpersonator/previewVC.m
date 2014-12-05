@@ -72,6 +72,7 @@
 }
 
 -(void)viewDidAppear:(BOOL)animated{
+
     BOOL purchased = [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_Purchased"];
     // 広告表示フラグ確認
     if (purchased == NO) {

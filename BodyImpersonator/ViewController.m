@@ -406,7 +406,7 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
 //    [cell.imageViewSelectedFrame setFrame:cell.frame];
     if ([imageNames safeObjectAtIndex:(int)(indexPath.row)] == nil) {
 //        NSLog(@"nilだ");
-        UIImage *image = [UIImage imageNamed:@"AddImageSoftWhitePink"];
+        UIImage *image = [UIImage imageNamed:@"AddImageSoftWhitePink"]; // from AssetCatalog
         [cell.imageView setImage:image];
         NSLog(@"imageViewSize:%@",NSStringFromCGSize(cell.imageView.frame.size));
         NSLog(@"addViewSize:%@",NSStringFromCGSize(cell.imageViewSelectedFrame.frame.size));
@@ -426,7 +426,7 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
             _selectedImage = image;
             
             // frameをつける
-            UIImage *imageFrame = [UIImage imageNamed:@"SelectTag"]; // from AssetCatalog
+            UIImage *imageFrame = [UIImage imageNamed:@"SelectTagOnDarkRed"]; // from AssetCatalog
             [cell.imageViewSelectedFrame setImage:imageFrame];
             [cell.imageViewSelectedFrame setAlpha:0.4];
 
