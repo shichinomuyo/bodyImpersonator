@@ -81,7 +81,7 @@
 "YQN-mj-a54.title" = "SettingVC";
 
 /* Class = "IBUINavigationItem"; title = "Edit Image"; ObjectID = "aFI-se-5pz"; */
-"aFI-se-5pz.title" = "編集";
+"aFI-se-5pz.title" = "イメージエディター";
 
 /* Class = "IBUINavigationItem"; title = "Selected Image Preview"; ObjectID = "bN0-Fe-ar9"; */
 "bN0-Fe-ar9.title" = "選択中の画像";

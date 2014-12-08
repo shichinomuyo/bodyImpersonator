@@ -69,8 +69,8 @@
 "StartPlayingByShake" = "シェイク操作で開始";
 "FinishPlayingByShake" = "シェイク操作で終了";
 // section1
-"StartPlayingWithViberation" = "開始時に振動";
-"FinishPlayingWithViberation" = "終了時の振動";
+"StartPlayingWithVibration" = "開始時に振動";
+"FinishPlayingWithVibration" = "終了時に振動";
 
 // kBISoundEffectSettingsVC
 // sectionList

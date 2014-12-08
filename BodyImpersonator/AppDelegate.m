@@ -149,6 +149,7 @@
     // リストアの失敗
     [[NSNotificationCenter defaultCenter] postNotificationName:@"RestoreFailed" object:error];
 }
+
 //
 //- (void)upgradeRemoveAllAD{
 ////    self.AdsRemoved = YES;

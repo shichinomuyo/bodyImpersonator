@@ -69,7 +69,7 @@
 "a99-ac-G5w.text" = "labelFeedbackAndShare";
 
 /* Class = "IBUINavigationItem"; title = "Edit Image"; ObjectID = "aFI-se-5pz"; */
-"aFI-se-5pz.title" = "編集";
+"aFI-se-5pz.title" = "イメージエディター";
 
 /* Class = "IBUINavigationItem"; title = "MotionControlls"; ObjectID = "aTg-ia-TyQ"; */
 "aTg-ia-TyQ.title" = "モーションコントロール";

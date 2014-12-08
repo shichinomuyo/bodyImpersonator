@@ -168,7 +168,7 @@
                                     </imageView>
                                 </subviews>
                             </scrollView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="EditorOutline.png" translatesAutoresizingMaskIntoConstraints="NO" id="hkh-YD-ZA7" userLabel="editorOutline">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="EditorOutline" translatesAutoresizingMaskIntoConstraints="NO" id="hkh-YD-ZA7" userLabel="editorOutline">
                                 <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="768" id="NTa-sd-k1q"/>
@@ -199,7 +199,7 @@
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="Tes-9J-dEF"/>
-                                    <barButtonItem systemItem="done" id="vfS-58-pQj">
+                                    <barButtonItem image="IconSelecteThisImage" id="vfS-58-pQj">
                                         <connections>
                                             <action selector="tapDoneBarBtn:" destination="ha8-TI-9eX" id="z06-Dx-a6M"/>
                                         </connections>
@@ -1188,7 +1188,7 @@
     </scenes>
     <resources>
         <image name="BtnPlayCREAMWHITE" width="360" height="98"/>
-        <image name="EditorOutline.png" width="320" height="568"/>
+        <image name="EditorOutline" width="768" height="1024"/>
         <image name="IconGearSKINWHITE" width="44" height="44"/>
         <image name="IconPreviewSKINWHITE" width="44" height="44"/>
         <image name="IconRedoTintColoredAdjustedSize" width="32" height="32"/>

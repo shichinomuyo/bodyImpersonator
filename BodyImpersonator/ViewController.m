@@ -101,7 +101,6 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     // ナビゲーションコントローラのステータスバーの透過表示が気に入らないので隠す。
     [self.navigationController setNavigationBarHidden:YES animated:YES];
  
-
     NSLog(@"最初のviewDidLoad");
     
     // iOS7以上の場合はnavigationBarの高さを64pxにする
@@ -184,7 +183,7 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
      NSLog(@"purchased in mainview:%d",_purchased);
     // AppDelegateからの購入通知を登録する
     _purchased = [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_Purchased"];
-        _purchased = YES; // スクリーンショット撮影のためYESに
+
     
     if (_purchased == NO) {
         // 広告表示のためのストーリボード上のレイアウト
@@ -1352,9 +1351,9 @@ NSLog(@"selectTagViewSize:%@",NSStringFromCGSize(cell.imageViewSelectedFrame.fra
    //    return UIStatusBarStyleDefault; // デフォルト値（文字色は黒色）
 }
 
-// 
-- (BOOL)prefersStatusBarHidden
-{
-    return YES;
-}
+//スクリーンショット撮影用
+//- (BOOL)prefersStatusBarHidden
+//{
+//    return YES;
+//}
 @end
