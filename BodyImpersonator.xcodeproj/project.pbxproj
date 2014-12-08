@@ -128,15 +128,6 @@
 		56427EBF19AB91BE00B516A0 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		564AD77919E3B4FB0069901D /* previewVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = previewVC.h; sourceTree = "<group>"; };
 		564AD77A19E3B4FB0069901D /* previewVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = previewVC.m; sourceTree = "<group>"; };
-		564AD82D19EF8F760069901D /* BIImageTest01-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "BIImageTest01-Info.plist"; path = "/Users/shichinoyuta/Documents/Programing/Dev_iOS/BodyImpersonator/BIImageTest01-Info.plist"; sourceTree = "<absolute>"; };
-		564AD86519F0C8FF0069901D /* BIImageTest02-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "BIImageTest02-Info.plist"; path = "/Users/shichinoyuta/Documents/Programing/Dev_iOS/BodyImpersonator/BIImageTest02-Info.plist"; sourceTree = "<absolute>"; };
-		564AD89D19F0CC930069901D /* BIImageTest03-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "BIImageTest03-Info.plist"; path = "/Users/shichinoyuta/Documents/Programing/Dev_iOS/BodyImpersonator/BIImageTest03-Info.plist"; sourceTree = "<absolute>"; };
-		564AD8D519F0D20E0069901D /* BIImageTest03 copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "BIImageTest03 copy-Info.plist"; path = "/Users/shichinoyuta/Documents/Programing/Dev_iOS/BodyImpersonator/BIImageTest03 copy-Info.plist"; sourceTree = "<absolute>"; };
-		564AD90D19F0D9320069901D /* BIImageTest04 copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "BIImageTest04 copy-Info.plist"; path = "/Users/shichinoyuta/Documents/Programing/Dev_iOS/BodyImpersonator/BIImageTest04 copy-Info.plist"; sourceTree = "<absolute>"; };
-		564AD94519F0E32E0069901D /* BIImageTest05 copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "BIImageTest05 copy-Info.plist"; path = "/Users/shichinoyuta/Documents/Programing/Dev_iOS/BodyImpersonator/BIImageTest05 copy-Info.plist"; sourceTree = "<absolute>"; };
-		564AD97D19F0E4520069901D /* BIImageTest07 copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "BIImageTest07 copy-Info.plist"; path = "/Users/shichinoyuta/Documents/Programing/Dev_iOS/BodyImpersonator/BIImageTest07 copy-Info.plist"; sourceTree = "<absolute>"; };
-		564AD9B519F0E8410069901D /* BIImageTest08 copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "BIImageTest08 copy-Info.plist"; path = "/Users/shichinoyuta/Documents/Programing/Dev_iOS/BodyImpersonator/BIImageTest08 copy-Info.plist"; sourceTree = "<absolute>"; };
-		564AD9ED19F0E9640069901D /* BIImageTest09 copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "BIImageTest09 copy-Info.plist"; path = "/Users/shichinoyuta/Documents/Programing/Dev_iOS/BodyImpersonator/BIImageTest09 copy-Info.plist"; sourceTree = "<absolute>"; };
 		565E97D81A0D0B4000C18266 /* BICollectionReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BICollectionReusableView.h; sourceTree = "<group>"; };
 		565E97D91A0D0B4000C18266 /* BICollectionReusableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BICollectionReusableView.m; sourceTree = "<group>"; };
 		5676F8561A20703F00F7067F /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -277,15 +268,6 @@
 				56427E3E19AB823200B516A0 /* BodyImpersonatorTests */,
 				56427E1519AB823200B516A0 /* Frameworks */,
 				56427E1419AB823200B516A0 /* Products */,
-				564AD82D19EF8F760069901D /* BIImageTest01-Info.plist */,
-				564AD86519F0C8FF0069901D /* BIImageTest02-Info.plist */,
-				564AD89D19F0CC930069901D /* BIImageTest03-Info.plist */,
-				564AD8D519F0D20E0069901D /* BIImageTest03 copy-Info.plist */,
-				564AD90D19F0D9320069901D /* BIImageTest04 copy-Info.plist */,
-				564AD94519F0E32E0069901D /* BIImageTest05 copy-Info.plist */,
-				564AD97D19F0E4520069901D /* BIImageTest07 copy-Info.plist */,
-				564AD9B519F0E8410069901D /* BIImageTest08 copy-Info.plist */,
-				564AD9ED19F0E9640069901D /* BIImageTest09 copy-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -852,8 +834,9 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "04a51748-dc2f-4329-99bd-d134df3fbfec";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -885,7 +868,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				PROVISIONING_PROFILE = "04a51748-dc2f-4329-99bd-d134df3fbfec";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -901,7 +885,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BodyImpersonator/BodyImpersonator-Prefix.pch";
 				INFOPLIST_FILE = "BodyImpersonator/BodyImpersonator-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/BodyImpersonator",
@@ -923,7 +907,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BodyImpersonator/BodyImpersonator-Prefix.pch";
 				INFOPLIST_FILE = "BodyImpersonator/BodyImpersonator-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/BodyImpersonator",

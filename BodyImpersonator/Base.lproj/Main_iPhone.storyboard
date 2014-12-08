@@ -336,7 +336,7 @@
                             </collectionView>
                             <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4Ch-Od-A9z" userLabel="selectedPhotoImage">
                                 <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="8" y="73" width="55" height="77"/>
+                                    <rect key="frame" x="55" y="92" width="57" height="62"/>
                                 </variation>
                             </imageView>
                         </subviews>
@@ -872,14 +872,14 @@
                                 <exclude reference="lBr-e3-rLp"/>
                                 <exclude reference="rxa-As-VJU"/>
                                 <exclude reference="zOA-6l-JIk"/>
-                                <exclude reference="0XM-xe-SH0"/>
-                                <exclude reference="BvZ-hZ-JWj"/>
-                                <exclude reference="OO3-ze-EmU"/>
                                 <exclude reference="1ov-jc-lN1"/>
                                 <exclude reference="3cA-cU-sFh"/>
                                 <exclude reference="6KZ-il-4mH"/>
                                 <exclude reference="Tz1-Ff-cKn"/>
                                 <exclude reference="VHe-mP-z6U"/>
+                                <exclude reference="0XM-xe-SH0"/>
+                                <exclude reference="BvZ-hZ-JWj"/>
+                                <exclude reference="OO3-ze-EmU"/>
                                 <exclude reference="2UB-8H-NUq"/>
                                 <exclude reference="Bnl-lf-qnJ"/>
                                 <exclude reference="GdI-g8-lHe"/>
@@ -902,14 +902,14 @@
                                 <include reference="lBr-e3-rLp"/>
                                 <include reference="rxa-As-VJU"/>
                                 <exclude reference="zOA-6l-JIk"/>
-                                <include reference="0XM-xe-SH0"/>
-                                <include reference="BvZ-hZ-JWj"/>
-                                <include reference="OO3-ze-EmU"/>
                                 <exclude reference="1ov-jc-lN1"/>
                                 <include reference="3cA-cU-sFh"/>
                                 <exclude reference="6KZ-il-4mH"/>
                                 <include reference="Tz1-Ff-cKn"/>
                                 <include reference="VHe-mP-z6U"/>
+                                <include reference="0XM-xe-SH0"/>
+                                <include reference="BvZ-hZ-JWj"/>
+                                <include reference="OO3-ze-EmU"/>
                                 <exclude reference="2UB-8H-NUq"/>
                                 <exclude reference="Bnl-lf-qnJ"/>
                                 <exclude reference="GdI-g8-lHe"/>
