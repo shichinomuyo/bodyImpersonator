@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <StoreKit/StoreKit.h>
+#import "GAI.h"
 #ifndef DEBUG
 #define NSLog(...)
 #endif

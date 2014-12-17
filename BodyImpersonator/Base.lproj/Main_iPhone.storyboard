@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ECo-jj-JfU">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ECo-jj-JfU">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -39,7 +39,7 @@
                                     </mask>
                                 </variation>
                             </navigationBar>
-                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4O9-DG-1wD">
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4O9-DG-1wD">
                                 <rect key="frame" x="0.0" y="382" width="320" height="136"/>
                                 <subviews>
                                     <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="LineRed768x4.png" translatesAutoresizingMaskIntoConstraints="NO" id="2uP-6u-HkB">
@@ -72,7 +72,7 @@
                                             <action selector="searchUIBtn:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="J26-1y-soD"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oyw-sU-6qa" userLabel="PreviewUIBtn">
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oyw-sU-6qa" userLabel="PreviewUIBtn">
                                         <rect key="frame" x="234" y="92" width="44" height="44"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="44" id="YmX-wr-2Hg"/>
@@ -102,7 +102,7 @@
                                             <segue destination="Ml1-cR-wrA" kind="show" identifier="pushToPreviewVC" id="4pt-7j-J9r"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ybG-VO-CVg" userLabel="SettingsUIBtn">
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ybG-VO-CVg" userLabel="SettingsUIBtn">
                                         <rect key="frame" x="276" y="92" width="44" height="44"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="44" id="9p9-r2-RzH"/>
@@ -129,7 +129,7 @@
                                             <segue destination="YQN-mj-a54" kind="show" id="ecn-rX-rmX"/>
                                         </connections>
                                     </button>
-                                    <button tag="2" contentMode="scaleAspectFit" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PYk-rG-LMN" userLabel="ctrlBtn">
+                                    <button tag="2" contentMode="scaleAspectFit" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PYk-rG-LMN" userLabel="ctrlBtn">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="90"/>
                                         <color key="backgroundColor" red="0.76802009344100952" green="0.19092153012752533" blue="0.16092608869075775" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
@@ -1111,7 +1111,7 @@
                                     <outlet property="knobImageView" destination="Lsf-vS-kYr" id="07d-fc-bDo"/>
                                 </connections>
                             </view>
-                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="LightsFromCenter.png" translatesAutoresizingMaskIntoConstraints="NO" id="02z-tB-FhH" userLabel="lightEffectImageView">
+                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="EffectLightFromCenter" translatesAutoresizingMaskIntoConstraints="NO" id="02z-tB-FhH" userLabel="lightEffectImageView">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ODn-tp-2vP" userLabel="stopBtn">
@@ -1281,6 +1281,9 @@
                                                 </label>
                                                 <switch opaque="NO" tag="2" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="c3L-G0-8lp">
                                                     <rect key="frame" x="263" y="6" width="51" height="31"/>
+                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                                        <rect key="frame" x="699" y="6" width="51" height="31"/>
+                                                    </variation>
                                                     <connections>
                                                         <action selector="soundOnOffSwitch:" destination="JTN-sh-0H0" eventType="valueChanged" id="WMu-kk-4Zk"/>
                                                     </connections>
@@ -1979,12 +1982,12 @@
     <resources>
         <image name="BtnPlayCREAMWHITE" width="212" height="64"/>
         <image name="EditorOutline" width="320" height="568"/>
+        <image name="EffectLightFromCenter" width="320" height="568"/>
         <image name="IconGearSKINWHITE" width="44" height="44"/>
         <image name="IconPreviewSKINWHITE" width="44" height="44"/>
         <image name="IconRedoTintColoredAdjustedSize" width="32" height="32"/>
         <image name="IconRoopeSKINWHITE" width="44" height="44"/>
         <image name="IconSelecteThisImage" width="32" height="32"/>
-        <image name="LightsFromCenter.png" width="320" height="504"/>
         <image name="LineRed768x4.png" width="768" height="4"/>
     </resources>
 </document>
