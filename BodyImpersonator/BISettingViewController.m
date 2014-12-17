@@ -29,6 +29,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    // GoogleAnalytics導入のため以下設定
+    self.screenName = @"BI_SettingVC";
 
     // デリゲートメソッドをこのクラスで実装
     self.tableView.delegate = self;

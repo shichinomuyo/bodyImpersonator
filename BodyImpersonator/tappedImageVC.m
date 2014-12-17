@@ -33,6 +33,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    // GoogleAnalytics導入のため以下設定
+    self.screenName = @"BI_TappedVC";
+    
     // 操作無効解除
     [[UIApplication sharedApplication] endIgnoringInteractionEvents]; // 遷移元で操作無効にしているので解除
     

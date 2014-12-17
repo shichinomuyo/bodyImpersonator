@@ -23,6 +23,9 @@
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
+    // GoogleAnalytics導入のため以下設定
+    self.screenName = @"BI_SoundEffectsSettingVC";
+    
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     

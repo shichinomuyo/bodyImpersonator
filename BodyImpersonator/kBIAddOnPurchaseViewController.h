@@ -10,10 +10,11 @@
 #import <StoreKit/StoreKit.h>
 #import "kBIIndicator.h"
 #import "BITableViewCellHaveFourItems.h"
+#import "GAITrackedViewController.h"
 #define RGB(r, g, b)[UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:1]
 #define RGBA(r, g, b, a)[UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:a]
 
-@interface kBIAddOnPurchaseViewController : UIViewController<UIActionSheetDelegate,UITableViewDataSource,UITableViewDelegate,SKProductsRequestDelegate>
+@interface kBIAddOnPurchaseViewController : GAITrackedViewController<UIActionSheetDelegate,UITableViewDataSource,UITableViewDelegate,SKProductsRequestDelegate>
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property BOOL purchased;
 @end

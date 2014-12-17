@@ -30,7 +30,7 @@
 #define RGBA(r, g, b, a)[UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:a]
 
 
-@interface ViewController : UIViewController<GADBannerViewDelegate,GADInterstitialDelegate,NADViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIPopoverControllerDelegate,UIPopoverPresentationControllerDelegate, UICollectionViewDataSource, UICollectionViewDelegate,UIGestureRecognizerDelegate,UIActionSheetDelegate,UICollectionViewDelegateFlowLayout>{
+@interface ViewController : GAITrackedViewController<GADBannerViewDelegate,GADInterstitialDelegate,NADViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIPopoverControllerDelegate,UIPopoverPresentationControllerDelegate, UICollectionViewDataSource, UICollectionViewDelegate,UIGestureRecognizerDelegate,UIActionSheetDelegate,UICollectionViewDelegateFlowLayout>{
     //【Ad】AdMobバナー：インスタンス変数として1つ宣言
     GADBannerView *bannerView_;
     

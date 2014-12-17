@@ -18,6 +18,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    // GoogleAnalytics導入のため以下設定
+    self.screenName = @"BI_ColorSettingVC";
+    
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
 

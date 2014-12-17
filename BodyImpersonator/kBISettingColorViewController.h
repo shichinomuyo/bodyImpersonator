@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GAITrackedViewController.h"
 
-@interface kBISettingColorViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>
+@interface kBISettingColorViewController : GAITrackedViewController<UITableViewDataSource,UITableViewDelegate>
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 + (CGFloat)rowHeight;
 @end

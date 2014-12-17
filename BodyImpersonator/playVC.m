@@ -39,7 +39,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-
+    // GoogleAnalytics導入のため以下設定
+    self.screenName = @"BI_PlayVC";
+    
     //バックグラウンド時の対応
     
     if (&UIApplicationDidEnterBackgroundNotification) {
@@ -360,6 +362,11 @@
 
 - (void)appWillEnterForeground:(NSNotification *)notification{
     [self viewDidAppear:1];
+    
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+
     
 }
 

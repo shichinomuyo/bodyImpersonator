@@ -11,9 +11,10 @@
 #import "AppDelegate.h"
 #import "NSObject+Animation.h"
 #import "kBIIndicator.h"
+#import "GAITrackedViewController.h"
 
 
-@interface previewVC : UIViewController<UIPopoverControllerDelegate,UIPopoverPresentationControllerDelegate,UIActionSheetDelegate,GADInterstitialDelegate>
+@interface previewVC : GAITrackedViewController<UIPopoverControllerDelegate,UIPopoverPresentationControllerDelegate,UIActionSheetDelegate,GADInterstitialDelegate>
 {
     // 【Ad】AdMobインタースティシャル：インタンス変数として1つ宣言
     GADInterstitial *interstitial_;

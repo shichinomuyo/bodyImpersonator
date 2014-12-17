@@ -125,6 +125,8 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
 
     _kIndicator = [kBIIndicator alloc];
     
+    // GoogleAnalytics導入のため以下設定
+    self.screenName = @"BI_MainVC";
     // iPhone4/4sの3.5inch端末のUIを調整するためにディスプレイサイズを取得
 //    _displaySize = [[UIScreen mainScreen] bounds];
 //    NSLog(@"%@",NSStringFromCGRect(_displaySize));

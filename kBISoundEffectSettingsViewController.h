@@ -10,8 +10,9 @@
 #import "kBITableViewCellHaveSwitch.h"
 #import "kBITableViewCellHavePicker.h"
 #import "kBISettingColorViewController.h"
+#import "GAITrackedViewController.h"
 
-@interface kBISoundEffectSettingsViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>
+@interface kBISoundEffectSettingsViewController : GAITrackedViewController<UITableViewDataSource,UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property BOOL rollSoundOn;
 @property BOOL crashSoundOn;

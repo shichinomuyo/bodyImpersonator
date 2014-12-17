@@ -10,6 +10,7 @@
 #import "GADInterstitialDelegate.h"
 #import "AppDelegate.h"
 #import "kBIIndicator.h"
+#import "GAITrackedViewController.h"
 
 #ifdef DEBUG
 #define LOG(fmt,...) NSLog((@"%s %d "fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
@@ -17,7 +18,7 @@
 #define NSLog(...)
 #endif
 
-@interface secondVC : UIViewController <UIScrollViewDelegate,UINavigationControllerDelegate,UIActionSheetDelegate, GADInterstitialDelegate>
+@interface secondVC : GAITrackedViewController <UIScrollViewDelegate,UINavigationControllerDelegate,UIActionSheetDelegate, GADInterstitialDelegate>
 {
     GADInterstitial *interstitial_;
 }

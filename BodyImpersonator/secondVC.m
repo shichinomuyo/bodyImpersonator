@@ -46,7 +46,9 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    NSLog(@"secondVC didLoad!!");
+
+    // GoogleAnalytics導入のため以下設定
+    self.screenName = @"BI_SecondVCAsEditView";
     
     // scrollViewのデリゲート先になる
     _imageScrollView.delegate = self;

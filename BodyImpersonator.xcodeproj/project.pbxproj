@@ -67,6 +67,7 @@
 		56D13B471A41198B001B2AC7 /* libGoogleAnalyticsServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56D13B461A41198B001B2AC7 /* libGoogleAnalyticsServices.a */; };
 		56D13B491A4119FC001B2AC7 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56D13B481A4119FC001B2AC7 /* CoreData.framework */; };
 		56D13B4B1A411A30001B2AC7 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 56D13B4A1A411A30001B2AC7 /* libz.dylib */; };
+		56D13B4D1A4120CB001B2AC7 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 56D13B4C1A4120CB001B2AC7 /* libsqlite3.0.dylib */; };
 		56E14FFD19FF38930029B81D /* playVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 56E14FFC19FF38930029B81D /* playVC.m */; };
 /* End PBXBuildFile section */
 
@@ -213,6 +214,7 @@
 		56D13B461A41198B001B2AC7 /* libGoogleAnalyticsServices.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAnalyticsServices.a; sourceTree = "<group>"; };
 		56D13B481A4119FC001B2AC7 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		56D13B4A1A411A30001B2AC7 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		56D13B4C1A4120CB001B2AC7 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		56E14FFB19FF38930029B81D /* playVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = playVC.h; sourceTree = "<group>"; };
 		56E14FFC19FF38930029B81D /* playVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = playVC.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -222,6 +224,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				56D13B4D1A4120CB001B2AC7 /* libsqlite3.0.dylib in Frameworks */,
 				56D13B4B1A411A30001B2AC7 /* libz.dylib in Frameworks */,
 				56D13B491A4119FC001B2AC7 /* CoreData.framework in Frameworks */,
 				56427EC019AB91BF00B516A0 /* StoreKit.framework in Frameworks */,
@@ -298,6 +301,7 @@
 		56427E1519AB823200B516A0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				56D13B4C1A4120CB001B2AC7 /* libsqlite3.0.dylib */,
 				56D13B4A1A411A30001B2AC7 /* libz.dylib */,
 				56D13B481A4119FC001B2AC7 /* CoreData.framework */,
 				56427EBF19AB91BE00B516A0 /* StoreKit.framework */,

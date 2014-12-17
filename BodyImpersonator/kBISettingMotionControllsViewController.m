@@ -20,6 +20,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Uncomment the following line to preserve selection between presentations.
+    
+    // GoogleAnalytics導入のため以下設定
+    self.screenName = @"BI_MotionControllsSettingVC";
+    
     // self.clearsSelectionOnViewWillAppear = NO;
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.

@@ -11,9 +11,10 @@
 #import "AppDelegate.h"
 #import "NSObject+Animation.h"
 #import "kBIIndicator.h"
+#import "GAITrackedViewController.h"
 
 
-@interface tappedImageVC : UIViewController<UIPopoverControllerDelegate,UIPopoverPresentationControllerDelegate,UIActionSheetDelegate,GADInterstitialDelegate>
+@interface tappedImageVC : GAITrackedViewController<UIPopoverControllerDelegate,UIPopoverPresentationControllerDelegate,UIActionSheetDelegate,GADInterstitialDelegate>
 {
     GADInterstitial *interstitial_;
 }

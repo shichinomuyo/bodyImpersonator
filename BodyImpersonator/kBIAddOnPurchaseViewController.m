@@ -25,7 +25,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+    // GoogleAnalytics導入のため以下設定
+    self.screenName = @"BI_AddOnPurchaseVC";
     
     //    [self.tableView registerClass:[BIOtherAppsTableViewCell class] forCellReuseIdentifier:@"CellOtherApps"];
     _myProduct = nil;
