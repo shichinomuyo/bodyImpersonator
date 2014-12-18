@@ -210,7 +210,8 @@
             [labelAddOn setLineBreakMode:NSLineBreakByClipping];
             [labelAddOn setMinimumScaleFactor:4];
             
-            [labelDescTitle setText:@"Desc:"];//説明
+            NSString *desc = [[NSString alloc] initWithFormat:NSLocalizedString(@"Desc:", nil)];
+            [labelDescTitle setText:desc];//説明
             
             [labelDescription setText:self.dataSourceAddOnDesc[indexPath.row]];
             [labelDescription setAdjustsFontSizeToFitWidth:YES];

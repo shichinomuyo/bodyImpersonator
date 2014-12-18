@@ -59,7 +59,7 @@
 
 // BISettingVC dataSourceOtherAppsDesc section:3
 "Play drumroll -> crashCymbal!" = "ドラムロール→クラッシュシンバルの音を鳴らせるアプリです。"; //ドラムロール→クラッシュシンバルの音を鳴らせるアプリです。
-
+"Desc:" = "詳細:";
 // kBIAddOnPuchaseVC
 
 // kBISettingMotionControllsVC

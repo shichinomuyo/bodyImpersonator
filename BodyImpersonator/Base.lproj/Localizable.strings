@@ -36,6 +36,7 @@
 "ItemIDIsInvalid." = "ItemID is Invalid.";
 "RestoreCompleted" = "Restore Completed";
 "#INSTANT MASK NOW!" = "#INSTANT MASK NOW!";
+"Desc:" = "Description:";
 
 
 // BISettingVC sectionList

@@ -1263,6 +1263,7 @@ NSLog(@"selectTagViewSize:%@",NSStringFromCGSize(cell.imageViewSelectedFrame.fra
     //        [self.view addSubview:self.nadView]; // 最初から表示する場合
 }
 
+// AdMobインタースティシャルの生成
 - (void)interstitalLoadRequest {
     // 【Ad】インタースティシャル広告の表示
     interstitial_ = [[GADInterstitial alloc] init];
@@ -1273,7 +1274,7 @@ NSLog(@"selectTagViewSize:%@",NSStringFromCGSize(cell.imageViewSelectedFrame.fra
 
 }
 
-// AdMobインタースティシャルの再ロード
+// AdMobインタースティシャルの生成・インジケーターの表示開始・
 - (void)interstitialLoad{
     [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
     [_kIndicator indicatorStart];
