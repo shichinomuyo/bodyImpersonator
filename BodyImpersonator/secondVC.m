@@ -438,7 +438,7 @@
     
     [interstitial_ loadRequest:[GADRequest request]];
     [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
-    [_kIndicator performSelectorInBackground:@selector(indicatorStart) withObject:nil];
+//    [_kIndicator performSelectorInBackground:@selector(indicatorStart) withObject:nil];
     
     
 }
@@ -451,13 +451,13 @@
     // 操作無効解除
     [[UIApplication sharedApplication] endIgnoringInteractionEvents];
     // インジケーターを止める
-    [_kIndicator performSelectorInBackground:@selector(indicatorStop) withObject:nil];
+//    [_kIndicator performSelectorInBackground:@selector(indicatorStop) withObject:nil];
 }
 
 // AdMobのインタースティシャル広告表示
 - (void)interstitialDidReceiveAd:(GADInterstitial *)ad
 {
-    [_kIndicator performSelectorInBackground:@selector(indicatorStop) withObject:nil];
+//    [_kIndicator performSelectorInBackground:@selector(indicatorStop) withObject:nil];
     [[UIApplication sharedApplication] endIgnoringInteractionEvents];
     [ad presentFromRootViewController:self];
     
@@ -470,7 +470,7 @@
     [[UIApplication sharedApplication] endIgnoringInteractionEvents];
     
     // インジケーターを止める
-    [_kIndicator performSelectorInBackground:@selector(indicatorStop) withObject:nil];
+//    [_kIndicator performSelectorInBackground:@selector(indicatorStop) withObject:nil];
     
 }
 

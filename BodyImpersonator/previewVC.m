@@ -327,7 +327,7 @@
 // AdMobインタースティシャルの再ロード
 - (void)interstitialLoad{
     [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
-    [_kIndicator indicatorStart];
+//    [_kIndicator indicatorStart];
     // 広告表示準備開始状況フラグ更新
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSInteger memoryCountNumberOfInterstitialDidAppear = [defaults integerForKey:@"KEY_countUpViewChanged"];
@@ -346,13 +346,13 @@
     // 操作無効解除
     [[UIApplication sharedApplication] endIgnoringInteractionEvents];
     // インジケーターを止める
-    [_kIndicator indicatorStop];
+//    [_kIndicator indicatorStop];
 }
 
 // AdMobのインタースティシャル広告表示
 - (void)interstitialDidReceiveAd:(GADInterstitial *)ad
 {
-    [_kIndicator indicatorStop];
+//    [_kIndicator indicatorStop];
     [[UIApplication sharedApplication] endIgnoringInteractionEvents];
     [ad presentFromRootViewController:self];
     
@@ -365,7 +365,7 @@
     [[UIApplication sharedApplication] endIgnoringInteractionEvents];
     
     // インジケーターを止める
-    [_kIndicator indicatorStop];
+//    [_kIndicator indicatorStop];
     
 }
 
