@@ -22,6 +22,7 @@
 @property (strong,nonatomic) UIImage *selectedImage;
 @property BOOL rollSoundOn;
 @property BOOL crashSoundOn;
+@property BOOL originalMusicOn;
 @property BOOL flashOn;
 @property BOOL finishPlayingByShakeOn;
 @property BOOL finishPlayingWithVibeOn;

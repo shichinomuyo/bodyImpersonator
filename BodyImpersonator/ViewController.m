@@ -44,6 +44,7 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
 - (IBAction)searchUIBtn:(UIButton *)sender;
 - (IBAction)previewUIBtn:(UIButton *)sender;
 - (IBAction)settingsUIBtn:(UIButton *)sender;
+- (IBAction)changeMusicSeg:(UISegmentedControl *)sender;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *containerVeiwHaveBtnsVerticalSpaceFromBottom;
 
@@ -65,8 +66,9 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     // 選択中の画像の名前を入れておくKEY_selectedImageNameをNO_IMAGEで初期化
     [appDefaults setObject:@"NO_IMAGE" forKey:@"KEY_selectedImageName"];
     // settingsを初期化
-    [appDefaults setObject:@"YES" forKey:@"KEY_RollSoundOn"];
+    [appDefaults setObject:@"NO" forKey:@"KEY_RollSoundOn"];
     [appDefaults setObject:@"YES" forKey:@"KEY_CrashSoundOn"];
+    [appDefaults setObject:@"YES" forKey:@"KEY_OriginalMusicOn"];
     [appDefaults setObject:@"YES" forKey:@"KEY_FlashEffectOn"];
     [appDefaults setObject:@"YES" forKey:@"KEY_StartPlayingByShakeOn"];
     [appDefaults setObject:@"YES" forKey:@"KEY_FinishPlayingByShakeOn"];
@@ -548,6 +550,24 @@ NSLog(@"selectTagViewSize:%@",NSStringFromCGSize(cell.imageViewSelectedFrame.fra
         // iPadの処理
         // storyboard上でポップアップ表示処理は完結。画像表示処理をpreviewVCで実装。
     }
+}
+
+- (IBAction)changeMusicSeg:(UISegmentedControl *)sender {
+    switch (sender.selectedSegmentIndex) {
+        case 0: // オリジナル曲が選択された時
+            [[NSUserDefaults standardUserDefaults] setBool:NO  forKey:@"KEY_RollSoundOn"];
+            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"KEY_OriginalMusicOn"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            break;
+        case 1: // ドラムロールが選択された時
+            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"KEY_RollSoundOn"];
+            [[NSUserDefaults standardUserDefaults] setBool:NO  forKey:@"KEY_OriginalMusicOn"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            break;
+        default:
+            break;
+    }
+
 }
 // サファリを起動
 - (IBAction)searchUIBtn:(UIButton *)sender { // UIButton用

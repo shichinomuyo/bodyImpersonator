@@ -13,6 +13,7 @@
     AVAudioPlayer *_rollPlayerTmp;
     AVAudioPlayer *_rollPlayerAlt;
     AVAudioPlayer *_crashPlayer;
+    AVAudioPlayer *_originalMusicPlayer;
     
     // タイマー
     NSTimer *_playTimer; // AVAudioPlayerコントロール用
@@ -81,13 +82,26 @@
     // settingsStateLoad
     self.rollSoundOn = [[NSUserDefaults standardUserDefaults]boolForKey:@"KEY_RollSoundOn"];
     self.crashSoundOn = [[NSUserDefaults standardUserDefaults]boolForKey:@"KEY_CrashSoundOn"];
+    self.originalMusicOn = [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_OriginalMusicOn"];
     self.flashOn = [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_FlashEffectOn"];
     self.bgColorName = [[NSUserDefaults standardUserDefaults] objectForKey:@"KEY_PlayVCBGColor"];
     self.finishPlayingByShakeOn = [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_FinishPlayingByShakeOn"];
     self.finishPlayingWithVibeOn= [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_FinishPlayingWithVibeOn"];
     NSLog(@"bgColorName:%@",self.bgColorName);
-    [self initializeAVAudioPlayers];
     
+    if (self.rollSoundOn) {
+            [self initializeAVAudioPlayers_Roll];
+        NSLog(@"rollsoundon");
+    }
+    if (self.crashSoundOn) {
+        [self initializeAVAudioPlayers_Crash];
+                NSLog(@"crashsoundon");
+    }
+    if (self.originalMusicOn) {
+        [self initializeAVAudioPlayers_OriginalMusic];
+                NSLog(@"originalmusicon");
+    }
+
     [self playStart];
 
 }
@@ -108,7 +122,7 @@
 */
 
 #pragma mark AudioControlls
-- (void)initializeAVAudioPlayers{
+- (void)initializeAVAudioPlayers_Roll{
     // (audioplayer)再生する効果音のパスを取得する
     // ロールtmp
     NSString *path_roll = [[NSBundle mainBundle] pathForResource:@"roll13" ofType:@"mp3"];
@@ -119,15 +133,28 @@
     // ロールalt
     _rollPlayerAlt = [[AVAudioPlayer alloc] initWithContentsOfURL:url_roll error:NULL];
     
+    // プレイヤーを準備
+    [_rollPlayerTmp prepareToPlay];
+    [_rollPlayerAlt prepareToPlay];
+}
+
+- (void)initializeAVAudioPlayers_Crash{
     // クラッシュ
     NSString *path_clash = [[NSBundle mainBundle] pathForResource:@"crash13" ofType:@"mp3"];
     NSURL *url_clash = [NSURL fileURLWithPath:path_clash];
     _crashPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:url_clash error:NULL];
-    
     // プレイヤーを準備
-    [_rollPlayerTmp prepareToPlay];
-    [_rollPlayerAlt prepareToPlay];
     [_crashPlayer prepareToPlay];
+}
+
+- (void)initializeAVAudioPlayers_OriginalMusic{
+    // オリジナルミュージック
+    NSString *path_originalMusic = [[NSBundle mainBundle] pathForResource:@"Theme02" ofType:@"mp3"];
+    NSURL *url_originalMusic = [NSURL fileURLWithPath:path_originalMusic];
+    _originalMusicPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:url_originalMusic error:NULL];
+    _originalMusicPlayer.numberOfLoops = -1;//無限ループ
+    // プレイヤーを準備
+    [_originalMusicPlayer prepareToPlay];
 }
 
 // タイマー生成
@@ -202,11 +229,14 @@
 
 #pragma mark actionControlls
 - (IBAction)stopBtn:(UIButton *)sender {
-    if (_rollPlayerAlt.isPlaying || _rollPlayerTmp.isPlaying) {
-        [self stopDrumRoll]; // ロールを止めてクラッシュを鳴らす
+    if (_rollPlayerAlt.isPlaying || _rollPlayerTmp.isPlaying) { // ロールが鳴っているとき
+        [self stopDrumRollAndPlayCrash]; // ロールを止めてクラッシュを鳴らしアニメーション
+    } else if (_originalMusicPlayer.isPlaying){ // ロールが鳴っていなくてオリジナル曲が鳴っているとき
+        [_originalMusicPlayer stop];
+        [self playCrash]; // クラッシュを鳴らしてアニメーション
     }else{
         if (self.BFCV.knobImageView.hidden == 1) {
-            [self playCrash]; // ロールがなっていないのでクラッシュだけを鳴らす
+            [self playCrash]; // ロールがなっていないのでクラッシュだけを鳴らしアニメーション
         }else{
             [self performSegueWithIdentifier:@"unwindFromPlayVC" sender:self];
         }
@@ -214,7 +244,7 @@
     }
 }
 
--(void)stopDrumRoll{
+-(void)stopDrumRollAndPlayCrash{
 
         // ドラムロール再生中にctrlBtnが押されたときクラッシュ再生
         // ドラムロールを止めcrash再生
@@ -281,9 +311,11 @@
         [_rollPlayerTmp playRollStopCrash:_crashPlayer setVolumeZero:_rollPlayerAlt ];
         // playerControllを一定間隔で呼び出すタイマーを作る
         [self playerControll];
+    } else if (self.originalMusicOn){
+
+        [_originalMusicPlayer play];
     }
 
-    
     // アニメーションタイマーを破棄する
     [self animationTimerInvalidate];
     
@@ -337,7 +369,7 @@
                 AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
             }
             // ドラムロールを止めてクラッシュ再生と画像表示
-            [self stopDrumRoll];
+            [self stopDrumRollAndPlayCrash];
             
         }
     }
