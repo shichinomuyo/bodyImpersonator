@@ -35,8 +35,9 @@
 "Cancel" = "Cancel";
 "ItemIDIsInvalid." = "ItemID is Invalid.";
 "RestoreCompleted" = "Restore Completed";
-"#INSTANT MASK NOW!" = "#INSTANT MASK NOW!";
+"#INSTANT MASK NOW!" = "#InstantMask";
 "Desc:" = "Description:";
+"Free:" = "Free:";
 
 
 // BISettingVC sectionList

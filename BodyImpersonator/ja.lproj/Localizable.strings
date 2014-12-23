@@ -40,7 +40,8 @@
 "AddOn" = "アドオン";
 "Feedback/ShareThisApp" = "フィードバック/このアプリについて共有";
 "OtherApps" = "他のApp";
-"#INSTANT MASK NOW!" = "#KARADA MONOMANIZER NOW!";
+"#INSTANT MASK NOW!" = "#体モノマナイザー";
+"Free:" = "無料:";
 
 // BISettingVC dataSourceSettings section:0
 "Sound&Effect" = "サウンド&視覚効果";

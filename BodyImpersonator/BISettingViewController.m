@@ -267,7 +267,8 @@
             
             [imageViewAppIcon setImage:[UIImage imageNamed:self.dataSourceOtherAppsImages[indexPath.row]]];
             [labelAppName setText:self.dataSourceOtherApps[indexPath.row]];
-            [labelFee setText:@"Free:"];
+            NSString *free = [[NSString alloc] initWithFormat:NSLocalizedString(@"Free:", nil)];
+            [labelFee setText:free];
 
             [labelDescription setAdjustsFontSizeToFitWidth:YES];
             [labelDescription setLineBreakMode:NSLineBreakByClipping];
