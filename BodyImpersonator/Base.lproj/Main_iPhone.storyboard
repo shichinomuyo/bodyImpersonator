@@ -152,12 +152,13 @@
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="end-CD-qXk">
                                         <rect key="frame" x="-61" y="-14" width="123" height="29"/>
                                         <segments>
-                                            <segment title="Music"/>
-                                            <segment title="Drumroll"/>
+                                            <segment title="" image="ICON_MUSIC"/>
+                                            <segment title="" image="ICON_Drum"/>
+                                            <segment title="Select"/>
                                         </segments>
                                         <color key="tintColor" red="1" green="0.97217154500000003" blue="0.9632470608" alpha="1" colorSpace="calibratedRGB"/>
                                         <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                            <rect key="frame" x="8" y="98" width="123" height="29"/>
+                                            <rect key="frame" x="8" y="98" width="148" height="29"/>
                                         </variation>
                                         <connections>
                                             <action selector="changeMusicSeg:" destination="vXZ-lx-hvc" eventType="valueChanged" id="dC1-M1-ZY8"/>
@@ -2008,6 +2009,8 @@
         <image name="BtnPlayCREAMWHITE" width="212" height="64"/>
         <image name="EditorOutline" width="320" height="568"/>
         <image name="EffectLightFromCenter" width="320" height="568"/>
+        <image name="ICON_Drum" width="26" height="26"/>
+        <image name="ICON_MUSIC" width="26" height="26"/>
         <image name="IconGearSKINWHITE" width="44" height="44"/>
         <image name="IconPreviewSKINWHITE" width="44" height="44"/>
         <image name="IconRedoTintColoredAdjustedSize" width="32" height="32"/>

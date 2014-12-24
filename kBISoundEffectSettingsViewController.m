@@ -36,7 +36,7 @@
     NSString *backgroundColorWhilePlaying = [[NSString alloc] initWithFormat:NSLocalizedString(@"BackgroundColorWhilePlaying", nil)];
     self.sectionList = @[soundEffectt, backgroundColorWhilePlaying];
     // section0
-    NSString *rollSound = [[NSString alloc] initWithFormat:NSLocalizedString(@"RollSound", nil)];
+    NSString *rollSound = [[NSString alloc] initWithFormat:NSLocalizedString(@"Music/RollSound", nil)];
     NSString *crashSound = [[NSString alloc] initWithFormat:NSLocalizedString(@"CrashSound", nil)];
     NSString *flashEffect = [[NSString alloc] initWithFormat:NSLocalizedString(@"FlashEffect", nil)];
     self.dataSourceSoundEffectSettings = @[rollSound, crashSound, flashEffect];
@@ -44,7 +44,7 @@
     NSString *backgroundColor = [[NSString alloc] initWithFormat:NSLocalizedString(@"BackgroundColor", nil)];
     self.dataSourceColorSettings = @[backgroundColor];
     
-    self.rollSoundOn = [[NSUserDefaults standardUserDefaults]boolForKey:@"KEY_RollSoundOn"];
+    self.musicOn = [[NSUserDefaults standardUserDefaults]boolForKey:@"KEY_MusicOn"];
     self.crashSoundOn = [[NSUserDefaults standardUserDefaults]boolForKey:@"KEY_CrashSoundOn"];
     self.flashOn = [[NSUserDefaults standardUserDefaults]boolForKey:@"KEY_FlashEffectOn"];
 }
@@ -105,7 +105,7 @@
             switch (indexPath.row) {
                 case 0: // @"RollSound"
                     [sw addTarget:self action:@selector(tapRollSoundSW:) forControlEvents:UIControlEventTouchUpInside];
-                    if (self.rollSoundOn) {
+                    if (self.musicOn) {
                         sw.on =YES;
                     }else{
                         sw.on = NO;
@@ -218,13 +218,13 @@
 
 -(void)tapRollSoundSW:(UISwitch *)sender{
     UISwitch *sw = sender;
-    BOOL rollSoundEnable;
+    BOOL musicEnable;
     if(sw.on){
-        rollSoundEnable = YES;
-        [[NSUserDefaults standardUserDefaults] setBool:rollSoundEnable forKey:@"KEY_RollSoundOn"];
+        musicEnable = YES;
+        [[NSUserDefaults standardUserDefaults] setBool:musicEnable forKey:@"KEY_MusicOn"];
     }else{
-        rollSoundEnable = NO;
-        [[NSUserDefaults standardUserDefaults] setBool:rollSoundEnable forKey:@"KEY_RollSoundOn"];
+        musicEnable = NO;
+        [[NSUserDefaults standardUserDefaults] setBool:musicEnable forKey:@"KEY_MusicOn"];
     }
     [[NSUserDefaults standardUserDefaults] synchronize];
 }

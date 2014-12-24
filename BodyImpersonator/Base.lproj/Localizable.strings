@@ -81,7 +81,7 @@
 "Sound&Effect" = "Sound & Effect";
 "BackgroundColorWhilePlaying" = "Background Color While Playing";
 // section0
-"RollSound" = "RollSound";
+"Music/RollSound" = "Music/RollSound";
 "CrashSound" = "CrashSound";
 "FlashEffect" = "FlashEffect";
 // section1

@@ -81,6 +81,7 @@
     
     // settingsStateLoad
     self.rollSoundOn = [[NSUserDefaults standardUserDefaults]boolForKey:@"KEY_RollSoundOn"];
+    self.musicOn = [[NSUserDefaults standardUserDefaults]boolForKey:@"KEY_MusicOn"];
     self.crashSoundOn = [[NSUserDefaults standardUserDefaults]boolForKey:@"KEY_CrashSoundOn"];
     self.originalMusicOn = [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_OriginalMusicOn"];
     self.flashOn = [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_FlashEffectOn"];
@@ -89,17 +90,20 @@
     self.finishPlayingWithVibeOn= [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_FinishPlayingWithVibeOn"];
     NSLog(@"bgColorName:%@",self.bgColorName);
     
-    if (self.rollSoundOn) {
+    if (self.musicOn) {
+        if (self.rollSoundOn) {
             [self initializeAVAudioPlayers_Roll];
-        NSLog(@"rollsoundon");
+            NSLog(@"rollsoundon");
+        }
+
+        if (self.originalMusicOn) {
+            [self initializeAVAudioPlayers_OriginalMusic];
+            NSLog(@"originalmusicon");
+        }
     }
     if (self.crashSoundOn) {
         [self initializeAVAudioPlayers_Crash];
-                NSLog(@"crashsoundon");
-    }
-    if (self.originalMusicOn) {
-        [self initializeAVAudioPlayers_OriginalMusic];
-                NSLog(@"originalmusicon");
+        NSLog(@"crashsoundon");
     }
 
     [self playStart];
@@ -149,7 +153,7 @@
 
 - (void)initializeAVAudioPlayers_OriginalMusic{
     // オリジナルミュージック
-    NSString *path_originalMusic = [[NSBundle mainBundle] pathForResource:@"Theme02" ofType:@"mp3"];
+    NSString *path_originalMusic = [[NSBundle mainBundle] pathForResource:@"Theme03" ofType:@"mp3"];
     NSURL *url_originalMusic = [NSURL fileURLWithPath:path_originalMusic];
     _originalMusicPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:url_originalMusic error:NULL];
     _originalMusicPlayer.numberOfLoops = -1;//無限ループ

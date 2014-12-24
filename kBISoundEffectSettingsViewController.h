@@ -14,7 +14,7 @@
 
 @interface kBISoundEffectSettingsViewController : GAITrackedViewController<UITableViewDataSource,UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property BOOL rollSoundOn;
+@property BOOL musicOn;
 @property BOOL crashSoundOn;
 @property BOOL flashOn;
 

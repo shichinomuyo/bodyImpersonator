@@ -19,12 +19,14 @@
 #import "secondVC.h"
 #import "previewVC.h"
 #import "playVC.h" // indexpath受け渡し用にインポート
+#import "kBIMediaPickerController.h" // segmentedControllの2のボタンをタップでメディアピッカーを開く
 #import "FrameOutCollectionViewFlowLayout.h"
 #import "BICollectionViewCell.h"
 #import "BICollectionReusableView.h"
 #import "tappedImageVC.h"
 #import "kBIIndicator.h"
 #import "GAITrackedViewController.h"
+
 
 #define RGB(r, g, b)[UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:1]
 #define RGBA(r, g, b, a)[UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:a]

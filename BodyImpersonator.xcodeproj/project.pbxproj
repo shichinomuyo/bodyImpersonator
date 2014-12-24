@@ -12,6 +12,9 @@
 		56017BA01A23776D001E6CEF /* kBISoundEffectSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56017B9F1A23776D001E6CEF /* kBISoundEffectSettingsViewController.m */; };
 		56017BAA1A240F15001E6CEF /* kBISettingColorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56017BA91A240F15001E6CEF /* kBISettingColorViewController.m */; };
 		5606AFEF1A494F32003F6E9E /* Theme02.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5606AFEE1A494F32003F6E9E /* Theme02.mp3 */; };
+		5606B02F1A4A638F003F6E9E /* Theme03.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5606B02E1A4A638F003F6E9E /* Theme03.mp3 */; };
+		5606B0341A4AEB3C003F6E9E /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5606B0331A4AEB3C003F6E9E /* MediaPlayer.framework */; };
+		5606B0371A4AEE5F003F6E9E /* kBIMediaPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5606B0361A4AEE5F003F6E9E /* kBIMediaPickerController.m */; };
 		56427E1719AB823200B516A0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427E1619AB823200B516A0 /* Foundation.framework */; };
 		56427E1919AB823200B516A0 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427E1819AB823200B516A0 /* CoreGraphics.framework */; };
 		56427E1B19AB823200B516A0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427E1A19AB823200B516A0 /* UIKit.framework */; };
@@ -92,6 +95,10 @@
 		56017BA81A240F15001E6CEF /* kBISettingColorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kBISettingColorViewController.h; sourceTree = "<group>"; };
 		56017BA91A240F15001E6CEF /* kBISettingColorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = kBISettingColorViewController.m; sourceTree = "<group>"; };
 		5606AFEE1A494F32003F6E9E /* Theme02.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Theme02.mp3; sourceTree = "<group>"; };
+		5606B02E1A4A638F003F6E9E /* Theme03.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Theme03.mp3; sourceTree = "<group>"; };
+		5606B0331A4AEB3C003F6E9E /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		5606B0351A4AEE5F003F6E9E /* kBIMediaPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kBIMediaPickerController.h; sourceTree = "<group>"; };
+		5606B0361A4AEE5F003F6E9E /* kBIMediaPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = kBIMediaPickerController.m; sourceTree = "<group>"; };
 		5617B4BE1A20437800586645 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		5617B4C11A20437800586645 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		56427E1319AB823200B516A0 /* BodyImpersonator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BodyImpersonator.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -226,6 +233,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5606B0341A4AEB3C003F6E9E /* MediaPlayer.framework in Frameworks */,
 				56D13B4D1A4120CB001B2AC7 /* libsqlite3.0.dylib in Frameworks */,
 				56D13B4B1A411A30001B2AC7 /* libz.dylib in Frameworks */,
 				56D13B491A4119FC001B2AC7 /* CoreData.framework in Frameworks */,
@@ -303,6 +311,7 @@
 		56427E1519AB823200B516A0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5606B0331A4AEB3C003F6E9E /* MediaPlayer.framework */,
 				56D13B4C1A4120CB001B2AC7 /* libsqlite3.0.dylib */,
 				56D13B4A1A411A30001B2AC7 /* libz.dylib */,
 				56D13B481A4119FC001B2AC7 /* CoreData.framework */,
@@ -340,6 +349,8 @@
 				56427E2619AB823200B516A0 /* AppDelegate.m */,
 				56427E2E19AB823200B516A0 /* ViewController.h */,
 				56427E2F19AB823200B516A0 /* ViewController.m */,
+				5606B0351A4AEE5F003F6E9E /* kBIMediaPickerController.h */,
+				5606B0361A4AEE5F003F6E9E /* kBIMediaPickerController.m */,
 				56E14FFB19FF38930029B81D /* playVC.h */,
 				56E14FFC19FF38930029B81D /* playVC.m */,
 				5686757919BED3C900AF524A /* secondVC.h */,
@@ -433,6 +444,7 @@
 		56427E9E19AB891500B516A0 /* ver1.0 */ = {
 			isa = PBXGroup;
 			children = (
+				5606B02E1A4A638F003F6E9E /* Theme03.mp3 */,
 				5606AFEE1A494F32003F6E9E /* Theme02.mp3 */,
 				56427E8519AB88CB00B516A0 /* crash13.mp3 */,
 				56427E8619AB88CB00B516A0 /* roll13.mp3 */,
@@ -724,6 +736,7 @@
 				5606AFEF1A494F32003F6E9E /* Theme02.mp3 in Resources */,
 				56427E2119AB823200B516A0 /* InfoPlist.strings in Resources */,
 				5676F8551A20703F00F7067F /* Localizable.strings in Resources */,
+				5606B02F1A4A638F003F6E9E /* Theme03.mp3 in Resources */,
 				568B968D1A1C370600368272 /* NADView_readme.txt in Resources */,
 				56427E8719AB88CB00B516A0 /* crash13.mp3 in Resources */,
 				56427E8819AB88CB00B516A0 /* roll13.mp3 in Resources */,
@@ -758,6 +771,7 @@
 				56C9954A1A088C180006477D /* BugFixContainerView.m in Sources */,
 				56017BAA1A240F15001E6CEF /* kBISettingColorViewController.m in Sources */,
 				568B96BA1A1ECF1700368272 /* kBIIndicator.m in Sources */,
+				5606B0371A4AEE5F003F6E9E /* kBIMediaPickerController.m in Sources */,
 				568B961E1A185CF300368272 /* tappedImageVC.m in Sources */,
 				568B95F81A11D50A00368272 /* BITableViewCellHaveFourItems.m in Sources */,
 				56427E2719AB823200B516A0 /* AppDelegate.m in Sources */,

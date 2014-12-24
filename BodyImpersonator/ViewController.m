@@ -67,6 +67,7 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     [appDefaults setObject:@"NO_IMAGE" forKey:@"KEY_selectedImageName"];
     // settingsを初期化
     [appDefaults setObject:@"NO" forKey:@"KEY_RollSoundOn"];
+    [appDefaults setObject:@"YES" forKey:@"KEY_MusicOn"];
     [appDefaults setObject:@"YES" forKey:@"KEY_CrashSoundOn"];
     [appDefaults setObject:@"YES" forKey:@"KEY_OriginalMusicOn"];
     [appDefaults setObject:@"YES" forKey:@"KEY_FlashEffectOn"];
@@ -563,6 +564,15 @@ NSLog(@"selectTagViewSize:%@",NSStringFromCGSize(cell.imageViewSelectedFrame.fra
             [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"KEY_RollSoundOn"];
             [[NSUserDefaults standardUserDefaults] setBool:NO  forKey:@"KEY_OriginalMusicOn"];
             [[NSUserDefaults standardUserDefaults] synchronize];
+            break;
+        case 2:
+        {
+            kBIMediaPickerController *mediaPicker = [[kBIMediaPickerController alloc]initWithMediaTypes:MPMediaTypeMusic];
+//            mediaPicker.delegate = self; // デリゲートになる
+            mediaPicker.allowsPickingMultipleItems = false;// 複数曲を選択させない
+            [self presentViewController:mediaPicker animated:YES completion:nil];
+        }
+            
             break;
         default:
             break;
