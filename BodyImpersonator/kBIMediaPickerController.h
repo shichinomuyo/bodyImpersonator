@@ -7,7 +7,9 @@
 //
 
 #import <MediaPlayer/MediaPlayer.h>
+#import "kBIMusicHundlerByImageName.h"
 
 @interface kBIMediaPickerController : MPMediaPickerController <MPMediaPickerControllerDelegate>
 @property MPMusicPlayerController *musicPlayer;
+@property NSIndexPath *tappedIndexPath;
 @end

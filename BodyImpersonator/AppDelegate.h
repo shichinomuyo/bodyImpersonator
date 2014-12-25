@@ -12,7 +12,7 @@
 #ifndef DEBUG
 #define NSLog(...)
 #endif
-static const NSInteger kINTERSTITIAL_DISPLAY_RATE = 5;
+static const NSInteger kINTERSTITIAL_DISPLAY_RATE = 5000;
 @interface AppDelegate : UIResponder <UIApplicationDelegate, SKPaymentTransactionObserver>
 
 @property (strong, nonatomic) UIWindow *window;

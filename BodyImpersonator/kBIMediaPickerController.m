@@ -27,16 +27,41 @@
 }
 
 -(void)mediaPicker:(MPMediaPickerController *)mediaPicker didPickMediaItems:(MPMediaItemCollection *)mediaItemCollection{
-//    MPMediaItemCollection *collection = mediaItemCollection;
+    
     MPMediaItem *item = [[mediaItemCollection items] objectAtIndex:0];
     NSURL *url = [item valueForProperty:MPMediaItemPropertyAssetURL];
-    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:url];
-    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"KEY_RollSoundOn"];
-    [[NSUserDefaults standardUserDefaults] setBool:NO  forKey:@"KEY_OriginalMusicOn"];
-    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"KEY_iPODLibMusicOn"];
-    [[NSUserDefaults standardUserDefaults] setObject:data forKey:@"KEY_MediaItemURL"];
+    NSString *name = [item valueForProperty:MPMediaItemPropertyTitle];
+    
+    NSArray *array = [[NSUserDefaults standardUserDefaults] objectForKey:@"KEY_MusicHundlersByImageName"];
+    NSMutableArray *hundlers = [array mutableCopy];
+    kBIMusicHundlerByImageName *hundler = [kBIMusicHundlerByImageName alloc];
+    hundler.rollSoundOn = NO;
+    hundler.originalMusicOn = NO;
+    hundler.iPodLibMusicOn = YES;
+    hundler.mediaItemURL = url;
+    hundler.trackTitle = name;
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:hundler];
+    [hundlers replaceObjectAtIndex:self.tappedIndexPath.row withObject:data];
+    array = [hundlers mutableCopy];
+    [[NSUserDefaults standardUserDefaults] setObject:array forKey:@"KEY_MusicHundlersByImageName"];
     [[NSUserDefaults standardUserDefaults] synchronize];
-     [self dismissViewControllerAnimated:YES completion:nil];
+    
+    {
+//    //    MPMediaItemCollection *collection = mediaItemCollection;
+//    MPMediaItem *item = [[mediaItemCollection items] objectAtIndex:0];
+//    NSURL *url = [item valueForProperty:MPMediaItemPropertyAssetURL];
+//    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:url];
+//    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"KEY_RollSoundOn"];
+//    [[NSUserDefaults standardUserDefaults] setBool:NO  forKey:@"KEY_OriginalMusicOn"];
+//    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"KEY_iPODLibMusicOn"];
+//    [[NSUserDefaults standardUserDefaults] setObject:data forKey:@"KEY_MediaItemURL"];
+//    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+    
+    
 }
 
 -(void)mediaPickerDidCancel:(MPMediaPickerController *)mediaPicker{

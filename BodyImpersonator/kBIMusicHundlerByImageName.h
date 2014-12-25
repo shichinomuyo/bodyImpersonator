@@ -8,10 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
-@interface kBIMusicHundlerByImageName : NSObject
+@interface kBIMusicHundlerByImageName : NSObject<NSCoding>
 @property NSString *imageName;
 @property BOOL rollSoundOn;
 @property BOOL originalMusicOn;
 @property BOOL iPodLibMusicOn;
 @property NSURL  *mediaItemURL;
+@property NSString *trackTitle;
+
+-(void)encodeWithCoder:(NSCoder *)encoder;
+-(id)initWithCoder:(NSCoder *)decoder;
 @end

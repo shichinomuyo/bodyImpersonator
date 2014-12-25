@@ -63,13 +63,19 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     [appDefaults setObject:array forKey:@"KEY_imageNames"];
     // collectionViewに表示する画像に番号を振るために整数値を作成・初期化
     [appDefaults setObject:@"0" forKey:@"KEY_imageCount"];
-    // collectionViewに紐づく曲情報を保存する配列の作成・初期化
-    NSMutableArray *songURLs = [NSMutableArray array];
-    NSArray *songURLsArray = [songURLs copy];
-    [appDefaults setObject:songURLsArray forKey:@"KEY_SongURLs"];
-    NSMutableArray *songNames = [NSMutableArray array];
-    NSArray *songNamesArray = [songNames copy];
-    [appDefaults setObject:songNamesArray forKey:@"KEY_SongNames"];
+    // previewVCで曲選択したときの情報を保存する配列の作成・初期化
+    NSMutableArray *hundlers = [NSMutableArray array];
+    NSArray *array_hunders = [hundlers copy];
+    [appDefaults setObject:array_hunders forKey:@"KEY_MusicHundlersByImageName"];
+    { // メインのviewで曲選択する時用のデータ群
+//    // collectionViewに紐づく曲情報を保存する配列の作成・初期化
+//    NSMutableArray *songURLs = [NSMutableArray array];
+//    NSArray *songURLsArray = [songURLs copy];
+//    [appDefaults setObject:songURLsArray forKey:@"KEY_SongURLs"];
+//    NSMutableArray *songNames = [NSMutableArray array];
+//    NSArray *songNamesArray = [songNames copy];
+//    [appDefaults setObject:songNamesArray forKey:@"KEY_SongNames"];
+    }
     // 選択中の画像の名前を入れておくKEY_selectedImageNameをNO_IMAGEで初期化
     [appDefaults setObject:@"NO_IMAGE" forKey:@"KEY_selectedImageName"];
     // settingsを初期化
@@ -137,9 +143,24 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     
     // GoogleAnalytics導入のため以下設定
     self.screenName = @"BI_MainVC";
-    // iPhone4/4sの3.5inch端末のUIを調整するためにディスプレイサイズを取得
-//    _displaySize = [[UIScreen mainScreen] bounds];
-//    NSLog(@"%@",NSStringFromCGRect(_displaySize));
+    
+    NSMutableArray *hundlers = [[NSUserDefaults standardUserDefaults] objectForKey:@"KEY_MusicHundlersByImageName"];
+    if (!hundlers) {
+        NSMutableArray *imageNames = [[NSUserDefaults standardUserDefaults] objectForKey:@"KEY_imageNames"]; // for文の終了条件に配列のカウントを使うので
+        hundlers = [NSMutableArray array];
+        int i;
+        for (i = 0; i < [imageNames count]; i++) {
+                kBIMusicHundlerByImageName *defaultHundler = [kBIMusicHundlerByImageName alloc];
+                defaultHundler.rollSoundOn = NO;
+                defaultHundler.originalMusicOn = YES;
+                defaultHundler.iPodLibMusicOn = NO;
+                NSData *defaultData = [NSKeyedArchiver archivedDataWithRootObject:defaultHundler];
+                [hundlers addObject:defaultData];
+        }
+        NSArray *array = [hundlers mutableCopy];
+        [[NSUserDefaults standardUserDefaults] setObject:array forKey:@"KEY_MusicHundlersByImageName"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
 }
 
 // NavigationBarに画像を配置 高さ調整
@@ -304,6 +325,7 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     }else if([segue.identifier isEqualToString:@"moveToPlayVC"]){
         playVC *playVC = [segue destinationViewController];
         playVC.selectedImage = _selectedImage;
+        playVC.selectedIndexPath = _selectedIndexPath;
     }
     // Assuming you've hooked this all up in a Storyboard with a popover presentation style
     //    if ([segue.identifier isEqualToString:@"showPopover"]) {
@@ -767,7 +789,7 @@ NSLog(@"selectTagViewSize:%@",NSStringFromCGSize(cell.imageViewSelectedFrame.fra
     if (_tappedIndexPath == _selectedIndexPath) {
         previewVC *pVC = [self.storyboard instantiateViewControllerWithIdentifier:@"previewVC"];
         pVC.selectedImage = _selectedImage;
-        pVC._tappedIndexPath = _tappedIndexPath;
+        pVC.tappedIndexPath = _tappedIndexPath;
         [self.navigationController pushViewController:pVC animated:YES];
 
     } else{
@@ -937,8 +959,6 @@ NSLog(@"selectTagViewSize:%@",NSStringFromCGSize(cell.imageViewSelectedFrame.fra
 // actionAddItemボタンが押された時の処理
 - (void)actionAddItem:(UIImage *)image
 {
-
-
     // ビューのselectedImageに保存
     _selectedImage = image;
     
@@ -969,6 +989,21 @@ NSLog(@"selectTagViewSize:%@",NSStringFromCGSize(cell.imageViewSelectedFrame.fra
         
         // KEY_selectedImageNameを更新
         [defaults setObject:pathShort forKey:@"KEY_selectedImageName"];
+        {
+        // KEY_MusicHundlersByImageNameを追加 ※secondVCからコピペ
+        NSArray *array_hundlers = [defaults objectForKey:@"KEY_MusicHundlersByImageName"];
+        NSMutableArray *hundlers = [array_hundlers mutableCopy];
+        kBIMusicHundlerByImageName *hundler = [kBIMusicHundlerByImageName alloc];
+        NSString *imageName = [NSString stringWithFormat:@"%@.png",[NSString stringWithFormat:@"%d",(int)imageCount]];
+        hundler.imageName = imageName; // 先頭に"/"も含まれてない ex)"1.png"　何に使うデータかは未定だけど取り敢えずとっておく。
+        hundler.rollSoundOn = NO;
+        hundler.originalMusicOn = YES;
+        hundler.iPodLibMusicOn = NO;
+        NSData *data = [NSKeyedArchiver archivedDataWithRootObject:hundler];
+        [hundlers addObject:data];
+        array_hundlers = [hundlers copy];
+        [defaults setObject:array_hundlers forKey:@"KEY_MusicHundlersByImageName"];
+        }
     }
     
     [defaults synchronize];
@@ -1077,11 +1112,6 @@ NSLog(@"selectTagViewSize:%@",NSStringFromCGSize(cell.imageViewSelectedFrame.fra
         [self launchOrg];
     }else if ([buttonTitle isEqualToString:[[NSString alloc] initWithFormat:NSLocalizedString(@"TakeAPhoto", nil)]]){
         [self launchCam];
-    }else if ([buttonTitle isEqualToString:[[NSString alloc] initWithFormat:NSLocalizedString(@"SetThisImage", nil)]]){
-        // タップされたセルのindexPathを取得
-        NSArray *selectedItems = [self.collectionView indexPathsForSelectedItems];
-        NSIndexPath *indexPath = [selectedItems objectAtIndex:0];
-        [self actionSetSelectedImage:indexPath];
     }else if ([buttonTitle isEqualToString:[[NSString alloc] initWithFormat:NSLocalizedString(@"EditThisImage", nil)]]){
         [self actionShowEditor:self.selectedPhotoImage.image];
     }else if ([buttonTitle isEqualToString:[[NSString alloc] initWithFormat:NSLocalizedString(@"AddThisImageWithoutEditing", nil)]]){
@@ -1129,6 +1159,7 @@ NSLog(@"selectTagViewSize:%@",NSStringFromCGSize(cell.imageViewSelectedFrame.fra
     NSMutableArray *imageNames = [array mutableCopy];
     NSString *imageName = [imageNames objectAtIndex:(int)(indexPath.row)];
     
+    // 次の選択中セルを決める
     if (indexPath == _selectedIndexPath) { // indexPathがtappedIndexPathの場合はselectedImageNameの変更は不要
         // KEY_selectedImageNameを更新することでとなりのセルを選択状態にする
         if ((int)(indexPath.row) == 0) { // 削除するのが配列の一番最初のアイテムだった場合
@@ -1155,6 +1186,11 @@ NSLog(@"selectTagViewSize:%@",NSStringFromCGSize(cell.imageViewSelectedFrame.fra
     [imageNames removeObjectAtIndex:indexPath.row];
     array = [imageNames copy];
     [defaults setObject:array forKey:@"KEY_imageNames"];
+    NSArray *array_hundlers = [defaults objectForKey:@"KEY_MusicHundlersByImageName"];
+    NSMutableArray *hundlers = [array_hundlers mutableCopy];
+    [hundlers removeObjectAtIndex:indexPath.row];
+    array_hundlers = [hundlers copy];
+    [defaults setObject:array_hundlers forKey:@"KEY_MusicHundlersByImageName"];
     [defaults synchronize];
     
     [self.collectionView selectItemAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];

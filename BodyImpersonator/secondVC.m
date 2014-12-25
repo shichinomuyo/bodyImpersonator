@@ -306,16 +306,31 @@
         imageCount ++;
         NSString *path = [NSString stringWithFormat:@"%@/image%@.png",[NSHomeDirectory() stringByAppendingString:@"/Documents"],[NSString stringWithFormat:@"%d",(int)imageCount]];
         NSString *pathShort = [NSString stringWithFormat:@"/image%@.png",[NSString stringWithFormat:@"%d",(int)imageCount]];// ファイル名の末尾数字を+1
+
         [tmpImage writeToFile:path atomically:YES]; // ファイルとして保存
         [defaults setInteger:imageCount forKey:@"KEY_imageCount"];
         
-        [imageNames addObject:pathShort]; // データソースKEY_imageNamesに追加
+        [imageNames addObject:pathShort]; // データソースKEY_imageNamesに追加 先頭に"/"も含まれてる
 
         array = [imageNames copy]; // NSUserDefaultsに保存するためにNSMutableArray→NSArrayにcopy
         // KEY_imageNamesを更新
         [defaults setObject:array forKey:@"KEY_imageNames"];
         // KEY_selectedImageNameを更新
         [defaults setObject:pathShort forKey:@"KEY_selectedImageName"];
+        
+        // KEY_MusicHundlersByImageNameを追加
+        NSArray *array_hundlers = [defaults objectForKey:@"KEY_MusicHundlersByImageName"];
+        NSMutableArray *hundlers = [array_hundlers mutableCopy];
+        kBIMusicHundlerByImageName *hundler = [kBIMusicHundlerByImageName alloc];
+        NSString *imageName = [NSString stringWithFormat:@"%@.png",[NSString stringWithFormat:@"%d",(int)imageCount]];
+        hundler.imageName = imageName; // 先頭に"/"も含まれてない ex)"1.png"　何に使うデータかは未定だけど取り敢えずとっておく。
+        hundler.rollSoundOn = NO;
+        hundler.originalMusicOn = YES;
+        hundler.iPodLibMusicOn = NO;
+        NSData *data = [NSKeyedArchiver archivedDataWithRootObject:hundler];
+        [hundlers addObject:data];
+        array_hundlers = [hundlers copy];
+        [defaults setObject:array_hundlers forKey:@"KEY_MusicHundlersByImageName"];
     }
     
     [defaults synchronize];

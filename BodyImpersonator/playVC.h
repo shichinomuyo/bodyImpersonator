@@ -14,6 +14,7 @@
 #import "AVAudioPlayer+CustomControllers.h"
 #import "UIImageView+Animation.h"
 #import "BugFixContainerView.h"
+#import "kBIMusicHundlerByImageName.h"
 #import "GAITrackedViewController.h"
 
 
@@ -31,5 +32,6 @@
 @property BOOL finishPlayingByShakeOn;
 @property BOOL finishPlayingWithVibeOn;
 @property NSString *bgColorName;
+@property NSIndexPath *selectedIndexPath;
 
 @end

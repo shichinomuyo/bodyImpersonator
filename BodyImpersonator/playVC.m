@@ -81,18 +81,28 @@
         [self.BFCV.knobImageView setImage:_selectedImage];
     
     // settingsStateLoad
-    self.rollSoundOn = [[NSUserDefaults standardUserDefaults]boolForKey:@"KEY_RollSoundOn"];
     self.musicOn = [[NSUserDefaults standardUserDefaults]boolForKey:@"KEY_MusicOn"];
     self.crashSoundOn = [[NSUserDefaults standardUserDefaults]boolForKey:@"KEY_CrashSoundOn"];
-    self.originalMusicOn = [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_OriginalMusicOn"];
-    self.iPodLibMusicOn = [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_iPODLibMusicOn"];
+    
     self.flashOn = [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_FlashEffectOn"];
     self.bgColorName = [[NSUserDefaults standardUserDefaults] objectForKey:@"KEY_PlayVCBGColor"];
     self.finishPlayingByShakeOn = [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_FinishPlayingByShakeOn"];
     self.finishPlayingWithVibeOn= [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_FinishPlayingWithVibeOn"];
     NSLog(@"bgColorName:%@",self.bgColorName);
-    
+   
+    {
+        //kBIMusicHundlerから色々取得
+        NSMutableArray *hundlers = [[NSUserDefaults standardUserDefaults] objectForKey:@"KEY_MusicHundlersByImageName"];
+        NSData *data = hundlers[self.selectedIndexPath.row];
+        kBIMusicHundlerByImageName *hundler = [NSKeyedUnarchiver unarchiveObjectWithData:data] ;
+        
+        self.rollSoundOn = hundler.rollSoundOn;
+        self.originalMusicOn = hundler.originalMusicOn;
+        self.iPodLibMusicOn = hundler.iPodLibMusicOn;
+    }
+
     if (self.musicOn) {
+         NSLog(@"musicon");
         if (self.rollSoundOn) {
             [self initializeAVAudioPlayers_Roll];
             NSLog(@"rollsoundon");
@@ -104,6 +114,7 @@
         }
         if (self.iPodLibMusicOn) {
             [self initializeMPMusicPlayerController];
+             NSLog(@"iPODLIBsoundon");
         }
     }
     if (self.crashSoundOn) {
@@ -158,7 +169,7 @@
 
 - (void)initializeAVAudioPlayers_OriginalMusic{
     // オリジナルミュージック
-    NSString *path_originalMusic = [[NSBundle mainBundle] pathForResource:@"Theme04" ofType:@"mp3"];
+    NSString *path_originalMusic = [[NSBundle mainBundle] pathForResource:@"Theme05" ofType:@"mp3"];
     NSURL *url_originalMusic = [NSURL fileURLWithPath:path_originalMusic];
     _originalMusicPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:url_originalMusic error:NULL];
     _originalMusicPlayer.numberOfLoops = -1;//無限ループ
@@ -167,8 +178,13 @@
 }
 
 - (void)initializeMPMusicPlayerController{
-    NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:@"KEY_MediaItemURL"];
-    NSURL *url = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+    NSMutableArray *hundlers = [[NSUserDefaults standardUserDefaults] objectForKey:@"KEY_MusicHundlersByImageName"];
+    NSData *data = hundlers[self.selectedIndexPath.row];
+    kBIMusicHundlerByImageName *hundler = [NSKeyedUnarchiver unarchiveObjectWithData:data] ;
+    
+    NSURL *url = hundler.mediaItemURL;
+//    NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:@"KEY_MediaItemURL"];
+//    NSURL *url = [NSKeyedUnarchiver unarchiveObjectWithData:data];
     _iPodLibMusicPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:NULL];
     [_iPodLibMusicPlayer prepareToPlay];
 }

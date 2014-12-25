@@ -244,6 +244,22 @@
     if ([buttonTitle isEqualToString:[[NSString alloc] initWithFormat:NSLocalizedString(@"RemoveThisImage", nil)]]) {
         [self performSegueWithIdentifier:@"BackFromPreviewVCRemoveItemBtn" sender:self];
     }
+    if ([buttonTitle isEqualToString:[[NSString alloc] initWithFormat:NSLocalizedString(@"OpenMusicLibrary", nil)]]) {
+        kBIMediaPickerController *mediaPicker = [[kBIMediaPickerController alloc]initWithMediaTypes:MPMediaTypeMusic];
+        //            mediaPicker.delegate = self; // デリゲートになる
+        mediaPicker.allowsPickingMultipleItems = false;// 複数曲を選択させない
+        mediaPicker.tappedIndexPath = self.tappedIndexPath;
+        [self presentViewController:mediaPicker animated:YES completion:nil];
+    }
+    if ([buttonTitle isEqualToString:[[NSString alloc] initWithFormat:NSLocalizedString(@"Default1:RockSound", nil)]]) {
+        // Default1:RockSoundを選んだ時
+        [self selectRockSound];
+    }
+    if ([buttonTitle isEqualToString:[[NSString alloc] initWithFormat:NSLocalizedString(@"Default2:DrumRollSound", nil)]]) {
+        // Default1:RollSoundを選んだ時
+        [self selectRollSound];
+    }
+    
 }
 // アクションメニューを作成・表示
 - (IBAction)actionBtn:(UIBarButtonItem *)sender {
@@ -298,20 +314,22 @@
                                                                kBIMediaPickerController *mediaPicker = [[kBIMediaPickerController alloc]initWithMediaTypes:MPMediaTypeMusic];
                                                                //            mediaPicker.delegate = self; // デリゲートになる
                                                                mediaPicker.allowsPickingMultipleItems = false;// 複数曲を選択させない
+                                                               mediaPicker.tappedIndexPath = self.tappedIndexPath;
                                                                [self presentViewController:mediaPicker animated:YES completion:nil];
 
                                                            }]];
         [actionController addAction:[UIAlertAction actionWithTitle:action2
-                                                             style:UIAlertActionStyleCancel
+                                                             style:UIAlertActionStyleDefault
                                                            handler:^(UIAlertAction *action) {
                                                                // Default1:RockSoundを選んだ時
-
+                                                               [self selectRockSound];
                                                            }]];
         
         [actionController addAction:[UIAlertAction actionWithTitle:action3
-                                                             style:UIAlertActionStyleCancel
+                                                             style:UIAlertActionStyleDefault
                                                            handler:^(UIAlertAction *action) {
                                                                // Default2:DrumRollSoundを選んだ時
+                                                               [self selectRollSound];
                                                            }]];
         
         [actionController addAction:[UIAlertAction actionWithTitle:action4
@@ -332,7 +350,7 @@
         }
     }else{
         // iOS7の処理
-        
+        NSLog(@"actionsheetOnPreview");
         // UIActionSheetを生成
         UIActionSheet *actionSheet = [[UIActionSheet alloc]init];
         actionSheet.delegate = self;
@@ -358,12 +376,31 @@
 }
 
 -(void)selectRockSound{
-    
-    
+    NSArray *array = [[NSUserDefaults standardUserDefaults] objectForKey:@"KEY_MusicHundlersByImageName"];
+    NSMutableArray *hundlers = [array mutableCopy];
+    kBIMusicHundlerByImageName *hundler = [kBIMusicHundlerByImageName alloc];
+    hundler.rollSoundOn = NO;
+    hundler.originalMusicOn = YES;
+    hundler.iPodLibMusicOn = NO;
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:hundler];
+    [hundlers replaceObjectAtIndex:self.tappedIndexPath.row withObject:data];
+    array = [hundlers copy];
+    [[NSUserDefaults standardUserDefaults] setObject:array forKey:@"KEY_MusicHundlersByImageName"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
--(void)selectDrumrollSound{
-    
+-(void)selectRollSound{
+    NSArray *array = [[NSUserDefaults standardUserDefaults] objectForKey:@"KEY_MusicHundlersByImageName"];
+    NSMutableArray *hundlers = [array mutableCopy];
+    kBIMusicHundlerByImageName *hundler = [kBIMusicHundlerByImageName alloc];
+    hundler.rollSoundOn = YES;
+    hundler.originalMusicOn = NO;
+    hundler.iPodLibMusicOn = NO;
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:hundler];
+    [hundlers replaceObjectAtIndex:self.tappedIndexPath.row withObject:data];
+    array = [hundlers copy];
+    [[NSUserDefaults standardUserDefaults] setObject:array forKey:@"KEY_MusicHundlersByImageName"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 // デバッグ用

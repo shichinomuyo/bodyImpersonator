@@ -17,6 +17,7 @@
 		5606B0371A4AEE5F003F6E9E /* kBIMediaPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5606B0361A4AEE5F003F6E9E /* kBIMediaPickerController.m */; };
 		5606B0391A4BF0ED003F6E9E /* Theme04.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5606B0381A4BF0ED003F6E9E /* Theme04.mp3 */; };
 		5606B03C1A4BFE9F003F6E9E /* kBIMusicHundlerByImageName.m in Sources */ = {isa = PBXBuildFile; fileRef = 5606B03B1A4BFE9F003F6E9E /* kBIMusicHundlerByImageName.m */; };
+		5606B03E1A4C5BD1003F6E9E /* Theme05.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5606B03D1A4C5BD1003F6E9E /* Theme05.mp3 */; };
 		56427E1719AB823200B516A0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427E1619AB823200B516A0 /* Foundation.framework */; };
 		56427E1919AB823200B516A0 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427E1819AB823200B516A0 /* CoreGraphics.framework */; };
 		56427E1B19AB823200B516A0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427E1A19AB823200B516A0 /* UIKit.framework */; };
@@ -104,6 +105,7 @@
 		5606B0381A4BF0ED003F6E9E /* Theme04.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Theme04.mp3; sourceTree = "<group>"; };
 		5606B03A1A4BFE9F003F6E9E /* kBIMusicHundlerByImageName.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kBIMusicHundlerByImageName.h; sourceTree = "<group>"; };
 		5606B03B1A4BFE9F003F6E9E /* kBIMusicHundlerByImageName.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = kBIMusicHundlerByImageName.m; sourceTree = "<group>"; };
+		5606B03D1A4C5BD1003F6E9E /* Theme05.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Theme05.mp3; sourceTree = "<group>"; };
 		5617B4BE1A20437800586645 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		5617B4C11A20437800586645 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		56427E1319AB823200B516A0 /* BodyImpersonator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BodyImpersonator.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -449,6 +451,7 @@
 		56427E9E19AB891500B516A0 /* ver1.0 */ = {
 			isa = PBXGroup;
 			children = (
+				5606B03D1A4C5BD1003F6E9E /* Theme05.mp3 */,
 				5606B0381A4BF0ED003F6E9E /* Theme04.mp3 */,
 				5606B02E1A4A638F003F6E9E /* Theme03.mp3 */,
 				5606AFEE1A494F32003F6E9E /* Theme02.mp3 */,
@@ -738,6 +741,7 @@
 				5606B0391A4BF0ED003F6E9E /* Theme04.mp3 in Resources */,
 				568B96411A1B03BB00368272 /* README.txt in Resources */,
 				56427E4F19AB82C200B516A0 /* .gitignore in Resources */,
+				5606B03E1A4C5BD1003F6E9E /* Theme05.mp3 in Resources */,
 				56427E2D19AB823200B516A0 /* Main_iPad.storyboard in Resources */,
 				56427E3219AB823200B516A0 /* Images.xcassets in Resources */,
 				568B968B1A1C370600368272 /* libAdapterNend_readme.txt in Resources */,

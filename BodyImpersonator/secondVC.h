@@ -10,6 +10,7 @@
 #import "GADInterstitialDelegate.h"
 #import "AppDelegate.h"
 #import "kBIIndicator.h"
+#import "kBIMusicHundlerByImageName.h"
 #import "GAITrackedViewController.h"
 
 #ifdef DEBUG
