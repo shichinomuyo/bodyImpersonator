@@ -11,6 +11,7 @@
 #import "AppDelegate.h"
 #import "NSObject+Animation.h"
 #import "kBIIndicator.h"
+#import "kBIMediaPickerController.h"
 #import "GAITrackedViewController.h"
 
 
@@ -21,6 +22,7 @@
 }
 
 @property (strong,nonatomic) UIImage *selectedImage;
+@property NSIndexPath *_tappedIndexPath;
 @property BOOL adsRemoved;
 @property BOOL limitNumberOfImagesRemoved;
 @end

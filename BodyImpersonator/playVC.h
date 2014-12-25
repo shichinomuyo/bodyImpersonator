@@ -22,14 +22,14 @@
 
 @interface playVC : GAITrackedViewController<AVAudioPlayerDelegate,AVAudioSessionDelegate>
 @property (strong,nonatomic) UIImage *selectedImage;
-@property BOOL rollSoundOn;
 @property BOOL musicOn;
 @property BOOL crashSoundOn;
+@property BOOL rollSoundOn;
 @property BOOL originalMusicOn;
+@property BOOL iPodLibMusicOn;
 @property BOOL flashOn;
 @property BOOL finishPlayingByShakeOn;
 @property BOOL finishPlayingWithVibeOn;
 @property NSString *bgColorName;
-@property MPMusicPlayerController *musicPlayer;
 
 @end

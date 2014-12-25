@@ -63,6 +63,13 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     [appDefaults setObject:array forKey:@"KEY_imageNames"];
     // collectionViewに表示する画像に番号を振るために整数値を作成・初期化
     [appDefaults setObject:@"0" forKey:@"KEY_imageCount"];
+    // collectionViewに紐づく曲情報を保存する配列の作成・初期化
+    NSMutableArray *songURLs = [NSMutableArray array];
+    NSArray *songURLsArray = [songURLs copy];
+    [appDefaults setObject:songURLsArray forKey:@"KEY_SongURLs"];
+    NSMutableArray *songNames = [NSMutableArray array];
+    NSArray *songNamesArray = [songNames copy];
+    [appDefaults setObject:songNamesArray forKey:@"KEY_SongNames"];
     // 選択中の画像の名前を入れておくKEY_selectedImageNameをNO_IMAGEで初期化
     [appDefaults setObject:@"NO_IMAGE" forKey:@"KEY_selectedImageName"];
     // settingsを初期化
@@ -558,11 +565,13 @@ NSLog(@"selectTagViewSize:%@",NSStringFromCGSize(cell.imageViewSelectedFrame.fra
         case 0: // オリジナル曲が選択された時
             [[NSUserDefaults standardUserDefaults] setBool:NO  forKey:@"KEY_RollSoundOn"];
             [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"KEY_OriginalMusicOn"];
+            [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"KEY_iPODLibMusicOn"];
             [[NSUserDefaults standardUserDefaults] synchronize];
             break;
         case 1: // ドラムロールが選択された時
             [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"KEY_RollSoundOn"];
             [[NSUserDefaults standardUserDefaults] setBool:NO  forKey:@"KEY_OriginalMusicOn"];
+            [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"KEY_iPODLibMusicOn"];
             [[NSUserDefaults standardUserDefaults] synchronize];
             break;
         case 2:
@@ -758,6 +767,7 @@ NSLog(@"selectTagViewSize:%@",NSStringFromCGSize(cell.imageViewSelectedFrame.fra
     if (_tappedIndexPath == _selectedIndexPath) {
         previewVC *pVC = [self.storyboard instantiateViewControllerWithIdentifier:@"previewVC"];
         pVC.selectedImage = _selectedImage;
+        pVC._tappedIndexPath = _tappedIndexPath;
         [self.navigationController pushViewController:pVC animated:YES];
 
     } else{

@@ -848,6 +848,12 @@
                                             <action selector="actionBtn:" destination="Ml1-cR-wrA" id="QBZ-wF-ex6"/>
                                         </connections>
                                     </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="wPS-cm-KlK"/>
+                                    <barButtonItem image="ICON_MUSIC_44x44" id="xbR-d2-gsv">
+                                        <connections>
+                                            <action selector="actionSelectMusic:" destination="Ml1-cR-wrA" id="dHI-ed-oSk"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="Thx-wV-hfG"/>
                                     <barButtonItem systemItem="trash" id="jVY-O7-Qmf">
                                         <connections>
@@ -2011,6 +2017,7 @@
         <image name="EffectLightFromCenter" width="320" height="568"/>
         <image name="ICON_Drum" width="26" height="26"/>
         <image name="ICON_MUSIC" width="26" height="26"/>
+        <image name="ICON_MUSIC_44x44" width="44" height="44"/>
         <image name="IconGearSKINWHITE" width="44" height="44"/>
         <image name="IconPreviewSKINWHITE" width="44" height="44"/>
         <image name="IconRedoTintColoredAdjustedSize" width="32" height="32"/>

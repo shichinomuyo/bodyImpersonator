@@ -14,6 +14,7 @@
     AVAudioPlayer *_rollPlayerAlt;
     AVAudioPlayer *_crashPlayer;
     AVAudioPlayer *_originalMusicPlayer;
+    AVAudioPlayer *_iPodLibMusicPlayer;
     
     // タイマー
     NSTimer *_playTimer; // AVAudioPlayerコントロール用
@@ -84,6 +85,7 @@
     self.musicOn = [[NSUserDefaults standardUserDefaults]boolForKey:@"KEY_MusicOn"];
     self.crashSoundOn = [[NSUserDefaults standardUserDefaults]boolForKey:@"KEY_CrashSoundOn"];
     self.originalMusicOn = [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_OriginalMusicOn"];
+    self.iPodLibMusicOn = [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_iPODLibMusicOn"];
     self.flashOn = [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_FlashEffectOn"];
     self.bgColorName = [[NSUserDefaults standardUserDefaults] objectForKey:@"KEY_PlayVCBGColor"];
     self.finishPlayingByShakeOn = [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_FinishPlayingByShakeOn"];
@@ -99,6 +101,9 @@
         if (self.originalMusicOn) {
             [self initializeAVAudioPlayers_OriginalMusic];
             NSLog(@"originalmusicon");
+        }
+        if (self.iPodLibMusicOn) {
+            [self initializeMPMusicPlayerController];
         }
     }
     if (self.crashSoundOn) {
@@ -153,12 +158,19 @@
 
 - (void)initializeAVAudioPlayers_OriginalMusic{
     // オリジナルミュージック
-    NSString *path_originalMusic = [[NSBundle mainBundle] pathForResource:@"Theme03" ofType:@"mp3"];
+    NSString *path_originalMusic = [[NSBundle mainBundle] pathForResource:@"Theme04" ofType:@"mp3"];
     NSURL *url_originalMusic = [NSURL fileURLWithPath:path_originalMusic];
     _originalMusicPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:url_originalMusic error:NULL];
     _originalMusicPlayer.numberOfLoops = -1;//無限ループ
     // プレイヤーを準備
     [_originalMusicPlayer prepareToPlay];
+}
+
+- (void)initializeMPMusicPlayerController{
+    NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:@"KEY_MediaItemURL"];
+    NSURL *url = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+    _iPodLibMusicPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:NULL];
+    [_iPodLibMusicPlayer prepareToPlay];
 }
 
 // タイマー生成
@@ -238,11 +250,16 @@
     } else if (_originalMusicPlayer.isPlaying){ // ロールが鳴っていなくてオリジナル曲が鳴っているとき
         [_originalMusicPlayer stop];
         [self playCrash]; // クラッシュを鳴らしてアニメーション
-    }else{
+    } else if (_iPodLibMusicPlayer.isPlaying) { // 自前のフラグ
+            NSLog(@"stopMPM");
+            [_iPodLibMusicPlayer stop];
+            [self playCrash];
+    }
+    else{
         if (self.BFCV.knobImageView.hidden == 1) {
             [self playCrash]; // ロールがなっていないのでクラッシュだけを鳴らしアニメーション
         }else{
-            [self performSegueWithIdentifier:@"unwindFromPlayVC" sender:self];
+            [self performSegueWithIdentifier:@"unwindFromPlayVC" sender:self]; // 最初の画面に戻る
         }
 
     }
@@ -305,19 +322,24 @@
     
     // 拡大してくるアニメーション
     [self.BFCV.knobImageView appearWithScaleUp];
+    
 }
 
 
 #pragma mark - playStart
 -(void)playStart{
     if (self.rollSoundOn) {
+            NSLog(@"Drumrollはいってる？？？？");
         // ドラムロールを再生する
         [_rollPlayerTmp playRollStopCrash:_crashPlayer setVolumeZero:_rollPlayerAlt ];
         // playerControllを一定間隔で呼び出すタイマーを作る
         [self playerControll];
     } else if (self.originalMusicOn){
-
+            NSLog(@"orinalMusicはいってる？？？？");
         [_originalMusicPlayer play];
+    } else if (self.iPodLibMusicOn){
+        NSLog(@"iPodはいってる？？？？");
+        [_iPodLibMusicPlayer play];
     }
 
     // アニメーションタイマーを破棄する
@@ -372,9 +394,16 @@
                 // バイブレーションを動作させる
                 AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
             }
-            // ドラムロールを止めてクラッシュ再生と画像表示
-            [self stopDrumRollAndPlayCrash];
-            
+            if (self.rollSoundOn) {
+                // ドラムロールを止めてクラッシュ再生と画像表示
+                [self stopDrumRollAndPlayCrash];
+            } else if (self.originalMusicOn){
+                [_originalMusicPlayer stop];
+                [self playCrash];
+            } else if (self.iPodLibMusicOn){
+                [_iPodLibMusicPlayer stop];
+                [self playCrash];
+            }
         }
     }
 }
