@@ -412,7 +412,7 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     NSLog(@"numberOfItemsInSection%d",count);
 }
 
-// セルの内容
+// セルの内容を作る
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
 //    NSLog(@"-----------------------------------------");
 
@@ -445,7 +445,7 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
 //        NSLog(@"imageName:%@",imageName);
 
         if ([imageName isEqualToString:selectedImageName]) {// 黄色い三角形を右上に表示させる
-            _selectedIndexPath = indexPath; // 画像追加時はうまく動く
+            _selectedIndexPath = indexPath; // ここで初めてselectedIndexPathを更新
             _selectedImage = image;
             
             // frameをつける
@@ -463,10 +463,12 @@ NSLog(@"selectTagViewSize:%@",NSStringFromCGSize(cell.imageViewSelectedFrame.fra
                                  
                              }];
             [_selectedCell.imageView setImage:image];
+            
+            // kBIViewShowMusicHundlerInfoにselectedIndexPathを渡して画像、情報を表示させる
+            
 
         }
                 [cell.imageView setImage:image];
-
 
     }
     return cell;

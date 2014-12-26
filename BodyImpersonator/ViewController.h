@@ -25,6 +25,7 @@
 #import "BICollectionReusableView.h"
 #import "tappedImageVC.h"
 #import "kBIIndicator.h"
+#import "kBIUIViewShowMusicHundlerInfo.h"
 #import "GAITrackedViewController.h"
 
 
