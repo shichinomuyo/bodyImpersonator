@@ -149,21 +149,6 @@
                                             <action selector="searchUIBtn:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="J26-1y-soD"/>
                                         </connections>
                                     </button>
-                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="end-CD-qXk">
-                                        <rect key="frame" x="-61" y="-14" width="123" height="29"/>
-                                        <segments>
-                                            <segment title="" image="ICON_MUSIC"/>
-                                            <segment title="" image="ICON_Drum"/>
-                                            <segment title="Select"/>
-                                        </segments>
-                                        <color key="tintColor" red="1" green="0.97217154500000003" blue="0.9632470608" alpha="1" colorSpace="calibratedRGB"/>
-                                        <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                            <rect key="frame" x="8" y="98" width="148" height="29"/>
-                                        </variation>
-                                        <connections>
-                                            <action selector="changeMusicSeg:" destination="vXZ-lx-hvc" eventType="valueChanged" id="dC1-M1-ZY8"/>
-                                        </connections>
-                                    </segmentedControl>
                                 </subviews>
                                 <color key="backgroundColor" red="0.76802009344100952" green="0.19092153012752533" blue="0.16092608869075775" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -187,9 +172,7 @@
                                     <constraint firstAttribute="trailing" secondItem="ybG-VO-CVg" secondAttribute="trailing" constant="4" id="PHY-Gm-xoY"/>
                                     <constraint firstItem="NbV-Q0-nlv" firstAttribute="leading" secondItem="4O9-DG-1wD" secondAttribute="leading" constant="4" id="bmp-P4-m8v"/>
                                     <constraint firstItem="ybG-VO-CVg" firstAttribute="top" secondItem="PYk-rG-LMN" secondAttribute="bottom" constant="2" id="dhf-4W-el0"/>
-                                    <constraint firstItem="end-CD-qXk" firstAttribute="top" secondItem="PYk-rG-LMN" secondAttribute="bottom" constant="8" id="e43-rV-lnI"/>
                                     <constraint firstItem="PYk-rG-LMN" firstAttribute="top" secondItem="4O9-DG-1wD" secondAttribute="top" id="fPX-HS-I1d"/>
-                                    <constraint firstItem="end-CD-qXk" firstAttribute="leading" secondItem="4O9-DG-1wD" secondAttribute="leading" constant="8" id="hCP-7l-JQi"/>
                                     <constraint firstAttribute="trailing" secondItem="ybG-VO-CVg" secondAttribute="trailing" constant="4" id="iDL-oN-cIH"/>
                                     <constraint firstAttribute="height" constant="136" id="jcz-tp-ehM"/>
                                     <constraint firstItem="oyw-sU-6qa" firstAttribute="leading" secondItem="NbV-Q0-nlv" secondAttribute="trailing" constant="4" id="k1j-nG-a0f"/>
@@ -207,17 +190,12 @@
                                     <constraint firstItem="PYk-rG-LMN" firstAttribute="leading" secondItem="4O9-DG-1wD" secondAttribute="leading" id="zMu-RO-Kiq"/>
                                 </constraints>
                                 <variation key="default">
-                                    <mask key="subviews">
-                                        <exclude reference="end-CD-qXk"/>
-                                    </mask>
                                     <mask key="constraints">
                                         <exclude reference="jcz-tp-ehM"/>
                                         <exclude reference="Ngp-ax-iWW"/>
                                         <exclude reference="fPX-HS-I1d"/>
                                         <exclude reference="lOm-Yf-w6e"/>
                                         <exclude reference="zMu-RO-Kiq"/>
-                                        <exclude reference="e43-rV-lnI"/>
-                                        <exclude reference="hCP-7l-JQi"/>
                                         <exclude reference="IHy-XR-zW7"/>
                                         <exclude reference="bmp-P4-m8v"/>
                                         <exclude reference="O9L-li-0oz"/>
@@ -247,17 +225,12 @@
                                     </mask>
                                 </variation>
                                 <variation key="heightClass=regular-widthClass=compact">
-                                    <mask key="subviews">
-                                        <include reference="end-CD-qXk"/>
-                                    </mask>
                                     <mask key="constraints">
                                         <include reference="jcz-tp-ehM"/>
                                         <exclude reference="Ngp-ax-iWW"/>
                                         <include reference="fPX-HS-I1d"/>
                                         <include reference="lOm-Yf-w6e"/>
                                         <include reference="zMu-RO-Kiq"/>
-                                        <include reference="e43-rV-lnI"/>
-                                        <include reference="hCP-7l-JQi"/>
                                         <include reference="IHy-XR-zW7"/>
                                         <exclude reference="bmp-P4-m8v"/>
                                         <exclude reference="O9L-li-0oz"/>
@@ -2015,8 +1988,6 @@
         <image name="BtnPlayCREAMWHITE" width="212" height="64"/>
         <image name="EditorOutline" width="320" height="568"/>
         <image name="EffectLightFromCenter" width="320" height="568"/>
-        <image name="ICON_Drum" width="26" height="26"/>
-        <image name="ICON_MUSIC" width="26" height="26"/>
         <image name="ICON_MUSIC_44x44" width="44" height="44"/>
         <image name="IconGearSKINWHITE" width="44" height="44"/>
         <image name="IconPreviewSKINWHITE" width="44" height="44"/>

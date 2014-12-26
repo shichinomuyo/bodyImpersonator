@@ -44,7 +44,6 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
 - (IBAction)searchUIBtn:(UIButton *)sender;
 - (IBAction)previewUIBtn:(UIButton *)sender;
 - (IBAction)settingsUIBtn:(UIButton *)sender;
-- (IBAction)changeMusicSeg:(UISegmentedControl *)sender;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *containerVeiwHaveBtnsVerticalSpaceFromBottom;
 
@@ -67,22 +66,12 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     NSMutableArray *hundlers = [NSMutableArray array];
     NSArray *array_hunders = [hundlers copy];
     [appDefaults setObject:array_hunders forKey:@"KEY_MusicHundlersByImageName"];
-    { // メインのviewで曲選択する時用のデータ群
-//    // collectionViewに紐づく曲情報を保存する配列の作成・初期化
-//    NSMutableArray *songURLs = [NSMutableArray array];
-//    NSArray *songURLsArray = [songURLs copy];
-//    [appDefaults setObject:songURLsArray forKey:@"KEY_SongURLs"];
-//    NSMutableArray *songNames = [NSMutableArray array];
-//    NSArray *songNamesArray = [songNames copy];
-//    [appDefaults setObject:songNamesArray forKey:@"KEY_SongNames"];
-    }
+
     // 選択中の画像の名前を入れておくKEY_selectedImageNameをNO_IMAGEで初期化
     [appDefaults setObject:@"NO_IMAGE" forKey:@"KEY_selectedImageName"];
     // settingsを初期化
-    [appDefaults setObject:@"NO" forKey:@"KEY_RollSoundOn"];
     [appDefaults setObject:@"YES" forKey:@"KEY_MusicOn"];
     [appDefaults setObject:@"YES" forKey:@"KEY_CrashSoundOn"];
-    [appDefaults setObject:@"YES" forKey:@"KEY_OriginalMusicOn"];
     [appDefaults setObject:@"YES" forKey:@"KEY_FlashEffectOn"];
     [appDefaults setObject:@"YES" forKey:@"KEY_StartPlayingByShakeOn"];
     [appDefaults setObject:@"YES" forKey:@"KEY_FinishPlayingByShakeOn"];
@@ -144,6 +133,7 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     // GoogleAnalytics導入のため以下設定
     self.screenName = @"BI_MainVC";
     
+    // ハンドラーがないとき(v1.2より前から使ってる場合)一度だけ初期化 v1.2以降から使用を開始した場合はsecondVCでその都度追加していく。
     NSMutableArray *hundlers = [[NSUserDefaults standardUserDefaults] objectForKey:@"KEY_MusicHundlersByImageName"];
     if (!hundlers) {
         NSMutableArray *imageNames = [[NSUserDefaults standardUserDefaults] objectForKey:@"KEY_imageNames"]; // for文の終了条件に配列のカウントを使うので
@@ -582,34 +572,7 @@ NSLog(@"selectTagViewSize:%@",NSStringFromCGSize(cell.imageViewSelectedFrame.fra
     }
 }
 
-- (IBAction)changeMusicSeg:(UISegmentedControl *)sender {
-    switch (sender.selectedSegmentIndex) {
-        case 0: // オリジナル曲が選択された時
-            [[NSUserDefaults standardUserDefaults] setBool:NO  forKey:@"KEY_RollSoundOn"];
-            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"KEY_OriginalMusicOn"];
-            [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"KEY_iPODLibMusicOn"];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-            break;
-        case 1: // ドラムロールが選択された時
-            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"KEY_RollSoundOn"];
-            [[NSUserDefaults standardUserDefaults] setBool:NO  forKey:@"KEY_OriginalMusicOn"];
-            [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"KEY_iPODLibMusicOn"];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-            break;
-        case 2:
-        {
-            kBIMediaPickerController *mediaPicker = [[kBIMediaPickerController alloc]initWithMediaTypes:MPMediaTypeMusic];
-//            mediaPicker.delegate = self; // デリゲートになる
-            mediaPicker.allowsPickingMultipleItems = false;// 複数曲を選択させない
-            [self presentViewController:mediaPicker animated:YES completion:nil];
-        }
-            
-            break;
-        default:
-            break;
-    }
 
-}
 // サファリを起動
 - (IBAction)searchUIBtn:(UIButton *)sender { // UIButton用
     
