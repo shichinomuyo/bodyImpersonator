@@ -8,14 +8,31 @@
 
 #import <UIKit/UIKit.h>
 #import "kBIMusicHundlerByImageName.h"
+#import <AVFoundation/AVFoundation.h>
+#import <AudioToolbox/AudioToolbox.h>
+#import <MediaPlayer/MediaPlayer.h>
+#import "AVAudioPlayer+CustomControllers.h"
 
-@interface kBIUIViewShowMusicHundlerInfo : UIView{
+@interface kBIUIViewShowMusicHundlerInfo : UIView<AVAudioPlayerDelegate,UINavigationControllerDelegate>{
+    kBIMusicHundlerByImageName *_hundler;
+    IBOutlet UIView *contentView;
     IBOutlet UIImageView *imageView;
     IBOutlet UIButton *btnPlayerControll;
     IBOutlet UILabel *labelMusicHundlerInfo;
+    // オーディオプレイヤー
+    BOOL _musicPlayerIsPlaying;
+    AVAudioPlayer *_rollPlayerTmp;
+    AVAudioPlayer *_rollPlayerAlt;
+    AVAudioPlayer *_originalMusicPlayer;
+    AVAudioPlayer *_iPodLibMusicPlayer;
 }
+- (IBAction)btnPlay:(UIButton *)sender;
 
 @property NSIndexPath *selectedIndexPath;
+@property NSInteger selectedIndexNum;
 
+
+-(void)updateViewItems;
 -(void)showMusicHundlerInfo;
+- (void)stopMusicPlayer;
 @end

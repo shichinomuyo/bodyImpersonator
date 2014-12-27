@@ -183,8 +183,6 @@
     kBIMusicHundlerByImageName *hundler = [NSKeyedUnarchiver unarchiveObjectWithData:data] ;
     
     NSURL *url = hundler.mediaItemURL;
-//    NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:@"KEY_MediaItemURL"];
-//    NSURL *url = [NSKeyedUnarchiver unarchiveObjectWithData:data];
     _iPodLibMusicPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:NULL];
     [_iPodLibMusicPlayer prepareToPlay];
 }

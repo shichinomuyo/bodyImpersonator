@@ -20,6 +20,7 @@
     [encoder encodeObject:numOriginalMusicOn forKey:@"OriginalMusicOn"];
     [encoder encodeObject:numiPodMusicOn forKey:@"iPodLibMusicOn"];
     [encoder encodeObject:_mediaItemURL forKey:@"MediaItemURL"];
+    [encoder encodeObject:_artist forKey:@"Artist"];
     [encoder encodeObject:_trackTitle forKey:@"TrackTitle"];
 
 }
@@ -38,6 +39,7 @@
         _originalMusicOn = [numOriginalMusicOn boolValue];
         _iPodLibMusicOn = [numiPodMusicOn boolValue];
         _mediaItemURL = [decoder decodeObjectForKey:@"MediaItemURL"];
+        _artist = [decoder decodeObjectForKey:@"Artist"];
         _trackTitle = [decoder decodeObjectForKey:@"TrackTitle"];
     }
 

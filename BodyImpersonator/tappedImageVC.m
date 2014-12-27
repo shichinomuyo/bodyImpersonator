@@ -19,10 +19,12 @@
 
 @property (weak, nonatomic) IBOutlet UINavigationBar *navigationBar;
 @property (weak, nonatomic) IBOutlet UIImageView *previewImageView;
+
 - (IBAction)removeItemBtn:(UIBarButtonItem *)sender;
 - (IBAction)setImageBtn:(UIBarButtonItem *)sender;
 - (IBAction)btnCoverAllDisplay:(UIButton *)sender;
 - (IBAction)actionBtn:(UIBarButtonItem *)sender;
+@property (weak, nonatomic) IBOutlet kBIUIViewShowMusicHundlerInfo *customUIView;
 
 
 @end
@@ -56,10 +58,13 @@
     NSLog(@"viewchanged:%ld",(long)countViewChanged);
     
       _kIndicator = [kBIIndicator alloc];
+
 }
 
 - (void)viewWillAppear:(BOOL)animated{
 //        [self viewSizeMake:1.0];
+    self.customUIView.selectedIndexNum = self.tappedIndexPath.row;
+    [self.customUIView updateViewItems];
 }
 
 -(void)viewDidAppear:(BOOL)animated{

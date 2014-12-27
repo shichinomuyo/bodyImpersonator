@@ -21,6 +21,7 @@
 @property (strong, nonatomic) IBOutlet UIToolbar *toolBar;
 @property (weak, nonatomic) IBOutlet UINavigationBar *navigationBar;
 @property (weak, nonatomic) IBOutlet UIImageView *previewImageView;
+@property (weak, nonatomic) IBOutlet kBIUIViewShowMusicHundlerInfo *customUIView;
 
 - (IBAction)removeItemBtn:(UIBarButtonItem *)sender;
 
@@ -71,6 +72,8 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated{
+    self.customUIView.selectedIndexNum = self.tappedIndexPath.row;
+    [self.customUIView updateViewItems];
 
 }
 
@@ -387,6 +390,7 @@
     array = [hundlers copy];
     [[NSUserDefaults standardUserDefaults] setObject:array forKey:@"KEY_MusicHundlersByImageName"];
     [[NSUserDefaults standardUserDefaults] synchronize];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 -(void)selectRollSound{
@@ -401,6 +405,7 @@
     array = [hundlers copy];
     [[NSUserDefaults standardUserDefaults] setObject:array forKey:@"KEY_MusicHundlersByImageName"];
     [[NSUserDefaults standardUserDefaults] synchronize];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 // デバッグ用

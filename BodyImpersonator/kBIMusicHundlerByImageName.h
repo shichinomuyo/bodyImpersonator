@@ -14,6 +14,7 @@
 @property BOOL originalMusicOn;
 @property BOOL iPodLibMusicOn;
 @property NSURL  *mediaItemURL;
+@property NSString *artist;
 @property NSString *trackTitle;
 
 -(void)encodeWithCoder:(NSCoder *)encoder;

@@ -37,6 +37,11 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
 
 // IBOutlet Image
 @property (weak, nonatomic) IBOutlet UIImageView *selectedPhotoImage; // secondVCへの画像データ渡し用
+
+// IBOutlet CustomUIView
+@property (weak, nonatomic) IBOutlet kBIUIViewShowMusicHundlerInfo *customUIView;
+
+
 // IBOutlet collectionView
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (strong, nonatomic) IBOutlet UINavigationBar *navigationBar;
@@ -95,6 +100,7 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    
     // 購入フラグを確認
     _purchased = [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_Purchased"];
     _startPlayingByShakeOn = [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_StartPlayingByShakeOn"];
@@ -199,6 +205,8 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     NSLog(@"viewwillAppear");
     _startPlayingByShakeOn = [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_StartPlayingByShakeOn"];
     _startPlayingWithVibeOn = [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_StartPlayingWithVibeOn"];
+    
+
 
 }
 
@@ -213,11 +221,15 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     } else {
         [self adjustLayoutPurchased];
     }
+    // customViewを更新
+    _customUIView.selectedIndexNum = self.selectedIndexPath.row;
+    [_customUIView updateViewItems];
 }
 
 // ビューが表示されたときに実行される
 - (void)viewDidAppear:(BOOL)animated
 {
+       NSLog(@"viewdidAppear");
     // 最初のviewControllerに戻ったときplayVCで表示完了した回数が3の倍数かつインタースティシャル広告の準備ができていればインタースティシャル広告表示
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSInteger countViewChanged = [defaults integerForKey:@"KEY_countUpViewChanged"];
@@ -254,6 +266,8 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
 - (void)viewWillDisappear:(BOOL)animated{
     // 画面が隠れたらNend定期ロード中断
     [self.nadView pause];
+    
+    [_customUIView stopMusicPlayer];
 }
 
 // AddOn購入後のレイアウト調整
@@ -465,6 +479,8 @@ NSLog(@"selectTagViewSize:%@",NSStringFromCGSize(cell.imageViewSelectedFrame.fra
             [_selectedCell.imageView setImage:image];
             
             // kBIViewShowMusicHundlerInfoにselectedIndexPathを渡して画像、情報を表示させる
+            [self.customUIView updateViewItems];
+             NSLog(@"Main_custumUIView.frame x:%d y:%d",(int)self.customUIView.frame.origin.x,(int)self.customUIView.frame.origin.y);
             
 
         }
@@ -754,7 +770,7 @@ NSLog(@"selectTagViewSize:%@",NSStringFromCGSize(cell.imageViewSelectedFrame.fra
     if (_tappedIndexPath == _selectedIndexPath) {
         previewVC *pVC = [self.storyboard instantiateViewControllerWithIdentifier:@"previewVC"];
         pVC.selectedImage = _selectedImage;
-        pVC.tappedIndexPath = _tappedIndexPath;
+        pVC.tappedIndexPath = _tappedIndexPath; // 曲情報を更新・保存するために使う
         [self.navigationController pushViewController:pVC animated:YES];
 
     } else{
@@ -768,6 +784,7 @@ NSLog(@"selectTagViewSize:%@",NSStringFromCGSize(cell.imageViewSelectedFrame.fra
         // NSDataからUIImageを作成
         UIImage *image = [UIImage imageWithContentsOfFile:filePath];
         tappedImgVC.selectedImage = image;
+        tappedImgVC.tappedIndexPath = _tappedIndexPath; // 曲情報を更新・保存するために使う
         [self.navigationController pushViewController:tappedImgVC animated:YES];
     }
 
@@ -1262,12 +1279,12 @@ NSLog(@"selectTagViewSize:%@",NSStringFromCGSize(cell.imageViewSelectedFrame.fra
     [bannerView_ setCenter:CGPointMake(self.view.bounds.size.width/2, self.view.bounds.size.height - bannerView_.bounds.size.height/2)];
     
     // 【Ad】AdMob広告データの読み込みを要求
-//    { // iPadテスト用バナー表示
-//        GADRequest *testRequest = [GADRequest request];
-//        testRequest.testDevices = [NSArray arrayWithObjects:
-//                                   @"",@"45f1d4a8dbc44781969f09433ccac7e0", nil];
-//        [bannerView_ loadRequest:testRequest];
-//    }
+    { // iPadテスト用バナー表示
+        GADRequest *testRequest = [GADRequest request];
+        testRequest.testDevices = [NSArray arrayWithObjects:
+                                   GAD_SIMULATOR_ID,@"45f1d4a8dbc44781969f09433ccac7e0", nil];
+        [bannerView_ loadRequest:testRequest];
+    }
         [bannerView_ loadRequest:[GADRequest request]]; // 本番はこの行だけでいい
     
     

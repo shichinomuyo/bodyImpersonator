@@ -310,6 +310,17 @@
 			name = kBIUIViewShowMusicHundlerInfo;
 			sourceTree = "<group>";
 		};
+		5606B0471A4D015D003F6E9E /* kBIMediaPicker */ = {
+			isa = PBXGroup;
+			children = (
+				5606B0351A4AEE5F003F6E9E /* kBIMediaPickerController.h */,
+				5606B0361A4AEE5F003F6E9E /* kBIMediaPickerController.m */,
+				5606B03A1A4BFE9F003F6E9E /* kBIMusicHundlerByImageName.h */,
+				5606B03B1A4BFE9F003F6E9E /* kBIMusicHundlerByImageName.m */,
+			);
+			name = kBIMediaPicker;
+			sourceTree = "<group>";
+		};
 		56427E0A19AB823200B516A0 = {
 			isa = PBXGroup;
 			children = (
@@ -372,8 +383,7 @@
 				56427E2E19AB823200B516A0 /* ViewController.h */,
 				56427E2F19AB823200B516A0 /* ViewController.m */,
 				5606B0441A4CF876003F6E9E /* kBIUIViewShowMusicHundlerInfo */,
-				5606B0351A4AEE5F003F6E9E /* kBIMediaPickerController.h */,
-				5606B0361A4AEE5F003F6E9E /* kBIMediaPickerController.m */,
+				5606B0471A4D015D003F6E9E /* kBIMediaPicker */,
 				56E14FFB19FF38930029B81D /* playVC.h */,
 				56E14FFC19FF38930029B81D /* playVC.m */,
 				5686757919BED3C900AF524A /* secondVC.h */,
@@ -631,8 +641,6 @@
 				56C995491A088C180006477D /* BugFixContainerView.m */,
 				568B96B81A1ECF1700368272 /* kBIIndicator.h */,
 				568B96B91A1ECF1700368272 /* kBIIndicator.m */,
-				5606B03A1A4BFE9F003F6E9E /* kBIMusicHundlerByImageName.h */,
-				5606B03B1A4BFE9F003F6E9E /* kBIMusicHundlerByImageName.m */,
 			);
 			name = Objects;
 			sourceTree = "<group>";

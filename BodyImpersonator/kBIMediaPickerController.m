@@ -30,7 +30,8 @@
     
     MPMediaItem *item = [[mediaItemCollection items] objectAtIndex:0];
     NSURL *url = [item valueForProperty:MPMediaItemPropertyAssetURL];
-    NSString *name = [item valueForProperty:MPMediaItemPropertyTitle];
+    NSString *artist = [item valueForProperty:MPMediaItemPropertyAlbumArtist];
+    NSString *trackTitle = [item valueForProperty:MPMediaItemPropertyTitle];
     
     NSArray *array = [[NSUserDefaults standardUserDefaults] objectForKey:@"KEY_MusicHundlersByImageName"];
     NSMutableArray *hundlers = [array mutableCopy];
@@ -39,7 +40,8 @@
     hundler.originalMusicOn = NO;
     hundler.iPodLibMusicOn = YES;
     hundler.mediaItemURL = url;
-    hundler.trackTitle = name;
+    hundler.artist = artist;
+    hundler.trackTitle = trackTitle;
     NSData *data = [NSKeyedArchiver archivedDataWithRootObject:hundler];
     [hundlers replaceObjectAtIndex:self.tappedIndexPath.row withObject:data];
     array = [hundlers mutableCopy];
