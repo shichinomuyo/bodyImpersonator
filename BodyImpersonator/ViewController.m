@@ -221,9 +221,7 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     } else {
         [self adjustLayoutPurchased];
     }
-    // customViewを更新
-    _customUIView.selectedIndexNum = self.selectedIndexPath.row;
-    [_customUIView updateViewItems];
+
 }
 
 // ビューが表示されたときに実行される
@@ -261,6 +259,7 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     } else {
         _limitedNumberOfImages = kMAX_ITEM_NUMBER; // 18個
     }
+
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
@@ -478,10 +477,10 @@ NSLog(@"selectTagViewSize:%@",NSStringFromCGSize(cell.imageViewSelectedFrame.fra
                              }];
             [_selectedCell.imageView setImage:image];
             
-            // kBIViewShowMusicHundlerInfoにselectedIndexPathを渡して画像、情報を表示させる
-            [self.customUIView updateViewItems];
              NSLog(@"Main_custumUIView.frame x:%d y:%d",(int)self.customUIView.frame.origin.x,(int)self.customUIView.frame.origin.y);
-            
+            // customViewを更新
+            _customUIView.selectedIndexNum = self.selectedIndexPath.row;
+            [_customUIView updateViewItems];
 
         }
                 [cell.imageView setImage:image];

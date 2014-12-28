@@ -102,6 +102,7 @@
 
 -(void)viewWillDisappear:(BOOL)animated{
     [self.navigationController setNavigationBarHidden:YES animated:YES]; // ナビゲーションバー非表示
+    [self.customUIView stopMusicPlayer];
 
 }
 

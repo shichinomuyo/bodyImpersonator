@@ -12,6 +12,7 @@
 #import <AudioToolbox/AudioToolbox.h>
 #import <MediaPlayer/MediaPlayer.h>
 #import "AVAudioPlayer+CustomControllers.h"
+#import "kAVAudioPlayerManager.h"
 
 @interface kBIUIViewShowMusicHundlerInfo : UIView<AVAudioPlayerDelegate,UINavigationControllerDelegate>{
     kBIMusicHundlerByImageName *_hundler;
@@ -21,10 +22,7 @@
     IBOutlet UILabel *labelMusicHundlerInfo;
     // オーディオプレイヤー
     BOOL _musicPlayerIsPlaying;
-    AVAudioPlayer *_rollPlayerTmp;
-    AVAudioPlayer *_rollPlayerAlt;
-    AVAudioPlayer *_originalMusicPlayer;
-    AVAudioPlayer *_iPodLibMusicPlayer;
+    AVAudioPlayer *_instantPlayer;
 }
 - (IBAction)btnPlay:(UIButton *)sender;
 
