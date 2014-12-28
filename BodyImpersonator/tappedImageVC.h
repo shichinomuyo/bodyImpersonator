@@ -12,6 +12,7 @@
 #import "NSObject+Animation.h"
 #import "kBIIndicator.h"
 #import "kBIUIViewShowMusicHundlerInfo.h"
+#import "kBISelectMusicViewController.h"
 #import "GAITrackedViewController.h"
 
 

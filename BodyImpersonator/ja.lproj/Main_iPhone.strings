@@ -87,7 +87,7 @@
 "bN0-Fe-ar9.title" = "選択中の画像";
 
 /* Class = "IBUINavigationItem"; title = "Tapped Image"; ObjectID = "d9y-v8-iuA"; */
-"d9y-v8-iuA.title" = "Tapped Image";
+"d9y-v8-iuA.title" = "タップした画像";
 
 /* Class = "IBUILabel"; text = "header"; ObjectID = "eYc-xK-0GN"; */
 "eYc-xK-0GN.text" = "header";

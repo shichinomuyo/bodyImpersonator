@@ -248,22 +248,6 @@
     if ([buttonTitle isEqualToString:[[NSString alloc] initWithFormat:NSLocalizedString(@"RemoveThisImage", nil)]]) {
         [self performSegueWithIdentifier:@"BackFromPreviewVCRemoveItemBtn" sender:self];
     }
-    if ([buttonTitle isEqualToString:[[NSString alloc] initWithFormat:NSLocalizedString(@"OpenMusicLibrary", nil)]]) {
-        kBIMediaPickerController *mediaPicker = [[kBIMediaPickerController alloc]initWithMediaTypes:MPMediaTypeMusic];
-        //            mediaPicker.delegate = self; // デリゲートになる
-        mediaPicker.allowsPickingMultipleItems = false;// 複数曲を選択させない
-        mediaPicker.tappedIndexPath = self.tappedIndexPath;
-        [self presentViewController:mediaPicker animated:YES completion:nil];
-    }
-    if ([buttonTitle isEqualToString:[[NSString alloc] initWithFormat:NSLocalizedString(@"Default1:RockSound", nil)]]) {
-        // Default1:RockSoundを選んだ時
-        [self selectRockSound];
-    }
-    if ([buttonTitle isEqualToString:[[NSString alloc] initWithFormat:NSLocalizedString(@"Default2:DrumRollSound", nil)]]) {
-        // Default1:RollSoundを選んだ時
-        [self selectRollSound];
-    }
-    
 }
 // アクションメニューを作成・表示
 - (IBAction)actionBtn:(UIBarButtonItem *)sender {
@@ -293,121 +277,19 @@
 
 - (IBAction)btnCoverAllDisplay:(UIButton *)sender {
     if (!_navigationBar.hidden) {
-        [NSObject animationHideNavBar:_navigationBar ToolBar:_toolBar];
+        [NSObject animationHideNavBar:_navigationBar ToolBar:_toolBar CustomView:_customUIView];
     }else{
-        [NSObject animationAppearNavBar:_navigationBar ToolBar:_toolBar];
+        [NSObject animationAppearNavBar:_navigationBar ToolBar:_toolBar CustomView:_customUIView];
     }
 }
 
 - (IBAction)actionSelectMusic:(UIBarButtonItem *)sender {
-    NSString *title = [[NSString alloc] initWithFormat:NSLocalizedString(@"SelectMusic", nil)];
-    NSString *message = [[NSString alloc] initWithFormat:NSLocalizedString(@"Select a music from your music library or 2 types of this app's default music.", nil)];
-    NSString *action1 = [[NSString alloc] initWithFormat:NSLocalizedString(@"OpenMusicLibrary", nil)];
-    NSString *action2 = [[NSString alloc] initWithFormat:NSLocalizedString(@"Default1:RockSound", nil)];
-    NSString *action3 = [[NSString alloc] initWithFormat:NSLocalizedString(@"Default2:DrumRollSound", nil)];
-    NSString *action4 = [[NSString alloc] initWithFormat:NSLocalizedString(@"Cancel", nil)];
-    Class class = NSClassFromString(@"UIAlertController"); // iOS8/7の切り分けフラグに使用
-    if (class) {
-        // アクションコントローラー生成
-        UIAlertController *actionController = [UIAlertController alertControllerWithTitle:title
-                                                                                  message:message
-                                                                           preferredStyle:UIAlertControllerStyleActionSheet];
-        [actionController addAction:[UIAlertAction actionWithTitle:action1
-                                                             style:UIAlertActionStyleDefault
-                                                           handler:^(UIAlertAction *action) {
-                                                               kBIMediaPickerController *mediaPicker = [[kBIMediaPickerController alloc]initWithMediaTypes:MPMediaTypeMusic];
-                                                               //            mediaPicker.delegate = self; // デリゲートになる
-                                                               mediaPicker.allowsPickingMultipleItems = false;// 複数曲を選択させない
-                                                               mediaPicker.tappedIndexPath = self.tappedIndexPath;
-                                                               [self presentViewController:mediaPicker animated:YES completion:nil];
-
-                                                           }]];
-        [actionController addAction:[UIAlertAction actionWithTitle:action2
-                                                             style:UIAlertActionStyleDefault
-                                                           handler:^(UIAlertAction *action) {
-                                                               // Default1:RockSoundを選んだ時
-                                                               [self selectRockSound];
-                                                           }]];
-        
-        [actionController addAction:[UIAlertAction actionWithTitle:action3
-                                                             style:UIAlertActionStyleDefault
-                                                           handler:^(UIAlertAction *action) {
-                                                               // Default2:DrumRollSoundを選んだ時
-                                                               [self selectRollSound];
-                                                           }]];
-        
-        [actionController addAction:[UIAlertAction actionWithTitle:action4
-                                                             style:UIAlertActionStyleCancel
-                                                           handler:^(UIAlertAction *action) {
-                                                               // キャンセルを選んだ時
-                                                           }]];
-        
-        // デバイスがiphoneであるかそうでないかで分岐
-        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
-            NSLog(@"iPhoneの処理");
-            [self presentViewController:actionController animated:YES completion:nil];
-        }
-        else{
-            NSLog(@"iPadの処理");
-            UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:actionController];
-            [popover presentPopoverFromBarButtonItem:sender permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-        }
-    }else{
-        // iOS7の処理
-        NSLog(@"actionsheetOnPreview");
-        // UIActionSheetを生成
-        UIActionSheet *actionSheet = [[UIActionSheet alloc]init];
-        actionSheet.delegate = self;
-        actionSheet.title = title;
-        [actionSheet addButtonWithTitle:action1];
-        [actionSheet addButtonWithTitle:action2];
-        [actionSheet addButtonWithTitle:action3];
-        [actionSheet addButtonWithTitle:action4];
-        actionSheet.cancelButtonIndex = 3;
-        
-        // デバイスがiphoneであるかそうでないかで分岐
-        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
-            NSLog(@"iPhoneの処理");
-            // アクションシートを表示
-            [actionSheet showInView:self.view.superview]; // self.view.superviewにしないとずれる
-        }
-        else{
-            NSLog(@"iPadの処理");
-            // アクションシートをpopoverで表示
-            [actionSheet showFromBarButtonItem:sender animated:YES];
-        }
-    }
+    // セレクトミュージックVCを開く
+    kBISelectMusicViewController *selectMusicVC = [self.storyboard instantiateViewControllerWithIdentifier:@"SelectMusicVC"];
+    selectMusicVC.tappedIndexPath = self.tappedIndexPath;
+    [self presentViewController:selectMusicVC animated:YES completion:nil];
 }
 
--(void)selectRockSound{
-    NSArray *array = [[NSUserDefaults standardUserDefaults] objectForKey:@"KEY_MusicHundlersByImageName"];
-    NSMutableArray *hundlers = [array mutableCopy];
-    kBIMusicHundlerByImageName *hundler = [kBIMusicHundlerByImageName alloc];
-    hundler.rollSoundOn = NO;
-    hundler.originalMusicOn = YES;
-    hundler.iPodLibMusicOn = NO;
-    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:hundler];
-    [hundlers replaceObjectAtIndex:self.tappedIndexPath.row withObject:data];
-    array = [hundlers copy];
-    [[NSUserDefaults standardUserDefaults] setObject:array forKey:@"KEY_MusicHundlersByImageName"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
--(void)selectRollSound{
-    NSArray *array = [[NSUserDefaults standardUserDefaults] objectForKey:@"KEY_MusicHundlersByImageName"];
-    NSMutableArray *hundlers = [array mutableCopy];
-    kBIMusicHundlerByImageName *hundler = [kBIMusicHundlerByImageName alloc];
-    hundler.rollSoundOn = YES;
-    hundler.originalMusicOn = NO;
-    hundler.iPodLibMusicOn = NO;
-    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:hundler];
-    [hundlers replaceObjectAtIndex:self.tappedIndexPath.row withObject:data];
-    array = [hundlers copy];
-    [[NSUserDefaults standardUserDefaults] setObject:array forKey:@"KEY_MusicHundlersByImageName"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    [self.navigationController popViewControllerAnimated:YES];
-}
 
 // デバッグ用
 - (void)removeAllDocumentsFiles{

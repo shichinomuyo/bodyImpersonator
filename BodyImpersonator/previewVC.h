@@ -14,6 +14,7 @@
 #import "kBIMusicHundlerByImageName.h"
 #import "kBIUIViewShowMusicHundlerInfo.h"
 #import "kBIMediaPickerController.h"
+#import "kBISelectMusicViewController.h"
 #import "GAITrackedViewController.h"
 
 

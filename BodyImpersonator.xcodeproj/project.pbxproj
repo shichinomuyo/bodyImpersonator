@@ -21,6 +21,7 @@
 		5606B0411A4CEC8F003F6E9E /* kBIUIViewShowMusicHundlerInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 5606B0401A4CEC8E003F6E9E /* kBIUIViewShowMusicHundlerInfo.m */; };
 		5606B0461A4CF94C003F6E9E /* kBIUIViewShowMusicHundlerInfo.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5606B0451A4CF94C003F6E9E /* kBIUIViewShowMusicHundlerInfo.xib */; };
 		5606B0511A4FD7C8003F6E9E /* kAVAudioPlayerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5606B0501A4FD7C8003F6E9E /* kAVAudioPlayerManager.m */; };
+		5606B0541A5005F2003F6E9E /* kBISelectMusicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5606B0531A5005F2003F6E9E /* kBISelectMusicViewController.m */; };
 		56427E1719AB823200B516A0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427E1619AB823200B516A0 /* Foundation.framework */; };
 		56427E1919AB823200B516A0 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427E1819AB823200B516A0 /* CoreGraphics.framework */; };
 		56427E1B19AB823200B516A0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427E1A19AB823200B516A0 /* UIKit.framework */; };
@@ -114,6 +115,8 @@
 		5606B0451A4CF94C003F6E9E /* kBIUIViewShowMusicHundlerInfo.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = kBIUIViewShowMusicHundlerInfo.xib; sourceTree = "<group>"; };
 		5606B04F1A4FD7C8003F6E9E /* kAVAudioPlayerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kAVAudioPlayerManager.h; sourceTree = "<group>"; };
 		5606B0501A4FD7C8003F6E9E /* kAVAudioPlayerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = kAVAudioPlayerManager.m; sourceTree = "<group>"; };
+		5606B0521A5005F2003F6E9E /* kBISelectMusicViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kBISelectMusicViewController.h; sourceTree = "<group>"; };
+		5606B0531A5005F2003F6E9E /* kBISelectMusicViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = kBISelectMusicViewController.m; sourceTree = "<group>"; };
 		5617B4BE1A20437800586645 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		5617B4C11A20437800586645 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		56427E1319AB823200B516A0 /* BodyImpersonator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BodyImpersonator.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -299,18 +302,20 @@
 				56017B9F1A23776D001E6CEF /* kBISoundEffectSettingsViewController.m */,
 				56017BA81A240F15001E6CEF /* kBISettingColorViewController.h */,
 				56017BA91A240F15001E6CEF /* kBISettingColorViewController.m */,
+				5606B0521A5005F2003F6E9E /* kBISelectMusicViewController.h */,
+				5606B0531A5005F2003F6E9E /* kBISelectMusicViewController.m */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
 		};
-		5606B0441A4CF876003F6E9E /* kBIUIViewShowMusicHundlerInfo */ = {
+		5606B0441A4CF876003F6E9E /* CustomUIView */ = {
 			isa = PBXGroup;
 			children = (
 				5606B03F1A4CEC8E003F6E9E /* kBIUIViewShowMusicHundlerInfo.h */,
 				5606B0401A4CEC8E003F6E9E /* kBIUIViewShowMusicHundlerInfo.m */,
 				5606B0451A4CF94C003F6E9E /* kBIUIViewShowMusicHundlerInfo.xib */,
 			);
-			name = kBIUIViewShowMusicHundlerInfo;
+			name = CustomUIView;
 			sourceTree = "<group>";
 		};
 		5606B0471A4D015D003F6E9E /* kBIMediaPicker */ = {
@@ -385,7 +390,7 @@
 				56427E2619AB823200B516A0 /* AppDelegate.m */,
 				56427E2E19AB823200B516A0 /* ViewController.h */,
 				56427E2F19AB823200B516A0 /* ViewController.m */,
-				5606B0441A4CF876003F6E9E /* kBIUIViewShowMusicHundlerInfo */,
+				5606B0441A4CF876003F6E9E /* CustomUIView */,
 				5606B0471A4D015D003F6E9E /* kBIMediaPicker */,
 				56E14FFB19FF38930029B81D /* playVC.h */,
 				56E14FFC19FF38930029B81D /* playVC.m */,
@@ -828,6 +833,7 @@
 				56017BA01A23776D001E6CEF /* kBISoundEffectSettingsViewController.m in Sources */,
 				56E14FFD19FF38930029B81D /* playVC.m in Sources */,
 				56A9A9F61A2804A700DBE7F4 /* kBISettingMotionControllsViewController.m in Sources */,
+				5606B0541A5005F2003F6E9E /* kBISelectMusicViewController.m in Sources */,
 				56017B9A1A2310E3001E6CEF /* kBITableViewCellHavePicker.m in Sources */,
 				56A4B1FF19FB70C40009CC37 /* NSArray+IndexHelper.m in Sources */,
 			);

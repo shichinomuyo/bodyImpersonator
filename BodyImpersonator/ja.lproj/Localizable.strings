@@ -87,3 +87,6 @@
 // kBISettingColorVC
 "Black" = "黒";
 "White" = "白";
+
+// kBISelectMusicViewController.h
+"Select Music" = "ミュージック選択";

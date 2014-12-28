@@ -19,6 +19,7 @@
     // Do any additional setup after loading the view.
     self.delegate = self; // デリゲートになる
     [self setAllowsPickingMultipleItems:NO];
+    [self setShowsCloudItems:NO];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -47,23 +48,9 @@
     array = [hundlers mutableCopy];
     [[NSUserDefaults standardUserDefaults] setObject:array forKey:@"KEY_MusicHundlersByImageName"];
     [[NSUserDefaults standardUserDefaults] synchronize];
-    
-    {
-//    //    MPMediaItemCollection *collection = mediaItemCollection;
-//    MPMediaItem *item = [[mediaItemCollection items] objectAtIndex:0];
-//    NSURL *url = [item valueForProperty:MPMediaItemPropertyAssetURL];
-//    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:url];
-//    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"KEY_RollSoundOn"];
-//    [[NSUserDefaults standardUserDefaults] setBool:NO  forKey:@"KEY_OriginalMusicOn"];
-//    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"KEY_iPODLibMusicOn"];
-//    [[NSUserDefaults standardUserDefaults] setObject:data forKey:@"KEY_MediaItemURL"];
-//    [[NSUserDefaults standardUserDefaults] synchronize];
-}
+ 
+       [self.presentingViewController.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 
-    
-    [self dismissViewControllerAnimated:YES completion:nil];
-    
-    
 }
 
 -(void)mediaPickerDidCancel:(MPMediaPickerController *)mediaPicker{

@@ -205,7 +205,9 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     NSLog(@"viewwillAppear");
     _startPlayingByShakeOn = [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_StartPlayingByShakeOn"];
     _startPlayingWithVibeOn = [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_StartPlayingWithVibeOn"];
-    
+    // customViewを更新
+    _customUIView.selectedIndexNum = self.selectedIndexPath.row;
+    [_customUIView updateViewItems];
 
 
 }
@@ -1281,7 +1283,9 @@ NSLog(@"selectTagViewSize:%@",NSStringFromCGSize(cell.imageViewSelectedFrame.fra
     { // iPadテスト用バナー表示
         GADRequest *testRequest = [GADRequest request];
         testRequest.testDevices = [NSArray arrayWithObjects:
-                                   GAD_SIMULATOR_ID,@"45f1d4a8dbc44781969f09433ccac7e0", nil];
+                                   GAD_SIMULATOR_ID,@"728ca28ae78b1830d399efec414dd550", nil];// iPhone
+//        testRequest.testDevices = [NSArray arrayWithObjects:
+//                                   GAD_SIMULATOR_ID,@"45f1d4a8dbc44781969f09433ccac7e0", nil]; // ipad
         [bannerView_ loadRequest:testRequest];
     }
         [bannerView_ loadRequest:[GADRequest request]]; // 本番はこの行だけでいい

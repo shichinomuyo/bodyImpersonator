@@ -7,9 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "kBIUIViewShowMusicHundlerInfo.h"
 
 @interface NSObject (Animation)
-+ (void)animationHideNavBar:(UINavigationBar *)nav ToolBar:(UIToolbar *)tool;
-+ (void)animationAppearNavBar:(UINavigationBar *)nav ToolBar:(UIToolbar *)tool;
++ (void)animationHideNavBar:(UINavigationBar *)nav ToolBar:(UIToolbar *)tool CustomView:(kBIUIViewShowMusicHundlerInfo *)customView;
++ (void)animationAppearNavBar:(UINavigationBar *)nav ToolBar:(UIToolbar *)tool CustomView:(kBIUIViewShowMusicHundlerInfo *)customView;
 + (void)pickerViewAppear:(UIPickerView *)picker;
 @end

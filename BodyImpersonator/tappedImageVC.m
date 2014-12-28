@@ -19,6 +19,7 @@
 
 @property (weak, nonatomic) IBOutlet UINavigationBar *navigationBar;
 @property (weak, nonatomic) IBOutlet UIImageView *previewImageView;
+- (IBAction)selectMusic:(UIBarButtonItem *)sender;
 
 - (IBAction)removeItemBtn:(UIBarButtonItem *)sender;
 - (IBAction)setImageBtn:(UIBarButtonItem *)sender;
@@ -162,6 +163,13 @@
  */
 
 // 表示されている画像を削除
+- (IBAction)selectMusic:(UIBarButtonItem *)sender {
+    // ミュージック選択VCを開く
+    kBISelectMusicViewController *selectMusicVC = [self.storyboard instantiateViewControllerWithIdentifier:@"SelectMusicVC"];
+    selectMusicVC.tappedIndexPath = self.tappedIndexPath;
+    [self presentViewController:selectMusicVC animated:YES completion:nil];
+}
+
 - (IBAction)removeItemBtn:(UIBarButtonItem *)sender {
     
     

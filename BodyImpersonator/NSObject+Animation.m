@@ -9,7 +9,7 @@
 #import "NSObject+Animation.h"
 
 @implementation NSObject (Animation)
-+ (void)animationHideNavBar:(UINavigationBar *)nav ToolBar:(UIToolbar *)tool{
++ (void)animationHideNavBar:(UINavigationBar *)nav ToolBar:(UIToolbar *)tool CustomView:(kBIUIViewShowMusicHundlerInfo *)customView{
     // 操作無効
     [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
     [UIView animateWithDuration:0.15f
@@ -18,6 +18,7 @@
                      animations:^{
                          nav.center = CGPointMake(nav.center.x, nav.center.y - 48);
                          tool.center = CGPointMake(tool.center.x, tool.center.y + 32);
+                         customView.center = CGPointMake(customView.center.x, customView.center.y + 64);
                      } completion:^(BOOL finished){
                          [nav setHidden:1];
                          [tool setHidden:1];
@@ -27,7 +28,7 @@
      ];
     
 }
-+ (void)animationAppearNavBar:(UINavigationBar *)nav ToolBar:(UIToolbar *)tool{
++ (void)animationAppearNavBar:(UINavigationBar *)nav ToolBar:(UIToolbar *)tool CustomView:(kBIUIViewShowMusicHundlerInfo *)customView{
     // 操作無効
     [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
     [nav setHidden:0];
@@ -38,6 +39,7 @@
                      animations:^{
                          nav.center = CGPointMake(nav.center.x, 22);
                          tool.center = CGPointMake(tool.center.x, tool.center.y - 32);
+                         customView.center = CGPointMake(customView.center.x, customView.center.y - 64);
                      } completion:^(BOOL finished){
 
                          [[UIApplication sharedApplication] setStatusBarHidden:NO];

@@ -72,38 +72,52 @@
     
     //kBIMusicHundlerから色々取得
     NSMutableArray *hundlers = [[NSUserDefaults standardUserDefaults] objectForKey:@"KEY_MusicHundlersByImageName"];
-    NSData *data = hundlers[self.selectedIndexNum];
-    _hundler = [NSKeyedUnarchiver unarchiveObjectWithData:data];
-    NSLog(@"selectedNum:%ld",(long)self.selectedIndexNum);
-   
+    NSData *data = [hundlers safeObjectAtIndex:self.selectedIndexNum];
     UIImage *imageSelectedTypeOfMusic;  // 画像設定
     NSString *artistName; // 文字列設定
     NSString *trackTitle;// 文字列設定
-    _musicPlayerIsPlaying = NO;
-    if (_hundler.originalMusicOn) {
-        imageSelectedTypeOfMusic = [UIImage imageNamed:@"ICON_MUSIC_26x26"]; // 画像設定
-        NSLog(@"ICONorimusic");
-        artistName = @"Preset1";// nil;    // 文字列設定
-        trackTitle = @"Preset MusicMusicMusicMusicMusicMusicMusicMusicMusicMusic";// nil;    // 文字列設定
-    }else if (_hundler.rollSoundOn) {
-        imageSelectedTypeOfMusic = [UIImage imageNamed:@"ICON_Drum"]; // 画像設定 ICON_Drum
-        NSLog(@"ICONdrum");
-        artistName = @"Preset2";// nil;    // 文字列設定
-        trackTitle = @"Drum Roll"; //nil;    // 文字列設定
-    }else if (_hundler.iPodLibMusicOn) {
-        imageSelectedTypeOfMusic = [UIImage imageNamed:@"ICON_Album26x26"]; // 画像設定
-        NSLog(@"ICONipod");
-        artistName = _hundler.artist;    // 文字列設定
-        trackTitle = _hundler.trackTitle;    // 文字列設定
+    if (data) { // コレクションビューに画像がひとつ以上追加されているとき
+        _hundler = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+        NSLog(@"selectedNum:%ld",(long)self.selectedIndexNum);
+        
+
+        _musicPlayerIsPlaying = NO;
+        if (_hundler.originalMusicOn) {
+            imageSelectedTypeOfMusic = [UIImage imageNamed:@"ICON_MUSIC_26x26"]; // 画像設定
+            NSLog(@"ICONorimusic");
+            artistName = @"Preset1";// nil;    // 文字列設定
+            trackTitle = @"Preset MusicMusicMusicMusicMusicMusicMusicMusicMusicMusic";// nil;    // 文字列設定
+        }else if (_hundler.rollSoundOn) {
+            imageSelectedTypeOfMusic = [UIImage imageNamed:@"ICON_Drum"]; // 画像設定 ICON_Drum
+            NSLog(@"ICONdrum");
+            artistName = @"Preset2";// nil;    // 文字列設定
+            trackTitle = @"Drum Roll"; //nil;    // 文字列設定
+        }else if (_hundler.iPodLibMusicOn) {
+            imageSelectedTypeOfMusic = [UIImage imageNamed:@"ICON_Album26x26"]; // 画像設定
+            NSLog(@"ICONipod");
+            artistName = _hundler.artist;    // 文字列設定
+            trackTitle = _hundler.trackTitle;    // 文字列設定
+        }
+        
+        [btnPlayerControll setEnabled:YES];
+        NSString *musicInfo = [NSString stringWithFormat:@"%@/%@",artistName,trackTitle];
+        [labelMusicHundlerInfo setAdjustsFontSizeToFitWidth:NO];
+        [labelMusicHundlerInfo setText:musicInfo];
+        
+        NSLog(@"custumUIView.frame x:%d y:%d",(int)self.frame.origin.x,(int)self.frame.origin.y);
+    }else{ // コレクションビューに画像がひとつも追加されていないとき
+        NSString *sentenceAppearCollectionHaveNoItem = [[NSString alloc] initWithFormat:NSLocalizedString(@"First,tap + ICON to add to list a Image.", nil)];
+        imageSelectedTypeOfMusic = nil;
+         [btnPlayerControll setEnabled:NO];
+        artistName = nil;
+        trackTitle = nil;
+        NSString *musicInfo = sentenceAppearCollectionHaveNoItem;
+        [labelMusicHundlerInfo setAdjustsFontSizeToFitWidth:NO];
+        [labelMusicHundlerInfo setText:musicInfo];
     }
-    
     [imageView setImage:imageSelectedTypeOfMusic];
 
-    NSString *musicInfo = [NSString stringWithFormat:@"%@/%@",artistName,trackTitle];
-    [labelMusicHundlerInfo setAdjustsFontSizeToFitWidth:NO];
-    [labelMusicHundlerInfo setText:musicInfo];
-    
-    NSLog(@"custumUIView.frame x:%d y:%d",(int)self.frame.origin.x,(int)self.frame.origin.y);
+   
 }
 
 
@@ -113,7 +127,7 @@
 }
 
 - (IBAction)btnPlay:(UIButton *)sender {
-    NSLog(@"BOOL_willChanged:%d",_musicPlayerIsPlaying);
+    
     if (!_musicPlayerIsPlaying) { // 再生中ではないときに押された場合
           NSLog(@"btn_startPlay");
         _musicPlayerIsPlaying = YES; // フラグを再生中に変更

@@ -376,7 +376,8 @@
     
 }
 
-
+#pragma mark-
+#pragma actions
 - (void)actionPostAppStoreReview{
     NSString *urlString = @"itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=942520127"; // karadamonomanizerのレビューページに飛ぶ
     NSURL *url = [NSURL URLWithString:urlString];
