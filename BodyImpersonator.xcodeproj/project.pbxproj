@@ -22,6 +22,7 @@
 		5606B0461A4CF94C003F6E9E /* kBIUIViewShowMusicHundlerInfo.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5606B0451A4CF94C003F6E9E /* kBIUIViewShowMusicHundlerInfo.xib */; };
 		5606B0511A4FD7C8003F6E9E /* kAVAudioPlayerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5606B0501A4FD7C8003F6E9E /* kAVAudioPlayerManager.m */; };
 		5606B0541A5005F2003F6E9E /* kBISelectMusicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5606B0531A5005F2003F6E9E /* kBISelectMusicViewController.m */; };
+		5606B0561A51867E003F6E9E /* CellHaveFourItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5606B0551A51867E003F6E9E /* CellHaveFourItem.xib */; };
 		56427E1719AB823200B516A0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427E1619AB823200B516A0 /* Foundation.framework */; };
 		56427E1919AB823200B516A0 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427E1819AB823200B516A0 /* CoreGraphics.framework */; };
 		56427E1B19AB823200B516A0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427E1A19AB823200B516A0 /* UIKit.framework */; };
@@ -117,6 +118,7 @@
 		5606B0501A4FD7C8003F6E9E /* kAVAudioPlayerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = kAVAudioPlayerManager.m; sourceTree = "<group>"; };
 		5606B0521A5005F2003F6E9E /* kBISelectMusicViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kBISelectMusicViewController.h; sourceTree = "<group>"; };
 		5606B0531A5005F2003F6E9E /* kBISelectMusicViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = kBISelectMusicViewController.m; sourceTree = "<group>"; };
+		5606B0551A51867E003F6E9E /* CellHaveFourItem.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CellHaveFourItem.xib; path = ../CellHaveFourItem.xib; sourceTree = "<group>"; };
 		5617B4BE1A20437800586645 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		5617B4C11A20437800586645 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		56427E1319AB823200B516A0 /* BodyImpersonator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BodyImpersonator.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -634,6 +636,7 @@
 				56017B961A2305F5001E6CEF /* kBITableViewCellHaveSwitch.m */,
 				568B95F61A11D50A00368272 /* BITableViewCellHaveFourItems.h */,
 				568B95F71A11D50A00368272 /* BITableViewCellHaveFourItems.m */,
+				5606B0551A51867E003F6E9E /* CellHaveFourItem.xib */,
 				568B95FF1A12350500368272 /* BIFeedbakAndActionCell.h */,
 				568B96001A12350500368272 /* BIFeedbakAndActionCell.m */,
 			);
@@ -776,6 +779,7 @@
 				568B96411A1B03BB00368272 /* README.txt in Resources */,
 				56427E4F19AB82C200B516A0 /* .gitignore in Resources */,
 				5606B0461A4CF94C003F6E9E /* kBIUIViewShowMusicHundlerInfo.xib in Resources */,
+				5606B0561A51867E003F6E9E /* CellHaveFourItem.xib in Resources */,
 				5606B03E1A4C5BD1003F6E9E /* Theme05.mp3 in Resources */,
 				56427E2D19AB823200B516A0 /* Main_iPad.storyboard in Resources */,
 				56427E3219AB823200B516A0 /* Images.xcassets in Resources */,
