@@ -50,6 +50,9 @@
     //　バイブEnableフラグ確認
     self.startPlayingWithVibeOn = [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_StartPlayingWithVibeOn"];
     self.finishPlayingWithVibeOn = [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_FinishPlayingWithVibeOn"];
+    
+    UINib *nib = [UINib nibWithNibName:@"CellHaveSwitch" bundle:nil];
+    [self.tableView registerNib:nib forCellReuseIdentifier:@"CellHaveSwitch"];
 }
 
 -(void)viewWillAppear:(BOOL)animated{

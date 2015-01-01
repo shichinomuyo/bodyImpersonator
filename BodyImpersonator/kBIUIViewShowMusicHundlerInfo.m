@@ -117,7 +117,24 @@
     }
     [imageView setImage:imageSelectedTypeOfMusic];
 
-   
+    NSLog(@"labelMusicHundlerInfo.width:%.2f",labelMusicHundlerInfo.frame.size.width);
+    NSLog(@"center.x:%.2f",labelMusicHundlerInfo.center.x);
+
+    [viewHaveLabel setClipsToBounds:YES];
+
+    
+    // 文字列の長さを取得
+    textWidth = [labelMusicHundlerInfo.text sizeWithAttributes:@{NSAttachmentAttributeName:[UIFont systemFontOfSize:labelMusicHundlerInfo.font.pointSize]}].width; // 移動後の座標計算に使用
+    
+    if (viewHaveLabel.frame.size.width < textWidth ) { // テキストの長さが親ビューより大きい時だけスライドアニメーション実行
+
+        // 文字数を取得
+        textLength = (int)labelMusicHundlerInfo.text.length; // アニメーションにかける時間を計算するのに使用
+        // アニメーションにかける時間
+        transitionDuration = textLength/4;
+        [self moveAffineLabelX]; // スライドアニメーション
+    }
+
 }
 
 
@@ -172,5 +189,22 @@
 
 -(void)dealloc{
 
+}
+
+// animation
+- (void)moveAffineLabelX{
+    labelMusicHundlerInfo.transform = CGAffineTransformIdentity;
+
+    [UIView animateKeyframesWithDuration:transitionDuration
+                                   delay:4.0
+                                 options: 3<<16  // 3<<16はUIViewAnimationCurveLinearのバイナリ。バイナリなら指定できる。
+                              animations:^{
+
+                                  labelMusicHundlerInfo.transform = CGAffineTransformMakeTranslation(-1.1*textWidth, 0);
+                              } completion:^(BOOL finished){
+                                  [self moveAffineLabelX];
+                              }];
+
+    
 }
 @end

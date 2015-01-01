@@ -47,6 +47,9 @@
     self.musicOn = [[NSUserDefaults standardUserDefaults]boolForKey:@"KEY_MusicOn"];
     self.crashSoundOn = [[NSUserDefaults standardUserDefaults]boolForKey:@"KEY_CrashSoundOn"];
     self.flashOn = [[NSUserDefaults standardUserDefaults]boolForKey:@"KEY_FlashEffectOn"];
+    
+    UINib *nib = [UINib nibWithNibName:@"CellHaveSwitch" bundle:nil];
+    [self.tableView registerNib:nib forCellReuseIdentifier:@"CellHaveSwitch"];
 }
 
 -(void)viewWillAppear:(BOOL)animated{

@@ -13,6 +13,7 @@
 #import <MediaPlayer/MediaPlayer.h>
 #import "AVAudioPlayer+CustomControllers.h"
 #import "kAVAudioPlayerManager.h"
+#import "BugFixContainerView.h"
 
 @interface kBIUIViewShowMusicHundlerInfo : UIView<AVAudioPlayerDelegate,UINavigationControllerDelegate>{
     kBIMusicHundlerByImageName *_hundler;
@@ -20,9 +21,14 @@
     IBOutlet UIImageView *imageView;
     IBOutlet UIButton *btnPlayerControll;
     IBOutlet UILabel *labelMusicHundlerInfo;
+    IBOutlet BugFixContainerView *viewHaveLabel;
     // オーディオプレイヤー
     BOOL _musicPlayerIsPlaying;
     AVAudioPlayer *_instantPlayer;
+    int textWidth;
+    int textLength;
+    float transitionDuration;
+
 }
 - (IBAction)btnPlay:(UIButton *)sender;
 

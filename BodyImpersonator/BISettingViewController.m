@@ -67,6 +67,11 @@
     
     _kIndicator = [kBIIndicator alloc];
     
+    UINib *nib1 = [UINib nibWithNibName:@"CellHaveFourItems" bundle:nil];
+    [self.tableView registerNib:nib1 forCellReuseIdentifier:@"CellHaveFourItems"];
+    UINib *nib2 = [UINib nibWithNibName:@"CellFeedbackAndShare" bundle:nil];
+    [self.tableView registerNib:nib2 forCellReuseIdentifier:@"CellFeedbackAndShare"];
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -212,11 +217,16 @@
             
             NSString *desc = [[NSString alloc] initWithFormat:NSLocalizedString(@"Desc:", nil)];
             [labelDescTitle setText:desc];//説明
-            
+
             [labelDescription setText:self.dataSourceAddOnDesc[indexPath.row]];
             [labelDescription setAdjustsFontSizeToFitWidth:YES];
-            [labelDescription setLineBreakMode:NSLineBreakByClipping];
-            [labelDescription setMinimumScaleFactor:4];
+            [labelDescription setMinimumScaleFactor:9];
+            [labelDescription setNumberOfLines:0];
+            [labelDescription setFrame:CGRectMake(0, labelDescription.superview.center.y, labelDescription.frame.size.width, labelDescription.frame.size.height)];
+            [labelDescription sizeToFit];
+
+
+
             
             if (indexPath.row == 0) {// 購入セルををタップできるようにする。/できないようにする。
                 if (_purchased) {
