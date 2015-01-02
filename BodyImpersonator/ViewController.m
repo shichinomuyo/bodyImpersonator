@@ -141,7 +141,8 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     
     // ハンドラーがないとき(v1.2より前から使ってる場合)一度だけ初期化 v1.2以降から使用を開始した場合はsecondVCでその都度追加していく。
     NSMutableArray *hundlers = [[NSUserDefaults standardUserDefaults] objectForKey:@"KEY_MusicHundlersByImageName"];
-    if (!hundlers) {
+    if (![hundlers safeObjectAtIndex:0]) {
+        NSLog(@"hundlerがない");
         NSMutableArray *imageNames = [[NSUserDefaults standardUserDefaults] objectForKey:@"KEY_imageNames"]; // for文の終了条件に配列のカウントを使うので
         hundlers = [NSMutableArray array];
         int i;
@@ -205,15 +206,13 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     NSLog(@"viewwillAppear");
     _startPlayingByShakeOn = [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_StartPlayingByShakeOn"];
     _startPlayingWithVibeOn = [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_StartPlayingWithVibeOn"];
-    // customViewを更新
-    _customUIView.selectedIndexNum = self.selectedIndexPath.row;
-    [_customUIView updateViewItems];
 
 
 }
 
 -(void)viewDidLayoutSubviews{
      NSLog(@"purchased in mainview:%d",_purchased);
+
     // AppDelegateからの購入通知を登録する
     _purchased = [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_Purchased"];
 
@@ -229,6 +228,9 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
 // ビューが表示されたときに実行される
 - (void)viewDidAppear:(BOOL)animated
 {
+    // customViewを更新
+    _customUIView.selectedIndexNum = self.selectedIndexPath.row;
+    [_customUIView updateViewItems];
        NSLog(@"viewdidAppear");
     // 最初のviewControllerに戻ったときplayVCで表示完了した回数が3の倍数かつインタースティシャル広告の準備ができていればインタースティシャル広告表示
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -391,6 +393,7 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     }else if ([segue.identifier isEqualToString:@"BackFromPreviewVCRemoveItemBtn"]){
         // _selectedIndexPathのアイテムを削除
         [self actionRemoveItem:_selectedIndexPath];
+
         NSLog(@"BackFromPreviewVCRemoveItemBtn");
         NSLog(@"selectedIndexPath:%d",(int)_selectedIndexPath);
     }else if ([segue.identifier isEqualToString:@"BackFromTappedImageVCSetImageBtn"]){
@@ -456,8 +459,6 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
         NSString *imageName = [imageNames objectAtIndex:(int)(indexPath.row)];
         NSString *filePath = [NSString stringWithFormat:@"%@%@",[NSHomeDirectory() stringByAppendingString:@"/Documents"],imageName];
         UIImage *image = [UIImage imageWithContentsOfFile:filePath];
-//        NSLog(@"filePath:%@",filePath);
-//        NSLog(@"imageName:%@",imageName);
 
         if ([imageName isEqualToString:selectedImageName]) {// 黄色い三角形を右上に表示させる
             _selectedIndexPath = indexPath; // ここで初めてselectedIndexPathを更新
@@ -480,9 +481,6 @@ NSLog(@"selectTagViewSize:%@",NSStringFromCGSize(cell.imageViewSelectedFrame.fra
             [_selectedCell.imageView setImage:image];
             
              NSLog(@"Main_custumUIView.frame x:%d y:%d",(int)self.customUIView.frame.origin.x,(int)self.customUIView.frame.origin.y);
-            // customViewを更新
-            _customUIView.selectedIndexNum = self.selectedIndexPath.row;
-            [_customUIView updateViewItems];
 
         }
                 [cell.imageView setImage:image];

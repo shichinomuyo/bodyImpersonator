@@ -56,7 +56,7 @@
     contentView.translatesAutoresizingMaskIntoConstraints = YES;
     contentView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
     // SuperviewにロードしたViewをSubviewとして追加
-    [self showMusicHundlerInfo];
+
     [self addSubview:contentView];
  
 }
@@ -76,7 +76,7 @@
     UIImage *imageSelectedTypeOfMusic;  // 画像設定
     NSString *artistName; // 文字列設定
     NSString *trackTitle;// 文字列設定
-    if (data) { // コレクションビューに画像がひとつ以上追加されているとき
+    if (data) { // コレクションビューに画像がひとつ以上追加されていてhundlerが紐付いてるとき
         _hundler = [NSKeyedUnarchiver unarchiveObjectWithData:data];
         NSLog(@"selectedNum:%ld",(long)self.selectedIndexNum);
         
@@ -106,34 +106,22 @@
         
         NSLog(@"custumUIView.frame x:%d y:%d",(int)self.frame.origin.x,(int)self.frame.origin.y);
     }else{ // コレクションビューに画像がひとつも追加されていないとき
-        NSString *sentenceAppearCollectionHaveNoItem = [[NSString alloc] initWithFormat:NSLocalizedString(@"First,tap + ICON to add to list a Image.", nil)];
+        NSString *sentenceAppearCollectionHaveNoItem1 = [[NSString alloc] initWithFormat:NSLocalizedString(@"First,PleaseAddImage.", nil)];
+        NSString *sentenceAppearCollectionHaveNoItem2 = [[NSString alloc] initWithFormat:NSLocalizedString(@"Tap+IconToAddImageFromAlbumOrCam", nil)];
         imageSelectedTypeOfMusic = nil;
          [btnPlayerControll setEnabled:NO];
         artistName = nil;
         trackTitle = nil;
-        NSString *musicInfo = sentenceAppearCollectionHaveNoItem;
+        NSString *musicInfo = [NSString stringWithFormat:@"%@/%@",sentenceAppearCollectionHaveNoItem1,sentenceAppearCollectionHaveNoItem2];
         [labelMusicHundlerInfo setAdjustsFontSizeToFitWidth:NO];
         [labelMusicHundlerInfo setText:musicInfo];
     }
     [imageView setImage:imageSelectedTypeOfMusic];
 
     NSLog(@"labelMusicHundlerInfo.width:%.2f",labelMusicHundlerInfo.frame.size.width);
-    NSLog(@"center.x:%.2f",labelMusicHundlerInfo.center.x);
+    NSLog(@"labelCenter.x:%.2f",labelMusicHundlerInfo.center.x);
 
     [viewHaveLabel setClipsToBounds:YES];
-
-    
-    // 文字列の長さを取得
-    textWidth = [labelMusicHundlerInfo.text sizeWithAttributes:@{NSAttachmentAttributeName:[UIFont systemFontOfSize:labelMusicHundlerInfo.font.pointSize]}].width; // 移動後の座標計算に使用
-    
-    if (viewHaveLabel.frame.size.width < textWidth ) { // テキストの長さが親ビューより大きい時だけスライドアニメーション実行
-
-        // 文字数を取得
-        textLength = (int)labelMusicHundlerInfo.text.length; // アニメーションにかける時間を計算するのに使用
-        // アニメーションにかける時間
-        transitionDuration = textLength/4;
-        [self moveAffineLabelX]; // スライドアニメーション
-    }
 
 }
 
@@ -179,11 +167,26 @@
     
 }
 - (void)willMoveToSuperview:(UIView *)newSuperview{
+ NSLog(@"willMoveToSuperview");
+    // アニメーション処理
+    {
+        // 文字列の長さを取得
+        textWidth = [labelMusicHundlerInfo.text sizeWithAttributes:@{NSAttachmentAttributeName:[UIFont systemFontOfSize:labelMusicHundlerInfo.font.pointSize]}].width; // 移動後の座標計算に使用
+        
+        if (viewHaveLabel.frame.size.width < textWidth ) { // テキストの長さが親ビューより大きい時だけスライドアニメーション実行
+            // 文字数を取得
+            textLength = (int)labelMusicHundlerInfo.text.length; // アニメーションにかける時間を計算するのに使用
+            // アニメーションにかける時間
+            transitionDuration = textLength/4;
+            [self moveAffineLabelX:transitionDuration]; // スライドアニメーション
+        }
+    }
 
 }
 
 -(void)didMoveToSuperview{
          NSLog(@"didMoveToSuperView");
+
 
 }
 
@@ -191,19 +194,22 @@
 
 }
 
-// animation
-- (void)moveAffineLabelX{
+// アニメーション
+- (void)moveAffineLabelX:(float)duration{
     labelMusicHundlerInfo.transform = CGAffineTransformIdentity;
 
-    [UIView animateKeyframesWithDuration:transitionDuration
+    [UIView animateKeyframesWithDuration:duration
                                    delay:4.0
                                  options: 3<<16  // 3<<16はUIViewAnimationCurveLinearのバイナリ。バイナリなら指定できる。
                               animations:^{
+                                  NSLog(@"textWidth:%d",textWidth);
+                                  NSLog(@"なんで:%d",textWidth);
 
                                   labelMusicHundlerInfo.transform = CGAffineTransformMakeTranslation(-1.1*textWidth, 0);
                               } completion:^(BOOL finished){
-                                  [self moveAffineLabelX];
-                              }];
+//                                  [self moveAffineLabelX:duration];
+                              }
+     ];
 
     
 }

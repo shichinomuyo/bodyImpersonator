@@ -417,6 +417,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="256" height="256"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Aa5-4K-1cF">
@@ -571,6 +572,9 @@
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
+                            <mask key="subviews">
+                                <include reference="4O9-DG-1wD"/>
+                            </mask>
                             <mask key="constraints">
                                 <include reference="ZNH-y9-ncO"/>
                                 <include reference="oDg-JM-H3B"/>
@@ -591,6 +595,9 @@
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=regular">
+                            <mask key="subviews">
+                                <include reference="4O9-DG-1wD"/>
+                            </mask>
                             <mask key="constraints">
                                 <include reference="Fbr-vE-EFL"/>
                                 <include reference="HDA-eY-Zof"/>
@@ -956,9 +963,6 @@
                                         </barButtonItem>
                                     </navigationItem>
                                 </items>
-                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="0.0" y="0.0" width="400" height="44"/>
-                                </variation>
                             </navigationBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="5Fj-MZ-aGg">
                                 <rect key="frame" x="0.0" y="64" width="600" height="536"/>
@@ -1052,16 +1056,13 @@
                                 </constraints>
                                 <items>
                                     <navigationItem title="Selected Image Preview" id="bN0-Fe-ar9">
-                                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="HbL-4b-MOz">
+                                        <barButtonItem key="leftBarButtonItem" title="Back" style="plain" id="HbL-4b-MOz">
                                             <connections>
                                                 <segue destination="6gl-yu-fDZ" kind="unwind" identifier="cancel" unwindAction="firstViewReturnActionForSegue:" id="ufg-i3-4th"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
                                 </items>
-                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="0.0" y="0.0" width="400" height="64"/>
-                                </variation>
                             </navigationBar>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dAm-ib-DaK" customClass="kBIUIViewShowMusicHundlerInfo">
                                 <rect key="frame" x="400" y="536" width="200" height="20"/>
@@ -1167,9 +1168,6 @@
                                 <state key="normal">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="0.0" y="0.0" width="400" height="800"/>
-                                </variation>
                                 <connections>
                                     <action selector="btnCoverAllDisplay:" destination="yAO-Md-pSK" eventType="touchUpInside" id="lqB-oE-23L"/>
                                 </connections>
@@ -1181,7 +1179,7 @@
                                 </constraints>
                                 <items>
                                     <navigationItem title="Tapped Image" id="d9y-v8-iuA">
-                                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="32t-kj-0rq">
+                                        <barButtonItem key="leftBarButtonItem" title="Back" style="plain" id="32t-kj-0rq">
                                             <connections>
                                                 <segue destination="y5x-A0-10f" kind="unwind" identifier="cancel" unwindAction="firstViewReturnActionForSegue:" id="stf-Ke-MkP"/>
                                             </connections>
