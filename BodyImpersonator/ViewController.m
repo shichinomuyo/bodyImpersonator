@@ -141,7 +141,8 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     
     // ハンドラーがないとき(v1.2より前から使ってる場合)一度だけ初期化 v1.2以降から使用を開始した場合はsecondVCでその都度追加していく。
     NSMutableArray *hundlers = [[NSUserDefaults standardUserDefaults] objectForKey:@"KEY_MusicHundlersByImageName"];
-    if (![hundlers safeObjectAtIndex:0]) {
+    NSData *data = [hundlers safeObjectAtIndex:0];
+    if (!data) {
         NSLog(@"hundlerがない");
         NSMutableArray *imageNames = [[NSUserDefaults standardUserDefaults] objectForKey:@"KEY_imageNames"]; // for文の終了条件に配列のカウントを使うので
         hundlers = [NSMutableArray array];
@@ -157,6 +158,8 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
         NSArray *array = [hundlers mutableCopy];
         [[NSUserDefaults standardUserDefaults] setObject:array forKey:@"KEY_MusicHundlersByImageName"];
         [[NSUserDefaults standardUserDefaults] synchronize];
+    }else{
+
     }
 }
 
@@ -206,7 +209,9 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     NSLog(@"viewwillAppear");
     _startPlayingByShakeOn = [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_StartPlayingByShakeOn"];
     _startPlayingWithVibeOn = [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_StartPlayingWithVibeOn"];
+    
 
+    
 
 }
 
@@ -228,10 +233,12 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
 // ビューが表示されたときに実行される
 - (void)viewDidAppear:(BOOL)animated
 {
-    // customViewを更新
-    _customUIView.selectedIndexNum = self.selectedIndexPath.row;
-    [_customUIView updateViewItems];
+
        NSLog(@"viewdidAppear");
+    // customUIViewのラベルに曲情報を表示
+    self.customUIView.selectedIndexNum = self.selectedIndexPath.row;
+    [self.customUIView updateViewItems];
+    
     // 最初のviewControllerに戻ったときplayVCで表示完了した回数が3の倍数かつインタースティシャル広告の準備ができていればインタースティシャル広告表示
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSInteger countViewChanged = [defaults integerForKey:@"KEY_countUpViewChanged"];
@@ -271,8 +278,12 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     [self.nadView pause];
     
     [_customUIView stopMusicPlayer];
-}
+    [_customUIView.layer removeAllAnimations];
 
+}
+-(void)viewDidDisappear:(BOOL)animated{
+
+}
 // AddOn購入後のレイアウト調整
 - (void)adjustLayoutPurchased{
     NSLog(@"adjustLayoutPurchased");
@@ -479,8 +490,9 @@ NSLog(@"selectTagViewSize:%@",NSStringFromCGSize(cell.imageViewSelectedFrame.fra
                                  
                              }];
             [_selectedCell.imageView setImage:image];
-            
-             NSLog(@"Main_custumUIView.frame x:%d y:%d",(int)self.customUIView.frame.origin.x,(int)self.customUIView.frame.origin.y);
+
+            NSLog(@"CustomUIView.selectedIndexNum:%d",self.customUIView.selectedIndexNum);
+             NSLog(@"Main_customUIView.frame x:%d y:%d",(int)self.customUIView.frame.origin.x,(int)self.customUIView.frame.origin.y);
 
         }
                 [cell.imageView setImage:image];

@@ -19,10 +19,10 @@
             <rect key="frame" x="0.0" y="0.0" width="200" height="20"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kTY-r9-5li" customClass="BugFixContainerView">
+                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kTY-r9-5li" customClass="BugFixContainerView">
                     <rect key="frame" x="44" y="0.0" width="149" height="20"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" tag="3" contentMode="left" verticalHuggingPriority="251" text="ArtistName/Title" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XTm-2V-zdn">
+                        <label opaque="NO" userInteractionEnabled="NO" tag="3" contentMode="left" verticalHuggingPriority="251" misplaced="YES" text="" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XTm-2V-zdn">
                             <rect key="frame" x="0.0" y="0.0" width="90" height="20"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="20" id="ufA-e3-9Nk"/>
@@ -112,7 +112,7 @@
                         </mask>
                     </variation>
                 </label>
-                <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ICON_Drum" translatesAutoresizingMaskIntoConstraints="NO" id="RBp-0w-Y40">
+                <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="RBp-0w-Y40">
                     <rect key="frame" x="24" y="0.0" width="20" height="20"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="20" id="CeU-bV-PWf"/>
@@ -191,7 +191,6 @@
         </view>
     </objects>
     <resources>
-        <image name="ICON_Drum" width="26" height="26"/>
         <image name="ICON_Play26x26" width="26" height="26"/>
     </resources>
 </document>

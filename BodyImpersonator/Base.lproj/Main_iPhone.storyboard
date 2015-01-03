@@ -422,15 +422,9 @@
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Aa5-4K-1cF">
                                                     <rect key="frame" x="0.0" y="0.0" width="106" height="106"/>
-                                                    <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
-                                                        <rect key="frame" x="0.0" y="0.0" width="0.0" height="0.0"/>
-                                                    </variation>
                                                 </imageView>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Fb7-4c-cRg" userLabel="Image View SelectedFrame">
                                                     <rect key="frame" x="0.0" y="0.0" width="106" height="106"/>
-                                                    <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
-                                                        <rect key="frame" x="0.0" y="0.0" width="0.0" height="0.0"/>
-                                                    </variation>
                                                 </imageView>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -1056,7 +1050,7 @@
                                 </constraints>
                                 <items>
                                     <navigationItem title="Selected Image Preview" id="bN0-Fe-ar9">
-                                        <barButtonItem key="leftBarButtonItem" title="Back" style="plain" id="HbL-4b-MOz">
+                                        <barButtonItem key="leftBarButtonItem" title="Back" id="HbL-4b-MOz">
                                             <connections>
                                                 <segue destination="6gl-yu-fDZ" kind="unwind" identifier="cancel" unwindAction="firstViewReturnActionForSegue:" id="ufg-i3-4th"/>
                                             </connections>
@@ -1071,7 +1065,6 @@
                                     <constraint firstAttribute="height" constant="20" id="9uH-77-lKO"/>
                                     <constraint firstAttribute="width" constant="200" id="Q6C-39-y36"/>
                                 </constraints>
-                                <variation key="heightClass=regular-widthClass=regular"/>
                             </view>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" alpha="0.79999999999999982" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gd3-VV-hwc">
                                 <rect key="frame" x="0.0" y="556" width="600" height="44"/>
@@ -1097,7 +1090,6 @@
                                         </connections>
                                     </barButtonItem>
                                 </items>
-                                <variation key="heightClass=regular-widthClass=regular"/>
                             </toolbar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1142,7 +1134,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="49u-XO-Twl" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="6gl-yu-fDZ" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3395" y="164"/>
+            <point key="canvasLocation" x="3355" y="318"/>
         </scene>
         <!--tappedImageVC-->
         <scene sceneID="7HX-cv-jQN">
@@ -1179,7 +1171,7 @@
                                 </constraints>
                                 <items>
                                     <navigationItem title="Tapped Image" id="d9y-v8-iuA">
-                                        <barButtonItem key="leftBarButtonItem" title="Back" style="plain" id="32t-kj-0rq">
+                                        <barButtonItem key="leftBarButtonItem" title="Back" id="32t-kj-0rq">
                                             <connections>
                                                 <segue destination="y5x-A0-10f" kind="unwind" identifier="cancel" unwindAction="firstViewReturnActionForSegue:" id="stf-Ke-MkP"/>
                                             </connections>
@@ -1249,8 +1241,6 @@
                             <constraint firstAttribute="bottom" secondItem="4mY-Te-FEa" secondAttribute="bottom" id="wB7-zw-AXR"/>
                             <constraint firstItem="UhS-kG-ITt" firstAttribute="leading" secondItem="mlD-MQ-Ntr" secondAttribute="leading" id="zaX-hK-hrS"/>
                         </constraints>
-                        <variation key="heightClass=regular-widthClass=compact"/>
-                        <variation key="heightClass=regular-widthClass=regular"/>
                     </view>
                     <navigationItem key="navigationItem" id="vlJ-Xh-K2V"/>
                     <connections>
@@ -1265,7 +1255,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="h0X-Th-ehg" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="y5x-A0-10f" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="4050" y="164"/>
+            <point key="canvasLocation" x="4220" y="318"/>
         </scene>
         <!--KBI Select Music View Controller-->
         <scene sceneID="EBP-qo-JU4">
@@ -1333,8 +1323,7 @@
                                                             <exclude reference="ss3-la-WUM"/>
                                                         </mask>
                                                     </variation>
-                                                    <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
-                                                        <rect key="frame" x="80" y="22" width="220" height="20"/>
+                                                    <variation key="heightClass=regular-widthClass=regular">
                                                         <mask key="constraints">
                                                             <exclude reference="I68-lL-QAa"/>
                                                             <include reference="ss3-la-WUM"/>

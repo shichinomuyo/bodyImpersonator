@@ -41,7 +41,7 @@
                                 <rect key="frame" x="0.0" y="32" width="484" height="20"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" tag="3" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="desctitel" lineBreakMode="clip" baselineAdjustment="alignBaselines" minimumFontSize="4" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yUC-f7-f4B">
-                                        <rect key="frame" x="0.0" y="0.0" width="64" height="19"/>
+                                        <rect key="frame" x="0.0" y="1" width="64" height="19"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="64" id="VDt-M9-jDo"/>
                                         </constraints>

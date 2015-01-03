@@ -86,7 +86,7 @@
             imageSelectedTypeOfMusic = [UIImage imageNamed:@"ICON_MUSIC_26x26"]; // 画像設定
             NSLog(@"ICONorimusic");
             artistName = @"Preset1";// nil;    // 文字列設定
-            trackTitle = @"Preset MusicMusicMusicMusicMusicMusicMusicMusicMusicMusic";// nil;    // 文字列設定
+            trackTitle = @"Preset MusicMusicMusic";// nil;    // 文字列設定
         }else if (_hundler.rollSoundOn) {
             imageSelectedTypeOfMusic = [UIImage imageNamed:@"ICON_Drum"]; // 画像設定 ICON_Drum
             NSLog(@"ICONdrum");
@@ -122,6 +122,28 @@
     NSLog(@"labelCenter.x:%.2f",labelMusicHundlerInfo.center.x);
 
     [viewHaveLabel setClipsToBounds:YES];
+    
+    // アニメーション処理
+    {
+        {// メインビューから他のビューへ遷移後、また戻ってきた時の処理
+            labelMusicHundlerInfo.transform = CGAffineTransformIdentity; // ラベルの座標を初期化
+            [labelMusicHundlerInfo.layer removeAllAnimations]; // ラベルのアニメーションを止める
+        }
+        
+        // 文字列の長さを取得
+        textWidth = [labelMusicHundlerInfo.text sizeWithAttributes:@{NSAttachmentAttributeName:[UIFont systemFontOfSize:labelMusicHundlerInfo.font.pointSize]}].width; // 移動後の座標計算に使用
+
+        
+        if (viewHaveLabel.frame.size.width < textWidth ) { // テキストの長さが親ビューより大きい時だけスライドアニメーション実行
+            // 文字数を取得
+            textLength = (int)labelMusicHundlerInfo.text.length; // アニメーションにかける時間を計算するのに使用
+            // アニメーションにかける時間
+            transitionDuration = textLength/4;
+            
+            [self moveAffineLabelX:transitionDuration]; // スライドアニメーション
+
+        }
+    }
 
 }
 
@@ -168,25 +190,19 @@
 }
 - (void)willMoveToSuperview:(UIView *)newSuperview{
  NSLog(@"willMoveToSuperview");
-    // アニメーション処理
-    {
-        // 文字列の長さを取得
-        textWidth = [labelMusicHundlerInfo.text sizeWithAttributes:@{NSAttachmentAttributeName:[UIFont systemFontOfSize:labelMusicHundlerInfo.font.pointSize]}].width; // 移動後の座標計算に使用
-        
-        if (viewHaveLabel.frame.size.width < textWidth ) { // テキストの長さが親ビューより大きい時だけスライドアニメーション実行
-            // 文字数を取得
-            textLength = (int)labelMusicHundlerInfo.text.length; // アニメーションにかける時間を計算するのに使用
-            // アニメーションにかける時間
-            transitionDuration = textLength/4;
-            [self moveAffineLabelX:transitionDuration]; // スライドアニメーション
-        }
-    }
+//    [self showMusicHundlerInfo];
 
 }
 
 -(void)didMoveToSuperview{
-         NSLog(@"didMoveToSuperView");
-
+    NSLog(@"didMoveToSuperView");
+    if ([labelMusicHundlerInfo.text length] == 0) {
+        NSLog(@"まだない");
+    }else {
+        NSLog(@"もうある");
+    }
+    
+    
 
 }
 
@@ -199,17 +215,22 @@
     labelMusicHundlerInfo.transform = CGAffineTransformIdentity;
 
     [UIView animateKeyframesWithDuration:duration
-                                   delay:4.0
-                                 options: 3<<16  // 3<<16はUIViewAnimationCurveLinearのバイナリ。バイナリなら指定できる。
+                                   delay:0.0
+                                 options: 3<<16 | UIViewKeyframeAnimationOptionRepeat // 3<<16はUIViewAnimationCurveLinearのバイナリ。バイナリなら指定できる。
                               animations:^{
-                                  NSLog(@"textWidth:%d",textWidth);
-                                  NSLog(@"なんで:%d",textWidth);
 
-                                  labelMusicHundlerInfo.transform = CGAffineTransformMakeTranslation(-1.1*textWidth, 0);
-                              } completion:^(BOOL finished){
-//                                  [self moveAffineLabelX:duration];
-                              }
-     ];
+                                  [UIView addKeyframeWithRelativeStartTime:0.0
+                                                          relativeDuration:0.2
+                                                                animations:^{
+
+                                                                }];
+                                  [UIView addKeyframeWithRelativeStartTime:0.2
+                                                          relativeDuration:0.8
+                                                                animations:^{
+                                                                    labelMusicHundlerInfo.transform = CGAffineTransformMakeTranslation(-1.1*textWidth, 0);
+                                                                }];
+
+                              } completion:nil];
 
     
 }
