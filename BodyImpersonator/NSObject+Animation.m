@@ -28,6 +28,7 @@
      ];
     
 }
+
 + (void)animationAppearNavBar:(UINavigationBar *)nav ToolBar:(UIToolbar *)tool CustomView:(kBIUIViewShowMusicHundlerInfo *)customView{
     // 操作無効
     [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
@@ -48,6 +49,48 @@
 
      ];
 }
+
++ (void)animationHideNavBar:(UINavigationBar *)nav ToolBar:(UIToolbar *)tool kView:(UIView *)view{
+    // 操作無効
+    [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
+    [UIView animateWithDuration:0.15f
+                          delay:0
+                        options:UIViewAnimationOptionCurveLinear
+                     animations:^{
+                         nav.center = CGPointMake(nav.center.x, nav.center.y - 48);
+                         tool.center = CGPointMake(tool.center.x, tool.center.y + 32);
+                         view.center = CGPointMake(view.center.x, view.center.y + 64);
+                     } completion:^(BOOL finished){
+                         [nav setHidden:1];
+                         [tool setHidden:1];
+                         [[UIApplication sharedApplication] setStatusBarHidden:YES];
+                         [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+                     }
+     ];
+    
+}
+
++ (void)animationAppearNavBar:(UINavigationBar *)nav ToolBar:(UIToolbar *)tool kView:(UIView *)view{
+    // 操作無効
+    [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
+    [nav setHidden:0];
+    [tool setHidden:0];
+    [UIView animateWithDuration:0.15f
+                          delay:0
+                        options:UIViewAnimationOptionCurveLinear
+                     animations:^{
+                         nav.center = CGPointMake(nav.center.x, 22);
+                         tool.center = CGPointMake(tool.center.x, tool.center.y - 32);
+                         view.center = CGPointMake(view.center.x, view.center.y - 64);
+                     } completion:^(BOOL finished){
+                         
+                         [[UIApplication sharedApplication] setStatusBarHidden:NO];
+                         [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+                     }
+     
+     ];
+}
+
 
 + (void)pickerViewAppear:(UIPickerView *)picker{
     [UIView animateWithDuration:0.2

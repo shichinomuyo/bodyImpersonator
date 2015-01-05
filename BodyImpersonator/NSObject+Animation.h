@@ -12,5 +12,8 @@
 @interface NSObject (Animation)
 + (void)animationHideNavBar:(UINavigationBar *)nav ToolBar:(UIToolbar *)tool CustomView:(kBIUIViewShowMusicHundlerInfo *)customView;
 + (void)animationAppearNavBar:(UINavigationBar *)nav ToolBar:(UIToolbar *)tool CustomView:(kBIUIViewShowMusicHundlerInfo *)customView;
++ (void)animationHideNavBar:(UINavigationBar *)nav ToolBar:(UIToolbar *)tool kView:(UIView *)view;
+
++ (void)animationAppearNavBar:(UINavigationBar *)nav ToolBar:(UIToolbar *)tool kView:(UIView *)view;
 + (void)pickerViewAppear:(UIPickerView *)picker;
 @end

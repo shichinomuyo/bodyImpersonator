@@ -23,6 +23,7 @@
 - (IBAction)actionBtn:(UIBarButtonItem *)sender;
 - (IBAction)btnCoverAllDisplay:(UIButton *)sender;
 - (IBAction)actionSelectMusic:(UIBarButtonItem *)sender;
+@property (weak, nonatomic) IBOutlet UIView *kUIViewMiniPlayerWrapper;
 
 @end
 
@@ -65,8 +66,7 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated{
-    self.customUIView.selectedIndexNum = self.selectedIndexPath.row;
-    [self.customUIView updateViewItems];
+
 
 }
 
@@ -79,6 +79,8 @@
         [[kADMOBInterstitialSingleton sharedInstans] interstitialControll];
 
     }
+    self.customUIView.selectedIndexNum = self.selectedIndexPath.row;
+    [self.customUIView updateViewItems];
 }
 
 -(void)viewDidLayoutSubviews{
@@ -261,10 +263,15 @@
 
 
 - (IBAction)btnCoverAllDisplay:(UIButton *)sender {
+//    if (!_navigationBar.hidden) {
+//        [NSObject animationHideNavBar:_navigationBar ToolBar:_toolBar CustomView:_customUIView];
+//    }else{
+//        [NSObject animationAppearNavBar:_navigationBar ToolBar:_toolBar CustomView:_customUIView];
+//    }
     if (!_navigationBar.hidden) {
-        [NSObject animationHideNavBar:_navigationBar ToolBar:_toolBar CustomView:_customUIView];
+        [NSObject animationHideNavBar:_navigationBar ToolBar:_toolBar kView:_kUIViewMiniPlayerWrapper];
     }else{
-        [NSObject animationAppearNavBar:_navigationBar ToolBar:_toolBar CustomView:_customUIView];
+        [NSObject animationAppearNavBar:_navigationBar ToolBar:_toolBar kView:_kUIViewMiniPlayerWrapper];
     }
 }
 

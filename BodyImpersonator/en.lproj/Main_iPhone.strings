@@ -66,7 +66,7 @@
 "U8A-wf-qEA.text" = "Description";
 
 /* Class = "IBUINavigationItem"; title = "BackgroundColor"; ObjectID = "Vde-55-nEW"; */
-"Vde-55-nEW.title" = "BackgroundColor";
+"Vde-55-nEW.title" = "BackgroundColor Setting";
 
 /* Class = "IBUILabel"; text = "Purchased"; ObjectID = "WA6-gN-Iz9"; */
 "WA6-gN-Iz9.text" = "Purchased";
@@ -102,7 +102,7 @@
 "jDj-g3-tUD.text" = "labelFeedbackAndShare";
 
 /* Class = "IBUINavigationItem"; title = "MotionControlls"; ObjectID = "jr1-9R-Y2X"; */
-"jr1-9R-Y2X.title" = "MotionControlls";
+"jr1-9R-Y2X.title" = "Controlls Setting";
 
 /* Class = "IBUILabel"; text = "header"; ObjectID = "lxH-25-ibV"; */
 "lxH-25-ibV.text" = "header";
@@ -138,4 +138,4 @@
 "ySL-pJ-1TE.title" = "Back";
 
 /* Class = "IBUINavigationItem"; title = "Sound&EffectSettings"; ObjectID = "zee-tE-5le"; */
-"zee-tE-5le.title" = "Sound&EffectSettings";
+"zee-tE-5le.title" = "Sound&Effect Setting";

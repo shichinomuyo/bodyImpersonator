@@ -55,8 +55,9 @@
     // こういう場合は、Visual Format Languageを使うよりAutoresizingMaskを使ったほうが手軽。
     contentView.translatesAutoresizingMaskIntoConstraints = YES;
     contentView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+    
     // SuperviewにロードしたViewをSubviewとして追加
-
+    NSLog(@"ADDSUBVIEEW");
     [self addSubview:contentView];
  
 }
@@ -98,7 +99,6 @@
         [labelMusicHundlerInfo setAdjustsFontSizeToFitWidth:NO];
         [labelMusicHundlerInfo setText:musicInfo];
         
-        NSLog(@"custumUIView.frame x:%d y:%d",(int)self.frame.origin.x,(int)self.frame.origin.y);
     }else{ // コレクションビューに画像がひとつも追加されていないとき
         NSString *sentenceAppearCollectionHaveNoItem1 = [[NSString alloc] initWithFormat:NSLocalizedString(@"First,PleaseAddImage.", nil)];
         NSString *sentenceAppearCollectionHaveNoItem2 = [[NSString alloc] initWithFormat:NSLocalizedString(@"Tap+IconToAddImageFromAlbumOrCam", nil)];
@@ -112,8 +112,6 @@
     }
     [imageView setImage:imageSelectedTypeOfMusic];
 
-    NSLog(@"labelMusicHundlerInfo.width:%.2f",labelMusicHundlerInfo.frame.size.width);
-    NSLog(@"labelCenter.x:%.2f",labelMusicHundlerInfo.center.x);
 
     [viewHaveLabel setClipsToBounds:YES]; // はみ出した部分を表示しない
 
@@ -129,6 +127,10 @@
         // 文字列の長さを取得
                 textWidth = [labelMusicHundlerInfo.text sizeWithAttributes:@{NSAttachmentAttributeName:[UIFont systemFontOfSize:labelMusicHundlerInfo.font.pointSize]}].width; // 移動後の座標計算に使用
 
+        NSLog(@"custumUIView.frame (%d,%d,%d,%d)",(int)contentView.frame.origin.x,(int)contentView.frame.origin.y,(int)contentView.frame.size.width,(int)contentView.frame.size.height);
+        NSLog(@"contentView.width:%.2f",contentView.frame.size.width);
+        NSLog(@"labelMusicHundlerInfo.width:%.2f",labelMusicHundlerInfo.frame.size.width);
+        NSLog(@"labelCenter.x:%.2f",labelMusicHundlerInfo.center.x);
         NSLog(@"textWidth%.2f",textWidth);
         if (viewHaveLabel.frame.size.width < textWidth ) { // テキストの長さが親ビューより大きい時だけスライドアニメーション実行
             // 文字数を取得
@@ -137,7 +139,9 @@
             transitionDuration = textLength/4;
             
             [self moveAffineLabelX:transitionDuration]; // スライドアニメーション
-
+            NSLog(@"アニメーションあり");
+        }else{
+            NSLog(@"アニメーションなし");
         }
     }
 
@@ -203,6 +207,17 @@
 
 }
 
+- (void)layoutSubviews
+{
+//    static CGPoint fixCenter = {0};
+//    [super layoutSubviews];
+//    if (CGPointEqualToPoint(fixCenter, CGPointZero)) {
+//        fixCenter = [labelMusicHundlerInfo center];
+//    } else {
+//        labelMusicHundlerInfo.center = fixCenter;
+//    }
+}
+
 -(void)dealloc{
 
 }
@@ -219,7 +234,7 @@
                                   [UIView addKeyframeWithRelativeStartTime:0.0
                                                           relativeDuration:0.2
                                                                 animations:^{
-
+                                                                    // 何もせず止めておく
                                                                 }];
                                   [UIView addKeyframeWithRelativeStartTime:0.2
                                                           relativeDuration:0.8

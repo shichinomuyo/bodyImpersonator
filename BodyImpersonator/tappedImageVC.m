@@ -60,8 +60,7 @@
 
 - (void)viewWillAppear:(BOOL)animated{
 //        [self viewSizeMake:1.0];
-    self.customUIView.selectedIndexNum = self.tappedIndexPath.row;
-    [self.customUIView updateViewItems];
+
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -71,6 +70,8 @@
         // インタースティシャル広告表示
         [[kADMOBInterstitialSingleton sharedInstans] interstitialControll];
     }
+    self.customUIView.selectedIndexNum = self.tappedIndexPath.row;
+    [self.customUIView updateViewItems];
 }
 
 -(void)viewWillDisappear:(BOOL)animated{

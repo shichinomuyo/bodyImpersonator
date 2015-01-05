@@ -30,6 +30,12 @@
                     <state key="normal" image="ICON_Play26x26">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="JfE-bB-ROj"/>
+                            <exclude reference="had-3Q-wGJ"/>
+                        </mask>
+                    </variation>
                     <variation key="heightClass=regular-widthClass=compact">
                         <mask key="constraints">
                             <include reference="JfE-bB-ROj"/>
@@ -54,6 +60,11 @@
                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                     <color key="textColor" red="1" green="0.97217154500000003" blue="0.9632470608" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="4NY-Ni-vgQ"/>
+                        </mask>
+                    </variation>
                     <variation key="heightClass=regular-widthClass=compact">
                         <mask key="constraints">
                             <include reference="4NY-Ni-vgQ"/>
@@ -65,12 +76,18 @@
                         </mask>
                     </variation>
                 </label>
-                <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="RBp-0w-Y40">
+                <imageView opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="RBp-0w-Y40">
                     <rect key="frame" x="24" y="0.0" width="20" height="20"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="20" id="CeU-bV-PWf"/>
                         <constraint firstAttribute="width" constant="20" id="nxb-EK-WkZ"/>
                     </constraints>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="CeU-bV-PWf"/>
+                            <exclude reference="nxb-EK-WkZ"/>
+                        </mask>
+                    </variation>
                     <variation key="heightClass=regular-widthClass=compact">
                         <mask key="constraints">
                             <include reference="CeU-bV-PWf"/>
@@ -84,10 +101,10 @@
                         </mask>
                     </variation>
                 </imageView>
-                <view clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kTY-r9-5li">
+                <view autoresizesSubviews="NO" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kTY-r9-5li">
                     <rect key="frame" x="44" y="0.0" width="149" height="20"/>
                     <subviews>
-                        <label autoresizesSubviews="NO" userInteractionEnabled="NO" tag="3" contentMode="left" verticalHuggingPriority="251" misplaced="YES" text="" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XTm-2V-zdn">
+                        <label autoresizesSubviews="NO" opaque="NO" userInteractionEnabled="NO" tag="3" contentMode="left" verticalHuggingPriority="251" misplaced="YES" text="" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XTm-2V-zdn">
                             <rect key="frame" x="0.0" y="0.0" width="90" height="20"/>
                             <color key="backgroundColor" red="0.76802009339999999" green="0.19092153009999999" blue="0.1609260887" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
@@ -96,8 +113,12 @@
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <color key="textColor" red="1" green="0.9493898153" blue="0.84414917229999997" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
-                            <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                <rect key="frame" x="0.0" y="0.0" width="148" height="20"/>
+                            <variation key="default">
+                                <mask key="constraints">
+                                    <exclude reference="ufA-e3-9Nk"/>
+                                </mask>
+                            </variation>
+                            <variation key="heightClass=regular-widthClass=compact">
                                 <mask key="constraints">
                                     <include reference="ufA-e3-9Nk"/>
                                 </mask>
@@ -114,11 +135,12 @@
                         <constraint firstAttribute="centerY" secondItem="XTm-2V-zdn" secondAttribute="centerY" id="1XL-4u-8Vr"/>
                         <constraint firstItem="XTm-2V-zdn" firstAttribute="leading" secondItem="kTY-r9-5li" secondAttribute="leading" id="ZdK-IO-gQ1"/>
                         <constraint firstAttribute="height" constant="20" id="o2h-g3-ZXv"/>
-                        <constraint firstAttribute="trailing" secondItem="XTm-2V-zdn" secondAttribute="trailing" constant="4" id="wWQ-Jt-JBe"/>
                     </constraints>
                     <variation key="default">
                         <mask key="constraints">
-                            <exclude reference="wWQ-Jt-JBe"/>
+                            <exclude reference="o2h-g3-ZXv"/>
+                            <exclude reference="1XL-4u-8Vr"/>
+                            <exclude reference="ZdK-IO-gQ1"/>
                         </mask>
                     </variation>
                     <variation key="heightClass=regular-widthClass=compact">
@@ -129,7 +151,6 @@
                             <include reference="o2h-g3-ZXv"/>
                             <include reference="1XL-4u-8Vr"/>
                             <include reference="ZdK-IO-gQ1"/>
-                            <exclude reference="wWQ-Jt-JBe"/>
                         </mask>
                     </variation>
                     <variation key="heightClass=regular-widthClass=regular">
@@ -144,15 +165,13 @@
                     </variation>
                 </view>
             </subviews>
-            <color key="backgroundColor" red="0.76802009344100952" green="0.19092153012752533" blue="0.16092608869075775" alpha="1" colorSpace="calibratedRGB"/>
+            <color key="backgroundColor" red="0.76802009339999999" green="0.19092153009999999" blue="0.1609260887" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstItem="RBp-0w-Y40" firstAttribute="leading" secondItem="7dm-Jc-Mat" secondAttribute="trailing" id="1mC-wO-R6t"/>
-                <constraint firstAttribute="trailing" secondItem="kTY-r9-5li" secondAttribute="trailing" id="2Y4-t7-7fS"/>
                 <constraint firstAttribute="centerY" secondItem="RBp-0w-Y40" secondAttribute="centerY" id="AuM-Nx-SU0"/>
                 <constraint firstItem="kTY-r9-5li" firstAttribute="leading" secondItem="RBp-0w-Y40" secondAttribute="trailing" constant="4" id="FD3-Zh-Skm"/>
-                <constraint firstAttribute="trailing" secondItem="kTY-r9-5li" secondAttribute="trailing" id="Icx-SB-7iq"/>
+                <constraint firstAttribute="right" secondItem="kTY-r9-5li" secondAttribute="right" id="Icx-SB-7iq"/>
                 <constraint firstAttribute="centerY" secondItem="7dm-Jc-Mat" secondAttribute="centerY" id="NFj-OK-bcC"/>
-                <constraint firstItem="kTY-r9-5li" firstAttribute="leading" secondItem="RBp-0w-Y40" secondAttribute="trailing" id="X0K-ew-JLA"/>
                 <constraint firstItem="7dm-Jc-Mat" firstAttribute="leading" secondItem="cNQ-Dw-uHw" secondAttribute="trailing" id="csj-RL-SFi"/>
                 <constraint firstItem="cNQ-Dw-uHw" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="eUL-Nk-5Oz"/>
                 <constraint firstAttribute="centerY" secondItem="cNQ-Dw-uHw" secondAttribute="centerY" id="owO-mT-Q2N"/>
@@ -163,8 +182,24 @@
             <nil key="simulatedBottomBarMetrics"/>
             <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="eUL-Nk-5Oz"/>
+                    <exclude reference="owO-mT-Q2N"/>
+                    <exclude reference="NFj-OK-bcC"/>
+                    <exclude reference="csj-RL-SFi"/>
+                    <exclude reference="1mC-wO-R6t"/>
+                    <exclude reference="AuM-Nx-SU0"/>
+                    <exclude reference="FD3-Zh-Skm"/>
+                    <exclude reference="Icx-SB-7iq"/>
+                    <exclude reference="wLa-dT-1f6"/>
+                </mask>
+            </variation>
             <variation key="heightClass=regular-widthClass=compact">
                 <mask key="subviews">
+                    <include reference="cNQ-Dw-uHw"/>
+                    <include reference="7dm-Jc-Mat"/>
+                    <include reference="RBp-0w-Y40"/>
                     <include reference="kTY-r9-5li"/>
                 </mask>
                 <mask key="constraints">
@@ -174,10 +209,8 @@
                     <include reference="csj-RL-SFi"/>
                     <include reference="1mC-wO-R6t"/>
                     <include reference="AuM-Nx-SU0"/>
-                    <exclude reference="2Y4-t7-7fS"/>
                     <include reference="FD3-Zh-Skm"/>
                     <include reference="Icx-SB-7iq"/>
-                    <exclude reference="X0K-ew-JLA"/>
                     <include reference="wLa-dT-1f6"/>
                 </mask>
             </variation>
@@ -195,10 +228,8 @@
                     <include reference="csj-RL-SFi"/>
                     <include reference="1mC-wO-R6t"/>
                     <include reference="AuM-Nx-SU0"/>
-                    <include reference="2Y4-t7-7fS"/>
                     <include reference="FD3-Zh-Skm"/>
                     <include reference="Icx-SB-7iq"/>
-                    <include reference="X0K-ew-JLA"/>
                     <include reference="wLa-dT-1f6"/>
                 </mask>
             </variation>

@@ -167,7 +167,7 @@
                                             <segue destination="Ml1-cR-wrA" kind="show" identifier="pushToPreviewVC" id="4pt-7j-J9r"/>
                                         </connections>
                                     </button>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="m6f-Z5-kt2" customClass="kBIUIViewShowMusicHundlerInfo">
+                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="m6f-Z5-kt2" customClass="kBIUIViewShowMusicHundlerInfo">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                         <color key="backgroundColor" red="0.76802009344100952" green="0.19092153012752533" blue="0.16092608869075775" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
@@ -1013,7 +1013,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qFl-Aj-58p" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="PXh-qx-qZa" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3355.5" y="875.25"/>
+            <point key="canvasLocation" x="3354.75" y="977.25"/>
         </scene>
         <!--previewVC-->
         <scene sceneID="iTF-UA-uhs">
@@ -1030,9 +1030,6 @@
                             <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="EOC-7T-xUJ" userLabel="previewImageView">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="0.0" y="64" width="400" height="692"/>
-                                </variation>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uE7-Vv-hb6">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
@@ -1058,14 +1055,6 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dAm-ib-DaK" customClass="kBIUIViewShowMusicHundlerInfo">
-                                <rect key="frame" x="400" y="536" width="200" height="20"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="20" id="9uH-77-lKO"/>
-                                    <constraint firstAttribute="width" constant="200" id="Q6C-39-y36"/>
-                                </constraints>
-                            </view>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" alpha="0.79999999999999982" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gd3-VV-hwc">
                                 <rect key="frame" x="0.0" y="556" width="600" height="44"/>
                                 <constraints>
@@ -1091,40 +1080,81 @@
                                     </barButtonItem>
                                 </items>
                             </toolbar>
+                            <view alpha="0.79999999999999982" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rki-2B-Kb3">
+                                <rect key="frame" x="0.0" y="536" width="600" height="20"/>
+                                <subviews>
+                                    <view opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dAm-ib-DaK" customClass="kBIUIViewShowMusicHundlerInfo">
+                                        <rect key="frame" x="200" y="0.0" width="200" height="20"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="20" id="9uH-77-lKO"/>
+                                            <constraint firstAttribute="width" constant="360" id="LBB-fJ-8pv"/>
+                                            <constraint firstAttribute="width" constant="200" id="Q6C-39-y36"/>
+                                        </constraints>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="LBB-fJ-8pv"/>
+                                                <exclude reference="Q6C-39-y36"/>
+                                            </mask>
+                                        </variation>
+                                        <variation key="heightClass=regular-widthClass=compact">
+                                            <mask key="constraints">
+                                                <include reference="9uH-77-lKO"/>
+                                                <include reference="Q6C-39-y36"/>
+                                            </mask>
+                                        </variation>
+                                        <variation key="heightClass=regular-widthClass=regular">
+                                            <mask key="constraints">
+                                                <include reference="9uH-77-lKO"/>
+                                                <include reference="LBB-fJ-8pv"/>
+                                            </mask>
+                                        </variation>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" red="0.76802009339999999" green="0.19092153009999999" blue="0.1609260887" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="OcS-2Y-Xjg"/>
+                                    <constraint firstAttribute="centerX" secondItem="dAm-ib-DaK" secondAttribute="centerX" id="XM0-8K-d13"/>
+                                    <constraint firstAttribute="bottom" secondItem="dAm-ib-DaK" secondAttribute="bottom" id="aHO-zN-NIO"/>
+                                    <constraint firstItem="dAm-ib-DaK" firstAttribute="top" secondItem="rki-2B-Kb3" secondAttribute="top" id="iw9-0O-l3O"/>
+                                </constraints>
+                                <variation key="heightClass=regular-widthClass=compact">
+                                    <mask key="subviews">
+                                        <include reference="dAm-ib-DaK"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=regular">
+                                    <mask key="subviews">
+                                        <include reference="dAm-ib-DaK"/>
+                                    </mask>
+                                </variation>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="rki-2B-Kb3" firstAttribute="leading" secondItem="N5p-lA-Ife" secondAttribute="leading" id="1W6-Ix-rqF"/>
                             <constraint firstAttribute="bottom" secondItem="uE7-Vv-hb6" secondAttribute="bottom" id="Hz8-a2-lwy"/>
                             <constraint firstItem="pHb-d5-Bo5" firstAttribute="top" secondItem="N5p-lA-Ife" secondAttribute="top" id="LOt-GR-rYO"/>
                             <constraint firstAttribute="trailing" secondItem="Gd3-VV-hwc" secondAttribute="trailing" id="M6o-lS-UrQ"/>
                             <constraint firstItem="EOC-7T-xUJ" firstAttribute="leading" secondItem="N5p-lA-Ife" secondAttribute="leading" id="QLM-Zd-zKu"/>
                             <constraint firstItem="Gd3-VV-hwc" firstAttribute="leading" secondItem="N5p-lA-Ife" secondAttribute="leading" id="Qdv-Sv-gwp"/>
+                            <constraint firstItem="Gd3-VV-hwc" firstAttribute="top" secondItem="rki-2B-Kb3" secondAttribute="bottom" id="RKe-Io-Qv8"/>
+                            <constraint firstAttribute="trailing" secondItem="rki-2B-Kb3" secondAttribute="trailing" id="RgG-Op-vEl"/>
                             <constraint firstAttribute="bottom" secondItem="Gd3-VV-hwc" secondAttribute="bottom" id="Se9-ye-786"/>
-                            <constraint firstItem="Gd3-VV-hwc" firstAttribute="top" secondItem="dAm-ib-DaK" secondAttribute="bottom" id="USF-jp-dnK"/>
                             <constraint firstItem="uE7-Vv-hb6" firstAttribute="top" secondItem="N5p-lA-Ife" secondAttribute="top" id="XBx-5T-M9V"/>
                             <constraint firstItem="pHb-d5-Bo5" firstAttribute="leading" secondItem="N5p-lA-Ife" secondAttribute="leading" id="ZrB-6a-JyZ"/>
                             <constraint firstAttribute="trailing" secondItem="uE7-Vv-hb6" secondAttribute="trailing" id="abr-K9-2hm"/>
                             <constraint firstItem="uE7-Vv-hb6" firstAttribute="leading" secondItem="N5p-lA-Ife" secondAttribute="leading" id="b5j-UR-3tt"/>
                             <constraint firstItem="EOC-7T-xUJ" firstAttribute="top" secondItem="N5p-lA-Ife" secondAttribute="top" id="cfo-Ka-HwX"/>
-                            <constraint firstAttribute="trailing" secondItem="dAm-ib-DaK" secondAttribute="trailing" id="g3L-65-tvw"/>
                             <constraint firstAttribute="trailing" secondItem="EOC-7T-xUJ" secondAttribute="trailing" id="gZy-ia-KYJ"/>
                             <constraint firstAttribute="trailing" secondItem="pHb-d5-Bo5" secondAttribute="trailing" id="hH7-vF-FHL"/>
                             <constraint firstAttribute="bottom" secondItem="EOC-7T-xUJ" secondAttribute="bottom" id="mFc-5f-eDM"/>
                         </constraints>
-                        <variation key="heightClass=regular-widthClass=compact">
-                            <mask key="subviews">
-                                <include reference="dAm-ib-DaK"/>
-                            </mask>
-                        </variation>
-                        <variation key="heightClass=regular-widthClass=regular">
-                            <mask key="subviews">
-                                <include reference="dAm-ib-DaK"/>
-                            </mask>
-                        </variation>
                     </view>
                     <navigationItem key="navigationItem" id="anj-bW-EAz"/>
                     <connections>
                         <outlet property="customUIView" destination="dAm-ib-DaK" id="4LH-jP-jto"/>
+                        <outlet property="kUIViewMiniPlayerWrapper" destination="rki-2B-Kb3" id="ohB-7C-VcM"/>
                         <outlet property="navigationBar" destination="pHb-d5-Bo5" id="V6U-me-9GH"/>
                         <outlet property="previewImageView" destination="EOC-7T-xUJ" id="ZrJ-kS-EdL"/>
                         <outlet property="toolBar" destination="Gd3-VV-hwc" id="HtY-6n-ta7"/>
@@ -1151,9 +1181,6 @@
                             <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="4mY-Te-FEa" userLabel="previewImageView">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="0.0" y="0.0" width="400" height="756"/>
-                                </variation>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0pu-UQ-0qw">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
@@ -1178,9 +1205,6 @@
                                         </barButtonItem>
                                     </navigationItem>
                                 </items>
-                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="0.0" y="-64" width="400" height="64"/>
-                                </variation>
                             </navigationBar>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" alpha="0.80000001192092896" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="51D-HO-sML">
                                 <rect key="frame" x="0.0" y="556" width="600" height="44"/>
@@ -1213,22 +1237,64 @@
                                     </barButtonItem>
                                 </items>
                             </toolbar>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bSG-gW-ay6" customClass="kBIUIViewShowMusicHundlerInfo">
-                                <rect key="frame" x="400" y="536" width="200" height="20"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <view opaque="NO" alpha="0.79999999999999982" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wes-uz-pna">
+                                <rect key="frame" x="0.0" y="536" width="600" height="20"/>
+                                <subviews>
+                                    <view opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bSG-gW-ay6" customClass="kBIUIViewShowMusicHundlerInfo">
+                                        <rect key="frame" x="200" y="0.0" width="200" height="20"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="200" id="DEz-at-KA2"/>
+                                            <constraint firstAttribute="width" constant="360" id="UM7-kg-BgY"/>
+                                            <constraint firstAttribute="height" constant="20" id="bKZ-Y0-5FK"/>
+                                        </constraints>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="DEz-at-KA2"/>
+                                                <exclude reference="UM7-kg-BgY"/>
+                                            </mask>
+                                        </variation>
+                                        <variation key="heightClass=regular-widthClass=compact">
+                                            <mask key="constraints">
+                                                <include reference="DEz-at-KA2"/>
+                                                <include reference="bKZ-Y0-5FK"/>
+                                            </mask>
+                                        </variation>
+                                        <variation key="heightClass=regular-widthClass=regular">
+                                            <mask key="constraints">
+                                                <include reference="UM7-kg-BgY"/>
+                                                <include reference="bKZ-Y0-5FK"/>
+                                            </mask>
+                                        </variation>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" red="0.76802009339999999" green="0.19092153009999999" blue="0.1609260887" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="200" id="DEz-at-KA2"/>
-                                    <constraint firstAttribute="height" constant="20" id="IXm-3O-rEi"/>
+                                    <constraint firstAttribute="centerX" secondItem="bSG-gW-ay6" secondAttribute="centerX" id="8Ef-TC-2VL"/>
+                                    <constraint firstAttribute="bottom" secondItem="bSG-gW-ay6" secondAttribute="bottom" id="U9S-Uw-s9W"/>
+                                    <constraint firstAttribute="height" constant="20" id="zEm-NE-xLp"/>
                                 </constraints>
+                                <variation key="heightClass=regular-widthClass=compact">
+                                    <mask key="subviews">
+                                        <include reference="bSG-gW-ay6"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=regular">
+                                    <mask key="subviews">
+                                        <include reference="bSG-gW-ay6"/>
+                                    </mask>
+                                </variation>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="0pu-UQ-0qw" firstAttribute="top" secondItem="mlD-MQ-Ntr" secondAttribute="top" id="0z1-Ae-Fbd"/>
-                            <constraint firstItem="51D-HO-sML" firstAttribute="top" secondItem="bSG-gW-ay6" secondAttribute="bottom" id="7Fi-EV-4pb"/>
                             <constraint firstAttribute="trailing" secondItem="UhS-kG-ITt" secondAttribute="trailing" id="8dg-IS-Cnr"/>
                             <constraint firstAttribute="bottom" secondItem="0pu-UQ-0qw" secondAttribute="bottom" id="C8d-2m-gO3"/>
+                            <constraint firstAttribute="trailing" secondItem="wes-uz-pna" secondAttribute="trailing" id="DgY-dE-QbU"/>
+                            <constraint firstItem="wes-uz-pna" firstAttribute="leading" secondItem="mlD-MQ-Ntr" secondAttribute="leading" id="F5W-kD-Rgt"/>
                             <constraint firstItem="4mY-Te-FEa" firstAttribute="top" secondItem="mlD-MQ-Ntr" secondAttribute="top" id="F9o-Gz-g4h"/>
+                            <constraint firstItem="51D-HO-sML" firstAttribute="top" secondItem="wes-uz-pna" secondAttribute="bottom" id="FyX-Ox-Ti2"/>
                             <constraint firstItem="UhS-kG-ITt" firstAttribute="top" secondItem="mlD-MQ-Ntr" secondAttribute="top" id="KuN-N7-BRb"/>
                             <constraint firstItem="51D-HO-sML" firstAttribute="leading" secondItem="mlD-MQ-Ntr" secondAttribute="leading" id="MAt-zl-Qry"/>
                             <constraint firstAttribute="trailing" secondItem="0pu-UQ-0qw" secondAttribute="trailing" id="Q7j-IM-KaK"/>
@@ -1236,7 +1302,6 @@
                             <constraint firstItem="0pu-UQ-0qw" firstAttribute="leading" secondItem="mlD-MQ-Ntr" secondAttribute="leading" id="XpR-cT-0Qo"/>
                             <constraint firstAttribute="bottom" secondItem="51D-HO-sML" secondAttribute="bottom" id="Zsh-t4-vNU"/>
                             <constraint firstItem="4mY-Te-FEa" firstAttribute="leading" secondItem="mlD-MQ-Ntr" secondAttribute="leading" id="cro-qs-u2I"/>
-                            <constraint firstAttribute="trailing" secondItem="bSG-gW-ay6" secondAttribute="trailing" id="mNp-lQ-Dep"/>
                             <constraint firstAttribute="trailing" secondItem="4mY-Te-FEa" secondAttribute="trailing" id="s3g-SK-Cpw"/>
                             <constraint firstAttribute="bottom" secondItem="4mY-Te-FEa" secondAttribute="bottom" id="wB7-zw-AXR"/>
                             <constraint firstItem="UhS-kG-ITt" firstAttribute="leading" secondItem="mlD-MQ-Ntr" secondAttribute="leading" id="zaX-hK-hrS"/>
@@ -1255,7 +1320,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="h0X-Th-ehg" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="y5x-A0-10f" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="4220" y="318"/>
+            <point key="canvasLocation" x="4035" y="313.5"/>
         </scene>
         <!--KBI Select Music View Controller-->
         <scene sceneID="EBP-qo-JU4">
@@ -2338,7 +2403,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qnp-dq-8ZV" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="zPv-Sf-lbp" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="4035" y="873"/>
+            <point key="canvasLocation" x="4050" y="977.25"/>
         </scene>
     </scenes>
     <resources>

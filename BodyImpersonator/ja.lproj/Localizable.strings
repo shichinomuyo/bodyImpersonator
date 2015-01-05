@@ -78,7 +78,7 @@
 "Sound&Effect" = "サウンド&視覚効果";
 "BackgroundColorWhilePlaying" = "再生中のバックグラウンドカラー";
 // section0
-"RollSound" = "ミュージック/ドラムロール音";
+"Music/RollSound" = "ミュージック/ドラムロール音";
 "CrashSound" = "クラッシュ音";
 "FlashEffect" = "フラッシュエフェクト";
 // section1
