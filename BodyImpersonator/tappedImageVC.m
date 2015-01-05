@@ -7,12 +7,9 @@
 //
 
 #import "tappedImageVC.h"
-//#define MY_INTERSTITIAL_UNIT_ID @"ca-app-pub-5959590649595305/1259039270" // メインビュー
-#define MY_INTERSTITIAL_UNIT_ID @"ca-app-pub-5959590649595305/7827912478" //previewView用
 
 @interface tappedImageVC (){
     UIActionSheet *_actionSheetAlert;
-    kBIIndicator *_kIndicator;
 }
 
 @property (weak, nonatomic) IBOutlet UIToolbar *toolBar;
@@ -58,7 +55,6 @@
     [[NSUserDefaults standardUserDefaults]synchronize];
     NSLog(@"viewchanged:%ld",(long)countViewChanged);
     
-      _kIndicator = [kBIIndicator alloc];
 
 }
 
@@ -73,16 +69,7 @@
     // 広告表示フラグ確認
     if (purchased == NO) {
         // インタースティシャル広告表示
-        NSInteger countViewChanged = [[NSUserDefaults standardUserDefaults] integerForKey:@"KEY_countUpViewChanged"];
-        NSInteger memoryCountNumberOfInterstitialDidAppear = [[NSUserDefaults standardUserDefaults] integerForKey:@"KEY_memoryCountNumberOfInterstitialDidAppear"];
-        
-        if (countViewChanged != memoryCountNumberOfInterstitialDidAppear) {
-            if (((countViewChanged % kINTERSTITIAL_DISPLAY_RATE) == 0)) {
-                // 広告表示
-                [self interstitialLoad];
-                
-            }
-        }
+        [[kADMOBInterstitialSingleton sharedInstans] interstitialControll];
     }
 }
 
@@ -383,56 +370,4 @@
     
 }
 
-#pragma mark -
-#pragma mark AdMobDelegate
-// AdMobインタースティシャルの再ロード
-- (void)interstitialLoad{
-    // 広告表示準備開始状況フラグ更新
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSInteger memoryCountNumberOfInterstitialDidAppear = [defaults integerForKey:@"KEY_countUpViewChanged"];
-    [defaults setInteger:memoryCountNumberOfInterstitialDidAppear forKey:@"KEY_memoryCountNumberOfInterstitialDidAppear"];
-    [defaults synchronize];
-    
-    // 【Ad】インタースティシャル広告の表示
-    interstitial_ = [[GADInterstitial alloc] init];
-    interstitial_.adUnitID = MY_INTERSTITIAL_UNIT_ID;
-    interstitial_.delegate = self;
-    
-    [interstitial_ loadRequest:[GADRequest request]];
-    [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
-//    [_kIndicator performSelectorInBackground:@selector(indicatorStart) withObject:nil];
-    
-    
-}
-
-/// AdMobインタースティシャルのloadrequestが失敗したとき
--(void)interstitial:(GADInterstitial *)interstitial didFailToReceiveAdWithError:(GADRequestError *)error{
-    NSLog(@"interstitial:didFailToReceiveAdWithError:%@", [error localizedDescription]);
-    // 他の広告ネットワークの広告を表示させるなど
-    
-    // 操作無効解除
-    [[UIApplication sharedApplication] endIgnoringInteractionEvents];
-    // インジケーターを止める
-//    [_kIndicator performSelectorInBackground:@selector(indicatorStop) withObject:nil];
-}
-
-// AdMobのインタースティシャル広告表示
-- (void)interstitialDidReceiveAd:(GADInterstitial *)ad
-{
-//    [_kIndicator performSelectorInBackground:@selector(indicatorStop) withObject:nil];
-    [[UIApplication sharedApplication] endIgnoringInteractionEvents];
-    [ad presentFromRootViewController:self];
-    
-    
-}
-
--(void)interstitialWillDismissScreen:(GADInterstitial *)ad{
-    
-    // 操作無効解除
-    [[UIApplication sharedApplication] endIgnoringInteractionEvents];
-    
-    // インジケーターを止める
-//    [_kIndicator performSelectorInBackground:@selector(indicatorStop) withObject:nil];
-    
-}
 @end

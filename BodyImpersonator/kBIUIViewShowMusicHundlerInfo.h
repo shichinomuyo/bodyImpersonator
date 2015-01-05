@@ -21,11 +21,11 @@
     IBOutlet UIImageView *imageView;
     IBOutlet UIButton *btnPlayerControll;
     IBOutlet UILabel *labelMusicHundlerInfo;
-    IBOutlet BugFixContainerView *viewHaveLabel;
+    IBOutlet UIView *viewHaveLabel;
     // オーディオプレイヤー
     BOOL _musicPlayerIsPlaying;
     AVAudioPlayer *_instantPlayer;
-    int textWidth;
+    float textWidth;
     int textLength;
     float transitionDuration;
 

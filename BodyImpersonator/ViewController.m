@@ -13,7 +13,6 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
 
 #define MY_BANNER_UNIT_ID @"ca-app-pub-5959590649595305/8782306070"
 #define MY_BANNER_UNIT_ID_FOR_iPAD @"ca-app-pub-5959590649595305/6784511271"
-#define MY_INTERSTITIAL_UNIT_ID @"ca-app-pub-5959590649595305/1259039270"
 
 @interface ViewController ()
 {
@@ -149,6 +148,7 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
         int i;
         for (i = 0; i < [imageNames count]; i++) {
                 kBIMusicHundlerByImageName *defaultHundler = [kBIMusicHundlerByImageName alloc];
+                defaultHundler.imageName = imageNames[i];
                 defaultHundler.rollSoundOn = NO;
                 defaultHundler.originalMusicOn = YES;
                 defaultHundler.iPodLibMusicOn = NO;
@@ -159,7 +159,7 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
         [[NSUserDefaults standardUserDefaults] setObject:array forKey:@"KEY_MusicHundlersByImageName"];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }else{
-
+//        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"KEY_MusicHundlersByImageName"];
     }
 }
 
@@ -242,7 +242,6 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     // 最初のviewControllerに戻ったときplayVCで表示完了した回数が3の倍数かつインタースティシャル広告の準備ができていればインタースティシャル広告表示
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSInteger countViewChanged = [defaults integerForKey:@"KEY_countUpViewChanged"];
-    NSInteger memoryCountNumberOfInterstitialDidAppear = [defaults integerForKey:@"KEY_memoryCountNumberOfInterstitialDidAppear"];
 
     NSLog(@"countUpViewChanged %ld", (long)countViewChanged);
 
@@ -250,14 +249,8 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     if (!_purchased) {
         // バナー広告表示
         [self addAdBanners];
-        
-        // インタースティシャル広告表示
-        if (countViewChanged != memoryCountNumberOfInterstitialDidAppear) { // 別ビューを表示してもどってきても大丈夫なように
-            if ((countViewChanged % kINTERSTITIAL_DISPLAY_RATE) == 0) {
-                [self interstitialLoad];
-                NSLog(@"インタースティシャルロードチェック");
-            }
-        }
+         // インタースティシャル広告表示       
+         [[kADMOBInterstitialSingleton sharedInstans] interstitialControll]; // 生成、表示の判断含め全部この中でやる
     }else{
         if (bannerView_){
             [bannerView_ removeFromSuperview];
@@ -319,9 +312,7 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     // nendの開放
     [self.nadView setDelegate:nil];//delegateにnilをセット
     self.nadView = nil; // プロパティ経由でrelease,nilをセット
-    // AdMobinterstitialの開放　これをしないと再ロードできない
-    [interstitial_ setDelegate:nil];
-    interstitial_ = nil; //
+
     // [super dealloc]; // MRC(非アーク時には必要)
 }
 
@@ -339,6 +330,8 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     if ([segue.identifier isEqualToString:@"pushToPreviewVC"]) {
         previewVC *pVC = [segue destinationViewController];
         pVC.selectedImage = _selectedImage;
+        pVC.selectedIndexPath = _selectedIndexPath;
+        
         
     }else if([segue.identifier isEqualToString:@"moveToPlayVC"]){
         playVC *playVC = [segue destinationViewController];
@@ -491,7 +484,7 @@ NSLog(@"selectTagViewSize:%@",NSStringFromCGSize(cell.imageViewSelectedFrame.fra
                              }];
             [_selectedCell.imageView setImage:image];
 
-            NSLog(@"CustomUIView.selectedIndexNum:%d",self.customUIView.selectedIndexNum);
+            NSLog(@"CustomUIView.selectedIndexNum:%d",(int)self.customUIView.selectedIndexNum);
              NSLog(@"Main_customUIView.frame x:%d y:%d",(int)self.customUIView.frame.origin.x,(int)self.customUIView.frame.origin.y);
 
         }
@@ -781,7 +774,7 @@ NSLog(@"selectTagViewSize:%@",NSStringFromCGSize(cell.imageViewSelectedFrame.fra
     if (_tappedIndexPath == _selectedIndexPath) {
         previewVC *pVC = [self.storyboard instantiateViewControllerWithIdentifier:@"previewVC"];
         pVC.selectedImage = _selectedImage;
-        pVC.tappedIndexPath = _tappedIndexPath; // 曲情報を更新・保存するために使う
+        pVC.selectedIndexPath = _tappedIndexPath; // 曲情報を更新・保存するために使う
         [self.navigationController pushViewController:pVC animated:YES];
 
     } else{
@@ -1004,7 +997,11 @@ NSLog(@"selectTagViewSize:%@",NSStringFromCGSize(cell.imageViewSelectedFrame.fra
     [self.collectionView reloadData];
     
     // 最初の画面に戻る
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:YES completion:^{
+        self.customUIView.selectedIndexNum = self.selectedIndexPath.row;
+        [self.customUIView updateViewItems];
+
+    }];
     // デバイスがiphoneであるかそうでないかで分岐
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
         NSLog(@"iPhoneの処理");
@@ -1013,6 +1010,8 @@ NSLog(@"selectTagViewSize:%@",NSStringFromCGSize(cell.imageViewSelectedFrame.fra
         NSLog(@"iPadの処理");
         if (_iOSVer < 8.0) {
             [_popoverController dismissPopoverAnimated:YES];
+            self.customUIView.selectedIndexNum = self.selectedIndexPath.row;
+            [self.customUIView updateViewItems];
         }
     }
 }
@@ -1263,7 +1262,7 @@ NSLog(@"selectTagViewSize:%@",NSStringFromCGSize(cell.imageViewSelectedFrame.fra
 
 
 #pragma mark -
-#pragma mark AdMobDelegate
+#pragma mark AdMobBannerDelegate
 
 - (void)addAdBanners{
     NSLog(@"AdBanners");
@@ -1333,30 +1332,6 @@ NSLog(@"selectTagViewSize:%@",NSStringFromCGSize(cell.imageViewSelectedFrame.fra
     //        [self.view addSubview:self.nadView]; // 最初から表示する場合
 }
 
-// AdMobインタースティシャルの生成
-- (void)interstitalLoadRequest {
-    // 【Ad】インタースティシャル広告の表示
-    interstitial_ = [[GADInterstitial alloc] init];
-    interstitial_.adUnitID = MY_INTERSTITIAL_UNIT_ID;
-    interstitial_.delegate = self;
-    
-    [interstitial_ loadRequest:[GADRequest request]];
-
-}
-
-// AdMobインタースティシャルの生成・インジケーターの表示開始・
-- (void)interstitialLoad{
-    [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
-//    [_kIndicator indicatorStart];
-    // 広告表示準備開始状況フラグ更新
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSInteger memoryCountNumberOfInterstitialDidAppear = [defaults integerForKey:@"KEY_countUpViewChanged"];
-    [defaults setInteger:memoryCountNumberOfInterstitialDidAppear forKey:@"KEY_memoryCountNumberOfInterstitialDidAppear"];
-    [defaults synchronize];
-    
-    [self performSelector:@selector(interstitalLoadRequest) withObject:nil];
-    
-}
 
 // AdMobバナーのloadrequestが失敗したとき
 -(void)adView:(GADBannerView *)bannerView didFailToReceiveAdWithError:(GADRequestError *)error{
@@ -1365,36 +1340,6 @@ NSLog(@"selectTagViewSize:%@",NSStringFromCGSize(cell.imageViewSelectedFrame.fra
     // 他の広告ネットワークの広告を表示させるなど。
 }
 
-/// AdMobインタースティシャルのloadrequestが失敗したとき
--(void)interstitial:(GADInterstitial *)interstitial didFailToReceiveAdWithError:(GADRequestError *)error{
-    NSLog(@"interstitial:didFailToReceiveAdWithError:%@", [error localizedDescription]);
-    // 他の広告ネットワークの広告を表示させるなど
-    
-    // 操作無効解除
-    [[UIApplication sharedApplication] endIgnoringInteractionEvents];
-    // インジケーターを止める
-//    [_kIndicator indicatorStop];
-}
-
-// AdMobのインタースティシャル広告表示
-- (void)interstitialDidReceiveAd:(GADInterstitial *)ad
-{
-//    [_kIndicator indicatorStop];
-    [[UIApplication sharedApplication] endIgnoringInteractionEvents];
-     [ad presentFromRootViewController:self];
-
-
-}
-
--(void)interstitialWillDismissScreen:(GADInterstitial *)ad{
-
-    // 操作無効解除
-    [[UIApplication sharedApplication] endIgnoringInteractionEvents];
-
-    // インジケーターを止める
-//    [_kIndicator indicatorStop];
-
-}
 
 
 #pragma mark nendDelegate

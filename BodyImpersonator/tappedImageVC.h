@@ -7,19 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "GADInterstitial.h"
-#import "AppDelegate.h"
+
 #import "NSObject+Animation.h"
-#import "kBIIndicator.h"
+
 #import "kBIUIViewShowMusicHundlerInfo.h"
 #import "kBISelectMusicViewController.h"
 #import "GAITrackedViewController.h"
+#import "kADMOBInterstitialSingleton.h"
 
-
-@interface tappedImageVC : GAITrackedViewController<UIPopoverControllerDelegate,UIPopoverPresentationControllerDelegate,UIActionSheetDelegate,GADInterstitialDelegate>
-{
-    GADInterstitial *interstitial_;
-}
+@interface tappedImageVC : GAITrackedViewController<UIPopoverControllerDelegate,UIPopoverPresentationControllerDelegate,UIActionSheetDelegate>
 
 @property (strong,nonatomic) UIImage *selectedImage;
 @property NSIndexPath *tappedIndexPath;

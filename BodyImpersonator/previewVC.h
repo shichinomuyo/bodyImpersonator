@@ -7,25 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "GADInterstitial.h"
-#import "AppDelegate.h"
+
 #import "NSObject+Animation.h"
-#import "kBIIndicator.h"
-#import "kBIMusicHundlerByImageName.h"
+
 #import "kBIUIViewShowMusicHundlerInfo.h"
-#import "kBIMediaPickerController.h"
 #import "kBISelectMusicViewController.h"
 #import "GAITrackedViewController.h"
+#import "kADMOBInterstitialSingleton.h"
 
-
-@interface previewVC : GAITrackedViewController<UIPopoverControllerDelegate,UIPopoverPresentationControllerDelegate,UIActionSheetDelegate,GADInterstitialDelegate>
-{
-    // 【Ad】AdMobインタースティシャル：インタンス変数として1つ宣言
-    GADInterstitial *interstitial_;
-}
+@interface previewVC : GAITrackedViewController<UIPopoverControllerDelegate,UIPopoverPresentationControllerDelegate,UIActionSheetDelegate>
 
 @property (strong,nonatomic) UIImage *selectedImage;
-@property NSIndexPath *tappedIndexPath;
+@property NSIndexPath *selectedIndexPath;
 @property BOOL adsRemoved;
 @property BOOL limitNumberOfImagesRemoved;
 @end

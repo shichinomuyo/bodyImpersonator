@@ -19,53 +19,6 @@
             <rect key="frame" x="0.0" y="0.0" width="200" height="20"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kTY-r9-5li" customClass="BugFixContainerView">
-                    <rect key="frame" x="44" y="0.0" width="149" height="20"/>
-                    <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" tag="3" contentMode="left" verticalHuggingPriority="251" misplaced="YES" text="" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XTm-2V-zdn">
-                            <rect key="frame" x="0.0" y="0.0" width="90" height="20"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="20" id="ufA-e3-9Nk"/>
-                            </constraints>
-                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                            <color key="textColor" red="1" green="0.9493898153" blue="0.84414917229999997" alpha="1" colorSpace="calibratedRGB"/>
-                            <nil key="highlightedColor"/>
-                            <variation key="heightClass=regular-widthClass=compact">
-                                <mask key="constraints">
-                                    <include reference="ufA-e3-9Nk"/>
-                                </mask>
-                            </variation>
-                            <variation key="heightClass=regular-widthClass=regular">
-                                <mask key="constraints">
-                                    <include reference="ufA-e3-9Nk"/>
-                                </mask>
-                            </variation>
-                        </label>
-                    </subviews>
-                    <color key="backgroundColor" red="0.76802009344100952" green="0.19092153012752533" blue="0.16092608869075775" alpha="1" colorSpace="calibratedRGB"/>
-                    <constraints>
-                        <constraint firstAttribute="centerY" secondItem="XTm-2V-zdn" secondAttribute="centerY" id="1XL-4u-8Vr"/>
-                        <constraint firstItem="XTm-2V-zdn" firstAttribute="leading" secondItem="kTY-r9-5li" secondAttribute="leading" id="ZdK-IO-gQ1"/>
-                        <constraint firstAttribute="height" constant="20" id="o2h-g3-ZXv"/>
-                    </constraints>
-                    <variation key="heightClass=regular-widthClass=compact">
-                        <mask key="constraints">
-                            <include reference="o2h-g3-ZXv"/>
-                            <include reference="1XL-4u-8Vr"/>
-                            <include reference="ZdK-IO-gQ1"/>
-                        </mask>
-                    </variation>
-                    <variation key="heightClass=regular-widthClass=regular">
-                        <mask key="subviews">
-                            <include reference="XTm-2V-zdn"/>
-                        </mask>
-                        <mask key="constraints">
-                            <include reference="o2h-g3-ZXv"/>
-                            <include reference="1XL-4u-8Vr"/>
-                            <include reference="ZdK-IO-gQ1"/>
-                        </mask>
-                    </variation>
-                </view>
                 <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cNQ-Dw-uHw">
                     <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
                     <constraints>
@@ -131,13 +84,72 @@
                         </mask>
                     </variation>
                 </imageView>
+                <view clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kTY-r9-5li">
+                    <rect key="frame" x="44" y="0.0" width="149" height="20"/>
+                    <subviews>
+                        <label autoresizesSubviews="NO" userInteractionEnabled="NO" tag="3" contentMode="left" verticalHuggingPriority="251" misplaced="YES" text="" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XTm-2V-zdn">
+                            <rect key="frame" x="0.0" y="0.0" width="90" height="20"/>
+                            <color key="backgroundColor" red="0.76802009339999999" green="0.19092153009999999" blue="0.1609260887" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="20" id="ufA-e3-9Nk"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" red="1" green="0.9493898153" blue="0.84414917229999997" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                            <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                <rect key="frame" x="0.0" y="0.0" width="148" height="20"/>
+                                <mask key="constraints">
+                                    <include reference="ufA-e3-9Nk"/>
+                                </mask>
+                            </variation>
+                            <variation key="heightClass=regular-widthClass=regular">
+                                <mask key="constraints">
+                                    <include reference="ufA-e3-9Nk"/>
+                                </mask>
+                            </variation>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" red="0.76802009344100952" green="0.19092153012752533" blue="0.16092608869075775" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="centerY" secondItem="XTm-2V-zdn" secondAttribute="centerY" id="1XL-4u-8Vr"/>
+                        <constraint firstItem="XTm-2V-zdn" firstAttribute="leading" secondItem="kTY-r9-5li" secondAttribute="leading" id="ZdK-IO-gQ1"/>
+                        <constraint firstAttribute="height" constant="20" id="o2h-g3-ZXv"/>
+                        <constraint firstAttribute="trailing" secondItem="XTm-2V-zdn" secondAttribute="trailing" constant="4" id="wWQ-Jt-JBe"/>
+                    </constraints>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="wWQ-Jt-JBe"/>
+                        </mask>
+                    </variation>
+                    <variation key="heightClass=regular-widthClass=compact">
+                        <mask key="subviews">
+                            <include reference="XTm-2V-zdn"/>
+                        </mask>
+                        <mask key="constraints">
+                            <include reference="o2h-g3-ZXv"/>
+                            <include reference="1XL-4u-8Vr"/>
+                            <include reference="ZdK-IO-gQ1"/>
+                            <exclude reference="wWQ-Jt-JBe"/>
+                        </mask>
+                    </variation>
+                    <variation key="heightClass=regular-widthClass=regular">
+                        <mask key="subviews">
+                            <include reference="XTm-2V-zdn"/>
+                        </mask>
+                        <mask key="constraints">
+                            <include reference="o2h-g3-ZXv"/>
+                            <include reference="1XL-4u-8Vr"/>
+                            <include reference="ZdK-IO-gQ1"/>
+                        </mask>
+                    </variation>
+                </view>
             </subviews>
             <color key="backgroundColor" red="0.76802009344100952" green="0.19092153012752533" blue="0.16092608869075775" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstItem="RBp-0w-Y40" firstAttribute="leading" secondItem="7dm-Jc-Mat" secondAttribute="trailing" id="1mC-wO-R6t"/>
                 <constraint firstAttribute="trailing" secondItem="kTY-r9-5li" secondAttribute="trailing" id="2Y4-t7-7fS"/>
                 <constraint firstAttribute="centerY" secondItem="RBp-0w-Y40" secondAttribute="centerY" id="AuM-Nx-SU0"/>
-                <constraint firstItem="kTY-r9-5li" firstAttribute="leading" secondItem="RBp-0w-Y40" secondAttribute="trailing" id="FD3-Zh-Skm"/>
+                <constraint firstItem="kTY-r9-5li" firstAttribute="leading" secondItem="RBp-0w-Y40" secondAttribute="trailing" constant="4" id="FD3-Zh-Skm"/>
                 <constraint firstAttribute="trailing" secondItem="kTY-r9-5li" secondAttribute="trailing" id="Icx-SB-7iq"/>
                 <constraint firstAttribute="centerY" secondItem="7dm-Jc-Mat" secondAttribute="centerY" id="NFj-OK-bcC"/>
                 <constraint firstItem="kTY-r9-5li" firstAttribute="leading" secondItem="RBp-0w-Y40" secondAttribute="trailing" id="X0K-ew-JLA"/>
@@ -171,6 +183,9 @@
             </variation>
             <variation key="heightClass=regular-widthClass=regular">
                 <mask key="subviews">
+                    <include reference="cNQ-Dw-uHw"/>
+                    <include reference="7dm-Jc-Mat"/>
+                    <include reference="RBp-0w-Y40"/>
                     <include reference="kTY-r9-5li"/>
                 </mask>
                 <mask key="constraints">

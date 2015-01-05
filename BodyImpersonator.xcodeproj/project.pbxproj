@@ -25,6 +25,7 @@
 		5606B0561A51867E003F6E9E /* CellHaveFourItems.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5606B0551A51867E003F6E9E /* CellHaveFourItems.xib */; };
 		5606B0581A518E39003F6E9E /* CellFeedbackAndShare.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5606B0571A518E39003F6E9E /* CellFeedbackAndShare.xib */; };
 		5606B05C1A518FD8003F6E9E /* CellHaveSwitch.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5606B05B1A518FD8003F6E9E /* CellHaveSwitch.xib */; };
+		5633F7F31A578C1900D63275 /* kADMOBInterstitialSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5633F7F21A578C1900D63275 /* kADMOBInterstitialSingleton.m */; };
 		56427E1719AB823200B516A0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427E1619AB823200B516A0 /* Foundation.framework */; };
 		56427E1919AB823200B516A0 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427E1819AB823200B516A0 /* CoreGraphics.framework */; };
 		56427E1B19AB823200B516A0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427E1A19AB823200B516A0 /* UIKit.framework */; };
@@ -124,6 +125,8 @@
 		5606B05B1A518FD8003F6E9E /* CellHaveSwitch.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CellHaveSwitch.xib; sourceTree = "<group>"; };
 		5617B4BE1A20437800586645 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		5617B4C11A20437800586645 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		5633F7F11A578C1900D63275 /* kADMOBInterstitialSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kADMOBInterstitialSingleton.h; sourceTree = "<group>"; };
+		5633F7F21A578C1900D63275 /* kADMOBInterstitialSingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = kADMOBInterstitialSingleton.m; sourceTree = "<group>"; };
 		56427E1319AB823200B516A0 /* BodyImpersonator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BodyImpersonator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		56427E1619AB823200B516A0 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		56427E1819AB823200B516A0 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -671,6 +674,8 @@
 		56A9A9F11A24A0B600DBE7F4 /* Objects */ = {
 			isa = PBXGroup;
 			children = (
+				5633F7F11A578C1900D63275 /* kADMOBInterstitialSingleton.h */,
+				5633F7F21A578C1900D63275 /* kADMOBInterstitialSingleton.m */,
 				5606B04F1A4FD7C8003F6E9E /* kAVAudioPlayerManager.h */,
 				5606B0501A4FD7C8003F6E9E /* kAVAudioPlayerManager.m */,
 				56427EA219AB897500B516A0 /* AVAudioPlayer+CustomControllers.h */,
@@ -849,6 +854,7 @@
 				568B96B51A1DB61D00368272 /* NSObject+Animation.m in Sources */,
 				56C9954A1A088C180006477D /* BugFixContainerView.m in Sources */,
 				56017BAA1A240F15001E6CEF /* kBISettingColorViewController.m in Sources */,
+				5633F7F31A578C1900D63275 /* kADMOBInterstitialSingleton.m in Sources */,
 				568B96BA1A1ECF1700368272 /* kBIIndicator.m in Sources */,
 				5606B0371A4AEE5F003F6E9E /* kBIMediaPickerController.m in Sources */,
 				568B961E1A185CF300368272 /* tappedImageVC.m in Sources */,
@@ -1011,7 +1017,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BodyImpersonator/BodyImpersonator-Prefix.pch";
 				INFOPLIST_FILE = "BodyImpersonator/BodyImpersonator-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/BodyImpersonator",
@@ -1034,7 +1040,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BodyImpersonator/BodyImpersonator-Prefix.pch";
 				INFOPLIST_FILE = "BodyImpersonator/BodyImpersonator-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/BodyImpersonator",

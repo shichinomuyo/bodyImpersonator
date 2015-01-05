@@ -13,7 +13,6 @@
 #import "AVAudioPlayer+CustomControllers.h"// import済み
 #import "NSArray+IndexHelper.h"
 #import "GADBannerView.h"
-#import "GADInterstitial.h"
 #import "NADView.h"
 #import "AppDelegate.h"
 #import "secondVC.h"
@@ -27,20 +26,16 @@
 #import "kBIIndicator.h"
 #import "kBIUIViewShowMusicHundlerInfo.h"
 #import "GAITrackedViewController.h"
-
-
+#import "kADMOBInterstitialSingleton.h"
 
 #define RGB(r, g, b)[UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:1]
 #define RGBA(r, g, b, a)[UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:a]
 
 
-@interface ViewController : GAITrackedViewController<GADBannerViewDelegate,GADInterstitialDelegate,NADViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIPopoverControllerDelegate,UIPopoverPresentationControllerDelegate, UICollectionViewDataSource, UICollectionViewDelegate,UIGestureRecognizerDelegate,UIActionSheetDelegate,UICollectionViewDelegateFlowLayout>{
+@interface ViewController : GAITrackedViewController<GADBannerViewDelegate,NADViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIPopoverControllerDelegate,UIPopoverPresentationControllerDelegate, UICollectionViewDataSource, UICollectionViewDelegate,UIGestureRecognizerDelegate,UIActionSheetDelegate,UICollectionViewDelegateFlowLayout>{
     //【Ad】AdMobバナー：インスタンス変数として1つ宣言
     GADBannerView *bannerView_;
     
-    // 【Ad】AdMobインタースティシャル：インタンス変数として1つ宣言
-    GADInterstitial *interstitial_;
-
 }
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *naviBarHeight;
 @property(nonatomic,retain)NADView *nadView;

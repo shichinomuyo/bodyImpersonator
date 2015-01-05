@@ -63,12 +63,6 @@
 
 -(void)showMusicHundlerInfo{
     NSLog(@"showMusicHundlerInfo");
-    // selectedImageNameから何番目のセルが選択中であるかを検出する
-//    NSArray *imageNames = [[NSUserDefaults standardUserDefaults] objectForKey:@"KEY_imageNames"];
-//    NSString *selectedImageName = [[NSUserDefaults standardUserDefaults] objectForKey:@"KEY_selectedImageName"];
-//    NSInteger index = [imageNames indexOfObject:selectedImageName];
-
-//    self.selectedIndexNum = index;
     
     //kBIMusicHundlerから色々取得
     NSMutableArray *hundlers = [[NSUserDefaults standardUserDefaults] objectForKey:@"KEY_MusicHundlersByImageName"];
@@ -86,7 +80,7 @@
             imageSelectedTypeOfMusic = [UIImage imageNamed:@"ICON_MUSIC_26x26"]; // 画像設定
             NSLog(@"ICONorimusic");
             artistName = @"Preset1";// nil;    // 文字列設定
-            trackTitle = @"Preset MusicMusicMusic";// nil;    // 文字列設定
+            trackTitle = @"Preset MusicMusicMusicMusicMusicMusicMusicMusicMusicMusicMusicMusic";// nil;    // 文字列設定
         }else if (_hundler.rollSoundOn) {
             imageSelectedTypeOfMusic = [UIImage imageNamed:@"ICON_Drum"]; // 画像設定 ICON_Drum
             NSLog(@"ICONdrum");
@@ -121,19 +115,21 @@
     NSLog(@"labelMusicHundlerInfo.width:%.2f",labelMusicHundlerInfo.frame.size.width);
     NSLog(@"labelCenter.x:%.2f",labelMusicHundlerInfo.center.x);
 
-    [viewHaveLabel setClipsToBounds:YES];
-    
+    [viewHaveLabel setClipsToBounds:YES]; // はみ出した部分を表示しない
+
     // アニメーション処理
     {
-        {// メインビューから他のビューへ遷移後、また戻ってきた時の処理
+        {// メインビューから他のビューへ遷移後、また戻ってきた時のための処理
+            NSLog(@"アニメーション初期化");
             labelMusicHundlerInfo.transform = CGAffineTransformIdentity; // ラベルの座標を初期化
             [labelMusicHundlerInfo.layer removeAllAnimations]; // ラベルのアニメーションを止める
+
         }
         
         // 文字列の長さを取得
-        textWidth = [labelMusicHundlerInfo.text sizeWithAttributes:@{NSAttachmentAttributeName:[UIFont systemFontOfSize:labelMusicHundlerInfo.font.pointSize]}].width; // 移動後の座標計算に使用
+                textWidth = [labelMusicHundlerInfo.text sizeWithAttributes:@{NSAttachmentAttributeName:[UIFont systemFontOfSize:labelMusicHundlerInfo.font.pointSize]}].width; // 移動後の座標計算に使用
 
-        
+        NSLog(@"textWidth%.2f",textWidth);
         if (viewHaveLabel.frame.size.width < textWidth ) { // テキストの長さが親ビューより大きい時だけスライドアニメーション実行
             // 文字数を取得
             textLength = (int)labelMusicHundlerInfo.text.length; // アニメーションにかける時間を計算するのに使用
@@ -200,6 +196,7 @@
         NSLog(@"まだない");
     }else {
         NSLog(@"もうある");
+        
     }
     
     
@@ -227,7 +224,7 @@
                                   [UIView addKeyframeWithRelativeStartTime:0.2
                                                           relativeDuration:0.8
                                                                 animations:^{
-                                                                    labelMusicHundlerInfo.transform = CGAffineTransformMakeTranslation(-1.1*textWidth, 0);
+                                                                    labelMusicHundlerInfo.transform = CGAffineTransformMakeTranslation(-1.3*textWidth, 0);
                                                                 }];
 
                               } completion:nil];
