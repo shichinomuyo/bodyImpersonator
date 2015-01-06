@@ -82,7 +82,7 @@
 
     }
     self.customUIView.selectedIndexNum = self.selectedIndexPath.row;
-    [self.customUIView updateViewItems];
+    [self.customUIView showMusicHundlerInfo];
 
     [NSObject slideInUIViewToCenter:self.customUIView];
     // デバイスがiphoneであるかそうでないかで分岐

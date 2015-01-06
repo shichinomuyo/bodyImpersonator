@@ -37,7 +37,6 @@
 @property NSInteger selectedIndexNum;
 
 
--(void)updateViewItems;
 -(void)showMusicHundlerInfo;
 - (void)stopMusicPlayer;
 @end

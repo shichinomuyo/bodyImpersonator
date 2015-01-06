@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ECo-jj-JfU">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -164,7 +163,7 @@
                                         </variation>
                                         <connections>
                                             <action selector="previewUIBtn:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Dhk-sM-iF6"/>
-                                            <segue destination="Ml1-cR-wrA" kind="show" identifier="pushToPreviewVC" id="4pt-7j-J9r"/>
+                                            <segue destination="yAO-Md-pSK" kind="show" identifier="pushToTappedVCWithSeletedImage" id="AkK-JE-K1X"/>
                                         </connections>
                                     </button>
                                     <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="m6f-Z5-kt2" customClass="kBIUIViewShowMusicHundlerInfo">
@@ -267,13 +266,6 @@
                                     <mask key="constraints">
                                         <exclude reference="HIi-VI-DeS"/>
                                         <exclude reference="jcz-tp-ehM"/>
-                                        <exclude reference="F88-Zu-p7z"/>
-                                        <exclude reference="IHy-XR-zW7"/>
-                                        <exclude reference="WBT-gb-LAV"/>
-                                        <exclude reference="Xx4-Cp-ep6"/>
-                                        <exclude reference="bmp-P4-m8v"/>
-                                        <exclude reference="cnj-Ln-gqS"/>
-                                        <exclude reference="g1T-Nd-HSB"/>
                                         <exclude reference="AGM-25-RbZ"/>
                                         <exclude reference="Ngp-ax-iWW"/>
                                         <exclude reference="fPX-HS-I1d"/>
@@ -291,6 +283,13 @@
                                         <exclude reference="TTQ-ws-PRa"/>
                                         <exclude reference="UHu-wT-63e"/>
                                         <exclude reference="XeP-0L-F2D"/>
+                                        <exclude reference="F88-Zu-p7z"/>
+                                        <exclude reference="IHy-XR-zW7"/>
+                                        <exclude reference="WBT-gb-LAV"/>
+                                        <exclude reference="Xx4-Cp-ep6"/>
+                                        <exclude reference="bmp-P4-m8v"/>
+                                        <exclude reference="cnj-Ln-gqS"/>
+                                        <exclude reference="g1T-Nd-HSB"/>
                                         <exclude reference="LgS-U2-LHm"/>
                                         <exclude reference="Lm5-cC-j7p"/>
                                         <exclude reference="O9L-li-0oz"/>
@@ -330,11 +329,6 @@
                                     </mask>
                                     <mask key="constraints">
                                         <include reference="jcz-tp-ehM"/>
-                                        <exclude reference="F88-Zu-p7z"/>
-                                        <exclude reference="IHy-XR-zW7"/>
-                                        <include reference="Xx4-Cp-ep6"/>
-                                        <exclude reference="bmp-P4-m8v"/>
-                                        <include reference="g1T-Nd-HSB"/>
                                         <exclude reference="Ngp-ax-iWW"/>
                                         <include reference="fPX-HS-I1d"/>
                                         <include reference="lOm-Yf-w6e"/>
@@ -346,6 +340,11 @@
                                         <include reference="TTQ-ws-PRa"/>
                                         <exclude reference="UHu-wT-63e"/>
                                         <exclude reference="XeP-0L-F2D"/>
+                                        <exclude reference="F88-Zu-p7z"/>
+                                        <exclude reference="IHy-XR-zW7"/>
+                                        <include reference="Xx4-Cp-ep6"/>
+                                        <exclude reference="bmp-P4-m8v"/>
+                                        <include reference="g1T-Nd-HSB"/>
                                         <exclude reference="LgS-U2-LHm"/>
                                         <include reference="Lm5-cC-j7p"/>
                                         <exclude reference="O9L-li-0oz"/>
@@ -381,14 +380,14 @@
                                     </mask>
                                     <mask key="constraints">
                                         <include reference="HIi-VI-DeS"/>
-                                        <include reference="WBT-gb-LAV"/>
-                                        <include reference="cnj-Ln-gqS"/>
                                         <include reference="AGM-25-RbZ"/>
                                         <exclude reference="jMz-d7-hBN"/>
                                         <include reference="xJ0-SW-FDG"/>
                                         <exclude reference="zaW-zi-WtW"/>
                                         <include reference="2ib-Hk-UeB"/>
                                         <include reference="NYt-wm-eDN"/>
+                                        <include reference="WBT-gb-LAV"/>
+                                        <include reference="cnj-Ln-gqS"/>
                                         <include reference="ouq-U6-5Ew"/>
                                         <include reference="b34-cO-ekx"/>
                                         <include reference="pCE-Hk-rl5"/>
@@ -1083,7 +1082,7 @@
                             <view alpha="0.79999999999999982" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rki-2B-Kb3">
                                 <rect key="frame" x="0.0" y="536" width="600" height="20"/>
                                 <subviews>
-                                    <view opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dAm-ib-DaK" customClass="kBIUIViewShowMusicHundlerInfo">
+                                    <view opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dAm-ib-DaK" customClass="kBIUIViewShowMusicHundlerInfo">
                                         <rect key="frame" x="200" y="0.0" width="200" height="20"/>
                                         <color key="backgroundColor" red="0.27121157109999999" green="0.57638888239999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
@@ -1240,9 +1239,9 @@
                             <view opaque="NO" alpha="0.79999999999999982" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wes-uz-pna">
                                 <rect key="frame" x="0.0" y="536" width="600" height="20"/>
                                 <subviews>
-                                    <view opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bSG-gW-ay6" customClass="kBIUIViewShowMusicHundlerInfo">
+                                    <view opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bSG-gW-ay6" customClass="kBIUIViewShowMusicHundlerInfo">
                                         <rect key="frame" x="200" y="0.0" width="200" height="20"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" red="0.76802009339999999" green="0.19092153009999999" blue="0.1609260887" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="200" id="DEz-at-KA2"/>
                                             <constraint firstAttribute="width" constant="360" id="UM7-kg-BgY"/>
@@ -1270,6 +1269,7 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.76802009339999999" green="0.19092153009999999" blue="0.1609260887" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
+                                    <constraint firstItem="bSG-gW-ay6" firstAttribute="top" secondItem="wes-uz-pna" secondAttribute="top" id="5yt-Vg-laW"/>
                                     <constraint firstAttribute="centerX" secondItem="bSG-gW-ay6" secondAttribute="centerX" id="8Ef-TC-2VL"/>
                                     <constraint firstAttribute="bottom" secondItem="bSG-gW-ay6" secondAttribute="bottom" id="U9S-Uw-s9W"/>
                                     <constraint firstAttribute="height" constant="20" id="zEm-NE-xLp"/>
@@ -1310,6 +1310,7 @@
                     <navigationItem key="navigationItem" id="vlJ-Xh-K2V"/>
                     <connections>
                         <outlet property="customUIView" destination="bSG-gW-ay6" id="1On-RL-Rn4"/>
+                        <outlet property="kUIViewMiniPlayerWrapper" destination="wes-uz-pna" id="fH0-Q6-dr2"/>
                         <outlet property="navigationBar" destination="UhS-kG-ITt" id="q23-Xj-mV0"/>
                         <outlet property="previewImageView" destination="4mY-Te-FEa" id="JGJ-YD-GIh"/>
                         <outlet property="toolBar" destination="51D-HO-sML" id="6or-VL-tKS"/>
@@ -1391,7 +1392,8 @@
                                                     <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
                                                         <rect key="frame" x="78" y="21" width="234" height="21"/>
                                                     </variation>
-                                                    <variation key="heightClass=regular-widthClass=regular">
+                                                    <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
+                                                        <rect key="frame" x="80" y="22" width="220" height="20"/>
                                                         <mask key="constraints">
                                                             <exclude reference="I68-lL-QAa"/>
                                                             <include reference="ss3-la-WUM"/>

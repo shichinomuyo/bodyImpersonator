@@ -103,12 +103,16 @@
         [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
     view.center = CGPointMake((0 - view.center.x),view.center.y);
     [view setHidden:0];
+    
+    CGRect rect = [[UIScreen mainScreen] bounds];
+    
     [UIView animateKeyframesWithDuration:0.7
                                    delay:0.0
                                  options:0 << 16
                               animations:^{
-                                  view.center = CGPointMake(view.superview.superview.center.x, view.center.y);
-                                  
+                                  view.center = CGPointMake(rect.size.width/2, view.center.y);
+                                  NSLog(@"mainFrameX:%.2f",rect.size.width);
+                                  NSLog(@"view.centerX:%.2f",view.center.x);
                               } completion:^(BOOL finished){
                                       [[UIApplication sharedApplication] endIgnoringInteractionEvents];
                               }];

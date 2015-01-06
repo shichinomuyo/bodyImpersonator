@@ -66,7 +66,7 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     [appDefaults setObject:array forKey:@"KEY_imageNames"];
     // collectionViewに表示する画像に番号を振るために整数値を作成・初期化
     [appDefaults setObject:@"0" forKey:@"KEY_imageCount"];
-    // previewVCで曲選択したときの情報を保存する配列の作成・初期化
+    // tappedImageVCで曲選択したときの情報を保存する配列の作成・初期化
     NSMutableArray *hundlers = [NSMutableArray array];
     NSArray *array_hunders = [hundlers copy];
     [appDefaults setObject:array_hunders forKey:@"KEY_MusicHundlersByImageName"];
@@ -237,7 +237,7 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
        NSLog(@"viewdidAppear");
     // customUIViewのラベルに曲情報を表示
     self.customUIView.selectedIndexNum = self.selectedIndexPath.row;
-    [self.customUIView updateViewItems];
+    [self.customUIView showMusicHundlerInfo];
     
     // 最初のviewControllerに戻ったときplayVCで表示完了した回数が3の倍数かつインタースティシャル広告の準備ができていればインタースティシャル広告表示
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -325,12 +325,12 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
 
 #pragma mark -
 #pragma mark Segue
-// previewVCとplayVCへ遷移するときの値渡し
+// tappedImageVCとplayVCへ遷移するときの値渡し
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"pushToPreviewVC"]) {
-        previewVC *pVC = [segue destinationViewController];
+    if ([segue.identifier isEqualToString:@"pushToTappedVCWithSeletedImage"]) {
+        tappedImageVC *pVC = [segue destinationViewController];
         pVC.selectedImage = _selectedImage;
-        pVC.selectedIndexPath = _selectedIndexPath;
+        pVC.tappedIndexPath = _selectedIndexPath;
         
         
     }else if([segue.identifier isEqualToString:@"moveToPlayVC"]){
@@ -338,23 +338,13 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
         playVC.selectedImage = _selectedImage;
         playVC.selectedIndexPath = _selectedIndexPath;
     }
-    // Assuming you've hooked this all up in a Storyboard with a popover presentation style
-    //    if ([segue.identifier isEqualToString:@"showPopover"]) {
-    //        UINavigationController *destNav = segue.destinationViewController;
-    //        previewVC *previewController = [self.storyboard instantiateViewControllerWithIdentifier:@"previewVC"];
-    //        previewController = destNav.viewControllers.firstObject;
-    //
-    //        // This is the important part
-    //        UIPopoverPresentationController *popPC = destNav.popoverPresentationController;
-    //        popPC.delegate = self;
-    //    }
     
 }
 
-// previewVCとplayVCへ遷移するときの条件設定
+// tappedImageVCとplayVCへ遷移するときの条件設定
 -(BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender{
     
-    if ([identifier isEqualToString:@"pushToPreviewVC"] || [identifier isEqualToString:@"moveToPlayVC"]) {
+    if ([identifier isEqualToString:@"pushToTappedVCWithSeletedImage"] || [identifier isEqualToString:@"moveToPlayVC"]) {
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         NSArray *imageNames = [defaults objectForKey:@"KEY_imageNames"];
         // 選択していた_selectedIndexPath.rowにimageNamesが無い場合は画面遷移させない
@@ -376,7 +366,7 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     return YES;
 }
 
-// previewVCとplayVCから戻ってきたときの処理
+// tappedImageVCとplayVCから戻ってきたときの処理
 - (IBAction)firstViewReturnActionForSegue:(UIStoryboardSegue *)segue
 {
     if ([segue.identifier isEqualToString:@"backFromSecondVC"]) {
@@ -394,13 +384,15 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
         }
         [self.collectionView reloadData];
      
-    }else if ([segue.identifier isEqualToString:@"BackFromPreviewVCRemoveItemBtn"]){
-        // _selectedIndexPathのアイテムを削除
-        [self actionRemoveItem:_selectedIndexPath];
-
-        NSLog(@"BackFromPreviewVCRemoveItemBtn");
-        NSLog(@"selectedIndexPath:%d",(int)_selectedIndexPath);
-    }else if ([segue.identifier isEqualToString:@"BackFromTappedImageVCSetImageBtn"]){
+    }
+//    else if ([segue.identifier isEqualToString:@"BackFromPreviewVCRemoveItemBtn"]){
+//        // _selectedIndexPathのアイテムを削除
+//        [self actionRemoveItem:_selectedIndexPath];
+//
+//        NSLog(@"BackFromPreviewVCRemoveItemBtn");
+//        NSLog(@"selectedIndexPath:%d",(int)_selectedIndexPath);
+//    }
+    else if ([segue.identifier isEqualToString:@"BackFromTappedImageVCSetImageBtn"]){
         [self actionSetSelectedImage:_tappedIndexPath];
         NSLog(@"BackFromPreviewVCSetImage");
     }else if ([segue.identifier isEqualToString:@"BackFromTappedImageVCRemoveItemBtn"]){
@@ -571,12 +563,12 @@ NSLog(@"selectTagViewSize:%@",NSStringFromCGSize(cell.imageViewSelectedFrame.fra
     // デバイスがiphoneであるかそうでないかで分岐
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
         // iPhoneの処理
-        // storyboard上でpushでの画面遷移処理は完結。画像表示処理をpreviewVCで実装。
+        // storyboard上でpushでの画面遷移処理は完結。画像表示処理をtappedImageVCで実装。
         
     }
     else{
         // iPadの処理
-        // storyboard上でポップアップ表示処理は完結。画像表示処理をpreviewVCで実装。
+        // storyboard上でポップアップ表示処理は完結。画像表示処理をtappedImageVCで実装。
     }
 }
 
@@ -585,12 +577,12 @@ NSLog(@"selectTagViewSize:%@",NSStringFromCGSize(cell.imageViewSelectedFrame.fra
     // デバイスがiphoneであるかそうでないかで分岐
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
         // iPhoneの処理
-        // storyboard上でpushでの画面遷移処理は完結。画像表示処理をpreviewVCで実装。
+        // storyboard上でpushでの画面遷移処理は完結。
         
     }
     else{
         // iPadの処理
-        // storyboard上でポップアップ表示処理は完結。画像表示処理をpreviewVCで実装。
+        // storyboard上でポップアップ表示処理は完結。
     }
 }
 
@@ -767,14 +759,14 @@ NSLog(@"selectTagViewSize:%@",NSStringFromCGSize(cell.imageViewSelectedFrame.fra
     }
 }
 
-// セルをタップしたらpreviewVCに遷移しその画像を表示させる
+// セルをタップしたらtappedImageVCに遷移しその画像を表示させる
 - (void)actionImageTapped:(NSIndexPath *)indexPath{
 
     _tappedIndexPath = indexPath;
     if (_tappedIndexPath == _selectedIndexPath) {
-        previewVC *pVC = [self.storyboard instantiateViewControllerWithIdentifier:@"previewVC"];
+        tappedImageVC *pVC = [self.storyboard instantiateViewControllerWithIdentifier:@"tappedImageVC"];
         pVC.selectedImage = _selectedImage;
-        pVC.selectedIndexPath = _tappedIndexPath; // 曲情報を更新・保存するために使う
+        pVC.tappedIndexPath = _tappedIndexPath; // 曲情報を更新・保存するために使う
         [self.navigationController pushViewController:pVC animated:YES];
 
     } else{
@@ -999,7 +991,7 @@ NSLog(@"selectTagViewSize:%@",NSStringFromCGSize(cell.imageViewSelectedFrame.fra
     // 最初の画面に戻る
     [self dismissViewControllerAnimated:YES completion:^{
         self.customUIView.selectedIndexNum = self.selectedIndexPath.row;
-        [self.customUIView updateViewItems];
+        [self.customUIView showMusicHundlerInfo];
 
     }];
     // デバイスがiphoneであるかそうでないかで分岐
@@ -1011,7 +1003,7 @@ NSLog(@"selectTagViewSize:%@",NSStringFromCGSize(cell.imageViewSelectedFrame.fra
         if (_iOSVer < 8.0) {
             [_popoverController dismissPopoverAnimated:YES];
             self.customUIView.selectedIndexNum = self.selectedIndexPath.row;
-            [self.customUIView updateViewItems];
+            [self.customUIView showMusicHundlerInfo];
         }
     }
 }

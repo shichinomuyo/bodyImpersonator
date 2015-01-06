@@ -17,20 +17,14 @@
 }
 */
 
-//-(void)awakeFromNib{
-//    [super awakeFromNib];
-//
-//}
-
 - (id) initWithCoder:(NSCoder*)coder {
+    NSLog(@"initwithcoder");
     self = [super initWithCoder:coder];
     if(self) {
         if (!self.subviews.count) {
             NSLog(@"coder");
-            [self initializeView];
+            [self _init];
         }
-      
-        
     }
     return self;
 }
@@ -38,18 +32,18 @@
 -(instancetype)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if (self) {
-         NSLog(@"frame");
-        [self initializeView];
+         NSLog(@"initwithframe");
+        [self _init];
     }
     return self;
 }
 
-
--(void)initializeView{
+-(void)_init{
     NSString *className = NSStringFromClass([self class]);
     [[NSBundle mainBundle] loadNibNamed:className owner:self options:nil];
     // ロードしたViewのframeをSuperviewのサイズと合わせる
     contentView.frame = self.bounds;
+    NSLog(@"contentView.frame:%.2f",contentView.frame.size.width);
     // Superviewのサイズが変わった時に一緒に引き伸ばされれるように設定。
     // 以下は明示的に設定しなくてもデフォルトでそうなっているが念のため。
     // こういう場合は、Visual Format Languageを使うよりAutoresizingMaskを使ったほうが手軽。
@@ -57,14 +51,19 @@
     contentView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
     
     // SuperviewにロードしたViewをSubviewとして追加
-    NSLog(@"ADDSUBVIEEW");
+    NSLog(@"initializeView");
     [self addSubview:contentView];
  
 }
 
+-(void)awakeFromNib{
+    [super awakeFromNib];
+    NSLog(@"awakeFromNib");
+}
+
 -(void)showMusicHundlerInfo{
     NSLog(@"showMusicHundlerInfo");
-    
+
     //kBIMusicHundlerから色々取得
     NSMutableArray *hundlers = [[NSUserDefaults standardUserDefaults] objectForKey:@"KEY_MusicHundlersByImageName"];
     NSData *data = [hundlers safeObjectAtIndex:self.selectedIndexNum];
@@ -125,13 +124,14 @@
         }
         
         // 文字列の長さを取得
-                textWidth = [labelMusicHundlerInfo.text sizeWithAttributes:@{NSAttachmentAttributeName:[UIFont systemFontOfSize:labelMusicHundlerInfo.font.pointSize]}].width; // 移動後の座標計算に使用
+                textWidth = [labelMusicHundlerInfo.text sizeWithAttributes:@{NSAttachmentAttributeName:[UIFont fontWithName:labelMusicHundlerInfo.font.fontName size:labelMusicHundlerInfo.font.pointSize]}].width; // 移動後の座標計算に使用
 
         NSLog(@"custumUIView.frame (%d,%d,%d,%d)",(int)contentView.frame.origin.x,(int)contentView.frame.origin.y,(int)contentView.frame.size.width,(int)contentView.frame.size.height);
         NSLog(@"contentView.width:%.2f",contentView.frame.size.width);
         NSLog(@"labelMusicHundlerInfo.width:%.2f",labelMusicHundlerInfo.frame.size.width);
         NSLog(@"labelCenter.x:%.2f",labelMusicHundlerInfo.center.x);
         NSLog(@"textWidth%.2f",textWidth);
+        
         if (viewHaveLabel.frame.size.width < textWidth ) { // テキストの長さが親ビューより大きい時だけスライドアニメーション実行
             // 文字数を取得
             textLength = (int)labelMusicHundlerInfo.text.length; // アニメーションにかける時間を計算するのに使用
@@ -140,26 +140,23 @@
             
             [self moveAffineLabelX:transitionDuration]; // スライドアニメーション
             NSLog(@"アニメーションあり");
-        }else{
+        }else{ // テキストの長さが親ビュー(viewHaveLabel)より小さい時
             NSLog(@"アニメーションなし");
-//            [viewHaveLabel setBounds:CGRectMake(0, 0, textWidth, viewHaveLabel.frame.size.height)];
+            NSLog(@"customUIView.frame.size:%.2f,%.2f",contentView.frame.size.width,contentView.frame.size.height);
+            // contentViewのサイズ調整
             UIViewController *vc = [NSObject topViewController];
             NSString *identifier = vc.restorationIdentifier;
             NSLog(@"identifier:%@",identifier);
-            if ([identifier isEqual: @"previewVC"]) {
-                            [self setBounds:CGRectMake(0, 0,(self.frame.size.width - (viewHaveLabel.frame.size.width - textWidth)), self.frame.size.height)];
-            }
+//            [contentView setBounds:CGRectMake(self.bounds.origin.x, 0,(contentView.bounds.size.width - (viewHaveLabel.bounds.size.width - textWidth))*1.3, self.frame.size.height)];
+//            NSLog(@"viewHaveLabel.width:%.2f",viewHaveLabel.frame.size.width);
+
 
         }
+        
     }
 
 }
 
-
-
--(void)updateViewItems{
-     [self showMusicHundlerInfo];
-}
 
 - (IBAction)btnPlay:(UIButton *)sender {
     
@@ -199,6 +196,27 @@
 - (void)willMoveToSuperview:(UIView *)newSuperview{
  NSLog(@"willMoveToSuperview");
 //    [self showMusicHundlerInfo];
+//    if (self.superview) {
+//        
+//        if (!self) {
+//            NSLog(@"superview^!self");
+//            
+//        }else{
+//            NSLog(@"superview^self");
+//            self.bounds = CGRectMake(self.bounds.origin.x, 0, 320, 20);
+//            contentView.frame = self.bounds;
+//        }
+//        
+//    } else {
+//        if (!self) {
+//            
+//            NSLog(@"!superview^!self");
+//        }else{
+//            NSLog(@"!superview^self");
+//            self.bounds = CGRectMake(self.bounds.origin.x, self.bounds.origin.y, 320, 20);
+//            contentView.frame = self.bounds;
+//        }
+//    }
 
 }
 
@@ -210,8 +228,8 @@
         NSLog(@"もうある");
         
     }
-    
-    
+
+
 
 }
 

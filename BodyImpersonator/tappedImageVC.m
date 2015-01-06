@@ -23,6 +23,7 @@
 - (IBAction)btnCoverAllDisplay:(UIButton *)sender;
 - (IBAction)actionBtn:(UIBarButtonItem *)sender;
 @property (weak, nonatomic) IBOutlet kBIUIViewShowMusicHundlerInfo *customUIView;
+@property (weak, nonatomic) IBOutlet UIView *kUIViewMiniPlayerWrapper;
 
 
 @end
@@ -55,7 +56,7 @@
     [[NSUserDefaults standardUserDefaults]synchronize];
     NSLog(@"viewchanged:%ld",(long)countViewChanged);
     
-
+    [self.customUIView setHidden:1];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -71,7 +72,8 @@
         [[kADMOBInterstitialSingleton sharedInstans] interstitialControll];
     }
     self.customUIView.selectedIndexNum = self.tappedIndexPath.row;
-    [self.customUIView updateViewItems];
+    [self.customUIView showMusicHundlerInfo];
+    [NSObject slideInUIViewToCenter:self.customUIView];
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
@@ -352,12 +354,13 @@
 
 
 - (IBAction)btnCoverAllDisplay:(UIButton *)sender {
-//    if (!_navigationBar.hidden) {
-//        [NSObject animationHideNavBar:_navigationBar ToolBar:_toolBar];
-//    }else{
-//        [NSObject animationAppearNavBar:_navigationBar ToolBar:_toolBar];
-//    }
     [self actionSetImage:nil UIBtn:sender];
+    
+//    if (!_navigationBar.hidden) {
+//        [NSObject animationHideNavBar:_navigationBar ToolBar:_toolBar kView:_kUIViewMiniPlayerWrapper];
+//    }else{
+//        [NSObject animationAppearNavBar:_navigationBar ToolBar:_toolBar kView:_kUIViewMiniPlayerWrapper];
+//    }
 }
 
 #pragma mark -
