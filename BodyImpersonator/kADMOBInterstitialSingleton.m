@@ -72,19 +72,11 @@ static kADMOBInterstitialSingleton *_interstitialController = nil;
     
 }
 
-- (UIViewController*) topMostController{
-    UIViewController *topController = [UIApplication sharedApplication].keyWindow.rootViewController;
-    while (topController.presentedViewController) {
-        topController = topController.presentedViewController;
-    }
-    return topController;
-}
-
 - (void)showInterstitial{
     NSLog(@"displayInterstitial");
     if (interstitial_.isReady) {
         [[UIApplication sharedApplication] endIgnoringInteractionEvents];
-        UIViewController *topVC = [self topMostController];
+        UIViewController *topVC = [NSObject topViewController];
         [interstitial_ presentFromRootViewController:topVC];
     } else {
         NSLog(@"インタースティシャルがnot ready");

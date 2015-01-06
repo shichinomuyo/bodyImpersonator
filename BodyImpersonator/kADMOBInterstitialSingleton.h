@@ -8,7 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import "GADInterstitial.h"
-static const NSInteger kINTERSTITIAL_DISPLAY_RATE_SINGLETON = 100000;
+#import "NSObject+MyMethod.h"
+static const NSInteger kINTERSTITIAL_DISPLAY_RATE_SINGLETON = 5;
 #define MY_INTERSTITIAL_UNIT_ID @"ca-app-pub-5959590649595305/1259039270"
 
 @interface kADMOBInterstitialSingleton : NSObject<GADInterstitialDelegate>{

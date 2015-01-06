@@ -63,10 +63,12 @@
     [[NSUserDefaults standardUserDefaults] setInteger:countViewChanged forKey:@"KEY_countUpViewChanged"];
     [[NSUserDefaults standardUserDefaults]synchronize];
     NSLog(@"viewchanged:%d",(int)countViewChanged);
+    
+    [self.customUIView setHidden:1];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
-
+    
 
 }
 
@@ -81,6 +83,18 @@
     }
     self.customUIView.selectedIndexNum = self.selectedIndexPath.row;
     [self.customUIView updateViewItems];
+
+    [NSObject slideInUIViewToCenter:self.customUIView];
+    // デバイスがiphoneであるかそうでないかで分岐
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
+        NSLog(@"iPhoneの処理");
+    }
+    else{
+        NSLog(@"iPadの処理");
+      
+    }
+
+
 }
 
 -(void)viewDidLayoutSubviews{

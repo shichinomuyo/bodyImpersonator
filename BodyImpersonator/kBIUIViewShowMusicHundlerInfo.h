@@ -14,6 +14,7 @@
 #import "AVAudioPlayer+CustomControllers.h"
 #import "kAVAudioPlayerManager.h"
 #import "BugFixContainerView.h"
+#import "NSObject+MyMethod.h"
 
 @interface kBIUIViewShowMusicHundlerInfo : UIView<AVAudioPlayerDelegate,UINavigationControllerDelegate>{
     kBIMusicHundlerByImageName *_hundler;

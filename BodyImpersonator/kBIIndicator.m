@@ -12,7 +12,7 @@
 
 - (void)indicatorStart{
     NSLog(@"indicator start");
-    UIViewController *topVC = [self topMostController];
+    UIViewController *topVC = [NSObject topMostController];
     int baseViewWidth;
     int baseViewHeight;
 
@@ -66,14 +66,6 @@
     [indicator removeFromSuperview];
     [indicatorBaseView removeFromSuperview];
     
-}
-
-- (UIViewController*) topMostController{
-    UIViewController *topController = [UIApplication sharedApplication].keyWindow.rootViewController;
-    while (topController.presentedViewController) {
-        topController = topController.presentedViewController;
-    }
-    return topController;
 }
 
 @end

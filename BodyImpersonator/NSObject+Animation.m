@@ -99,5 +99,20 @@
                      } completion:nil];
 }
 
++ (void)slideInUIViewToCenter:(UIView *)view{
+        [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
+    view.center = CGPointMake((0 - view.center.x),view.center.y);
+    [view setHidden:0];
+    [UIView animateKeyframesWithDuration:0.7
+                                   delay:0.0
+                                 options:0 << 16
+                              animations:^{
+                                  view.center = CGPointMake(view.superview.superview.center.x, view.center.y);
+                                  
+                              } completion:^(BOOL finished){
+                                      [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+                              }];
+}
+
 
 @end

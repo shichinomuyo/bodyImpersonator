@@ -16,4 +16,6 @@
 
 + (void)animationAppearNavBar:(UINavigationBar *)nav ToolBar:(UIToolbar *)tool kView:(UIView *)view;
 + (void)pickerViewAppear:(UIPickerView *)picker;
+
++ (void)slideInUIViewToCenter:(UIView *)view;
 @end

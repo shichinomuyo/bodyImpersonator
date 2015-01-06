@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "NSObject+MyMethod.h"
 
 @interface kBIIndicator : NSObject{
     UIView *indicatorBaseView;

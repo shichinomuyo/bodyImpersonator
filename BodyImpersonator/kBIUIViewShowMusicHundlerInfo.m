@@ -142,6 +142,14 @@
             NSLog(@"アニメーションあり");
         }else{
             NSLog(@"アニメーションなし");
+//            [viewHaveLabel setBounds:CGRectMake(0, 0, textWidth, viewHaveLabel.frame.size.height)];
+            UIViewController *vc = [NSObject topViewController];
+            NSString *identifier = vc.restorationIdentifier;
+            NSLog(@"identifier:%@",identifier);
+            if ([identifier isEqual: @"previewVC"]) {
+                            [self setBounds:CGRectMake(0, 0,(self.frame.size.width - (viewHaveLabel.frame.size.width - textWidth)), self.frame.size.height)];
+            }
+
         }
     }
 
@@ -246,4 +254,6 @@
 
     
 }
+
+
 @end
