@@ -47,8 +47,8 @@
 "OtherApps" = "Other Apps";
 
 // BISettingVC dataSourceSettings section:0
-"Sound&Effect" = "Sound & Effect";
-"MotionControlls" = "Motion Controlls";
+"Sound&Effect" = "Sound & Effect Settings";
+"ControllSettings" = "Controll Settings";
 
 // BISettingVC dataSourceAddOn dataSourceAddOnDesc section:1
 "RemoveAD&RegistrableCap" = "RemoveAD & RegistrableCap";
@@ -72,6 +72,7 @@
 // section0
 "StartPlayingByShake" = "Start Playing By Shake";
 "FinishPlayingByShake" = "Finish Playing By Shake";
+"FinishPlayingByDoubleTap" = "Back to Main View By DoubleTap after Image displayed";
 // section1
 "StartPlayingWithVibration" = "Start Playing With Vibration";
 "FinishPlayingWithVibration" = "Finish Playing With Vibration";

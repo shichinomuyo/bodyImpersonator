@@ -57,7 +57,6 @@
 		56427EBC19AB918C00B516A0 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EBB19AB918C00B516A0 /* SystemConfiguration.framework */; };
 		56427EBE19AB919B00B516A0 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EBD19AB919B00B516A0 /* MessageUI.framework */; };
 		56427EC019AB91BF00B516A0 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EBF19AB91BE00B516A0 /* StoreKit.framework */; };
-		564AD77B19E3B4FB0069901D /* previewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 564AD77A19E3B4FB0069901D /* previewVC.m */; };
 		565E97DA1A0D0B4000C18266 /* BICollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 565E97D91A0D0B4000C18266 /* BICollectionReusableView.m */; };
 		5676F8551A20703F00F7067F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5676F8571A20703F00F7067F /* Localizable.strings */; };
 		5686757B19BED3C900AF524A /* secondVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5686757A19BED3C900AF524A /* secondVC.m */; };
@@ -167,8 +166,6 @@
 		56427EBB19AB918C00B516A0 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		56427EBD19AB919B00B516A0 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		56427EBF19AB91BE00B516A0 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
-		564AD77919E3B4FB0069901D /* previewVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = previewVC.h; sourceTree = "<group>"; };
-		564AD77A19E3B4FB0069901D /* previewVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = previewVC.m; sourceTree = "<group>"; };
 		565E97D81A0D0B4000C18266 /* BICollectionReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BICollectionReusableView.h; sourceTree = "<group>"; };
 		565E97D91A0D0B4000C18266 /* BICollectionReusableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BICollectionReusableView.m; sourceTree = "<group>"; };
 		5676F8561A20703F00F7067F /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -654,8 +651,6 @@
 		568B96B71A1EBFDF00368272 /* PreveiwVC */ = {
 			isa = PBXGroup;
 			children = (
-				564AD77919E3B4FB0069901D /* previewVC.h */,
-				564AD77A19E3B4FB0069901D /* previewVC.m */,
 				568B961C1A185CF300368272 /* tappedImageVC.h */,
 				568B961D1A185CF300368272 /* tappedImageVC.m */,
 			);
@@ -867,7 +862,6 @@
 				56427E2719AB823200B516A0 /* AppDelegate.m in Sources */,
 				568B96011A12350500368272 /* BIFeedbakAndActionCell.m in Sources */,
 				56427E2319AB823200B516A0 /* main.m in Sources */,
-				564AD77B19E3B4FB0069901D /* previewVC.m in Sources */,
 				56A9A9FA1A284AA100DBE7F4 /* kBIAddOnPurchaseViewController.m in Sources */,
 				5606B0511A4FD7C8003F6E9E /* kAVAudioPlayerManager.m in Sources */,
 				5633F7F61A5BA4AF00D63275 /* NSObject+MyMethod.m in Sources */,

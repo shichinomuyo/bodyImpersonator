@@ -16,7 +16,6 @@
 #import "NADView.h"
 #import "AppDelegate.h"
 #import "secondVC.h"
-#import "previewVC.h"
 #import "playVC.h" // indexpath受け渡し用にインポート
 #import "kBIMediaPickerController.h" // segmentedControllの2のボタンをタップでメディアピッカーを開く
 #import "FrameOutCollectionViewFlowLayout.h"

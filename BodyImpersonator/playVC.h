@@ -30,6 +30,7 @@
 @property BOOL iPodLibMusicOn;
 @property BOOL flashOn;
 @property BOOL finishPlayingByShakeOn;
+@property BOOL finishPlayingByDoubleTapOn;
 @property BOOL finishPlayingWithVibeOn;
 @property NSString *bgColorName;
 @property NSIndexPath *selectedIndexPath;

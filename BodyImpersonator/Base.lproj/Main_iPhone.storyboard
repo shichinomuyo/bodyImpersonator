@@ -413,17 +413,22 @@
                                         <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="256" height="256"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Aa5-4K-1cF">
                                                     <rect key="frame" x="0.0" y="0.0" width="106" height="106"/>
+                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                                        <rect key="frame" x="0.0" y="0.0" width="0.0" height="0.0"/>
+                                                    </variation>
                                                     <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
                                                         <rect key="frame" x="0.0" y="0.0" width="0.0" height="0.0"/>
                                                     </variation>
                                                 </imageView>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Fb7-4c-cRg" userLabel="Image View SelectedFrame">
                                                     <rect key="frame" x="0.0" y="0.0" width="106" height="106"/>
+                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                                        <rect key="frame" x="0.0" y="0.0" width="0.0" height="0.0"/>
+                                                    </variation>
                                                     <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
                                                         <rect key="frame" x="0.0" y="0.0" width="0.0" height="0.0"/>
                                                     </variation>
@@ -1013,157 +1018,6 @@
                 <exit id="PXh-qx-qZa" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="3354.75" y="977.25"/>
-        </scene>
-        <!--previewVC-->
-        <scene sceneID="iTF-UA-uhs">
-            <objects>
-                <viewController storyboardIdentifier="previewVC" title="previewVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Ml1-cR-wrA" userLabel="previewVC" customClass="previewVC" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="3Dn-Uf-NDo"/>
-                        <viewControllerLayoutGuide type="bottom" id="xGd-cJ-Pwp"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="center" id="N5p-lA-Ife">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="EOC-7T-xUJ" userLabel="previewImageView">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uE7-Vv-hb6">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <state key="normal">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="btnCoverAllDisplay:" destination="Ml1-cR-wrA" eventType="touchUpInside" id="Uud-K6-KTV"/>
-                                </connections>
-                            </button>
-                            <navigationBar alpha="0.69999999999999973" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pHb-d5-Bo5">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="64"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="64" id="jqB-aT-U4e"/>
-                                </constraints>
-                                <items>
-                                    <navigationItem title="Selected Image Preview" id="bN0-Fe-ar9">
-                                        <barButtonItem key="leftBarButtonItem" title="Back" id="HbL-4b-MOz">
-                                            <connections>
-                                                <segue destination="6gl-yu-fDZ" kind="unwind" identifier="cancel" unwindAction="firstViewReturnActionForSegue:" id="ufg-i3-4th"/>
-                                            </connections>
-                                        </barButtonItem>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" alpha="0.79999999999999982" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gd3-VV-hwc">
-                                <rect key="frame" x="0.0" y="556" width="600" height="44"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="QQZ-FM-DBy"/>
-                                </constraints>
-                                <items>
-                                    <barButtonItem systemItem="action" id="WSd-Hs-AeH">
-                                        <connections>
-                                            <action selector="actionBtn:" destination="Ml1-cR-wrA" id="QBZ-wF-ex6"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="wPS-cm-KlK"/>
-                                    <barButtonItem image="ICON_MUSIC_44x44" id="xbR-d2-gsv">
-                                        <connections>
-                                            <action selector="actionSelectMusic:" destination="Ml1-cR-wrA" id="dHI-ed-oSk"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="Thx-wV-hfG"/>
-                                    <barButtonItem systemItem="trash" id="jVY-O7-Qmf">
-                                        <connections>
-                                            <action selector="removeItemBtn:" destination="Ml1-cR-wrA" id="RYN-oV-jm1"/>
-                                        </connections>
-                                    </barButtonItem>
-                                </items>
-                            </toolbar>
-                            <view alpha="0.79999999999999982" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rki-2B-Kb3">
-                                <rect key="frame" x="0.0" y="536" width="600" height="20"/>
-                                <subviews>
-                                    <view opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dAm-ib-DaK" customClass="kBIUIViewShowMusicHundlerInfo">
-                                        <rect key="frame" x="200" y="0.0" width="200" height="20"/>
-                                        <color key="backgroundColor" red="0.27121157109999999" green="0.57638888239999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="20" id="9uH-77-lKO"/>
-                                            <constraint firstAttribute="width" constant="360" id="LBB-fJ-8pv"/>
-                                            <constraint firstAttribute="width" constant="200" id="Q6C-39-y36"/>
-                                        </constraints>
-                                        <variation key="default">
-                                            <mask key="constraints">
-                                                <exclude reference="LBB-fJ-8pv"/>
-                                                <exclude reference="Q6C-39-y36"/>
-                                            </mask>
-                                        </variation>
-                                        <variation key="heightClass=regular-widthClass=compact">
-                                            <mask key="constraints">
-                                                <include reference="9uH-77-lKO"/>
-                                                <include reference="Q6C-39-y36"/>
-                                            </mask>
-                                        </variation>
-                                        <variation key="heightClass=regular-widthClass=regular">
-                                            <mask key="constraints">
-                                                <include reference="9uH-77-lKO"/>
-                                                <include reference="LBB-fJ-8pv"/>
-                                            </mask>
-                                        </variation>
-                                    </view>
-                                </subviews>
-                                <color key="backgroundColor" red="0.76802009339999999" green="0.19092153009999999" blue="0.1609260887" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="20" id="OcS-2Y-Xjg"/>
-                                    <constraint firstAttribute="centerX" secondItem="dAm-ib-DaK" secondAttribute="centerX" id="XM0-8K-d13"/>
-                                    <constraint firstAttribute="bottom" secondItem="dAm-ib-DaK" secondAttribute="bottom" id="aHO-zN-NIO"/>
-                                    <constraint firstItem="dAm-ib-DaK" firstAttribute="top" secondItem="rki-2B-Kb3" secondAttribute="top" id="iw9-0O-l3O"/>
-                                </constraints>
-                                <variation key="heightClass=regular-widthClass=compact">
-                                    <mask key="subviews">
-                                        <include reference="dAm-ib-DaK"/>
-                                    </mask>
-                                </variation>
-                                <variation key="heightClass=regular-widthClass=regular">
-                                    <mask key="subviews">
-                                        <include reference="dAm-ib-DaK"/>
-                                    </mask>
-                                </variation>
-                            </view>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="rki-2B-Kb3" firstAttribute="leading" secondItem="N5p-lA-Ife" secondAttribute="leading" id="1W6-Ix-rqF"/>
-                            <constraint firstAttribute="bottom" secondItem="uE7-Vv-hb6" secondAttribute="bottom" id="Hz8-a2-lwy"/>
-                            <constraint firstItem="pHb-d5-Bo5" firstAttribute="top" secondItem="N5p-lA-Ife" secondAttribute="top" id="LOt-GR-rYO"/>
-                            <constraint firstAttribute="trailing" secondItem="Gd3-VV-hwc" secondAttribute="trailing" id="M6o-lS-UrQ"/>
-                            <constraint firstItem="EOC-7T-xUJ" firstAttribute="leading" secondItem="N5p-lA-Ife" secondAttribute="leading" id="QLM-Zd-zKu"/>
-                            <constraint firstItem="Gd3-VV-hwc" firstAttribute="leading" secondItem="N5p-lA-Ife" secondAttribute="leading" id="Qdv-Sv-gwp"/>
-                            <constraint firstItem="Gd3-VV-hwc" firstAttribute="top" secondItem="rki-2B-Kb3" secondAttribute="bottom" id="RKe-Io-Qv8"/>
-                            <constraint firstAttribute="trailing" secondItem="rki-2B-Kb3" secondAttribute="trailing" id="RgG-Op-vEl"/>
-                            <constraint firstAttribute="bottom" secondItem="Gd3-VV-hwc" secondAttribute="bottom" id="Se9-ye-786"/>
-                            <constraint firstItem="uE7-Vv-hb6" firstAttribute="top" secondItem="N5p-lA-Ife" secondAttribute="top" id="XBx-5T-M9V"/>
-                            <constraint firstItem="pHb-d5-Bo5" firstAttribute="leading" secondItem="N5p-lA-Ife" secondAttribute="leading" id="ZrB-6a-JyZ"/>
-                            <constraint firstAttribute="trailing" secondItem="uE7-Vv-hb6" secondAttribute="trailing" id="abr-K9-2hm"/>
-                            <constraint firstItem="uE7-Vv-hb6" firstAttribute="leading" secondItem="N5p-lA-Ife" secondAttribute="leading" id="b5j-UR-3tt"/>
-                            <constraint firstItem="EOC-7T-xUJ" firstAttribute="top" secondItem="N5p-lA-Ife" secondAttribute="top" id="cfo-Ka-HwX"/>
-                            <constraint firstAttribute="trailing" secondItem="EOC-7T-xUJ" secondAttribute="trailing" id="gZy-ia-KYJ"/>
-                            <constraint firstAttribute="trailing" secondItem="pHb-d5-Bo5" secondAttribute="trailing" id="hH7-vF-FHL"/>
-                            <constraint firstAttribute="bottom" secondItem="EOC-7T-xUJ" secondAttribute="bottom" id="mFc-5f-eDM"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" id="anj-bW-EAz"/>
-                    <connections>
-                        <outlet property="customUIView" destination="dAm-ib-DaK" id="4LH-jP-jto"/>
-                        <outlet property="kUIViewMiniPlayerWrapper" destination="rki-2B-Kb3" id="ohB-7C-VcM"/>
-                        <outlet property="navigationBar" destination="pHb-d5-Bo5" id="V6U-me-9GH"/>
-                        <outlet property="previewImageView" destination="EOC-7T-xUJ" id="ZrJ-kS-EdL"/>
-                        <outlet property="toolBar" destination="Gd3-VV-hwc" id="HtY-6n-ta7"/>
-                        <segue destination="6gl-yu-fDZ" kind="unwind" identifier="BackFromPreviewVCRemoveItemBtn" unwindAction="firstViewReturnActionForSegue:" id="EIx-j5-HZM"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="49u-XO-Twl" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="6gl-yu-fDZ" userLabel="Exit" sceneMemberID="exit"/>
-            </objects>
-            <point key="canvasLocation" x="3355" y="318"/>
         </scene>
         <!--tappedImageVC-->
         <scene sceneID="7HX-cv-jQN">
@@ -2275,8 +2129,8 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="sTl-ey-9Gz" id="vRH-dQ-ARs">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="CellHaveBtn" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M3w-hc-8jO">
-                                                    <rect key="frame" x="20" y="12" width="96" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CellHaveBtn" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M3w-hc-8jO">
+                                                    <rect key="frame" x="20" y="11" width="96" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>

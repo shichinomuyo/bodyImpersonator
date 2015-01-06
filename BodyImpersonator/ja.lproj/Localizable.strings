@@ -44,8 +44,8 @@
 "Free:" = "無料:";
 
 // BISettingVC dataSourceSettings section:0
-"Sound&Effect" = "サウンド&視覚効果";
-"MotionControlls" = "モーションコントロール";
+"Sound&Effect" = "サウンド&視覚効果設定";
+"ControllSettings" = "操作設定";
 
 // BISettingVC dataSourceAddOn dataSourceAddOnDesc section:1
 "RemoveAD&RegistrableCap" = "広告非表示&画像登録上限数UP";
@@ -69,6 +69,7 @@
 // section0
 "StartPlayingByShake" = "シェイク操作で開始";
 "FinishPlayingByShake" = "シェイク操作で終了";
+"FinishPlayingByDoubleTap" = "画像表示後ダブルタップで最初の画面へ戻る";
 // section1
 "StartPlayingWithVibration" = "開始時に振動";
 "FinishPlayingWithVibration" = "終了時に振動";

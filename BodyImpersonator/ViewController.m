@@ -79,6 +79,7 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     [appDefaults setObject:@"YES" forKey:@"KEY_FlashEffectOn"];
     [appDefaults setObject:@"YES" forKey:@"KEY_StartPlayingByShakeOn"];
     [appDefaults setObject:@"YES" forKey:@"KEY_FinishPlayingByShakeOn"];
+    [appDefaults setObject:@"NO"  forKey:@"KEY_FinishPlayingByDoubleTapOn"];
     [appDefaults setObject:@"NO"  forKey:@"KEY_StartPlayingWithVibeOn"];
     [appDefaults setObject:@"YES" forKey:@"KEY_FinishPlayingWithVibeOn"];
     // 再生中のバックグランドカラーを初期化

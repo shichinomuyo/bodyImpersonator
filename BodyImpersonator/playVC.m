@@ -43,6 +43,11 @@
     
     // GoogleAnalytics導入のため以下設定
     self.screenName = @"BI_PlayVC";
+    // ダブルタップジェスチャーを作る
+    UITapGestureRecognizer *doubleTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleTapImage:)];
+    doubleTapGesture.numberOfTapsRequired = 2;
+    self.BFCV.knobImageView.userInteractionEnabled = YES;
+    [self.BFCV.knobImageView addGestureRecognizer:doubleTapGesture];
     
     //バックグラウンド時の対応
     
@@ -78,7 +83,7 @@
     
     // selectedPhotoImageを非表示に設定
     [self.BFCV.knobImageView setHidden:1];
-        [self.BFCV.knobImageView setImage:_selectedImage];
+    [self.BFCV.knobImageView setImage:_selectedImage];
     
     // settingsStateLoad
     self.musicOn = [[NSUserDefaults standardUserDefaults]boolForKey:@"KEY_MusicOn"];
@@ -87,7 +92,9 @@
     self.flashOn = [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_FlashEffectOn"];
     self.bgColorName = [[NSUserDefaults standardUserDefaults] objectForKey:@"KEY_PlayVCBGColor"];
     self.finishPlayingByShakeOn = [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_FinishPlayingByShakeOn"];
+    self.finishPlayingByDoubleTapOn = [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_FinishPlayingByDoubleTapOn"];
     self.finishPlayingWithVibeOn= [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_FinishPlayingWithVibeOn"];
+
     NSLog(@"bgColorName:%@",self.bgColorName);
    
     {
@@ -122,7 +129,7 @@
         NSLog(@"crashsoundon");
     }
 
-    [self playStart];
+ 
 
 }
 
@@ -259,23 +266,44 @@
 
 #pragma mark actionControlls
 - (IBAction)stopBtn:(UIButton *)sender {
-    if (_rollPlayerAlt.isPlaying || _rollPlayerTmp.isPlaying) { // ロールが鳴っているとき
-        [self stopDrumRollAndPlayCrash]; // ロールを止めてクラッシュを鳴らしアニメーション
-    } else if (_originalMusicPlayer.isPlaying){ // ロールが鳴っていなくてオリジナル曲が鳴っているとき
-        [_originalMusicPlayer stop];
-        [self playCrash]; // クラッシュを鳴らしてアニメーション
-    } else if (_iPodLibMusicPlayer.isPlaying) { // 自前のフラグ
+
+        if (_rollPlayerAlt.isPlaying || _rollPlayerTmp.isPlaying) { // ロールが鳴っているとき
+            [self stopDrumRollAndPlayCrash]; // ロールを止めてクラッシュを鳴らしアニメーション
+            if (_finishPlayingByDoubleTapOn) {
+                [self.view bringSubviewToFront:self.BFCV];
+            }
+        } else if (_originalMusicPlayer.isPlaying){ // ロールが鳴っていなくてオリジナル曲が鳴っているとき
+            [_originalMusicPlayer stop];
+            [self playCrash]; // クラッシュを鳴らしてアニメーション
+            if (_finishPlayingByDoubleTapOn) {
+                [self.view bringSubviewToFront:self.BFCV];
+            }
+        } else if (_iPodLibMusicPlayer.isPlaying) { // 自前のフラグ
             NSLog(@"stopMPM");
             [_iPodLibMusicPlayer stop];
             [self playCrash];
-    }
-    else{
-        if (self.BFCV.knobImageView.hidden == 1) {
-            [self playCrash]; // ロールがなっていないのでクラッシュだけを鳴らしアニメーション
-        }else{
-            [self performSegueWithIdentifier:@"unwindFromPlayVC" sender:self]; // 最初の画面に戻る
+            if (_finishPlayingByDoubleTapOn) {
+                [self.view bringSubviewToFront:self.BFCV];
+            }
         }
+        else{ // 音が鳴っていない時
+            if (self.BFCV.knobImageView.hidden == 1) {
+                [self playCrash]; // ロールがなっていないのでクラッシュだけを鳴らしアニメーション
+                if (_finishPlayingByDoubleTapOn) {
+                    [self.view bringSubviewToFront:self.BFCV];
+                }
+               
+            }else{
+                if (!_finishPlayingByDoubleTapOn) {
+                    [self performSegueWithIdentifier:@"unwindFromPlayVC" sender:self]; // 最初の画面に戻る
+                }
+            }
+        }
+}
 
+- (void)doubleTapImage:(UITapGestureRecognizer *)gesture {
+    if (_finishPlayingByDoubleTapOn) {
+        [self performSegueWithIdentifier:@"unwindFromPlayVC" sender:self]; // 最初の画面に戻る
     }
 }
 
@@ -445,7 +473,10 @@
 }
 
 -(void)viewWillAppear:(BOOL)animated{
+    [self playStart];
+}
 
+-(void)viewDidAppear:(BOOL)animated{
     
 }
 

@@ -43,9 +43,9 @@
     NSString *otherApps = [[NSString alloc] initWithFormat:NSLocalizedString(@"OtherApps", nil)];
     self.sectionList = @[settings, addOn, feedbackShareThisApp, otherApps];
     // sectionごとにデータソースを作成
-    NSString *soundEffect = [[NSString alloc] initWithFormat:NSLocalizedString(@"Sound&Effect", nil)];
-    NSString *motionControlls = [[NSString alloc] initWithFormat:NSLocalizedString(@"MotionControlls", nil)];
-    self.dataSourceSettings = @[soundEffect , motionControlls]; // section0
+    NSString *soundEffect = [[NSString alloc] initWithFormat:NSLocalizedString(@"Sound&EffectSettings", nil)];
+    NSString *controllSettings = [[NSString alloc] initWithFormat:NSLocalizedString(@"ControllSettings", nil)];
+    self.dataSourceSettings = @[soundEffect , controllSettings]; // section0
     
     NSString *removeADandCap = [[NSString alloc] initWithFormat:NSLocalizedString(@"RemoveAD&RegistrableCap", nil)];
     NSString *restore = [[NSString alloc] initWithFormat:NSLocalizedString(@"Restore", nil)];

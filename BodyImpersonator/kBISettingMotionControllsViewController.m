@@ -32,16 +32,18 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     // sectionList
-    NSString *motionControlls = [[NSString alloc] initWithFormat:NSLocalizedString(@"MotionControlls", nil)];
+    NSString *controllSettings = [[NSString alloc] initWithFormat:NSLocalizedString(@"ControllSettings", nil)];
     NSString *vibrationSettings = [[NSString alloc] initWithFormat:NSLocalizedString(@"VibrationSettings", nil)];
-    self.sectionList = @[motionControlls, vibrationSettings];
+    self.sectionList = @[controllSettings, vibrationSettings];
     // section1
     NSString *startPlayingByShake = [[NSString alloc] initWithFormat:NSLocalizedString(@"StartPlayingByShake", nil)];
     NSString *finishPlayingByShake = [[NSString alloc] initWithFormat:NSLocalizedString(@"FinishPlayingByShake", nil)];
-    self.dataSourceMotionControlls = @[startPlayingByShake, finishPlayingByShake];
+    NSString *finishPlayingByDoubleTap = [[NSString alloc] initWithFormat:NSLocalizedString(@"FinishPlayingByDoubleTap", nil)];
+    self.dataSourceMotionControlls = @[startPlayingByShake, finishPlayingByShake, finishPlayingByDoubleTap];
     // シェイクジェスチャーEnableフラグ確認
     self.startPlayingByShakeOn = [[NSUserDefaults standardUserDefaults]boolForKey:@"KEY_StartPlayingByShakeOn"];
     self.finishPlayingByShakeOn = [[NSUserDefaults standardUserDefaults]boolForKey:@"KEY_FinishPlayingByShakeOn"];
+    self.finishPlayingByDoubleTapOn = [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_FinishPlayingByDoubleTapOn"];
     
     // section2
     NSString *startPlayingWithVibration = [[NSString alloc] initWithFormat:NSLocalizedString(@"StartPlayingWithVibration", nil)];
@@ -145,6 +147,14 @@
                 case 1: //　@"FinishPlaying"
                     [sw addTarget:self action:@selector(tapFinishPlayingByMotionSW:) forControlEvents:UIControlEventTouchUpInside];
                     if (self.finishPlayingByShakeOn) {
+                        [sw setOn:YES];
+                    }else{
+                        [sw setOn:NO];
+                    }
+                    break;
+                case 2: //　@"FinishPlayingByDoubleTap"
+                    [sw addTarget:self action:@selector(tapFinishPlayingByDoubleTapSW:) forControlEvents:UIControlEventTouchUpInside];
+                    if (self.finishPlayingByDoubleTapOn) {
                         [sw setOn:YES];
                     }else{
                         [sw setOn:NO];
@@ -275,6 +285,16 @@
     [[NSUserDefaults standardUserDefaults] setBool:_finishPlayingByShakeOn forKey:@"KEY_FinishPlayingByShakeOn"];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
+}
+
+- (void)tapFinishPlayingByDoubleTapSW:(UISwitch *)sender{
+    if(sender.on){
+        _finishPlayingByDoubleTapOn = YES;
+    }else{
+        _finishPlayingByDoubleTapOn = NO;
+    }
+    [[NSUserDefaults standardUserDefaults] setBool:_finishPlayingByDoubleTapOn forKey:@"KEY_FinishPlayingByDoubleTapOn"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 -(void)tapStartPlayingWithBibeSW:(UISwitch *)sender{
