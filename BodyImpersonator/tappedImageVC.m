@@ -24,6 +24,7 @@
 - (IBAction)actionBtn:(UIBarButtonItem *)sender;
 @property (weak, nonatomic) IBOutlet kBIUIViewShowMusicHundlerInfo *customUIView;
 @property (weak, nonatomic) IBOutlet UIView *kUIViewMiniPlayerWrapper;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *btnSetImage;
 
 
 @end
@@ -33,6 +34,20 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    [self.navigationBar.items[0] setTitle:self.viewTitle]; // Veiwのタイトルをメインビューから引き継いだviewTitleにより動的に変更
+
+    // viewTitleがSelected Imageだった場合、setImageBtnを削除(MusicFlexible Spaceも削除)
+    NSString *locTitle = [[NSString alloc] initWithFormat:NSLocalizedString(@"Selected Image", nil)];
+    if ([self.viewTitle isEqualToString:locTitle]) {
+        NSMutableArray *items = [[NSMutableArray alloc] initWithArray:_toolBar.items];
+        NSMutableIndexSet *indexSet = [[NSMutableIndexSet alloc]init];
+        [indexSet addIndex:3];
+        [indexSet addIndex:4];
+        [items removeObjectsAtIndexes:indexSet];
+        [_toolBar setItems:items];
+    }
+    
     
     // GoogleAnalytics導入のため以下設定
     self.screenName = @"BI_TappedVC";
@@ -61,6 +76,7 @@
 
 - (void)viewWillAppear:(BOOL)animated{
 //        [self viewSizeMake:1.0];
+    
 
 }
 

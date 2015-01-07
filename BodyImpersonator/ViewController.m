@@ -329,9 +329,10 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
 // tappedImageVCとplayVCへ遷移するときの値渡し
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"pushToTappedVCWithSeletedImage"]) {
-        tappedImageVC *pVC = [segue destinationViewController];
-        pVC.selectedImage = _selectedImage;
-        pVC.tappedIndexPath = _selectedIndexPath;
+        tappedImageVC *tappedVC = [segue destinationViewController];
+        tappedVC.viewTitle = [[NSString alloc] initWithFormat:NSLocalizedString(@"Selected Image", nil)];
+        tappedVC.selectedImage = _selectedImage;
+        tappedVC.tappedIndexPath = _selectedIndexPath;
         
         
     }else if([segue.identifier isEqualToString:@"moveToPlayVC"]){
@@ -762,16 +763,16 @@ NSLog(@"selectTagViewSize:%@",NSStringFromCGSize(cell.imageViewSelectedFrame.fra
 
 // セルをタップしたらtappedImageVCに遷移しその画像を表示させる
 - (void)actionImageTapped:(NSIndexPath *)indexPath{
-
+  tappedImageVC *tappedImgVC = [self.storyboard instantiateViewControllerWithIdentifier:@"tappedImageVC"];
     _tappedIndexPath = indexPath;
     if (_tappedIndexPath == _selectedIndexPath) {
-        tappedImageVC *pVC = [self.storyboard instantiateViewControllerWithIdentifier:@"tappedImageVC"];
-        pVC.selectedImage = _selectedImage;
-        pVC.tappedIndexPath = _tappedIndexPath; // 曲情報を更新・保存するために使う
-        [self.navigationController pushViewController:pVC animated:YES];
+        tappedImgVC.viewTitle = [[NSString alloc] initWithFormat:NSLocalizedString(@"Selected Image", nil)];
+        tappedImgVC.selectedImage = _selectedImage; // 選択中の画像を渡す
+        tappedImgVC.tappedIndexPath = _tappedIndexPath; // 曲情報を更新・保存するために使う
+        [self.navigationController pushViewController:tappedImgVC animated:YES];
 
     } else{
-        tappedImageVC *tappedImgVC = [self.storyboard instantiateViewControllerWithIdentifier:@"tappedImageVC"];
+      
         // 選択したセルの画像をselectedImageに保存
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         NSArray *imageNames = [defaults objectForKey:@"KEY_imageNames"];
@@ -780,7 +781,8 @@ NSLog(@"selectTagViewSize:%@",NSStringFromCGSize(cell.imageViewSelectedFrame.fra
         
         // NSDataからUIImageを作成
         UIImage *image = [UIImage imageWithContentsOfFile:filePath];
-        tappedImgVC.selectedImage = image;
+        tappedImgVC.viewTitle = [[NSString alloc] initWithFormat:NSLocalizedString(@"Tapped Image", nil)];
+        tappedImgVC.selectedImage = image; // タップされたセルの画像を渡す
         tappedImgVC.tappedIndexPath = _tappedIndexPath; // 曲情報を更新・保存するために使う
         [self.navigationController pushViewController:tappedImgVC animated:YES];
     }

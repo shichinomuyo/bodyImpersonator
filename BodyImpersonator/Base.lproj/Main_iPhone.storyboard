@@ -103,40 +103,6 @@
                                             <segue destination="YQN-mj-a54" kind="show" id="ecn-rX-rmX"/>
                                         </connections>
                                     </button>
-                                    <button tag="2" contentMode="scaleAspectFit" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PYk-rG-LMN" userLabel="ctrlBtn">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="90"/>
-                                        <color key="backgroundColor" red="0.76802009339999999" green="0.19092153009999999" blue="0.1609260887" alpha="1" colorSpace="calibratedRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="78" id="OFR-nK-wiJ"/>
-                                            <constraint firstAttribute="height" constant="92" id="ZGy-gn-xxP"/>
-                                            <constraint firstAttribute="width" constant="360" id="qUe-oc-vLG"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="27"/>
-                                        <state key="normal" image="BtnPlayCREAMWHITE">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <variation key="default">
-                                            <mask key="constraints">
-                                                <exclude reference="OFR-nK-wiJ"/>
-                                                <exclude reference="ZGy-gn-xxP"/>
-                                                <exclude reference="qUe-oc-vLG"/>
-                                            </mask>
-                                        </variation>
-                                        <variation key="heightClass=regular-widthClass=compact">
-                                            <mask key="constraints">
-                                                <include reference="ZGy-gn-xxP"/>
-                                            </mask>
-                                        </variation>
-                                        <variation key="heightClass=regular-widthClass=regular">
-                                            <mask key="constraints">
-                                                <include reference="OFR-nK-wiJ"/>
-                                                <include reference="qUe-oc-vLG"/>
-                                            </mask>
-                                        </variation>
-                                        <connections>
-                                            <segue destination="xz1-qg-4jT" kind="presentation" identifier="moveToPlayVC" modalTransitionStyle="crossDissolve" id="dFq-uP-Nws"/>
-                                        </connections>
-                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oyw-sU-6qa" userLabel="PreviewUIBtn">
                                         <rect key="frame" x="234" y="92" width="44" height="44"/>
                                         <constraints>
@@ -164,6 +130,40 @@
                                         <connections>
                                             <action selector="previewUIBtn:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Dhk-sM-iF6"/>
                                             <segue destination="yAO-Md-pSK" kind="show" identifier="pushToTappedVCWithSeletedImage" id="AkK-JE-K1X"/>
+                                        </connections>
+                                    </button>
+                                    <button tag="2" contentMode="scaleAspectFit" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PYk-rG-LMN" userLabel="ctrlBtn">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="90"/>
+                                        <color key="backgroundColor" red="0.76802009339999999" green="0.19092153009999999" blue="0.1609260887" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="78" id="OFR-nK-wiJ"/>
+                                            <constraint firstAttribute="height" constant="72" id="ZGy-gn-xxP"/>
+                                            <constraint firstAttribute="width" constant="360" id="qUe-oc-vLG"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="27"/>
+                                        <state key="normal" image="BtnPlayCREAMWHITE">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="OFR-nK-wiJ"/>
+                                                <exclude reference="ZGy-gn-xxP"/>
+                                                <exclude reference="qUe-oc-vLG"/>
+                                            </mask>
+                                        </variation>
+                                        <variation key="heightClass=regular-widthClass=compact">
+                                            <mask key="constraints">
+                                                <include reference="ZGy-gn-xxP"/>
+                                            </mask>
+                                        </variation>
+                                        <variation key="heightClass=regular-widthClass=regular">
+                                            <mask key="constraints">
+                                                <include reference="OFR-nK-wiJ"/>
+                                                <include reference="qUe-oc-vLG"/>
+                                            </mask>
+                                        </variation>
+                                        <connections>
+                                            <segue destination="xz1-qg-4jT" kind="presentation" identifier="moveToPlayVC" modalTransitionStyle="crossDissolve" id="dFq-uP-Nws"/>
                                         </connections>
                                     </button>
                                     <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="m6f-Z5-kt2" customClass="kBIUIViewShowMusicHundlerInfo">
@@ -232,7 +232,6 @@
                                     <constraint firstAttribute="trailing" secondItem="ybG-VO-CVg" secondAttribute="trailing" constant="2" id="PHY-Gm-xoY"/>
                                     <constraint firstItem="m6f-Z5-kt2" firstAttribute="leading" secondItem="4O9-DG-1wD" secondAttribute="leading" constant="8" id="RuW-0c-owB"/>
                                     <constraint firstAttribute="centerX" secondItem="m6f-Z5-kt2" secondAttribute="centerX" id="Seg-dR-M6L"/>
-                                    <constraint firstItem="m6f-Z5-kt2" firstAttribute="top" secondItem="PYk-rG-LMN" secondAttribute="bottom" id="TTQ-ws-PRa"/>
                                     <constraint firstAttribute="bottom" secondItem="m6f-Z5-kt2" secondAttribute="bottom" constant="8" id="UHu-wT-63e"/>
                                     <constraint firstItem="NbV-Q0-nlv" firstAttribute="leading" secondItem="4O9-DG-1wD" secondAttribute="leading" constant="4" id="WBT-gb-LAV"/>
                                     <constraint firstItem="m6f-Z5-kt2" firstAttribute="leading" secondItem="NbV-Q0-nlv" secondAttribute="trailing" id="XeP-0L-F2D"/>
@@ -249,6 +248,7 @@
                                     <constraint firstAttribute="height" constant="136" id="jcz-tp-ehM"/>
                                     <constraint firstItem="oyw-sU-6qa" firstAttribute="leading" secondItem="NbV-Q0-nlv" secondAttribute="trailing" constant="4" id="k1j-nG-a0f"/>
                                     <constraint firstAttribute="trailing" secondItem="ybG-VO-CVg" secondAttribute="trailing" constant="2" id="kCV-iZ-uY8"/>
+                                    <constraint firstItem="m6f-Z5-kt2" firstAttribute="top" secondItem="PYk-rG-LMN" secondAttribute="bottom" id="kYY-XG-Ypf"/>
                                     <constraint firstAttribute="trailing" secondItem="PYk-rG-LMN" secondAttribute="trailing" id="lOm-Yf-w6e"/>
                                     <constraint firstItem="ybG-VO-CVg" firstAttribute="top" secondItem="PYk-rG-LMN" secondAttribute="bottom" constant="2" id="nHB-Fl-bZZ"/>
                                     <constraint firstItem="ybG-VO-CVg" firstAttribute="leading" secondItem="oyw-sU-6qa" secondAttribute="trailing" constant="2" id="oXl-kS-wnH"/>
@@ -263,6 +263,7 @@
                                     <constraint firstAttribute="bottom" secondItem="ybG-VO-CVg" secondAttribute="bottom" constant="2" id="x9D-ce-Ips"/>
                                     <constraint firstAttribute="centerX" secondItem="PYk-rG-LMN" secondAttribute="centerX" id="xJ0-SW-FDG"/>
                                     <constraint firstItem="ybG-VO-CVg" firstAttribute="top" secondItem="PYk-rG-LMN" secondAttribute="bottom" constant="2" id="yCe-tS-oEB"/>
+                                    <constraint firstItem="PYk-rG-LMN" firstAttribute="top" secondItem="4O9-DG-1wD" secondAttribute="top" id="ypa-5s-KrE"/>
                                     <constraint firstItem="PYk-rG-LMN" firstAttribute="leading" secondItem="4O9-DG-1wD" secondAttribute="leading" id="zMu-RO-Kiq"/>
                                     <constraint firstItem="PYk-rG-LMN" firstAttribute="top" secondItem="m6f-Z5-kt2" secondAttribute="bottom" constant="4" id="zaW-zi-WtW"/>
                                 </constraints>
@@ -276,17 +277,9 @@
                                         <exclude reference="jMz-d7-hBN"/>
                                         <exclude reference="lOm-Yf-w6e"/>
                                         <exclude reference="xJ0-SW-FDG"/>
+                                        <exclude reference="ypa-5s-KrE"/>
                                         <exclude reference="zMu-RO-Kiq"/>
                                         <exclude reference="zaW-zi-WtW"/>
-                                        <exclude reference="2ib-Hk-UeB"/>
-                                        <exclude reference="80F-ED-KFf"/>
-                                        <exclude reference="Eho-oO-ras"/>
-                                        <exclude reference="NYt-wm-eDN"/>
-                                        <exclude reference="RuW-0c-owB"/>
-                                        <exclude reference="Seg-dR-M6L"/>
-                                        <exclude reference="TTQ-ws-PRa"/>
-                                        <exclude reference="UHu-wT-63e"/>
-                                        <exclude reference="XeP-0L-F2D"/>
                                         <exclude reference="F88-Zu-p7z"/>
                                         <exclude reference="IHy-XR-zW7"/>
                                         <exclude reference="WBT-gb-LAV"/>
@@ -294,6 +287,15 @@
                                         <exclude reference="bmp-P4-m8v"/>
                                         <exclude reference="cnj-Ln-gqS"/>
                                         <exclude reference="g1T-Nd-HSB"/>
+                                        <exclude reference="2ib-Hk-UeB"/>
+                                        <exclude reference="80F-ED-KFf"/>
+                                        <exclude reference="Eho-oO-ras"/>
+                                        <exclude reference="NYt-wm-eDN"/>
+                                        <exclude reference="RuW-0c-owB"/>
+                                        <exclude reference="Seg-dR-M6L"/>
+                                        <exclude reference="UHu-wT-63e"/>
+                                        <exclude reference="XeP-0L-F2D"/>
+                                        <exclude reference="kYY-XG-Ypf"/>
                                         <exclude reference="LgS-U2-LHm"/>
                                         <exclude reference="Lm5-cC-j7p"/>
                                         <exclude reference="O9L-li-0oz"/>
@@ -335,21 +337,22 @@
                                     <mask key="constraints">
                                         <include reference="jcz-tp-ehM"/>
                                         <exclude reference="Ngp-ax-iWW"/>
-                                        <include reference="fPX-HS-I1d"/>
+                                        <exclude reference="fPX-HS-I1d"/>
                                         <include reference="lOm-Yf-w6e"/>
+                                        <include reference="ypa-5s-KrE"/>
                                         <include reference="zMu-RO-Kiq"/>
-                                        <exclude reference="80F-ED-KFf"/>
-                                        <exclude reference="Eho-oO-ras"/>
-                                        <exclude reference="RuW-0c-owB"/>
-                                        <include reference="Seg-dR-M6L"/>
-                                        <include reference="TTQ-ws-PRa"/>
-                                        <exclude reference="UHu-wT-63e"/>
-                                        <exclude reference="XeP-0L-F2D"/>
                                         <exclude reference="F88-Zu-p7z"/>
                                         <exclude reference="IHy-XR-zW7"/>
                                         <include reference="Xx4-Cp-ep6"/>
                                         <exclude reference="bmp-P4-m8v"/>
                                         <include reference="g1T-Nd-HSB"/>
+                                        <exclude reference="80F-ED-KFf"/>
+                                        <exclude reference="Eho-oO-ras"/>
+                                        <exclude reference="RuW-0c-owB"/>
+                                        <include reference="Seg-dR-M6L"/>
+                                        <exclude reference="UHu-wT-63e"/>
+                                        <exclude reference="XeP-0L-F2D"/>
+                                        <include reference="kYY-XG-Ypf"/>
                                         <exclude reference="LgS-U2-LHm"/>
                                         <include reference="Lm5-cC-j7p"/>
                                         <exclude reference="O9L-li-0oz"/>
@@ -390,10 +393,10 @@
                                         <exclude reference="jMz-d7-hBN"/>
                                         <include reference="xJ0-SW-FDG"/>
                                         <exclude reference="zaW-zi-WtW"/>
-                                        <include reference="2ib-Hk-UeB"/>
-                                        <include reference="NYt-wm-eDN"/>
                                         <include reference="WBT-gb-LAV"/>
                                         <include reference="cnj-Ln-gqS"/>
+                                        <include reference="2ib-Hk-UeB"/>
+                                        <include reference="NYt-wm-eDN"/>
                                         <include reference="ouq-U6-5Ew"/>
                                         <include reference="b34-cO-ekx"/>
                                         <include reference="pCE-Hk-rl5"/>
@@ -1078,15 +1081,15 @@
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="7iB-95-omW"/>
-                                    <barButtonItem image="IconSelecteThisImage" id="zvS-Hp-hzq">
+                                    <barButtonItem image="ICON_Album_IN_PreviewVC44x44" id="fya-68-Bbp">
                                         <connections>
-                                            <action selector="setImageBtn:" destination="yAO-Md-pSK" id="1kr-Hg-zqJ"/>
+                                            <action selector="selectMusic:" destination="yAO-Md-pSK" id="VBN-iV-8cR"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="MIC-57-El6"/>
-                                    <barButtonItem image="ICON_MUSIC_44x44" id="fya-68-Bbp">
+                                    <barButtonItem image="IconSelecteThisImage" id="zvS-Hp-hzq">
                                         <connections>
-                                            <action selector="selectMusic:" destination="yAO-Md-pSK" id="VBN-iV-8cR"/>
+                                            <action selector="setImageBtn:" destination="yAO-Md-pSK" id="1kr-Hg-zqJ"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="poa-rc-yds"/>
@@ -1170,6 +1173,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="vlJ-Xh-K2V"/>
                     <connections>
+                        <outlet property="btnSetImage" destination="zvS-Hp-hzq" id="WiS-4E-Kbq"/>
                         <outlet property="customUIView" destination="bSG-gW-ay6" id="1On-RL-Rn4"/>
                         <outlet property="kUIViewMiniPlayerWrapper" destination="wes-uz-pna" id="fH0-Q6-dr2"/>
                         <outlet property="navigationBar" destination="UhS-kG-ITt" id="q23-Xj-mV0"/>
@@ -2270,7 +2274,7 @@
         <image name="BtnPlayCREAMWHITE" width="212" height="64"/>
         <image name="EditorOutline" width="320" height="568"/>
         <image name="EffectLightFromCenter" width="320" height="568"/>
-        <image name="ICON_MUSIC_44x44" width="44" height="44"/>
+        <image name="ICON_Album_IN_PreviewVC44x44" width="44" height="44"/>
         <image name="IconGearSKINWHITE" width="44" height="44"/>
         <image name="IconPreviewSKINWHITE" width="44" height="44"/>
         <image name="IconRedoTintColoredAdjustedSize" width="32" height="32"/>

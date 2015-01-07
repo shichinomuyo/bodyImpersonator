@@ -16,6 +16,8 @@
 "Tap+IconToAddImageFromAlbumOrCam" = "+アイコンをタップしアルバム、カメラ撮影より画像を追加できます。";
 "ImagesThatCanBeSavedIs%d" = "保存できる画像は%d個までです。";
 "UpgradeFrom9To18InSetting" = "設定で保存できる画像を9個から18個へアップグレードできます。";
+"Selected Image" = "選択中の画像";
+"Tapped Image" = "タップされた画像";
 // secondViewController
 "AddThisImage?" = "この画像を追加しますか?";
 "AddThisImage" = "追加する";
@@ -91,3 +93,4 @@
 
 // kBISelectMusicViewController.h
 "Select Music" = "ミュージック選択";
+"Select One from the following" = "以下より選択してください";

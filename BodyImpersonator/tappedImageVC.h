@@ -16,7 +16,7 @@
 #import "kADMOBInterstitialSingleton.h"
 
 @interface tappedImageVC : GAITrackedViewController<UIPopoverControllerDelegate,UIPopoverPresentationControllerDelegate,UIActionSheetDelegate>
-
+@property NSString *viewTitle;
 @property (strong,nonatomic) UIImage *selectedImage;
 @property NSIndexPath *tappedIndexPath;
 @property BOOL adsRemoved;

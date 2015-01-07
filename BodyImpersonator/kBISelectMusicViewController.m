@@ -38,14 +38,14 @@
     self.tableView.dataSource = self;
     
     // section名のListを作成
-    NSString *selectMusic = [[NSString alloc] initWithFormat:NSLocalizedString(@"Select Music", nil)];
+    NSString *selectMusic = [[NSString alloc] initWithFormat:NSLocalizedString(@"Select One from the following", nil)];
     self.sectionList = @[selectMusic];
     NSString *fromLib = [[NSString alloc] initWithFormat:NSLocalizedString(@"SelectFromMusicLibrary", nil)];
     NSString *presetMusic = [[NSString alloc] initWithFormat:NSLocalizedString(@"SelectPresetMusic", nil)];
     NSString *presetDrumRoll= [[NSString alloc] initWithFormat:NSLocalizedString(@"SelectPresetDrumroll", nil)];
     self.dataSourceMusicType = @[fromLib, presetMusic, presetDrumRoll];
     
-    self.dataSourceImageOfMusicType = [NSArray arrayWithObjects: @"ICON_Album26x26",@"ICON_MUSIC_44x44",@"ICON_Drum", nil];
+    self.dataSourceImageOfMusicType = [NSArray arrayWithObjects: @"ICON_Album_IN_SeleteMusicVC60x60",@"ICON_Music_IN_SelectMusicVC_SKINWHITE_60x60",@"ICON_Drum_INSelectMusicVC_SKINWHITE_60x60", nil];
     
 }
 

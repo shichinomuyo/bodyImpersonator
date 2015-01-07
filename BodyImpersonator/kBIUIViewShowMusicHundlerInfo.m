@@ -82,7 +82,7 @@
             artistName = @"Preset1";// nil;    // 文字列設定
             trackTitle = @"Preset MusicMusicMusicMusicMusicMusicMusicMusicMusicMusicMusicMusic";// nil;    // 文字列設定
         }else if (_hundler.rollSoundOn) {
-            imageSelectedTypeOfMusic = [UIImage imageNamed:@"ICON_Drum"]; // 画像設定 ICON_Drum
+            imageSelectedTypeOfMusic = [UIImage imageNamed:@"ICON_Drum26x26"]; // 画像設定 ICON_Drum
             NSLog(@"ICONdrum");
             artistName = @"Preset2";// nil;    // 文字列設定
             trackTitle = @"Drum Roll"; //nil;    // 文字列設定
