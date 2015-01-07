@@ -46,7 +46,7 @@
 "Free:" = "無料:";
 
 // BISettingVC dataSourceSettings section:0
-"Sound&Effect" = "サウンド&視覚効果設定";
+"Sound&EffectSettings" = "サウンド&視覚効果設定";
 "ControllSettings" = "操作設定";
 
 // BISettingVC dataSourceAddOn dataSourceAddOnDesc section:1
@@ -94,3 +94,6 @@
 // kBISelectMusicViewController.h
 "Select Music" = "ミュージック選択";
 "Select One from the following" = "以下より選択してください";
+"SelectFromMusicLibrary" = "ミュージックライブラリから曲を選択";
+"SelectPresetMusic" = "プリセット1/プリセットミュージック";
+"SelectPresetDrumroll" = "プリセット2/ドラムロールサウンド";

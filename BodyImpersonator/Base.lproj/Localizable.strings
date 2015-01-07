@@ -47,7 +47,7 @@
 "OtherApps" = "Other Apps";
 
 // BISettingVC dataSourceSettings section:0
-"Sound&Effect" = "Sound & Effect Settings";
+"Sound&EffectSettings" = "Sound & Effect Settings";
 "ControllSettings" = "Controll Settings";
 
 // BISettingVC dataSourceAddOn dataSourceAddOnDesc section:1
@@ -91,3 +91,10 @@
 // kBISettingColorVC
 "Black" = "Black";
 "White" = "White";
+
+// kBISelectMusicVC
+"Select Music" = "Select Music";
+"Select One from the following" = "Select One from the following";
+"SelectFromMusicLibrary" = "Select from Music Library";
+"SelectPresetMusic" = "Preset1/Preset Music";
+"SelectPresetDrumroll" = "Preset2/Drum Roll";

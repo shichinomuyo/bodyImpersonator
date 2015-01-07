@@ -32,7 +32,7 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     // sectionList
-    NSString *soundEffectt = [[NSString alloc] initWithFormat:NSLocalizedString(@"Sound&Effect", nil)];
+    NSString *soundEffectt = [[NSString alloc] initWithFormat:NSLocalizedString(@"Sound&EffectSettings", nil)];
     NSString *backgroundColorWhilePlaying = [[NSString alloc] initWithFormat:NSLocalizedString(@"BackgroundColorWhilePlaying", nil)];
     self.sectionList = @[soundEffectt, backgroundColorWhilePlaying];
     // section0
