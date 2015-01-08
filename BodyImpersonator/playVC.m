@@ -15,6 +15,9 @@
     AVAudioPlayer *_crashPlayer;
     AVAudioPlayer *_originalMusicPlayer;
     AVAudioPlayer *_iPodLibMusicPlayer;
+    MPMusicPlayerController *_mpMusicPlayer;
+    
+    BOOL _mpMusicPlayerUsing;
     
     // タイマー
     NSTimer *_playTimer; // AVAudioPlayerコントロール用
@@ -43,6 +46,8 @@
     
     // GoogleAnalytics導入のため以下設定
     self.screenName = @"BI_PlayVC";
+    // mpMusicPlayerUsingフラグ初期化
+    _mpMusicPlayerUsing = NO;
     // ダブルタップジェスチャーを作る
     UITapGestureRecognizer *doubleTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleTapImage:)];
     doubleTapGesture.numberOfTapsRequired = 2;
@@ -120,7 +125,7 @@
             NSLog(@"originalmusicon");
         }
         if (self.iPodLibMusicOn) {
-            [self initializeMPMusicPlayerController];
+            [self initializeMusicPlayerController];
              NSLog(@"iPODLIBsoundon");
         }
     }
@@ -184,14 +189,21 @@
     [_originalMusicPlayer prepareToPlay];
 }
 
-- (void)initializeMPMusicPlayerController{
+- (void)initializeMusicPlayerController{
     NSMutableArray *hundlers = [[NSUserDefaults standardUserDefaults] objectForKey:@"KEY_MusicHundlersByImageName"];
     NSData *data = hundlers[self.selectedIndexPath.row];
     kBIMusicHundlerByImageName *hundler = [NSKeyedUnarchiver unarchiveObjectWithData:data] ;
     
     NSURL *url = hundler.mediaItemURL;
-    _iPodLibMusicPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:NULL];
-    [_iPodLibMusicPlayer prepareToPlay];
+    if (url) {
+        _iPodLibMusicPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:NULL];
+        [_iPodLibMusicPlayer prepareToPlay];
+    }else{
+        _mpMusicPlayerUsing = YES;
+        _mpMusicPlayer = [MPMusicPlayerController applicationMusicPlayer];
+        [_mpMusicPlayer setQueueWithItemCollection:hundler.mediaItemCollection];
+    }
+
 }
 
 // タイマー生成
@@ -266,32 +278,29 @@
 
 #pragma mark actionControlls
 - (IBAction)stopBtn:(UIButton *)sender {
-
+    
         if (_rollPlayerAlt.isPlaying || _rollPlayerTmp.isPlaying) { // ロールが鳴っているとき
             [self stopDrumRollAndPlayCrash]; // ロールを止めてクラッシュを鳴らしアニメーション
-            if (_finishPlayingByDoubleTapOn) {
-                [self.view bringSubviewToFront:self.BFCV];
-            }
+
         } else if (_originalMusicPlayer.isPlaying){ // ロールが鳴っていなくてオリジナル曲が鳴っているとき
             [_originalMusicPlayer stop];
             [self playCrash]; // クラッシュを鳴らしてアニメーション
-            if (_finishPlayingByDoubleTapOn) {
-                [self.view bringSubviewToFront:self.BFCV];
-            }
+
         } else if (_iPodLibMusicPlayer.isPlaying) { // 自前のフラグ
             NSLog(@"stopMPM");
-            [_iPodLibMusicPlayer stop];
-            [self playCrash];
-            if (_finishPlayingByDoubleTapOn) {
-                [self.view bringSubviewToFront:self.BFCV];
+            if (!_mpMusicPlayerUsing) {
+                [_iPodLibMusicPlayer stop];
+            } else{
+                [_mpMusicPlayer stop];
             }
+
+            [self playCrash];
+
         }
         else{ // 音が鳴っていない時
             if (self.BFCV.knobImageView.hidden == 1) {
                 [self playCrash]; // ロールがなっていないのでクラッシュだけを鳴らしアニメーション
-                if (_finishPlayingByDoubleTapOn) {
-                    [self.view bringSubviewToFront:self.BFCV];
-                }
+
                
             }else{
                 if (!_finishPlayingByDoubleTapOn) {
@@ -327,6 +336,9 @@
 
     // 拡大してくるアニメーション
     [self.BFCV.knobImageView appearWithScaleUp];
+    if (_finishPlayingByDoubleTapOn) {
+        [self.view bringSubviewToFront:self.BFCV];
+    }
 }
 
 // クラッシュを再生するメソッドを実装
@@ -365,6 +377,10 @@
     // 拡大してくるアニメーション
     [self.BFCV.knobImageView appearWithScaleUp];
     
+    if (_finishPlayingByDoubleTapOn) {
+        [self.view bringSubviewToFront:self.BFCV];
+    }
+    
 }
 
 
@@ -381,7 +397,12 @@
         [_originalMusicPlayer play];
     } else if (self.iPodLibMusicOn){
         NSLog(@"iPodはいってる？？？？");
-        [_iPodLibMusicPlayer play];
+        if (!_mpMusicPlayerUsing) {
+            [_iPodLibMusicPlayer play];
+        }else{
+            [_mpMusicPlayer play];
+        }
+
     }
 
     // アニメーションタイマーを破棄する
@@ -437,13 +458,16 @@
                 AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
             }
             if (self.rollSoundOn) {
-                // ドラムロールを止めてクラッシュ再生と画像表示
-                [self stopDrumRollAndPlayCrash];
+                [self stopDrumRollAndPlayCrash]; // ドラムロールを止めてクラッシュ再生と画像表示
             } else if (self.originalMusicOn){
                 [_originalMusicPlayer stop];
                 [self playCrash];
             } else if (self.iPodLibMusicOn){
-                [_iPodLibMusicPlayer stop];
+                if (!_mpMusicPlayerUsing) {
+                    [_iPodLibMusicPlayer stop];
+                } else{
+                    [_mpMusicPlayer stop];
+                }
                 [self playCrash];
             }
         }

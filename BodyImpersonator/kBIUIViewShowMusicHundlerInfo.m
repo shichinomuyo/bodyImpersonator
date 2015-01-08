@@ -82,6 +82,7 @@
         
 
         _musicPlayerIsPlaying = NO;
+        _mpMusicPlayerIsPlaying = NO;
         if (_hundler.originalMusicOn) {
             imageSelectedTypeOfMusic = [UIImage imageNamed:@"ICON_MUSIC_26x26"]; // 画像設定
             NSLog(@"ICONorimusic");
@@ -172,6 +173,7 @@
         [btnPlayerControll setImage:[UIImage imageNamed:@"ICON_Stop26x26"] forState:UIControlStateNormal]; // 画像を停止ボタンに変更
         NSString *soundPath;
         NSURL *soundURL;
+        MPMediaItemCollection *mediaItemCollection;
         if (_hundler.originalMusicOn) {
             soundPath = [[NSBundle mainBundle] pathForResource:@"Theme05" ofType:@"mp3"];
             soundURL = [NSURL fileURLWithPath:soundPath];
@@ -180,13 +182,24 @@
             soundURL = [NSURL fileURLWithPath:soundPath];
         }else if (_hundler.iPodLibMusicOn) {
             NSMutableArray *hundlers = [[NSUserDefaults standardUserDefaults] objectForKey:@"KEY_MusicHundlersByImageName"];
-            NSData *data = hundlers[self.selectedIndexNum];
-            kBIMusicHundlerByImageName *hundler = [NSKeyedUnarchiver unarchiveObjectWithData:data] ;
-            
+            NSData *data = [hundlers safeObjectAtIndex:self.selectedIndexNum];
+            kBIMusicHundlerByImageName *hundler = [NSKeyedUnarchiver unarchiveObjectWithData:data];
             soundURL = hundler.mediaItemURL;
+            if (!soundURL) { // DRM問題でitemのURLが取得できない場合はAVAudioPlayerで再生ができないのでmpMusicPlayerで再生するための準備。
+                mediaItemCollection = hundler.mediaItemCollection;
+            }
         }
          NSLog(@"BOOL:%d",_musicPlayerIsPlaying);
-        [[kAVAudioPlayerManager sharedManager] playSound:soundURL];
+        if (soundURL) {
+            [[kAVAudioPlayerManager sharedManager] playSound:soundURL];
+        } else{// DRM問題でitemのURLが取得できないのでmpMusicPlayerで再生させる。
+            NSLog(@"Use MPMUsicPlayerController");
+             _mpMusicPlayer = [MPMusicPlayerController applicationMusicPlayer];
+            [_mpMusicPlayer setQueueWithItemCollection:mediaItemCollection];
+            [_mpMusicPlayer play];
+            _mpMusicPlayerIsPlaying = YES;
+        }
+
     } else{ // 再生中に押された場合
          NSLog(@"btn_stop");
         [self stopMusicPlayer];
@@ -196,7 +209,12 @@
 - (void)stopMusicPlayer{
     _musicPlayerIsPlaying = NO; // フラグを初期状態に変更
     [btnPlayerControll setImage:[UIImage imageNamed:@"ICON_Play26x26"] forState:UIControlStateNormal]; // 画像を再生ボタンに変更
-    [[kAVAudioPlayerManager sharedManager] stopSound];
+    if (!_mpMusicPlayerIsPlaying) {
+        [[kAVAudioPlayerManager sharedManager] stopSound];
+    }else{
+        [_mpMusicPlayer stop];
+    }
+
     
 }
 - (void)willMoveToSuperview:(UIView *)newSuperview{
@@ -322,7 +340,6 @@
 
 
 - (void)tapParentViewOfLabel:(UITapGestureRecognizer *)gesture{
-
         if (labelIsMoving) {
             labelIsMoving = NO;
             [labelMusicHundlerInfo.layer removeAllAnimations];

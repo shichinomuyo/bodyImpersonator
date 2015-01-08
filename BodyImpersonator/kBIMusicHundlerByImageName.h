@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <MediaPlayer/MediaPlayer.h>
 
 @interface kBIMusicHundlerByImageName : NSObject<NSCoding>
 @property NSString *imageName;
@@ -14,6 +15,7 @@
 @property BOOL originalMusicOn;
 @property BOOL iPodLibMusicOn;
 @property NSURL  *mediaItemURL;
+@property MPMediaItemCollection *mediaItemCollection; // 曲がDRM,Deviceにない問題でmediaItemURLがnullになってしまったときだけ使う
 @property NSString *artist;
 @property NSString *trackTitle;
 

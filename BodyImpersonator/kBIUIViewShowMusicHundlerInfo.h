@@ -23,9 +23,11 @@
     IBOutlet UIButton *btnPlayerControll;
     IBOutlet UILabel *labelMusicHundlerInfo;
     IBOutlet UIView *viewHaveLabel;
-    // オーディオプレイヤー
+    // オーディオプレイヤー制御
     BOOL _musicPlayerIsPlaying;
     AVAudioPlayer *_instantPlayer;
+    BOOL _mpMusicPlayerIsPlaying;
+    MPMusicPlayerController *_mpMusicPlayer;
     // labeleアニメーション制御変数
     BOOL labelIsMoving;
     float textWidth;
