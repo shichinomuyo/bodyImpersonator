@@ -48,6 +48,7 @@
     array = [hundlers mutableCopy];
     [[NSUserDefaults standardUserDefaults] setObject:array forKey:@"KEY_MusicHundlersByImageName"];
     [[NSUserDefaults standardUserDefaults] synchronize];
+    NSLog(@"hundler.mediaItemURL:%@",hundler.mediaItemURL);
  
        [self.presentingViewController.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 

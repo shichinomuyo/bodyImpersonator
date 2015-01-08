@@ -46,6 +46,8 @@
     self.dataSourceMusicType = @[fromLib, presetMusic, presetDrumRoll];
     
     self.dataSourceImageOfMusicType = [NSArray arrayWithObjects: @"ICON_Album_IN_SeleteMusicVC60x60",@"ICON_Music_IN_SelectMusicVC_SKINWHITE_60x60",@"ICON_Drum_INSelectMusicVC_SKINWHITE_60x60", nil];
+    UINib *nib = [UINib nibWithNibName:@"CellFeedbackAndShare" bundle:nil];
+    [self.tableView registerNib:nib forCellReuseIdentifier:@"CellFeedbackAndShare"];
     
 }
 
@@ -97,7 +99,6 @@
     switch (indexPath.section) {
         case 0: // タップするとsettingViewを表示するセル
         {
-            
             BIFeedbakAndActionCell *feedbackAndShareCell = (BIFeedbakAndActionCell *)cell;
             
             UIImageView *imageViewFeedbackAction = (UIImageView *)[feedbackAndShareCell viewWithTag:1];

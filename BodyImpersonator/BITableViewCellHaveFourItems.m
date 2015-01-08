@@ -12,12 +12,39 @@
 
 - (void)awakeFromNib {
     // Initialization code
+//    [self.labelDescription setAdjustsFontSizeToFitWidth:NO];
+//    [self.labelDescription setMinimumScaleFactor:9];
+//    [self.labelDescription setFrame:CGRectMake(0, self.labelDescription.superview.center.y, self.labelDescription.frame.size.width, self.labelDescription.frame.size.height)];
+//    [self.labelDescription sizeToFit];
+
+
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
     // Configure the view for the selected state
+//    [self.labelDescription.font fontWithSize:13];
+
+//    [self.labelDescription setNumberOfLines:1];
+//                [self.labelDescription setAdjustsFontSizeToFitWidth:YES];
+    
+//                [self.labelDescription setFrame:CGRectMake(0, self.labelDescription.superview.center.y, self.labelDescription.frame.size.width, self.labelDescription.frame.size.height)];
+    // デバイスがiphoneであるかそうでないかで分岐
+
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
+        CGRect screenRect = [[UIScreen mainScreen] bounds];
+        NSLog(@"screenWidth:%.2f",screenRect.size.width);
+            [self.labelDescription setNumberOfLines:2];
+            UIFont *font = self.labelDescription.font;
+            self.labelDescription.font = [UIFont fontWithName:font.fontName size:13.0];
+        
+    }
+    else{
+
+    }
+
+
+    
 }
 
 + (CGFloat)rowHeight{

@@ -211,19 +211,20 @@
             [imageViewAddOn setImage:[UIImage imageNamed:self.dataSourceAddOnImages[indexPath.row]]];
             
             [labelAddOn setText:self.dataSourceAddOn[indexPath.row]];
-            [labelAddOn setAdjustsFontSizeToFitWidth:YES];
-            [labelAddOn setLineBreakMode:NSLineBreakByClipping];
-            [labelAddOn setMinimumScaleFactor:4];
+//            [labelAddOn setAdjustsFontSizeToFitWidth:YES];
+//            [labelAddOn setLineBreakMode:NSLineBreakByClipping];
+//            [labelAddOn setMinimumScaleFactor:4];
             
             NSString *desc = [[NSString alloc] initWithFormat:NSLocalizedString(@"Desc:", nil)];
             [labelDescTitle setText:desc];//説明
 
             [labelDescription setText:self.dataSourceAddOnDesc[indexPath.row]];
-            [labelDescription setAdjustsFontSizeToFitWidth:YES];
-            [labelDescription setMinimumScaleFactor:9];
-            [labelDescription setNumberOfLines:0];
-            [labelDescription setFrame:CGRectMake(0, labelDescription.superview.center.y, labelDescription.frame.size.width, labelDescription.frame.size.height)];
-            [labelDescription sizeToFit];
+
+//            [labelDescription setAdjustsFontSizeToFitWidth:YES];
+
+//            [labelDescription setFrame:CGRectMake(0, labelDescription.superview.center.y, labelDescription.frame.size.width, labelDescription.frame.size.height)];
+
+//            [labelDescription sizeToFit];
 
 
 

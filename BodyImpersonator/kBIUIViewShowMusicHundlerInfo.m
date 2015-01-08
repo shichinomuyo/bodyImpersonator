@@ -49,6 +49,12 @@
     // こういう場合は、Visual Format Languageを使うよりAutoresizingMaskを使ったほうが手軽。
     contentView.translatesAutoresizingMaskIntoConstraints = YES;
     contentView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+    labelIsMoving = NO;
+    
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapParentViewOfLabel:)];
+    tapGesture.numberOfTapsRequired = 1;
+    [viewHaveLabel setUserInteractionEnabled:YES];
+    [viewHaveLabel addGestureRecognizer:tapGesture];
     
     // SuperviewにロードしたViewをSubviewとして追加
     NSLog(@"initializeView");
@@ -138,7 +144,7 @@
             // アニメーションにかける時間
             transitionDuration = textLength/4;
             
-            [self moveAffineLabelX:transitionDuration]; // スライドアニメーション
+            [self moveAffineLabelX_FirstTime:transitionDuration]; // スライドアニメーション
             NSLog(@"アニメーションあり");
         }else{ // テキストの長さが親ビュー(viewHaveLabel)より小さい時
             NSLog(@"アニメーションなし");
@@ -249,28 +255,82 @@
 }
 
 // アニメーション
-- (void)moveAffineLabelX:(float)duration{
+- (void)moveAffineLabelX_FirstTime:(float)duration{
     labelMusicHundlerInfo.transform = CGAffineTransformIdentity;
+    labelIsMoving = YES;
 
     [UIView animateKeyframesWithDuration:duration
                                    delay:0.0
-                                 options: 3<<16 | UIViewKeyframeAnimationOptionRepeat // 3<<16はUIViewAnimationCurveLinearのバイナリ。バイナリなら指定できる。
+                                 options: 3<<16 | UIViewAnimationOptionAllowUserInteraction// 3<<16はUIViewAnimationCurveLinearのバイナリ。バイナリなら指定できる。
                               animations:^{
 
                                   [UIView addKeyframeWithRelativeStartTime:0.0
-                                                          relativeDuration:0.2
+                                                          relativeDuration:0.25
                                                                 animations:^{
                                                                     // 何もせず止めておく
                                                                 }];
-                                  [UIView addKeyframeWithRelativeStartTime:0.2
-                                                          relativeDuration:0.8
+                                  [UIView addKeyframeWithRelativeStartTime:0.25
+                                                          relativeDuration:0.7
                                                                 animations:^{
-                                                                    labelMusicHundlerInfo.transform = CGAffineTransformMakeTranslation(-1.3*textWidth, 0);
+                                                                    labelMusicHundlerInfo.transform = CGAffineTransformMakeTranslation(-1.4*textWidth, 0);
+                                                                }];
+                                  [UIView addKeyframeWithRelativeStartTime:0.7
+                                                          relativeDuration:0.05
+                                                                animations:^{
+//　何もせず止めておく
                                                                 }];
 
-                              } completion:nil];
+                              } completion:^(BOOL finished){
+                                     labelMusicHundlerInfo.transform = CGAffineTransformIdentity;
+                                  labelIsMoving = NO;
+                              }];
 
     
+}
+
+- (void)moveAffineLabelX:(float)duration{
+    labelMusicHundlerInfo.transform = CGAffineTransformIdentity;
+    labelIsMoving = YES;
+    [UIView animateKeyframesWithDuration:duration
+                                   delay:0.0
+                                 options: 3<<16 | UIViewAnimationOptionAllowUserInteraction// 3<<16はUIViewAnimationCurveLinearのバイナリ。バイナリなら指定できる。
+                              animations:^{
+                                  
+//                                  [UIView addKeyframeWithRelativeStartTime:0.0
+//                                                          relativeDuration:0.25
+//                                                                animations:^{
+//                                                                    // 何もせず止めておく
+//                                                                }];
+                                  [UIView addKeyframeWithRelativeStartTime:0.
+                                                          relativeDuration:0.7
+                                                                animations:^{
+                                                                    labelMusicHundlerInfo.transform = CGAffineTransformMakeTranslation(-1.4*textWidth, 0);
+                                                                }];
+                                  [UIView addKeyframeWithRelativeStartTime:0.7
+                                                          relativeDuration:0.05
+                                                                animations:^{
+                                                                    //　何もせず止めておく
+                                                                }];
+                                  
+                              } completion:^(BOOL finished){
+                                  labelMusicHundlerInfo.transform = CGAffineTransformIdentity;
+                                  labelIsMoving = NO;
+                              }];
+    
+    
+}
+
+
+- (void)tapParentViewOfLabel:(UITapGestureRecognizer *)gesture{
+
+        if (labelIsMoving) {
+            labelIsMoving = NO;
+            [labelMusicHundlerInfo.layer removeAllAnimations];
+            labelMusicHundlerInfo.transform = CGAffineTransformIdentity;
+        }else{
+            [self moveAffineLabelX:transitionDuration];
+        }
+
 }
 
 

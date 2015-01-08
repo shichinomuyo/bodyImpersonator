@@ -15,7 +15,7 @@
 "First,PleaseAddImage." = "最初に画像を追加してください。";
 "Tap+IconToAddImageFromAlbumOrCam" = "+アイコンをタップしアルバム、カメラ撮影より画像を追加できます。";
 "ImagesThatCanBeSavedIs%d" = "保存できる画像は%d個までです。";
-"UpgradeFrom9To18InSetting" = "設定で保存できる画像を9個から18個へアップグレードできます。";
+"UpgradeFrom9To18InSetting" = "設定画面からアドオン購入により、保存できる画像を9個から18個へアップグレードできます。";
 "Selected Image" = "選択中の画像";
 "Tapped Image" = "タップされた画像";
 // secondViewController

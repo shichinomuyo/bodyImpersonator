@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -14,8 +12,8 @@
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dHK-iN-ZG9" id="TW3-Ib-ktw">
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CellHaveSwitch" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IDZ-FF-ln0">
-                        <rect key="frame" x="20" y="11" width="121" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CellHaveSwitch" lineBreakMode="clip" baselineAdjustment="alignBaselines" minimumFontSize="6" translatesAutoresizingMaskIntoConstraints="NO" id="IDZ-FF-ln0">
+                        <rect key="frame" x="20" y="11" width="503" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
@@ -33,29 +31,10 @@
                 <constraints>
                     <constraint firstAttribute="centerY" secondItem="47s-9m-j5g" secondAttribute="centerY" id="3wu-UO-ape"/>
                     <constraint firstItem="IDZ-FF-ln0" firstAttribute="leading" secondItem="TW3-Ib-ktw" secondAttribute="leading" constant="20" symbolic="YES" id="D9v-H8-ocV"/>
-                    <constraint firstAttribute="centerY" secondItem="IDZ-FF-ln0" secondAttribute="centerY" id="EAd-aN-n1e"/>
-                    <constraint firstItem="IDZ-FF-ln0" firstAttribute="leading" secondItem="TW3-Ib-ktw" secondAttribute="leadingMargin" id="HjE-pk-4su"/>
-                    <constraint firstAttribute="centerY" secondItem="47s-9m-j5g" secondAttribute="centerY" id="X11-WX-CvW"/>
-                    <constraint firstAttribute="trailing" secondItem="47s-9m-j5g" secondAttribute="trailing" constant="20" symbolic="YES" id="hOh-vI-ZSF"/>
                     <constraint firstAttribute="trailing" secondItem="47s-9m-j5g" secondAttribute="trailing" constant="20" symbolic="YES" id="kVi-cV-VGg"/>
+                    <constraint firstItem="47s-9m-j5g" firstAttribute="leading" secondItem="IDZ-FF-ln0" secondAttribute="trailing" constant="8" symbolic="YES" id="v4x-fI-llw"/>
                     <constraint firstAttribute="centerY" secondItem="IDZ-FF-ln0" secondAttribute="centerY" id="vTl-gs-QnP"/>
                 </constraints>
-                <variation key="default">
-                    <mask key="constraints">
-                        <exclude reference="EAd-aN-n1e"/>
-                        <exclude reference="HjE-pk-4su"/>
-                        <exclude reference="X11-WX-CvW"/>
-                        <exclude reference="hOh-vI-ZSF"/>
-                    </mask>
-                </variation>
-                <variation key="heightClass=regular-widthClass=compact">
-                    <mask key="constraints">
-                        <include reference="EAd-aN-n1e"/>
-                        <include reference="HjE-pk-4su"/>
-                        <include reference="X11-WX-CvW"/>
-                        <include reference="hOh-vI-ZSF"/>
-                    </mask>
-                </variation>
             </tableViewCellContentView>
             <connections>
                 <outlet property="kBIUISwitch" destination="47s-9m-j5g" id="FSH-EC-sZw"/>

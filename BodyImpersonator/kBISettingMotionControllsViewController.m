@@ -130,9 +130,10 @@
             motionControlls.selectionStyle = UITableViewCellSelectionStyleNone;
             UILabel *labelSettings = (UILabel *)[motionControlls viewWithTag:1];
             [labelSettings setText:self.dataSourceMotionControlls[indexPath.row]];
-            [labelSettings setAdjustsFontSizeToFitWidth:YES];
-            [labelSettings setLineBreakMode:NSLineBreakByClipping];
-            [labelSettings setMinimumScaleFactor:4];
+//            [labelSettings setAdjustsFontSizeToFitWidth:YES];
+//            [labelSettings setLineBreakMode:NSLineBreakByClipping];
+//            [labelSettings setMinimumScaleFactor:4];
+//            [labelSettings sizeToFit];
             
             UISwitch *sw = (UISwitch *)[motionControlls viewWithTag:2];
             switch (indexPath.row) {

@@ -100,9 +100,10 @@
             soundEffectSettingsCell.selectionStyle = UITableViewCellSelectionStyleNone;
             UILabel *labelSettings = (UILabel *)[soundEffectSettingsCell viewWithTag:1];
             [labelSettings setText:self.dataSourceSoundEffectSettings[indexPath.row]];
-            [labelSettings setAdjustsFontSizeToFitWidth:YES];
-            [labelSettings setLineBreakMode:NSLineBreakByClipping];
-            [labelSettings setMinimumScaleFactor:4];
+//            [labelSettings setAdjustsFontSizeToFitWidth:YES];
+//            [labelSettings setLineBreakMode:NSLineBreakByClipping];
+//            [labelSettings setMinimumScaleFactor:12];
+
             
             UISwitch *sw = (UISwitch *)[soundEffectSettingsCell viewWithTag:2];
             switch (indexPath.row) {

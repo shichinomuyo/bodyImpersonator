@@ -26,6 +26,8 @@
     // オーディオプレイヤー
     BOOL _musicPlayerIsPlaying;
     AVAudioPlayer *_instantPlayer;
+    // labeleアニメーション制御変数
+    BOOL labelIsMoving;
     float textWidth;
     int textLength;
     float transitionDuration;

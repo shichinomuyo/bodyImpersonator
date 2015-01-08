@@ -10,8 +10,8 @@
 
 @interface BITableViewCellHaveFourItems : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *imageViewAppIcon;
-@property (weak, nonatomic) IBOutlet UILabel *labelAppName;
-@property (weak, nonatomic) IBOutlet UILabel *labelFee;
+@property (weak, nonatomic) IBOutlet UILabel *labelHeader;
+@property (weak, nonatomic) IBOutlet UILabel *labelSubTitle;
 @property (weak, nonatomic) IBOutlet UILabel *labelDescription;
 @property (weak, nonatomic) IBOutlet UILabel *labelPurchased;
 + (CGFloat)rowHeight;

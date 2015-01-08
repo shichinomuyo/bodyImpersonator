@@ -46,8 +46,8 @@
     // ダブルタップジェスチャーを作る
     UITapGestureRecognizer *doubleTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleTapImage:)];
     doubleTapGesture.numberOfTapsRequired = 2;
-    self.BFCV.knobImageView.userInteractionEnabled = YES;
-    [self.BFCV.knobImageView addGestureRecognizer:doubleTapGesture];
+    self.BFCV.userInteractionEnabled = YES;
+    [self.BFCV addGestureRecognizer:doubleTapGesture];
     
     //バックグラウンド時の対応
     
