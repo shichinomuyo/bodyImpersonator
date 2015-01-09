@@ -48,6 +48,7 @@
     self.screenName = @"BI_PlayVC";
     // mpMusicPlayerUsingフラグ初期化
     _mpMusicPlayerUsing = NO;
+    _mpMusicPlayer = nil;
     // ダブルタップジェスチャーを作る
     UITapGestureRecognizer *doubleTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleTapImage:)];
     doubleTapGesture.numberOfTapsRequired = 2;
@@ -55,35 +56,21 @@
     [self.BFCV addGestureRecognizer:doubleTapGesture];
     
     //バックグラウンド時の対応
-    
     if (&UIApplicationDidEnterBackgroundNotification) {
-        
         [[NSNotificationCenter defaultCenter]
-         
          addObserver:self
-         
          selector:@selector(appDidEnterBackground:)
-         
          name:UIApplicationDidEnterBackgroundNotification
-         
          object:[UIApplication sharedApplication]];
-        
     }
     
     //フォアグラウンド時の対応
-    
     if (&UIApplicationWillEnterForegroundNotification) {
-        
         [[NSNotificationCenter defaultCenter]
-         
          addObserver:self
-         
          selector:@selector(appWillEnterForeground:)
-         
          name:UIApplicationWillEnterForegroundNotification
-         
          object:[UIApplication sharedApplication]];
-        
     }
     
     // selectedPhotoImageを非表示に設定
@@ -203,7 +190,6 @@
         _mpMusicPlayer = [MPMusicPlayerController applicationMusicPlayer];
         [_mpMusicPlayer setQueueWithItemCollection:hundler.mediaItemCollection];
     }
-
 }
 
 // タイマー生成
@@ -290,11 +276,12 @@
             NSLog(@"stopMPM");
             if (!_mpMusicPlayerUsing) {
                 [_iPodLibMusicPlayer stop];
+                 [self playCrash];
             } else{
+                [self performSelector:@selector(playCrash) withObject:nil];
+//                 [self playCrash];
                 [_mpMusicPlayer stop];
             }
-
-            [self playCrash];
 
         }
         else{ // 音が鳴っていない時
@@ -482,18 +469,32 @@
 }
 
 - (void)appDidEnterBackground:(NSNotification *)notification{
-    [_rollPlayerTmp stop];
-    [_rollPlayerAlt stop];
-    [_crashPlayer stop];
+//    [_rollPlayerTmp stop];
+//    [_rollPlayerAlt stop];
+//    [_crashPlayer stop];
+//    [_iPodLibMusicPlayer stop];
+    NSLog(@"PVC_appDidEnterBackground");
+    if (_mpMusicPlayerUsing) {
+            NSLog(@"PV)playbackState:%d",(int)_mpMusicPlayer.playbackState);
+        if (_mpMusicPlayer.playbackState == 1) { //     MPMusicPlaybackStatePlaying
+            [_mpMusicPlayer pause];
+        }
+    }
+//    [_playTimer invalidate];
+//    [self animationTimerInvalidate];
     
-    [_playTimer invalidate];
-    [self animationTimerInvalidate];
     
 }
 
 - (void)appWillEnterForeground:(NSNotification *)notification{
-    [self viewDidAppear:1];
-    
+//    [self viewWillAppear:1];
+    NSLog(@"PVC_appWillEnterForeground");
+    if (_mpMusicPlayerUsing) {
+            NSLog(@"PV)playbackState:%d",(int)_mpMusicPlayer.playbackState);
+        if (_mpMusicPlayer.playbackState == 2) { //     MPMusicPlaybackStatePaused
+            [_mpMusicPlayer play];
+        }
+    }
 }
 
 -(void)viewWillAppear:(BOOL)animated{

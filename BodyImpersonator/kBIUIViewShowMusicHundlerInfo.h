@@ -26,8 +26,7 @@
     // オーディオプレイヤー制御
     BOOL _musicPlayerIsPlaying;
     AVAudioPlayer *_instantPlayer;
-    BOOL _mpMusicPlayerIsPlaying;
-    MPMusicPlayerController *_mpMusicPlayer;
+
     // labeleアニメーション制御変数
     BOOL labelIsMoving;
     float textWidth;
@@ -39,7 +38,8 @@
 
 @property NSIndexPath *selectedIndexPath;
 @property NSInteger selectedIndexNum;
-
+@property BOOL _mpMusicPlayerIsPlaying;
+@property MPMusicPlayerController *_mpMusicPlayer;
 
 -(void)showMusicHundlerInfo;
 - (void)stopMusicPlayer;

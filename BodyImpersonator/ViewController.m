@@ -100,6 +100,23 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    //バックグラウンド時の対応
+    if (&UIApplicationDidEnterBackgroundNotification) {
+        [[NSNotificationCenter defaultCenter]
+         addObserver:self
+         selector:@selector(appDidEnterBackground:)
+         name:UIApplicationDidEnterBackgroundNotification
+         object:[UIApplication sharedApplication]];
+    }
+    
+    //フォアグラウンド時の対応
+    if (&UIApplicationWillEnterForegroundNotification) {
+        [[NSNotificationCenter defaultCenter]
+         addObserver:self
+         selector:@selector(appWillEnterForeground:)
+         name:UIApplicationWillEnterForegroundNotification
+         object:[UIApplication sharedApplication]];
+    }
     
     // 購入フラグを確認
     _purchased = [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_Purchased"];
@@ -1362,9 +1379,32 @@ NSLog(@"selectTagViewSize:%@",NSStringFromCGSize(cell.imageViewSelectedFrame.fra
    //    return UIStatusBarStyleDefault; // デフォルト値（文字色は黒色）
 }
 
+#pragma -mark notificationRecieveMethod
+- (void)appDidEnterBackground:(NSNotification *)notification{
+    NSLog(@"Main_appDidEnterBackground");
+    if (self.customUIView._mpMusicPlayerIsPlaying) {
+            NSLog(@"Main)playbackState:%d",(int)self.customUIView._mpMusicPlayer.playbackState);
+        if (self.customUIView._mpMusicPlayer.playbackState == 1) { //     MPMusicPlaybackStatePlaying
+            [self.customUIView._mpMusicPlayer pause];
+        }
+    }
+}
+
+- (void)appWillEnterForeground:(NSNotification *)notification{
+    NSLog(@"Main_appWillEnterForeground");
+    if (self.customUIView._mpMusicPlayerIsPlaying) {
+        NSLog(@"Main)playbackState:%d",(int)self.customUIView._mpMusicPlayer.playbackState);
+        if (self.customUIView._mpMusicPlayer.playbackState == 2) { //     MPMusicPlaybackStatePaused
+            [self.customUIView._mpMusicPlayer play];
+        }
+    }
+}
+
 //スクリーンショット撮影用
 //- (BOOL)prefersStatusBarHidden
 //{
 //    return YES;
 //}
+
+
 @end

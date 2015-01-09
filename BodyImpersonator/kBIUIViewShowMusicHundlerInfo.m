@@ -59,7 +59,7 @@
     // SuperviewにロードしたViewをSubviewとして追加
     NSLog(@"initializeView");
     [self addSubview:contentView];
- 
+    
 }
 
 -(void)awakeFromNib{
@@ -82,7 +82,7 @@
         
 
         _musicPlayerIsPlaying = NO;
-        _mpMusicPlayerIsPlaying = NO;
+        __mpMusicPlayerIsPlaying = NO;
         if (_hundler.originalMusicOn) {
             imageSelectedTypeOfMusic = [UIImage imageNamed:@"ICON_MUSIC_26x26"]; // 画像設定
             NSLog(@"ICONorimusic");
@@ -174,45 +174,63 @@
         NSString *soundPath;
         NSURL *soundURL;
         MPMediaItemCollection *mediaItemCollection;
-        if (_hundler.originalMusicOn) {
+        if (_hundler.originalMusicOn) { // プリセットミュージックURLセット
             soundPath = [[NSBundle mainBundle] pathForResource:@"Theme05" ofType:@"mp3"];
             soundURL = [NSURL fileURLWithPath:soundPath];
-        }else if (_hundler.rollSoundOn) {
+        }else if (_hundler.rollSoundOn) { // ドラムロールURLセット
             soundPath = [[NSBundle mainBundle] pathForResource:@"roll13" ofType:@"mp3"];
             soundURL = [NSURL fileURLWithPath:soundPath];
-        }else if (_hundler.iPodLibMusicOn) {
+        }else if (_hundler.iPodLibMusicOn) { // ライブラリから選択している曲のURLセット
             NSMutableArray *hundlers = [[NSUserDefaults standardUserDefaults] objectForKey:@"KEY_MusicHundlersByImageName"];
             NSData *data = [hundlers safeObjectAtIndex:self.selectedIndexNum];
             kBIMusicHundlerByImageName *hundler = [NSKeyedUnarchiver unarchiveObjectWithData:data];
             soundURL = hundler.mediaItemURL;
-            if (!soundURL) { // DRM問題でitemのURLが取得できない場合はAVAudioPlayerで再生ができないのでmpMusicPlayerで再生するための準備。
+            if (!soundURL) { // DRM問題でitemのURLが取得できない場合はAVAudioPlayerで再生ができないのでmpMusicPlayerで再生するためmediaItemCollectionを準備。
                 mediaItemCollection = hundler.mediaItemCollection;
             }
         }
          NSLog(@"BOOL:%d",_musicPlayerIsPlaying);
-        if (soundURL) {
+        // 再生開始
+        if (soundURL) { // AVAudioPlayerで再生できる場合はkAVAudioPlayerManagerで再生させる。
             [[kAVAudioPlayerManager sharedManager] playSound:soundURL];
         } else{// DRM問題でitemのURLが取得できないのでmpMusicPlayerで再生させる。
             NSLog(@"Use MPMUsicPlayerController");
-             _mpMusicPlayer = [MPMusicPlayerController applicationMusicPlayer];
-            [_mpMusicPlayer setQueueWithItemCollection:mediaItemCollection];
-            [_mpMusicPlayer play];
-            _mpMusicPlayerIsPlaying = YES;
+             self._mpMusicPlayer = [MPMusicPlayerController applicationMusicPlayer];
+            [__mpMusicPlayer setQueueWithItemCollection:mediaItemCollection];
+            [__mpMusicPlayer play];
+            __mpMusicPlayerIsPlaying = YES;
+        }
+        
+        if (labelIsMoving) {
+            labelIsMoving = NO;
+            [labelMusicHundlerInfo.layer removeAllAnimations];
+            labelMusicHundlerInfo.transform = CGAffineTransformIdentity; // 止めて
+            [self moveAffineLabelX:transitionDuration]; // また最初から動かす
+        }else{
+            [self moveAffineLabelX:transitionDuration];
         }
 
     } else{ // 再生中に押された場合
          NSLog(@"btn_stop");
         [self stopMusicPlayer];
+        if (labelIsMoving) {
+            labelIsMoving = NO;
+            [labelMusicHundlerInfo.layer removeAllAnimations];
+            labelMusicHundlerInfo.transform = CGAffineTransformIdentity; // 止める
+        }else{
+            // 何もしない
+        }
+        
     }
 }
 
 - (void)stopMusicPlayer{
     _musicPlayerIsPlaying = NO; // フラグを初期状態に変更
     [btnPlayerControll setImage:[UIImage imageNamed:@"ICON_Play26x26"] forState:UIControlStateNormal]; // 画像を再生ボタンに変更
-    if (!_mpMusicPlayerIsPlaying) {
+    if (!__mpMusicPlayerIsPlaying) {
         [[kAVAudioPlayerManager sharedManager] stopSound];
     }else{
-        [_mpMusicPlayer stop];
+        [__mpMusicPlayer stop];
     }
 
     
@@ -283,12 +301,12 @@
                               animations:^{
 
                                   [UIView addKeyframeWithRelativeStartTime:0.0
-                                                          relativeDuration:0.25
+                                                          relativeDuration:0.15
                                                                 animations:^{
                                                                     // 何もせず止めておく
                                                                 }];
                                   [UIView addKeyframeWithRelativeStartTime:0.25
-                                                          relativeDuration:0.7
+                                                          relativeDuration:0.8
                                                                 animations:^{
                                                                     labelMusicHundlerInfo.transform = CGAffineTransformMakeTranslation(-1.4*textWidth, 0);
                                                                 }];
@@ -319,13 +337,13 @@
 //                                                                animations:^{
 //                                                                    // 何もせず止めておく
 //                                                                }];
-                                  [UIView addKeyframeWithRelativeStartTime:0.
-                                                          relativeDuration:0.7
+                                  [UIView addKeyframeWithRelativeStartTime:0.0
+                                                          relativeDuration:0.8
                                                                 animations:^{
                                                                     labelMusicHundlerInfo.transform = CGAffineTransformMakeTranslation(-1.4*textWidth, 0);
                                                                 }];
-                                  [UIView addKeyframeWithRelativeStartTime:0.7
-                                                          relativeDuration:0.05
+                                  [UIView addKeyframeWithRelativeStartTime:0.8
+                                                          relativeDuration:0.2
                                                                 animations:^{
                                                                     //　何もせず止めておく
                                                                 }];
@@ -349,6 +367,7 @@
         }
 
 }
+
 
 
 @end

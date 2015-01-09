@@ -72,6 +72,24 @@
     NSLog(@"viewchanged:%ld",(long)countViewChanged);
     
     [self.customUIView setHidden:1];
+    
+    //バックグラウンド時の対応
+    if (&UIApplicationDidEnterBackgroundNotification) {
+        [[NSNotificationCenter defaultCenter]
+         addObserver:self
+         selector:@selector(appDidEnterBackground:)
+         name:UIApplicationDidEnterBackgroundNotification
+         object:[UIApplication sharedApplication]];
+    }
+    
+    //フォアグラウンド時の対応
+    if (&UIApplicationWillEnterForegroundNotification) {
+        [[NSNotificationCenter defaultCenter]
+         addObserver:self
+         selector:@selector(appWillEnterForeground:)
+         name:UIApplicationWillEnterForegroundNotification
+         object:[UIApplication sharedApplication]];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -388,6 +406,27 @@
         [self.view removeGestureRecognizer:sender];
     }
     
+}
+
+#pragma -mark notificationRecieveMethod
+- (void)appDidEnterBackground:(NSNotification *)notification{
+    NSLog(@"Preview_appDidEnterBackground");
+    if (self.customUIView._mpMusicPlayerIsPlaying) {
+            NSLog(@"Preview)playbackState:%d",(int)self.customUIView._mpMusicPlayer.playbackState);
+        if (self.customUIView._mpMusicPlayer.playbackState == 1) { //     MPMusicPlaybackStatePlaying
+            [self.customUIView._mpMusicPlayer pause];
+        }
+    }
+}
+
+- (void)appWillEnterForeground:(NSNotification *)notification{
+    NSLog(@"Preview_appWillEnterForeground");
+    if (self.customUIView._mpMusicPlayerIsPlaying) {
+            NSLog(@"Preview)playbackState:%d",(int)self.customUIView._mpMusicPlayer.playbackState);
+        if (self.customUIView._mpMusicPlayer.playbackState == 2) { //     MPMusicPlaybackStatePaused
+            [self.customUIView._mpMusicPlayer play];
+        }
+    }
 }
 
 @end
