@@ -31,7 +31,6 @@
     
     self = [super init];
     if (self) {
-
         _imageName = [decoder decodeObjectForKey:@"ImageName"];
         NSNumber *numRollSoundOn = [decoder decodeObjectForKey:@"RollSoundOn"];
         NSNumber *numOriginalMusicOn = [decoder decodeObjectForKey:@"OriginalMusicOn"];

@@ -40,12 +40,8 @@
     hundler.rollSoundOn = NO;
     hundler.originalMusicOn = NO;
     hundler.iPodLibMusicOn = YES;
-   
-    if (url) {
-         hundler.mediaItemURL = url;
-    }else{
-        hundler.mediaItemCollection = mediaItemCollection;
-    }
+    hundler.mediaItemURL = url;
+    hundler.mediaItemCollection = mediaItemCollection;
     hundler.artist = artist;
     hundler.trackTitle = trackTitle;
     NSData *data = [NSKeyedArchiver archivedDataWithRootObject:hundler];

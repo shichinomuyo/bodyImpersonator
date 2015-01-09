@@ -121,7 +121,10 @@
         NSLog(@"crashsoundon");
     }
 
- 
+   // _mpMusicPlayerからクラッシュ再生をスムーズに繋げるためにAVAudioSessionをAVAudioSessionCategoryAmbientに設定。このビューのviewWillDisappearで無効にする。
+    AVAudioSession *audiosession = [AVAudioSession sharedInstance];
+    [audiosession setCategory:AVAudioSessionCategoryAmbient error:nil];
+    [audiosession setActive:YES error:nil];
 
 }
 
@@ -273,16 +276,12 @@
             [self playCrash]; // クラッシュを鳴らしてアニメーション
 
         } else if (_iPodLibMusicPlayer.isPlaying) { // 自前のフラグ
-            NSLog(@"stopMPM");
-            if (!_mpMusicPlayerUsing) {
-                [_iPodLibMusicPlayer stop];
-                 [self playCrash];
-            } else{
-                [self performSelector:@selector(playCrash) withObject:nil];
-//                 [self playCrash];
-                [_mpMusicPlayer stop];
-            }
+            [_iPodLibMusicPlayer stop];
+            [self playCrash];
 
+        } else if (_mpMusicPlayerUsing){
+            [_mpMusicPlayer stop];
+            [self playCrash];
         }
         else{ // 音が鳴っていない時
             if (self.BFCV.knobImageView.hidden == 1) {
@@ -510,6 +509,10 @@
     countViewChanged ++;
     [[NSUserDefaults standardUserDefaults] setInteger:countViewChanged forKey:@"KEY_countUpViewChanged"];
     [[NSUserDefaults standardUserDefaults]synchronize];
+    
+    // _mpMusicPlayerからクラッシュ再生をスムーズに繋げるためにAVAudioSessionをAVAudioSessionCategoryAmbientにviewDidAppearで設定。このビューのviewWillDisappearで無効にする。
+    AVAudioSession *audioSession = [AVAudioSession sharedInstance];
+    [audioSession setActive:NO error:nil];
 }
 
 // statusBarを非表示にする
