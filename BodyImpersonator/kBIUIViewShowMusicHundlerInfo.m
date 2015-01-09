@@ -51,10 +51,10 @@
     contentView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
     labelIsMoving = NO;
     
-    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapParentViewOfLabel:)];
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapContentView:)];
     tapGesture.numberOfTapsRequired = 1;
-    [viewHaveLabel setUserInteractionEnabled:YES];
-    [viewHaveLabel addGestureRecognizer:tapGesture];
+    [contentView setUserInteractionEnabled:YES];
+    [contentView addGestureRecognizer:tapGesture];
     
     // SuperviewにロードしたViewをSubviewとして追加
     NSLog(@"initializeView");
@@ -202,10 +202,7 @@
         }
         
         if (labelIsMoving) {
-            labelIsMoving = NO;
-            [labelMusicHundlerInfo.layer removeAllAnimations];
-            labelMusicHundlerInfo.transform = CGAffineTransformIdentity; // 止めて
-            [self moveAffineLabelX:transitionDuration]; // また最初から動かす
+            // 何もしない
         }else{
             [self moveAffineLabelX:transitionDuration];
         }
@@ -356,16 +353,8 @@
     
 }
 
-
-- (void)tapParentViewOfLabel:(UITapGestureRecognizer *)gesture{
-        if (labelIsMoving) {
-            labelIsMoving = NO;
-            [labelMusicHundlerInfo.layer removeAllAnimations];
-            labelMusicHundlerInfo.transform = CGAffineTransformIdentity;
-        }else{
-            [self moveAffineLabelX:transitionDuration];
-        }
-
+- (void)tapContentView:(UITapGestureRecognizer *)gesture{
+    [self btnPlay:nil];
 }
 
 
