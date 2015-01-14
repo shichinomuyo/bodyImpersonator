@@ -31,17 +31,24 @@
 //                [self.labelDescription setFrame:CGRectMake(0, self.labelDescription.superview.center.y, self.labelDescription.frame.size.width, self.labelDescription.frame.size.height)];
     // デバイスがiphoneであるかそうでないかで分岐
 
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
-        CGRect screenRect = [[UIScreen mainScreen] bounds];
-        NSLog(@"screenWidth:%.2f",screenRect.size.width);
-            [self.labelDescription setNumberOfLines:2];
-            UIFont *font = self.labelDescription.font;
-            self.labelDescription.font = [UIFont fontWithName:font.fontName size:13.0];
-        
-    }
-    else{
-
-    }
+//    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
+//        CGRect screenRect = [[UIScreen mainScreen] bounds];
+//        NSLog(@"screenWidth:%.2f",screenRect.size.width);
+//            [self.labelDescription setNumberOfLines:2];
+//
+//        CGRect screenBounds = [[UIScreen mainScreen]bounds];
+//        float fontSize;
+//              fontSize = 13.0;
+//        if (screenBounds.size.width <= 320 ) {
+//            fontSize = 8.0;
+//        }
+//  
+//        UIFont *font = self.labelDescription.font;
+//        self.labelDescription.font = [UIFont fontWithName:font.fontName size:fontSize];
+//    }
+//    else{
+//
+//    }
 
 
     

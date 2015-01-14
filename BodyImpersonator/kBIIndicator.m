@@ -11,6 +11,7 @@
 @implementation kBIIndicator
 
 - (void)indicatorStart{
+    [[UIApplication sharedApplication]beginIgnoringInteractionEvents];
     NSLog(@"indicator start");
     UIViewController *topVC = [NSObject topMostController];
     int baseViewWidth;
@@ -62,6 +63,7 @@
 }
 
 - (void)indicatorStop{
+    [[UIApplication sharedApplication]endIgnoringInteractionEvents];
     [indicator stopAnimating];
     [indicator removeFromSuperview];
     [indicatorBaseView removeFromSuperview];

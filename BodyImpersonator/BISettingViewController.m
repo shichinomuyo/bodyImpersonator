@@ -79,7 +79,7 @@
     [self.tableView reloadData];
     //購入済みかチェック
     _purchased = [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_Purchased"];
-    //    _purchased = YES; // デバッグ用
+//        _purchased = YES; // デバッグ用
     NSLog(@"purchased:%d",_purchased);
     // AppDelegateからの購入通知を登録する
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
@@ -207,45 +207,54 @@
             UILabel *labelDescTitle = (UILabel *)[addOnCell viewWithTag:3];
             UILabel *labelDescription = (UILabel *)[addOnCell viewWithTag:4];
             UILabel *labelPurchased = (UILabel *)[addOnCell viewWithTag:5];
+            UIView *viewAdjust = (UIView *)[addOnCell viewWithTag:6];
+            UIView *viewAdjustSuper = (UIView *)[addOnCell viewWithTag:7];
             [labelPurchased setHidden:1];
             [imageViewAddOn setImage:[UIImage imageNamed:self.dataSourceAddOnImages[indexPath.row]]];
             
             [labelAddOn setText:self.dataSourceAddOn[indexPath.row]];
-//            [labelAddOn setAdjustsFontSizeToFitWidth:YES];
-//            [labelAddOn setLineBreakMode:NSLineBreakByClipping];
-//            [labelAddOn setMinimumScaleFactor:4];
             
             NSString *desc = [[NSString alloc] initWithFormat:NSLocalizedString(@"Desc:", nil)];
             [labelDescTitle setText:desc];//説明
+            [labelDescription setText:self.dataSourceAddOnDesc[indexPath.row]]; // 詳細
 
-            [labelDescription setText:self.dataSourceAddOnDesc[indexPath.row]];
+            [labelDescription setNumberOfLines:0];
+            [labelDescription setLineBreakMode:NSLineBreakByWordWrapping];
 
-//            [labelDescription setAdjustsFontSizeToFitWidth:YES];
-
-//            [labelDescription setFrame:CGRectMake(0, labelDescription.superview.center.y, labelDescription.frame.size.width, labelDescription.frame.size.height)];
-
-//            [labelDescription sizeToFit];
-
-
-
+            [labelDescription sizeToFit];
             
+            if (indexPath.row == 0) { // addonセルのラベルの文字サイズをiPhoneのときだけ小さくする
+                // デバイスがiphoneであるかそうでないかで分岐
+                if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
+                    NSLog(@"iPhoneの処理");
+                    labelDescription.font = [UIFont fontWithName:labelDescription.font.fontName size:10];
+                }
+                else{
+                    NSLog(@"iPadの処理");
+                }
+            }
+
             if (indexPath.row == 0) {// 購入セルををタップできるようにする。/できないようにする。
                 if (_purchased) {
                     [addOnCell setSelectionStyle:UITableViewCellSelectionStyleNone];
                     [addOnCell setBackgroundColor:RGB(230, 235, 240)];
+                    [viewAdjust setBackgroundColor:RGB(230, 235, 240)];
+                    [viewAdjustSuper setBackgroundColor:RGB(230, 235, 240)];
 
-                    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){ // iPhoneだとセル一杯に文字が詰まるので元の説明文を消す
                         [labelPurchased setCenter:CGPointMake(addOnCell.center.x, addOnCell.center.y)];
                         [labelDescTitle setHidden:1];
                         [labelDescription setHidden:1];
-                    }
 
+                    
                     [labelPurchased setHidden:0];
                 }
             } else if (indexPath.row == 1){ // リストアセルをタップできるようにする。/できないようにする。
                 if (_purchased) {
                     [addOnCell setSelectionStyle:UITableViewCellSelectionStyleNone];
                     [addOnCell setBackgroundColor:RGB(230, 235, 240)];
+
+                    [viewAdjust setBackgroundColor:RGB(230, 235, 240)];
+                    [viewAdjustSuper setBackgroundColor:RGB(230, 235, 240)];
                 } else{
 
                 }
@@ -281,10 +290,17 @@
             NSString *free = [[NSString alloc] initWithFormat:NSLocalizedString(@"Free:", nil)];
             [labelFee setText:free];
 
-            [labelDescription setAdjustsFontSizeToFitWidth:YES];
-            [labelDescription setLineBreakMode:NSLineBreakByClipping];
-            [labelDescription setMinimumScaleFactor:4];
-            [labelDescription setText:self.dataSourceOtherAppsDesc[indexPath.row]];
+            [labelDescription setText:self.dataSourceOtherAppsDesc[indexPath.row]]; // 詳細
+            [labelDescription setNumberOfLines:1];
+            [labelDescription adjustsFontSizeToFitWidth];
+            
+            if (indexPath.row == 0) { // addonセルのラベルの文字サイズをiPhoneのときだけ小さくする
+
+                if ( [[UIScreen mainScreen]bounds].size.width <= 320) {
+                                       labelDescription.font = [UIFont fontWithName:labelDescription.font.fontName size:14];
+                }
+
+            }
 
         }
             break;
@@ -386,6 +402,7 @@
     }
     
 }
+
 
 #pragma mark-
 #pragma actions
@@ -649,4 +666,10 @@
     [_kIndicator indicatorStop];
     NSLog(@"restorefailed");
 }
+
+//スクリーンショット撮影用
+//- (BOOL)prefersStatusBarHidden
+//{
+//    return YES;
+//}
 @end

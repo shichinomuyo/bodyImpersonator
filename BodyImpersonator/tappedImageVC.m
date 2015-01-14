@@ -429,4 +429,12 @@
     }
 }
 
+
+//スクリーンショット撮影用
+//- (BOOL)prefersStatusBarHidden
+//{
+//    return YES;
+//}
+
+
 @end

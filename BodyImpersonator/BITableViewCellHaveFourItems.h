@@ -14,6 +14,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *labelSubTitle;
 @property (weak, nonatomic) IBOutlet UILabel *labelDescription;
 @property (weak, nonatomic) IBOutlet UILabel *labelPurchased;
+@property (weak, nonatomic) IBOutlet UIView *viewForAdjustLabel;
+@property (weak, nonatomic) IBOutlet UIView *viewForAdjustLabelSuper;
 + (CGFloat)rowHeight;
 
 @end

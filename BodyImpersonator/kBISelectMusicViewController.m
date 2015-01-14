@@ -193,4 +193,11 @@
 - (IBAction)btnCancel:(UIBarButtonItem *)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+
+//スクリーンショット撮影用
+//- (BOOL)prefersStatusBarHidden
+//{
+//    return YES;
+//}
+
 @end

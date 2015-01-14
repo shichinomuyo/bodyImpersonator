@@ -238,10 +238,12 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
 
     // AppDelegateからの購入通知を登録する
     _purchased = [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_Purchased"];
+//    {
+//    _purchased = YES; // スクリーンショット撮影用
+//    }
 
     if (_purchased == NO) {
         // 広告表示のためのストーリボード上のレイアウト
-
     } else {
         [self adjustLayoutPurchased];
     }
@@ -1288,8 +1290,8 @@ NSLog(@"selectTagViewSize:%@",NSStringFromCGSize(cell.imageViewSelectedFrame.fra
         bannerUnitID = MY_BANNER_UNIT_ID;
     }
     else{
-        bannerUnitID = MY_BANNER_UNIT_ID;
-        //        bannerUnitID = MY_BANNER_UNIT_ID_FOR_iPAD;
+//        bannerUnitID = MY_BANNER_UNIT_ID;
+        bannerUnitID = MY_BANNER_UNIT_ID_FOR_iPAD;
     }
     bannerView_.adUnitID = bannerUnitID;
     
@@ -1301,14 +1303,14 @@ NSLog(@"selectTagViewSize:%@",NSStringFromCGSize(cell.imageViewSelectedFrame.fra
     [bannerView_ setCenter:CGPointMake(self.view.bounds.size.width/2, self.view.bounds.size.height - bannerView_.bounds.size.height/2)];
     
     // 【Ad】AdMob広告データの読み込みを要求
-    { // iPadテスト用バナー表示
-        GADRequest *testRequest = [GADRequest request];
-        testRequest.testDevices = [NSArray arrayWithObjects:
-                                   GAD_SIMULATOR_ID,@"728ca28ae78b1830d399efec414dd550", nil];// iPhone
+//    { // iPadテスト用バナー表示
+//        GADRequest *testRequest = [GADRequest request];
 //        testRequest.testDevices = [NSArray arrayWithObjects:
-//                                   GAD_SIMULATOR_ID,@"45f1d4a8dbc44781969f09433ccac7e0", nil]; // ipad
-        [bannerView_ loadRequest:testRequest];
-    }
+//                                   GAD_SIMULATOR_ID,@"728ca28ae78b1830d399efec414dd550", nil];// iPhone
+////        testRequest.testDevices = [NSArray arrayWithObjects:
+////                                   GAD_SIMULATOR_ID,@"45f1d4a8dbc44781969f09433ccac7e0", nil]; // ipad
+//        [bannerView_ loadRequest:testRequest];
+//    }
         [bannerView_ loadRequest:[GADRequest request]]; // 本番はこの行だけでいい
     
     
