@@ -1174,6 +1174,7 @@
                     <connections>
                         <outlet property="btnSetImage" destination="zvS-Hp-hzq" id="WiS-4E-Kbq"/>
                         <outlet property="constraintCustomUIViewWidth" destination="UM7-kg-BgY" id="7BB-hk-JaJ"/>
+                        <outlet property="constraintsCustomUIViewWidth_iPhone" destination="DEz-at-KA2" id="Xzj-Mp-dqX"/>
                         <outlet property="customUIView" destination="bSG-gW-ay6" id="1On-RL-Rn4"/>
                         <outlet property="kUIViewMiniPlayerWrapper" destination="wes-uz-pna" id="fH0-Q6-dr2"/>
                         <outlet property="navigationBar" destination="UhS-kG-ITt" id="q23-Xj-mV0"/>

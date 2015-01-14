@@ -27,6 +27,7 @@
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *btnSetImage;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintCustomUIViewWidth;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintsCustomUIViewWidth_iPhone;
 
 @end
 
@@ -118,19 +119,21 @@
 //    [self.customUIView.viewHaveLabel setFrame:CGRectMake(self.customUIView.viewHaveLabel.frame.origin.x, self.customUIView.viewHaveLabel.frame.origin.y, 100, 20)];
 //    [self.customUIView._contentView sizeToFit];
 //    [self.customUIView sizeToFit];
-        self.constraintCustomUIViewWidth.constant = self.customUIView._contentView.bounds.size.width - self.customUIView.viewHaveLabel.bounds.size.width + self.customUIView.labelMusicHundlerInfo.bounds.size.width;
+   
         NSLog(@"customUIView.contentView.bounds.size.width:%.2f",self.customUIView._contentView.bounds.size.width);
         NSLog(@"self.customUIView.viewHaveLabel.bounds.size.width:%.2f",self.customUIView.viewHaveLabel.bounds.size.width);
         NSLog(@"self.customUIView.labelMusicHundlerInfo.bounds.size.width:%.2f",self.customUIView.labelMusicHundlerInfo.bounds.size.width);
         // デバイスがiphoneであるかそうでないかで分岐
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
             NSLog(@"iPhoneの処理");
+                 self.constraintsCustomUIViewWidth_iPhone.constant = self.customUIView._contentView.bounds.size.width - self.customUIView.viewHaveLabel.bounds.size.width + self.customUIView.labelMusicHundlerInfo.bounds.size.width;
             if (self.constraintCustomUIViewWidth.constant >= 200) {
                 self.constraintCustomUIViewWidth.constant = 200;
             }
         }
         else{
             NSLog(@"iPadの処理");
+                 self.constraintCustomUIViewWidth.constant = self.customUIView._contentView.bounds.size.width - self.customUIView.viewHaveLabel.bounds.size.width + self.customUIView.labelMusicHundlerInfo.bounds.size.width;
             if (self.constraintCustomUIViewWidth.constant >= 360) {
                 self.constraintCustomUIViewWidth.constant = 360;
             }
