@@ -21,8 +21,8 @@
 
     IBOutlet UIImageView *imageView;
     IBOutlet UIButton *btnPlayerControll;
-    IBOutlet UILabel *labelMusicHundlerInfo;
-    IBOutlet UIView *viewHaveLabel;
+
+
     // オーディオプレイヤー制御
     BOOL _musicPlayerIsPlaying;
     AVAudioPlayer *_instantPlayer;
@@ -37,7 +37,8 @@
 }
 - (IBAction)btnPlay:(UIButton *)sender;
 @property (strong, nonatomic) IBOutlet UIView *_contentView;
-
+@property IBOutlet UIView *viewHaveLabel;
+@property IBOutlet UILabel *labelMusicHundlerInfo;
 @property NSIndexPath *selectedIndexPath;
 @property NSInteger selectedIndexNum;
 @property BOOL _mpMusicPlayerIsPlaying;
