@@ -51,5 +51,7 @@ static kAVAudioPlayerManager *_sharedData = nil;
 
 -(void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag{
     [arraySounds removeObject:player];
+    // 他のクラスへ再生終了を通知する
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"AVAudioPlayerDidFinishPlaying" object:nil];
 }
 @end

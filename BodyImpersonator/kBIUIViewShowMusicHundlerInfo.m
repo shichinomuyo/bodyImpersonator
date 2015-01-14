@@ -42,23 +42,26 @@
     NSString *className = NSStringFromClass([self class]);
     [[NSBundle mainBundle] loadNibNamed:className owner:self options:nil];
     // ロードしたViewのframeをSuperviewのサイズと合わせる
-    contentView.frame = self.bounds;
-    NSLog(@"contentView.frame:%.2f",contentView.frame.size.width);
+    __contentView.frame = self.bounds;
+    NSLog(@"contentView.frame:%.2f",__contentView.frame.size.width);
     // Superviewのサイズが変わった時に一緒に引き伸ばされれるように設定。
     // 以下は明示的に設定しなくてもデフォルトでそうなっているが念のため。
     // こういう場合は、Visual Format Languageを使うよりAutoresizingMaskを使ったほうが手軽。
-    contentView.translatesAutoresizingMaskIntoConstraints = YES;
-    contentView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+    __contentView.translatesAutoresizingMaskIntoConstraints = YES;
+    __contentView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
     labelIsMoving = NO;
+    labelAnimationNeeds = NO;
     
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapContentView:)];
     tapGesture.numberOfTapsRequired = 1;
-    [contentView setUserInteractionEnabled:YES];
-    [contentView addGestureRecognizer:tapGesture];
+    [__contentView setUserInteractionEnabled:YES];
+    [__contentView addGestureRecognizer:tapGesture];
     
     // SuperviewにロードしたViewをSubviewとして追加
     NSLog(@"initializeView");
-    [self addSubview:contentView];
+    [self addSubview:__contentView];
+    
+
     
 }
 
@@ -69,6 +72,7 @@
 
 -(void)showMusicHundlerInfo{
     NSLog(@"showMusicHundlerInfo");
+     self._mpMusicPlayer = [MPMusicPlayerController applicationMusicPlayer];
 
     //kBIMusicHundlerから色々取得
     NSMutableArray *hundlers = [[NSUserDefaults standardUserDefaults] objectForKey:@"KEY_MusicHundlersByImageName"];
@@ -133,13 +137,14 @@
         // 文字列の長さを取得
                 textWidth = [labelMusicHundlerInfo.text sizeWithAttributes:@{NSAttachmentAttributeName:[UIFont fontWithName:labelMusicHundlerInfo.font.fontName size:labelMusicHundlerInfo.font.pointSize]}].width; // 移動後の座標計算に使用
 
-        NSLog(@"custumUIView.frame (%d,%d,%d,%d)",(int)contentView.frame.origin.x,(int)contentView.frame.origin.y,(int)contentView.frame.size.width,(int)contentView.frame.size.height);
-        NSLog(@"contentView.width:%.2f",contentView.frame.size.width);
+        NSLog(@"custumUIView.frame (%d,%d,%d,%d)",(int)__contentView.frame.origin.x,(int)__contentView.frame.origin.y,(int)__contentView.frame.size.width,(int)__contentView.frame.size.height);
+        NSLog(@"__contentView.width:%.2f",__contentView.frame.size.width);
         NSLog(@"labelMusicHundlerInfo.width:%.2f",labelMusicHundlerInfo.frame.size.width);
         NSLog(@"labelCenter.x:%.2f",labelMusicHundlerInfo.center.x);
         NSLog(@"textWidth%.2f",textWidth);
         
         if (viewHaveLabel.frame.size.width < textWidth ) { // テキストの長さが親ビューより大きい時だけスライドアニメーション実行
+            labelAnimationNeeds = YES;
             // 文字数を取得
             textLength = (int)labelMusicHundlerInfo.text.length; // アニメーションにかける時間を計算するのに使用
             // アニメーションにかける時間
@@ -149,13 +154,14 @@
             NSLog(@"アニメーションあり");
         }else{ // テキストの長さが親ビュー(viewHaveLabel)より小さい時
             NSLog(@"アニメーションなし");
-            NSLog(@"customUIView.frame.size:%.2f,%.2f",contentView.frame.size.width,contentView.frame.size.height);
-            // contentViewのサイズ調整
-            UIViewController *vc = [NSObject topViewController];
-            NSString *identifier = vc.restorationIdentifier;
-            NSLog(@"identifier:%@",identifier);
-//            [contentView setBounds:CGRectMake(self.bounds.origin.x, 0,(contentView.bounds.size.width - (viewHaveLabel.bounds.size.width - textWidth))*1.3, self.frame.size.height)];
-//            NSLog(@"viewHaveLabel.width:%.2f",viewHaveLabel.frame.size.width);
+            NSLog(@"customUIView.frame.size:%.2f,%.2f",__contentView.frame.size.width,__contentView.frame.size.height);
+            // __contentViewのサイズ調整
+            [__contentView setFrame:CGRectMake(__contentView.frame.origin.x, __contentView.frame.origin.y, (viewHaveLabel.frame.size.width - labelMusicHundlerInfo.frame.size.width), 20)];
+            [viewHaveLabel setFrame:CGRectMake(viewHaveLabel.frame.origin.x, viewHaveLabel.frame.origin.y, labelMusicHundlerInfo.frame.size.width, 20)];
+//            [labelMusicHundlerInfo sizeToFit];
+//            [viewHaveLabel sizeToFit];
+//            [__contentView sizeToFit];
+//            [self sizeToFit];
 
 
         }
@@ -195,42 +201,53 @@
             [[kAVAudioPlayerManager sharedManager] playSound:soundURL];
         } else{// DRM問題でitemのURLが取得できないのでmpMusicPlayerで再生させる。
             NSLog(@"Use MPMUsicPlayerController");
-             self._mpMusicPlayer = [MPMusicPlayerController applicationMusicPlayer];
+//             self._mpMusicPlayer = [MPMusicPlayerController applicationMusicPlayer];
             [__mpMusicPlayer setQueueWithItemCollection:mediaItemCollection];
             [__mpMusicPlayer play];
             __mpMusicPlayerIsPlaying = YES;
+
         }
         
+        if (labelAnimationNeeds) {
+            [self moveAffineLabelX:transitionDuration];
+        }
         if (labelIsMoving) {
             // 何もしない
         }else{
-            [self moveAffineLabelX:transitionDuration];
+            NSLog(@"labelMoveStart");
+  
         }
 
     } else{ // 再生中に押された場合
          NSLog(@"btn_stop");
         [self stopMusicPlayer];
+        NSLog(@"labelisMoving:%@", labelIsMoving ? @"YES":@"NO");
         if (labelIsMoving) {
+                NSLog(@"btn_stoplabelMoving");
             labelIsMoving = NO;
-            [labelMusicHundlerInfo.layer removeAllAnimations];
-            labelMusicHundlerInfo.transform = CGAffineTransformIdentity; // 止める
         }else{
             // 何もしない
+                NSLog(@"btn_stoplabelStoped");
         }
         
     }
 }
 
 - (void)stopMusicPlayer{
-    _musicPlayerIsPlaying = NO; // フラグを初期状態に変更
+
     [btnPlayerControll setImage:[UIImage imageNamed:@"ICON_Play26x26"] forState:UIControlStateNormal]; // 画像を再生ボタンに変更
+    [labelMusicHundlerInfo.layer removeAllAnimations];
+    labelMusicHundlerInfo.transform = CGAffineTransformIdentity; // 止める
     if (!__mpMusicPlayerIsPlaying) {
-        [[kAVAudioPlayerManager sharedManager] stopSound];
+        if (_musicPlayerIsPlaying) {
+            NSLog(@"kAVAudioPlayer stop");
+            [[kAVAudioPlayerManager sharedManager] stopSound];
+        }
     }else{
+        NSLog(@"mpmplayer stop");
         [__mpMusicPlayer stop];
     }
-
-    
+    _musicPlayerIsPlaying = NO; // フラグを初期状態に変更
 }
 - (void)willMoveToSuperview:(UIView *)newSuperview{
  NSLog(@"willMoveToSuperview");
@@ -243,7 +260,7 @@
 //        }else{
 //            NSLog(@"superview^self");
 //            self.bounds = CGRectMake(self.bounds.origin.x, 0, 320, 20);
-//            contentView.frame = self.bounds;
+//            __contentView.frame = self.bounds;
 //        }
 //        
 //    } else {
@@ -253,7 +270,7 @@
 //        }else{
 //            NSLog(@"!superview^self");
 //            self.bounds = CGRectMake(self.bounds.origin.x, self.bounds.origin.y, 320, 20);
-//            contentView.frame = self.bounds;
+//            __contentView.frame = self.bounds;
 //        }
 //    }
 
@@ -315,7 +332,7 @@
 
                               } completion:^(BOOL finished){
                                      labelMusicHundlerInfo.transform = CGAffineTransformIdentity;
-                                  labelIsMoving = NO;
+
                               }];
 
     
@@ -326,7 +343,7 @@
     labelIsMoving = YES;
     [UIView animateKeyframesWithDuration:duration
                                    delay:0.0
-                                 options: 3<<16 | UIViewAnimationOptionAllowUserInteraction// 3<<16はUIViewAnimationCurveLinearのバイナリ。バイナリなら指定できる。
+                                 options: 3<<16 | UIViewAnimationOptionAllowUserInteraction | UIViewKeyframeAnimationOptionRepeat// 3<<16はUIViewAnimationCurveLinearのバイナリ。バイナリなら指定できる。
                               animations:^{
                                   
 //                                  [UIView addKeyframeWithRelativeStartTime:0.0
@@ -335,19 +352,19 @@
 //                                                                    // 何もせず止めておく
 //                                                                }];
                                   [UIView addKeyframeWithRelativeStartTime:0.0
-                                                          relativeDuration:0.8
+                                                          relativeDuration:0.9
                                                                 animations:^{
                                                                     labelMusicHundlerInfo.transform = CGAffineTransformMakeTranslation(-1.4*textWidth, 0);
                                                                 }];
-                                  [UIView addKeyframeWithRelativeStartTime:0.8
-                                                          relativeDuration:0.2
+                                  [UIView addKeyframeWithRelativeStartTime:0.9
+                                                          relativeDuration:0.1
                                                                 animations:^{
                                                                     //　何もせず止めておく
                                                                 }];
                                   
                               } completion:^(BOOL finished){
                                   labelMusicHundlerInfo.transform = CGAffineTransformIdentity;
-                                  labelIsMoving = NO;
+
                               }];
     
     

@@ -100,6 +100,8 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+
+    
     //バックグラウンド時の対応
     if (&UIApplicationDidEnterBackgroundNotification) {
         [[NSNotificationCenter defaultCenter]
@@ -179,6 +181,17 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     }else{
 //        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"KEY_MusicHundlersByImageName"];
     }
+    
+    // 広告表示
+    if (!_purchased) {
+        // バナー広告表示
+        [self addAdBanners];
+
+    }else{
+        if (bannerView_){
+            [bannerView_ removeFromSuperview];
+        }
+    }
 }
 
 // NavigationBarに画像を配置 高さ調整
@@ -228,7 +241,11 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     _startPlayingByShakeOn = [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_StartPlayingByShakeOn"];
     _startPlayingWithVibeOn = [[NSUserDefaults standardUserDefaults] boolForKey:@"KEY_StartPlayingWithVibeOn"];
     
-
+    // kAVAudioPlayerManagerから再生終了時に通知を受け取る
+    [[NSNotificationCenter defaultCenter]   addObserver:self
+                                               selector:@selector(didFinishPlayingAVAudioPlayer)
+                                                   name:@"AVAudioPlayerDidFinishPlaying"
+                                                 object:nil];
     
 
 }
@@ -257,7 +274,15 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
        NSLog(@"viewdidAppear");
     // customUIViewのラベルに曲情報を表示
     self.customUIView.selectedIndexNum = self.selectedIndexPath.row;
+
     [self.customUIView showMusicHundlerInfo];
+    
+
+    [[NSNotificationCenter defaultCenter]   addObserver:self
+                                               selector:@selector(didFinishPlayingMPMusicPlayerController)
+                                                   name:MPMusicPlayerControllerPlaybackStateDidChangeNotification
+                                                 object:self.customUIView._mpMusicPlayer];
+    [self.customUIView._mpMusicPlayer beginGeneratingPlaybackNotifications];
     
     // 最初のviewControllerに戻ったときplayVCで表示完了した回数が3の倍数かつインタースティシャル広告の準備ができていればインタースティシャル広告表示
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -268,8 +293,8 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     // 広告表示
     if (!_purchased) {
         // バナー広告表示
-        [self addAdBanners];
-         // インタースティシャル広告表示       
+//        [self addAdBanners];
+         // インタースティシャル広告表示
          [[kADMOBInterstitialSingleton sharedInstans] interstitialControll]; // 生成、表示の判断含め全部この中でやる
     }else{
         if (bannerView_){
@@ -292,11 +317,27 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     
     [_customUIView stopMusicPlayer];
     [_customUIView.layer removeAllAnimations];
-
+    
 }
 -(void)viewDidDisappear:(BOOL)animated{
-
+    NSLog(@"MainviewDidDisappear");
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
+
+-(void)didFinishPlayingAVAudioPlayer{
+    NSLog(@"didFinishPlayingMusicPlayer");
+    [self.customUIView stopMusicPlayer];
+        [_customUIView.layer removeAllAnimations];
+}
+
+- (void)didFinishPlayingMPMusicPlayerController{
+    if (self.customUIView._mpMusicPlayer.playbackState == MPMusicPlaybackStateStopped) {
+        NSLog(@"MPMStateStopped");
+        [self.customUIView stopMusicPlayer];
+        [_customUIView.layer removeAllAnimations];
+    }
+}
+
 // AddOn購入後のレイアウト調整
 - (void)adjustLayoutPurchased{
     NSLog(@"adjustLayoutPurchased");

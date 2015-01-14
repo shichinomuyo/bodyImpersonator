@@ -18,7 +18,7 @@
 
 @interface kBIUIViewShowMusicHundlerInfo : UIView<AVAudioPlayerDelegate,UINavigationControllerDelegate>{
     kBIMusicHundlerByImageName *_hundler;
-    IBOutlet UIView *contentView;
+
     IBOutlet UIImageView *imageView;
     IBOutlet UIButton *btnPlayerControll;
     IBOutlet UILabel *labelMusicHundlerInfo;
@@ -29,12 +29,14 @@
 
     // labeleアニメーション制御変数
     BOOL labelIsMoving;
+    BOOL labelAnimationNeeds;
     float textWidth;
     int textLength;
     float transitionDuration;
 
 }
 - (IBAction)btnPlay:(UIButton *)sender;
+@property (strong, nonatomic) IBOutlet UIView *_contentView;
 
 @property NSIndexPath *selectedIndexPath;
 @property NSInteger selectedIndexNum;

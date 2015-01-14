@@ -102,7 +102,9 @@
 + (void)slideInUIViewToCenter:(UIView *)view{
         [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
     view.center = CGPointMake((0 - view.center.x),view.center.y);
+//    [view sizeToFit];
     [view setHidden:0];
+
     
     CGRect rect = [[UIScreen mainScreen] bounds];
     
@@ -113,6 +115,9 @@
                                   view.center = CGPointMake(rect.size.width/2, view.center.y);
                                   NSLog(@"mainFrameX:%.2f",rect.size.width);
                                   NSLog(@"view.centerX:%.2f",view.center.x);
+                                  NSLog(@"view.frame.size(%.2f,%.2f)",view.frame.size.width, view.frame.size.height);
+                                  [view.layer setBorderColor:[[UIColor blueColor]CGColor]];
+                                  [view.layer setBorderWidth:4.0];
                               } completion:^(BOOL finished){
                                       [[UIApplication sharedApplication] endIgnoringInteractionEvents];
                               }];

@@ -37,6 +37,7 @@
     
     [self.navigationBar.items[0] setTitle:self.viewTitle]; // Veiwのタイトルをメインビューから引き継いだviewTitleにより動的に変更
 
+
     // viewTitleがSelected Imageだった場合、setImageBtnを削除(MusicFlexible Spaceも削除)
     NSString *locTitle = [[NSString alloc] initWithFormat:NSLocalizedString(@"Selected Image", nil)];
     if ([self.viewTitle isEqualToString:locTitle]) {
@@ -94,7 +95,11 @@
 
 - (void)viewWillAppear:(BOOL)animated{
 //        [self viewSizeMake:1.0];
-    
+    // kAVAudioPlayerManagerから再生終了時に通知を受け取る
+    [[NSNotificationCenter defaultCenter]addObserver:self
+                                            selector:@selector(didFinishPlayingAVAudioPlayer)
+                                                name:@"AVAudioPlayerDidFinishPlaying"
+                                              object:nil];
 
 }
 
@@ -107,12 +112,41 @@
     }
     self.customUIView.selectedIndexNum = self.tappedIndexPath.row;
     [self.customUIView showMusicHundlerInfo];
+    [self.customUIView setFrame:CGRectMake(self.customUIView.frame.origin.x, self.customUIView.frame.origin.y, self.customUIView._contentView.frame.size.width, 20)];
     [NSObject slideInUIViewToCenter:self.customUIView];
+    
+    [[NSNotificationCenter defaultCenter]   addObserver:self
+                                               selector:@selector(didFinishPlayingMPMusicPlayerController)
+                                                   name:MPMusicPlayerControllerPlaybackStateDidChangeNotification
+                                                 object:self.customUIView._mpMusicPlayer];
+    [self.customUIView._mpMusicPlayer beginGeneratingPlaybackNotifications];
+    
+    
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
     [self.navigationController setNavigationBarHidden:YES animated:YES]; // ナビゲーションバー非表示
     [self.customUIView stopMusicPlayer];
+
+
+}
+
+-(void)viewDidDisappear:(BOOL)animated{
+    NSLog(@"PVCviewDidDisappear");
+        [[NSNotificationCenter defaultCenter]removeObserver:self];
+}
+
+-(void)didFinishPlayingAVAudioPlayer{
+    [self.customUIView stopMusicPlayer];
+}
+
+- (void)didFinishPlayingMPMusicPlayerController{
+    NSLog(@"didFinishPlayingMPMusicPlayer");
+    if (self.customUIView._mpMusicPlayer.playbackState == MPMusicPlaybackStateStopped) {
+        NSLog(@"MPMStateStopped");
+        [self.customUIView stopMusicPlayer];
+        [_customUIView.layer removeAllAnimations];
+    }
 }
 
 //- (void)viewSizeMake:(CGFloat)scale{

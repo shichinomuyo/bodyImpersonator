@@ -6,8 +6,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="kBIUIViewShowMusicHundlerInfo">
             <connections>
+                <outlet property="_contentView" destination="iN0-l3-epB" id="xdf-Wj-Zl9"/>
                 <outlet property="btnPlayerControll" destination="cNQ-Dw-uHw" id="I7a-fd-b8p"/>
-                <outlet property="contentView" destination="iN0-l3-epB" id="Pr4-7e-Bui"/>
                 <outlet property="imageView" destination="RBp-0w-Y40" id="Dvf-qm-Fer"/>
                 <outlet property="labelMusicHundlerInfo" destination="XTm-2V-zdn" id="tnG-tb-g3l"/>
                 <outlet property="viewHaveLabel" destination="kTY-r9-5li" id="CSV-rP-QTD"/>
@@ -105,6 +105,7 @@
                     <subviews>
                         <label autoresizesSubviews="NO" opaque="NO" userInteractionEnabled="NO" tag="3" contentMode="left" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XTm-2V-zdn">
                             <rect key="frame" x="0.0" y="0.0" width="90" height="20"/>
+                            <color key="backgroundColor" red="1" green="0.90801781420000005" blue="0.12756614390000001" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="20" id="ufA-e3-9Nk"/>
                             </constraints>
@@ -128,7 +129,7 @@
                             </variation>
                         </label>
                     </subviews>
-                    <color key="backgroundColor" red="0.76802009339999999" green="0.19092153009999999" blue="0.1609260887" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" red="0.1019607857" green="0.73725491759999995" blue="0.61176472900000001" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="centerY" secondItem="XTm-2V-zdn" secondAttribute="centerY" id="1XL-4u-8Vr"/>
                         <constraint firstItem="XTm-2V-zdn" firstAttribute="leading" secondItem="kTY-r9-5li" secondAttribute="leading" id="ZdK-IO-gQ1"/>
@@ -163,7 +164,7 @@
                     </variation>
                 </view>
             </subviews>
-            <color key="backgroundColor" red="0.76802009339999999" green="0.19092153009999999" blue="0.1609260887" alpha="1" colorSpace="calibratedRGB"/>
+            <color key="backgroundColor" red="1" green="0.74603670840000003" blue="0.71875" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstItem="RBp-0w-Y40" firstAttribute="leading" secondItem="7dm-Jc-Mat" secondAttribute="trailing" id="1mC-wO-R6t"/>
                 <constraint firstAttribute="centerY" secondItem="RBp-0w-Y40" secondAttribute="centerY" id="AuM-Nx-SU0"/>

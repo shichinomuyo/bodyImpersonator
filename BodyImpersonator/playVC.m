@@ -16,9 +16,9 @@
     AVAudioPlayer *_originalMusicPlayer;
     AVAudioPlayer *_iPodLibMusicPlayer;
     MPMusicPlayerController *_mpMusicPlayer;
-    
     BOOL _mpMusicPlayerUsing;
     
+
     // タイマー
     NSTimer *_playTimer; // AVAudioPlayerコントロール用
     

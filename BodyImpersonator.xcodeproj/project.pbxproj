@@ -57,6 +57,8 @@
 		56427EBC19AB918C00B516A0 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EBB19AB918C00B516A0 /* SystemConfiguration.framework */; };
 		56427EBE19AB919B00B516A0 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EBD19AB919B00B516A0 /* MessageUI.framework */; };
 		56427EC019AB91BF00B516A0 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427EBF19AB91BE00B516A0 /* StoreKit.framework */; };
+		564DB6FC1A66A41E001A129F /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 564DB6FB1A66A41E001A129F /* libxml2.dylib */; };
+		564DB6FE1A66A43B001A129F /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 564DB6FD1A66A43B001A129F /* libsqlite3.dylib */; };
 		565E97DA1A0D0B4000C18266 /* BICollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 565E97D91A0D0B4000C18266 /* BICollectionReusableView.m */; };
 		5676F8551A20703F00F7067F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5676F8571A20703F00F7067F /* Localizable.strings */; };
 		5686757B19BED3C900AF524A /* secondVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5686757A19BED3C900AF524A /* secondVC.m */; };
@@ -166,6 +168,8 @@
 		56427EBB19AB918C00B516A0 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		56427EBD19AB919B00B516A0 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		56427EBF19AB91BE00B516A0 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		564DB6FB1A66A41E001A129F /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
+		564DB6FD1A66A43B001A129F /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		565E97D81A0D0B4000C18266 /* BICollectionReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BICollectionReusableView.h; sourceTree = "<group>"; };
 		565E97D91A0D0B4000C18266 /* BICollectionReusableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BICollectionReusableView.m; sourceTree = "<group>"; };
 		5676F8561A20703F00F7067F /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -256,6 +260,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				564DB6FE1A66A43B001A129F /* libsqlite3.dylib in Frameworks */,
+				564DB6FC1A66A41E001A129F /* libxml2.dylib in Frameworks */,
 				5606B0341A4AEB3C003F6E9E /* MediaPlayer.framework in Frameworks */,
 				56D13B4D1A4120CB001B2AC7 /* libsqlite3.0.dylib in Frameworks */,
 				56D13B4B1A411A30001B2AC7 /* libz.dylib in Frameworks */,
@@ -387,6 +393,8 @@
 		56427E1519AB823200B516A0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				564DB6FD1A66A43B001A129F /* libsqlite3.dylib */,
+				564DB6FB1A66A41E001A129F /* libxml2.dylib */,
 				5606B0331A4AEB3C003F6E9E /* MediaPlayer.framework */,
 				56D13B4C1A4120CB001B2AC7 /* libsqlite3.0.dylib */,
 				56D13B4A1A411A30001B2AC7 /* libz.dylib */,
@@ -1023,6 +1031,7 @@
 					"$(PROJECT_DIR)/BodyImpersonator",
 					"$(PROJECT_DIR)/BodyImpersonator/NendSDK_iOS-2.5.5/AdMobMediationAdapter",
 					"$(PROJECT_DIR)/BodyImpersonator/NendSDK_iOS-2.5.5/Nend/NendAd",
+					"$(PROJECT_DIR)/BodyImpersonator/libs",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1046,6 +1055,7 @@
 					"$(PROJECT_DIR)/BodyImpersonator",
 					"$(PROJECT_DIR)/BodyImpersonator/NendSDK_iOS-2.5.5/AdMobMediationAdapter",
 					"$(PROJECT_DIR)/BodyImpersonator/NendSDK_iOS-2.5.5/Nend/NendAd",
+					"$(PROJECT_DIR)/BodyImpersonator/libs",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
