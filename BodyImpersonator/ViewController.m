@@ -310,8 +310,7 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
 
     // 広告表示
     if (!_purchased) {
-        // バナー広告表示
-//        [self addAdBanners];
+        // バナー広告表示はviewDidLoadで表示リクエスト
          // インタースティシャル広告表示
          [[kADMOBInterstitialSingleton sharedInstans] interstitialControll]; // 生成、表示の判断含め全部この中でやる
     }else{
