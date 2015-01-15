@@ -170,7 +170,6 @@
                                         <color key="backgroundColor" red="0.27121157109999999" green="0.57638888239999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="20" id="eOW-zD-P7x"/>
-                                            <constraint firstAttribute="width" constant="200" id="fyd-Pr-aJK"/>
                                             <constraint firstAttribute="width" priority="750" constant="200" id="qEv-Ij-vZT"/>
                                             <constraint firstAttribute="height" constant="20" id="uZL-hm-nu7"/>
                                             <constraint firstAttribute="width" constant="300" id="xI8-5l-hH9"/>
@@ -178,7 +177,6 @@
                                         <variation key="default">
                                             <mask key="constraints">
                                                 <exclude reference="eOW-zD-P7x"/>
-                                                <exclude reference="fyd-Pr-aJK"/>
                                                 <exclude reference="qEv-Ij-vZT"/>
                                                 <exclude reference="uZL-hm-nu7"/>
                                                 <exclude reference="xI8-5l-hH9"/>
@@ -187,7 +185,6 @@
                                         <variation key="heightClass=regular-widthClass=compact">
                                             <mask key="constraints">
                                                 <include reference="eOW-zD-P7x"/>
-                                                <exclude reference="fyd-Pr-aJK"/>
                                                 <include reference="qEv-Ij-vZT"/>
                                             </mask>
                                         </variation>
@@ -625,7 +622,9 @@
                     <connections>
                         <outlet property="baseViewBtns" destination="4O9-DG-1wD" id="I2e-94-6SC"/>
                         <outlet property="collectionView" destination="jjl-Ge-y0R" id="TnM-m4-gac"/>
+                        <outlet property="constraintsCustomUIViewWidth_iPad" destination="xI8-5l-hH9" id="nof-G2-aqC"/>
                         <outlet property="containerVeiwHaveBtnsVerticalSpaceFromBottom" destination="Duk-uu-y6p" id="CcC-6Z-YQ0"/>
+                        <outlet property="contraintsCustomUIViewWidth_iPhone" destination="qEv-Ij-vZT" id="6yu-Ez-INU"/>
                         <outlet property="ctrlBtn" destination="PYk-rG-LMN" id="G5H-KM-j75"/>
                         <outlet property="customUIView" destination="m6f-Z5-kt2" id="J9Q-P0-nrn"/>
                         <outlet property="navigationBar" destination="bve-WN-prz" id="mhj-np-iH4"/>
@@ -745,15 +744,16 @@
                                     <constraint firstAttribute="height" constant="44" id="dZU-Zx-7Hb"/>
                                 </constraints>
                                 <items>
-                                    <barButtonItem image="IconRedoTintColoredAdjustedSize" width="44" id="hyF-1P-da9">
-                                        <connections>
-                                            <action selector="undo:" destination="ha8-TI-9eX" id="s1L-Cj-YGB"/>
-                                        </connections>
-                                    </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="Tes-9J-dEF"/>
                                     <barButtonItem image="IconSelecteThisImage" id="vfS-58-pQj">
                                         <connections>
                                             <action selector="tapDoneBarBtn:" destination="ha8-TI-9eX" id="z06-Dx-a6M"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="WnQ-a2-DX5"/>
+                                    <barButtonItem image="IconRedoTintColoredAdjustedSize" width="44" id="hyF-1P-da9">
+                                        <connections>
+                                            <action selector="undo:" destination="ha8-TI-9eX" id="s1L-Cj-YGB"/>
                                         </connections>
                                     </barButtonItem>
                                 </items>
@@ -990,7 +990,7 @@
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" tag="1" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="srd-FD-G3p">
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>

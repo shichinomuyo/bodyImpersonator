@@ -50,6 +50,8 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
 - (IBAction)settingsUIBtn:(UIButton *)sender;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *containerVeiwHaveBtnsVerticalSpaceFromBottom;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *contraintsCustomUIViewWidth_iPhone;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintsCustomUIViewWidth_iPad;
 
 @end
 
@@ -284,6 +286,22 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
                                                  object:self.customUIView._mpMusicPlayer];
     [self.customUIView._mpMusicPlayer beginGeneratingPlaybackNotifications];
     
+    // デバイスがiphoneであるかそうでないかで分岐
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
+        NSLog(@"iPhoneの処理");
+        self.contraintsCustomUIViewWidth_iPhone.constant = self.customUIView._contentView.bounds.size.width - self.customUIView.viewHaveLabel.bounds.size.width + self.customUIView.labelMusicHundlerInfo.bounds.size.width;
+        if (self.contraintsCustomUIViewWidth_iPhone.constant >= 200) {
+            self.contraintsCustomUIViewWidth_iPhone.constant = 200;
+        }
+    }
+    else{
+        NSLog(@"iPadの処理");
+        self.constraintsCustomUIViewWidth_iPad.constant = self.customUIView._contentView.bounds.size.width - self.customUIView.viewHaveLabel.bounds.size.width + self.customUIView.labelMusicHundlerInfo.bounds.size.width;
+        if (self.constraintsCustomUIViewWidth_iPad.constant >= 300) {
+            self.constraintsCustomUIViewWidth_iPad.constant = 300;
+        }
+    }
+    
     // 最初のviewControllerに戻ったときplayVCで表示完了した回数が3の倍数かつインタースティシャル広告の準備ができていればインタースティシャル広告表示
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSInteger countViewChanged = [defaults integerForKey:@"KEY_countUpViewChanged"];
@@ -389,6 +407,7 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
 // tappedImageVCとplayVCへ遷移するときの値渡し
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"pushToTappedVCWithSeletedImage"]) {
+        _tappedIndexPath = _selectedIndexPath;
         tappedImageVC *tappedVC = [segue destinationViewController];
         tappedVC.viewTitle = [[NSString alloc] initWithFormat:NSLocalizedString(@"Selected Image", nil)];
         tappedVC.selectedImage = _selectedImage;
@@ -458,6 +477,7 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
         [self actionSetSelectedImage:_tappedIndexPath];
         NSLog(@"BackFromPreviewVCSetImage");
     }else if ([segue.identifier isEqualToString:@"BackFromTappedImageVCRemoveItemBtn"]){
+        NSLog(@"はいってる？");
         [self actionRemoveItem:_tappedIndexPath];
     }else if ([segue.identifier isEqualToString:@"BackFromSettingVC"]){
         [self viewDidLayoutSubviews];
@@ -1205,22 +1225,30 @@ NSLog(@"selectTagViewSize:%@",NSStringFromCGSize(cell.imageViewSelectedFrame.fra
     NSArray *array = [defaults objectForKey:@"KEY_imageNames"];
     NSMutableArray *imageNames = [array mutableCopy];
     NSString *imageName = [imageNames objectAtIndex:(int)(indexPath.row)];
-    
+    NSLog(@"actionRemoveItem");
+    NSLog(@"indexPath:%d",(int)indexPath);
+    NSLog(@"selectedIndexPath:%d",(int)_selectedIndexPath);
+    NSLog(@"imageNames count:%d",[imageNames count]);
     // 次の選択中セルを決める
     if (indexPath == _selectedIndexPath) { // indexPathがtappedIndexPathの場合はselectedImageNameの変更は不要
+        NSLog(@"indexPath = selectedIndexPath");
         // KEY_selectedImageNameを更新することでとなりのセルを選択状態にする
         if ((int)(indexPath.row) == 0) { // 削除するのが配列の一番最初のアイテムだった場合
             if ([imageNames count] == 1) { // かつ最後のひとつのアイテムだった場合
+                NSLog(@"削除するのが最初のアイテムかつ最後のひとつ");
                 [defaults setObject:@"NO_IMAGE" forKey:@"KEY_selectedImageName"]; // No Images
             }else{// アイテムが2つ以上残っている場合
+                NSLog(@"削除するのが最初のアイテムで他にもアイテムあり");
                 NSString *rightImageName = [imageNames objectAtIndex:(int)(indexPath.row)+1];
                 [defaults setObject:rightImageName forKey:@"KEY_selectedImageName"];
             }
             
         }else if((int)(indexPath.row) == ([imageNames count]-1)){ // 削除するのが配列の最後のアイテムだった場合
+              NSLog(@"削除するのが配列の最後のアイテム");
             NSString *leftImageName = [imageNames objectAtIndex:(int)(indexPath.row)-1];
             [defaults setObject:leftImageName forKey:@"KEY_selectedImageName"];
         }else { // 上記以外の場合
+            NSLog(@"削除するのが配列の最後ではないアイテム");
             NSString *rightImageName = [imageNames objectAtIndex:(int)(indexPath.row)+1];
             [defaults setObject:rightImageName forKey:@"KEY_selectedImageName"];
         }
