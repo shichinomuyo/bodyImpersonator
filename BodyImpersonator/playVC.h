@@ -34,5 +34,6 @@
 @property BOOL finishPlayingWithVibeOn;
 @property NSString *bgColorName;
 @property NSIndexPath *selectedIndexPath;
+@property BOOL animationState;
 
 @end

@@ -49,6 +49,8 @@
     // mpMusicPlayerUsingフラグ初期化
     _mpMusicPlayerUsing = NO;
     _mpMusicPlayer = nil;
+    // アニメーション状態を初期化
+    _animationState = NO;
     // ダブルタップジェスチャーを作る
     UITapGestureRecognizer *doubleTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleTapImage:)];
     doubleTapGesture.numberOfTapsRequired = 2;
@@ -267,7 +269,7 @@
 
 #pragma mark actionControlls
 - (IBAction)stopBtn:(UIButton *)sender {
-    
+    NSLog(@"stopBtnTap:%d",_animationState);
         if (_rollPlayerAlt.isPlaying || _rollPlayerTmp.isPlaying) { // ロールが鳴っているとき
             [self stopDrumRollAndPlayCrash]; // ロールを止めてクラッシュを鳴らしアニメーション
 
@@ -280,26 +282,34 @@
             [self playCrash];
 
         } else if (_mpMusicPlayerUsing){
+            NSLog(@"MpmPlayer Stop");
             [_mpMusicPlayer stop];
+            _mpMusicPlayerUsing = NO;
             [self playCrash];
         }
         else{ // 音が鳴っていない時
             if (self.BFCV.knobImageView.hidden == 1) {
+                NSLog(@"クラッシュだけ鳴らしてアニメーション");
                 [self playCrash]; // ロールがなっていないのでクラッシュだけを鳴らしアニメーション
-
-               
             }else{
-                if (!_finishPlayingByDoubleTapOn) {
-                    [self performSegueWithIdentifier:@"unwindFromPlayVC" sender:self]; // 最初の画面に戻る
+                if (!_animationState) { // animationStateがNOになったときだけ
+                    if (!_finishPlayingByDoubleTapOn) {
+                        NSLog(@"DoubleTapOff");
+                        [self performSegueWithIdentifier:@"unwindFromPlayVC" sender:self]; // 最初の画面に戻る
+                    }
                 }
+
             }
         }
 }
 
 - (void)doubleTapImage:(UITapGestureRecognizer *)gesture {
-    if (_finishPlayingByDoubleTapOn) {
-        [self performSegueWithIdentifier:@"unwindFromPlayVC" sender:self]; // 最初の画面に戻る
+    if (!_animationState) {
+        if (_finishPlayingByDoubleTapOn) {
+            [self performSegueWithIdentifier:@"unwindFromPlayVC" sender:self]; // 最初の画面に戻る
+        }
     }
+   
 }
 
 -(void)stopDrumRollAndPlayCrash{
@@ -319,12 +329,17 @@
                          animations:^{
                              self.BFCV.backgroundColor = [UIColor whiteColor];
                          } completion:nil];
-
     // 拡大してくるアニメーション
-    [self.BFCV.knobImageView appearWithScaleUp];
+    
+    [self.BFCV.knobImageView appearWithScaleUp:^{
+        NSLog(@"inblock");
+        _animationState = NO;
+    }];
     if (_finishPlayingByDoubleTapOn) {
         [self.view bringSubviewToFront:self.BFCV];
-    }
+    };
+
+
 }
 
 // クラッシュを再生するメソッドを実装
@@ -361,12 +376,18 @@
                      } completion:nil];
     
     // 拡大してくるアニメーション
-    [self.BFCV.knobImageView appearWithScaleUp];
+    
+    [self.BFCV.knobImageView appearWithScaleUp:^{
+        NSLog(@"inblock");
+        _animationState = NO;
+    }];
+    
     
     if (_finishPlayingByDoubleTapOn) {
         [self.view bringSubviewToFront:self.BFCV];
     }
     
+    NSLog(@"playCrash:%d",_animationState);
 }
 
 
@@ -396,6 +417,8 @@
     
     [self setBackgroundColorWithAnimation];
     [self setFlashAnimation];
+    NSLog(@"playstart:%d",_animationState);
+    _animationState = YES;
 }
 
 - (void)setBackgroundColorWithAnimation {

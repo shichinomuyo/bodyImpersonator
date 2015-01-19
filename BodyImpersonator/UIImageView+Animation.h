@@ -10,6 +10,6 @@
 
 @interface UIImageView (Animation)
 - (void)flashAnimation;
-- (void)appearWithScaleUp;
+- (void)appearWithScaleUp:(void (^)(void))completion;
 
 @end
