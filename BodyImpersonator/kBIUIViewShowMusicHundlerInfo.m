@@ -89,7 +89,7 @@
             imageSelectedTypeOfMusic = [UIImage imageNamed:@"ICON_MUSIC_26x26"]; // 画像設定
             NSLog(@"ICONorimusic");
             artistName = @"Preset1";// nil;    // 文字列設定
-            trackTitle = @"Preset Music";// nil;    // 文字列設定
+            trackTitle = @"Preset Musiccccccccccccccccccccccccccccccccccc";// nil;    // 文字列設定
         }else if (_hundler.rollSoundOn) {
             if (_hundler.snareSoundOn) {
                 imageSelectedTypeOfMusic = [UIImage imageNamed:@"ICON_Drum26x26"]; // 画像設定 ICON_Drum

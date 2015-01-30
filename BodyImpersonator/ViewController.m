@@ -184,7 +184,7 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
         NSArray *array = [hundlers copy];
         [[NSUserDefaults standardUserDefaults] setObject:array forKey:@"KEY_MusicHundlersByImageName"];
         [[NSUserDefaults standardUserDefaults] synchronize];
-    }else{ // hundlerがある
+    }else{ // hundlerがあってhundler.snareSoundOnとhundler.timpaniSoundOnがないとき v1.4以前から使っててアップデートしたときに必要
         NSLog(@"hundlerが%d個ある",(int)hundlers.count);
         for (int i = 0; i < [hundlers count]; i++) {
             //kBIMusicHundlerから色々取得
