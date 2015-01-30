@@ -43,9 +43,10 @@
     NSString *fromLib = [[NSString alloc] initWithFormat:NSLocalizedString(@"SelectFromMusicLibrary", nil)];
     NSString *presetMusic = [[NSString alloc] initWithFormat:NSLocalizedString(@"SelectPresetMusic", nil)];
     NSString *presetDrumRoll= [[NSString alloc] initWithFormat:NSLocalizedString(@"SelectPresetDrumroll", nil)];
-    self.dataSourceMusicType = @[fromLib, presetMusic, presetDrumRoll];
+    NSString *presetTimpani= [[NSString alloc] initWithFormat:NSLocalizedString(@"SelectPresetTimpani", nil)];
+    self.dataSourceMusicType = @[fromLib, presetMusic, presetDrumRoll, presetTimpani];
     
-    self.dataSourceImageOfMusicType = [NSArray arrayWithObjects: @"ICON_Album_IN_SeleteMusicVC60x60",@"ICON_Music_IN_SelectMusicVC_SKINWHITE_60x60",@"ICON_Drum_INSelectMusicVC_SKINWHITE_60x60", nil];
+    self.dataSourceImageOfMusicType = [NSArray arrayWithObjects: @"ICON_Album_IN_SeleteMusicVC60x60",@"ICON_Music_IN_SelectMusicVC_SKINWHITE_60x60",@"ICON_Drum_INSelectMusicVC_SKINWHITE_60x60", @"ICON_Timpani_INSelectMusicVC_SKINWHITE_60x60", nil];
     UINib *nib = [UINib nibWithNibName:@"CellFeedbackAndShare" bundle:nil];
     [self.tableView registerNib:nib forCellReuseIdentifier:@"CellFeedbackAndShare"];
     
@@ -152,6 +153,9 @@
             }else if (indexPath.row == 2){ // Select Preset Drumroll
                 [self selectRollSound];
                 [self dismissViewControllerAnimated:YES completion:nil];
+            }else if (indexPath.row == 3){ // Select preset Timpani
+                [self selectTimpaniRollSound];
+                [self dismissViewControllerAnimated:YES completion:nil];
             }
             break;
         default:
@@ -165,6 +169,8 @@
     NSMutableArray *hundlers = [array mutableCopy];
     kBIMusicHundlerByImageName *hundler = [kBIMusicHundlerByImageName alloc];
     hundler.rollSoundOn = NO;
+    hundler.snareSoundOn = NO;
+    hundler.timpaniSoundOn = NO;
     hundler.originalMusicOn = YES;
     hundler.iPodLibMusicOn = NO;
     NSData *data = [NSKeyedArchiver archivedDataWithRootObject:hundler];
@@ -180,6 +186,25 @@
     NSMutableArray *hundlers = [array mutableCopy];
     kBIMusicHundlerByImageName *hundler = [kBIMusicHundlerByImageName alloc];
     hundler.rollSoundOn = YES;
+    hundler.snareSoundOn = YES;
+    hundler.timpaniSoundOn = NO;
+    hundler.originalMusicOn = NO;
+    hundler.iPodLibMusicOn = NO;
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:hundler];
+    [hundlers replaceObjectAtIndex:self.tappedIndexPath.row withObject:data];
+    array = [hundlers copy];
+    [[NSUserDefaults standardUserDefaults] setObject:array forKey:@"KEY_MusicHundlersByImageName"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+-(void)selectTimpaniRollSound{
+    NSArray *array = [[NSUserDefaults standardUserDefaults] objectForKey:@"KEY_MusicHundlersByImageName"];
+    NSMutableArray *hundlers = [array mutableCopy];
+    kBIMusicHundlerByImageName *hundler = [kBIMusicHundlerByImageName alloc];
+    hundler.rollSoundOn = YES;
+    hundler.snareSoundOn = NO;
+    hundler.timpaniSoundOn = YES;
     hundler.originalMusicOn = NO;
     hundler.iPodLibMusicOn = NO;
     NSData *data = [NSKeyedArchiver archivedDataWithRootObject:hundler];

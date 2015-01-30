@@ -38,6 +38,8 @@
     NSMutableArray *hundlers = [array mutableCopy];
     kBIMusicHundlerByImageName *hundler = [kBIMusicHundlerByImageName alloc];
     hundler.rollSoundOn = NO;
+    hundler.snareSoundOn = NO;
+    hundler.timpaniSoundOn = NO;
     hundler.originalMusicOn = NO;
     hundler.iPodLibMusicOn = YES;
     hundler.mediaItemURL = url;

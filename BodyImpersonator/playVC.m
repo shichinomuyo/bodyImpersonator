@@ -98,6 +98,8 @@
         kBIMusicHundlerByImageName *hundler = [NSKeyedUnarchiver unarchiveObjectWithData:data] ;
         
         self.rollSoundOn = hundler.rollSoundOn;
+        self.snareSoundOn = hundler.snareSoundOn;
+        self.timpaniSoundOn = hundler.timpaniSoundOn;
         self.originalMusicOn = hundler.originalMusicOn;
         self.iPodLibMusicOn = hundler.iPodLibMusicOn;
     }
@@ -148,12 +150,16 @@
 #pragma mark AudioControlls
 - (void)initializeAVAudioPlayers_Roll{
     // (audioplayer)再生する効果音のパスを取得する
+    NSString *rollSoundName;
+    if (self.snareSoundOn) {
+        rollSoundName = @"roll13";
+    } if (self.timpaniSoundOn) {
+        rollSoundName = @"timpani";
+    }
     // ロールtmp
-    NSString *path_roll = [[NSBundle mainBundle] pathForResource:@"roll13" ofType:@"mp3"];
+    NSString *path_roll = [[NSBundle mainBundle] pathForResource:rollSoundName ofType:@"mp3"];
     NSURL *url_roll = [NSURL fileURLWithPath:path_roll];
     _rollPlayerTmp = [[AVAudioPlayer alloc] initWithContentsOfURL:url_roll error:NULL];
-
-    
     // ロールalt
     _rollPlayerAlt = [[AVAudioPlayer alloc] initWithContentsOfURL:url_roll error:NULL];
     

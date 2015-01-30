@@ -25,6 +25,7 @@
 		5606B0561A51867E003F6E9E /* CellHaveFourItems.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5606B0551A51867E003F6E9E /* CellHaveFourItems.xib */; };
 		5606B0581A518E39003F6E9E /* CellFeedbackAndShare.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5606B0571A518E39003F6E9E /* CellFeedbackAndShare.xib */; };
 		5606B05C1A518FD8003F6E9E /* CellHaveSwitch.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5606B05B1A518FD8003F6E9E /* CellHaveSwitch.xib */; };
+		562258B71A7B26E40037E776 /* timpani.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 562258B61A7B26E40037E776 /* timpani.mp3 */; };
 		5633F7F31A578C1900D63275 /* kADMOBInterstitialSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5633F7F21A578C1900D63275 /* kADMOBInterstitialSingleton.m */; };
 		5633F7F61A5BA4AF00D63275 /* NSObject+MyMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = 5633F7F51A5BA4AF00D63275 /* NSObject+MyMethod.m */; };
 		56427E1719AB823200B516A0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56427E1619AB823200B516A0 /* Foundation.framework */; };
@@ -127,6 +128,7 @@
 		5606B05B1A518FD8003F6E9E /* CellHaveSwitch.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CellHaveSwitch.xib; sourceTree = "<group>"; };
 		5617B4BE1A20437800586645 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		5617B4C11A20437800586645 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		562258B61A7B26E40037E776 /* timpani.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = timpani.mp3; sourceTree = "<group>"; };
 		5633F7F11A578C1900D63275 /* kADMOBInterstitialSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kADMOBInterstitialSingleton.h; sourceTree = "<group>"; };
 		5633F7F21A578C1900D63275 /* kADMOBInterstitialSingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = kADMOBInterstitialSingleton.m; sourceTree = "<group>"; };
 		5633F7F41A5BA4AF00D63275 /* NSObject+MyMethod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+MyMethod.h"; sourceTree = "<group>"; };
@@ -527,6 +529,7 @@
 		56427E9E19AB891500B516A0 /* ver1.0 */ = {
 			isa = PBXGroup;
 			children = (
+				562258B61A7B26E40037E776 /* timpani.mp3 */,
 				5606B03D1A4C5BD1003F6E9E /* Theme05.mp3 */,
 				5606B0381A4BF0ED003F6E9E /* Theme04.mp3 */,
 				5606B02E1A4A638F003F6E9E /* Theme03.mp3 */,
@@ -825,6 +828,7 @@
 				568B968B1A1C370600368272 /* libAdapterNend_readme.txt in Resources */,
 				56427E2A19AB823200B516A0 /* Main_iPhone.storyboard in Resources */,
 				5606AFEF1A494F32003F6E9E /* Theme02.mp3 in Resources */,
+				562258B71A7B26E40037E776 /* timpani.mp3 in Resources */,
 				56427E2119AB823200B516A0 /* InfoPlist.strings in Resources */,
 				5676F8551A20703F00F7067F /* Localizable.strings in Resources */,
 				5606B02F1A4A638F003F6E9E /* Theme03.mp3 in Resources */,

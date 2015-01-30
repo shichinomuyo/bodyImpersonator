@@ -11,7 +11,9 @@
 
 @interface kBIMusicHundlerByImageName : NSObject<NSCoding>
 @property NSString *imageName;
-@property BOOL rollSoundOn;
+@property BOOL rollSoundOn; // rollSoundOnの場合、snareかtimpaniのどちらかをYesにしておく必要がある
+@property BOOL snareSoundOn;
+@property BOOL timpaniSoundOn;
 @property BOOL originalMusicOn;
 @property BOOL iPodLibMusicOn;
 @property NSURL  *mediaItemURL;

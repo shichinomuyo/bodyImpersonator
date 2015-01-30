@@ -163,25 +163,45 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     // ハンドラーがないとき(v1.2より前から使ってる場合)一度だけ初期化 v1.2以降から使用を開始した場合はsecondVCでその都度追加していく。
     NSMutableArray *hundlers = [[NSUserDefaults standardUserDefaults] objectForKey:@"KEY_MusicHundlersByImageName"];
     NSData *data = [hundlers safeObjectAtIndex:0];
+
+
     if (!data) {
         NSLog(@"hundlerがない");
-        NSMutableArray *imageNames = [[NSUserDefaults standardUserDefaults] objectForKey:@"KEY_imageNames"]; // for文の終了条件に配列のカウントを使うので
-        hundlers = [NSMutableArray array];
+            NSMutableArray *imageNames = [[NSUserDefaults standardUserDefaults] objectForKey:@"KEY_imageNames"]; // for文の終了条件に配列のカウントを使うので
+            hundlers = [NSMutableArray array];
         int i;
         for (i = 0; i < [imageNames count]; i++) {
                 kBIMusicHundlerByImageName *defaultHundler = [kBIMusicHundlerByImageName alloc];
                 defaultHundler.imageName = imageNames[i];
                 defaultHundler.rollSoundOn = NO;
+            defaultHundler.snareSoundOn = NO;
+            defaultHundler.timpaniSoundOn = NO;
                 defaultHundler.originalMusicOn = YES;
                 defaultHundler.iPodLibMusicOn = NO;
                 NSData *defaultData = [NSKeyedArchiver archivedDataWithRootObject:defaultHundler];
                 [hundlers addObject:defaultData];
         }
-        NSArray *array = [hundlers mutableCopy];
+        NSArray *array = [hundlers copy];
         [[NSUserDefaults standardUserDefaults] setObject:array forKey:@"KEY_MusicHundlersByImageName"];
         [[NSUserDefaults standardUserDefaults] synchronize];
-    }else{
-//        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"KEY_MusicHundlersByImageName"];
+    }else{ // hundlerがある
+        NSLog(@"hundlerが%d個ある",(int)hundlers.count);
+        for (int i = 0; i < [hundlers count]; i++) {
+            //kBIMusicHundlerから色々取得
+            NSLog(@"%d番目",i);
+            data = hundlers[i];
+            kBIMusicHundlerByImageName *hundler = [NSKeyedUnarchiver unarchiveObjectWithData:data] ;
+            if (hundler.rollSoundOn && !hundler.snareSoundOn && !hundler.timpaniSoundOn) {
+                NSLog(@"%d番目でrollSoundOnかつsnareSoundOnもtimpaniSoundOnもNO",i);
+                    hundler.snareSoundOn = YES;
+                    hundler.timpaniSoundOn = NO;
+                    NSData *defaultdata = [NSKeyedArchiver archivedDataWithRootObject:hundler];
+                    [hundlers replaceObjectAtIndex:i withObject:defaultdata];
+            }
+        }
+        NSArray *array = [hundlers copy];
+        [[NSUserDefaults standardUserDefaults] setObject:array forKey:@"KEY_MusicHundlersByImageName"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
     }
     
     // 広告表示
@@ -1057,6 +1077,8 @@ NSLog(@"selectTagViewSize:%@",NSStringFromCGSize(cell.imageViewSelectedFrame.fra
         NSString *imageName = [NSString stringWithFormat:@"%@.png",[NSString stringWithFormat:@"%d",(int)imageCount]];
         hundler.imageName = imageName; // 先頭に"/"も含まれてない ex)"1.png"　何に使うデータかは未定だけど取り敢えずとっておく。
         hundler.rollSoundOn = NO;
+            hundler.snareSoundOn = NO;
+            hundler.timpaniSoundOn = NO;
         hundler.originalMusicOn = YES;
         hundler.iPodLibMusicOn = NO;
         NSData *data = [NSKeyedArchiver archivedDataWithRootObject:hundler];

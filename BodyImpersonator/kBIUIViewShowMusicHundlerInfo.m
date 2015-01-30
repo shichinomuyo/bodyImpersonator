@@ -60,9 +60,7 @@
     // SuperviewにロードしたViewをSubviewとして追加
     NSLog(@"initializeView");
     [self addSubview:__contentView];
-    
 
-    
 }
 
 -(void)awakeFromNib{
@@ -93,10 +91,18 @@
             artistName = @"Preset1";// nil;    // 文字列設定
             trackTitle = @"Preset Music";// nil;    // 文字列設定
         }else if (_hundler.rollSoundOn) {
-            imageSelectedTypeOfMusic = [UIImage imageNamed:@"ICON_Drum26x26"]; // 画像設定 ICON_Drum
-            NSLog(@"ICONdrum");
-            artistName = @"Preset2";// nil;    // 文字列設定
-            trackTitle = @"Drum Roll"; //nil;    // 文字列設定
+            if (_hundler.snareSoundOn) {
+                imageSelectedTypeOfMusic = [UIImage imageNamed:@"ICON_Drum26x26"]; // 画像設定 ICON_Drum
+                NSLog(@"ICONdrum");
+                artistName = @"Preset2";// nil;    // 文字列設定
+                trackTitle = @"Drum Roll"; //nil;    // 文字列設定
+            } else if (_hundler.timpaniSoundOn){
+                imageSelectedTypeOfMusic = [UIImage imageNamed:@"ICON_Timpani26x26"]; // 画像設定 ICON_Drum
+                NSLog(@"ICONtimpani");
+                artistName = @"Preset3";// nil;    // 文字列設定
+                trackTitle = @"Timpani Roll"; //nil;    // 文字列設定
+            }
+
         }else if (_hundler.iPodLibMusicOn) {
             imageSelectedTypeOfMusic = [UIImage imageNamed:@"ICON_Album26x26"]; // 画像設定
             NSLog(@"ICONipod");
@@ -188,23 +194,34 @@
         NSURL *soundURL;
         MPMediaItemCollection *mediaItemCollection;
         if (_hundler.originalMusicOn) { // プリセットミュージックURLセット
+            NSLog(@"originalMusicOn");
             soundPath = [[NSBundle mainBundle] pathForResource:@"Theme05" ofType:@"mp3"];
             soundURL = [NSURL fileURLWithPath:soundPath];
         }else if (_hundler.rollSoundOn) { // ドラムロールURLセット
-            soundPath = [[NSBundle mainBundle] pathForResource:@"roll13" ofType:@"mp3"];
-            soundURL = [NSURL fileURLWithPath:soundPath];
+            NSLog(@"rollSoundOn");
+            if (_hundler.snareSoundOn) {
+                soundPath = [[NSBundle mainBundle] pathForResource:@"roll13" ofType:@"mp3"];
+                soundURL = [NSURL fileURLWithPath:soundPath];
+            } if (_hundler.timpaniSoundOn) {
+                soundPath = [[NSBundle mainBundle] pathForResource:@"timpani" ofType:@"mp3"];
+                soundURL = [NSURL fileURLWithPath:soundPath];
+            }
+
         }else if (_hundler.iPodLibMusicOn) { // ライブラリから選択している曲のURLセット
+            NSLog(@"LibraryOn");
             NSMutableArray *hundlers = [[NSUserDefaults standardUserDefaults] objectForKey:@"KEY_MusicHundlersByImageName"];
             NSData *data = [hundlers safeObjectAtIndex:self.selectedIndexNum];
             kBIMusicHundlerByImageName *hundler = [NSKeyedUnarchiver unarchiveObjectWithData:data];
             soundURL = hundler.mediaItemURL;
             if (!soundURL) { // DRM問題でitemのURLが取得できない場合はAVAudioPlayerで再生ができないのでmpMusicPlayerで再生するためmediaItemCollectionを準備。
+                NSLog(@"MPMON");
                 mediaItemCollection = hundler.mediaItemCollection;
             }
         }
          NSLog(@"BOOL:%d",_musicPlayerIsPlaying);
         // 再生開始
         if (soundURL) { // AVAudioPlayerで再生できる場合はkAVAudioPlayerManagerで再生させる。
+            NSLog(@"kAVAudioPlayer playsound");
             [[kAVAudioPlayerManager sharedManager] playSound:soundURL];
         } else{// DRM問題でitemのURLが取得できないのでmpMusicPlayerで再生させる。
             NSLog(@"Use MPMUsicPlayerController");

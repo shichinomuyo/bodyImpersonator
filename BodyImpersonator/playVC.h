@@ -26,6 +26,8 @@
 @property BOOL musicOn;
 @property BOOL crashSoundOn;
 @property BOOL rollSoundOn;
+@property BOOL snareSoundOn;
+@property BOOL timpaniSoundOn;
 @property BOOL originalMusicOn;
 @property BOOL iPodLibMusicOn;
 @property BOOL flashOn;
