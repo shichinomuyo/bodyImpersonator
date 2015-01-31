@@ -26,7 +26,7 @@
 @property (weak, nonatomic) IBOutlet UIView *kUIViewMiniPlayerWrapper;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *btnSetImage;
 
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintCustomUIViewWidth;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintsCustomUIViewWidth_iPad;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintsCustomUIViewWidth_iPhone;
 
 @end
@@ -127,15 +127,15 @@
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
             NSLog(@"iPhoneの処理");
                  self.constraintsCustomUIViewWidth_iPhone.constant = self.customUIView._contentView.bounds.size.width - self.customUIView.viewHaveLabel.bounds.size.width + self.customUIView.labelMusicHundlerInfo.bounds.size.width;
-            if (self.constraintCustomUIViewWidth.constant >= 200) {
-                self.constraintCustomUIViewWidth.constant = 200;
+            if (self.constraintsCustomUIViewWidth_iPhone.constant >= 200) {
+                self.constraintsCustomUIViewWidth_iPhone.constant = 200;
             }
         }
         else{
             NSLog(@"iPadの処理");
-                 self.constraintCustomUIViewWidth.constant = self.customUIView._contentView.bounds.size.width - self.customUIView.viewHaveLabel.bounds.size.width + self.customUIView.labelMusicHundlerInfo.bounds.size.width;
-            if (self.constraintCustomUIViewWidth.constant >= 360) {
-                self.constraintCustomUIViewWidth.constant = 360;
+                 self.constraintsCustomUIViewWidth_iPad.constant = self.customUIView._contentView.bounds.size.width - self.customUIView.viewHaveLabel.bounds.size.width + self.customUIView.labelMusicHundlerInfo.bounds.size.width;
+            if (self.constraintsCustomUIViewWidth_iPad.constant >= 360) {
+                self.constraintsCustomUIViewWidth_iPad.constant = 360;
             }
         }
 
