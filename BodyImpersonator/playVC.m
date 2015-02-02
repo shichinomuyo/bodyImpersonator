@@ -482,6 +482,7 @@
                     [_iPodLibMusicPlayer stop];
                 } else{
                     [_mpMusicPlayer stop];
+                    _mpMusicPlayerUsing = NO;
                 }
                 [self playCrash];
             }

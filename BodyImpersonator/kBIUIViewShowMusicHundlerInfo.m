@@ -89,7 +89,7 @@
             imageSelectedTypeOfMusic = [UIImage imageNamed:@"ICON_MUSIC_26x26"]; // 画像設定
             NSLog(@"ICONorimusic");
             artistName = @"Preset1";// nil;    // 文字列設定
-            trackTitle = @"Preset Musiccccccccccccccccccccccccccccccccccc";// nil;    // 文字列設定
+            trackTitle = @"Preset Music";// nil;    // 文字列設定
         }else if (_hundler.rollSoundOn) {
             if (_hundler.snareSoundOn) {
                 imageSelectedTypeOfMusic = [UIImage imageNamed:@"ICON_Drum26x26"]; // 画像設定 ICON_Drum
@@ -152,7 +152,7 @@
         NSLog(@"labelCenter.x:%.2f",_labelMusicHundlerInfo.center.x);
         NSLog(@"textWidth%.2f",textWidth);
         
-        if (_viewHaveLabel.frame.size.width < textWidth ) { // テキストの長さが親ビューより大きい時だけスライドアニメーション実行
+        if (_viewHaveLabel.frame.size.width < _labelMusicHundlerInfo.bounds.size.width ) { // テキストの長さが親ビューより大きい時だけスライドアニメーション実行
             labelAnimationNeeds = YES;
             // 文字数を取得
             textLength = (int)_labelMusicHundlerInfo.text.length; // アニメーションにかける時間を計算するのに使用
@@ -162,6 +162,7 @@
             [self moveAffineLabelX_FirstTime:transitionDuration]; // スライドアニメーション
             NSLog(@"アニメーションあり");
         }else{ // テキストの長さが親ビュー(_viewHaveLabel)より小さい時
+            labelAnimationNeeds = NO;
             NSLog(@"アニメーションなし");
             NSLog(@"customUIView.frame.size:%.2f,%.2f",__contentView.frame.size.width,__contentView.frame.size.height);
             {//色々サイズ調整してみる
@@ -231,8 +232,9 @@
             __mpMusicPlayerIsPlaying = YES;
 
         }
-        
+        // ラベルアニメーション
         if (labelAnimationNeeds) {
+            NSLog(@"LabelAnimationするよ");
             [self moveAffineLabelX:transitionDuration];
         }
         if (labelIsMoving) {
@@ -370,11 +372,6 @@
                                  options: 3<<16 | UIViewAnimationOptionAllowUserInteraction | UIViewKeyframeAnimationOptionRepeat// 3<<16はUIViewAnimationCurveLinearのバイナリ。バイナリなら指定できる。
                               animations:^{
                                   
-//                                  [UIView addKeyframeWithRelativeStartTime:0.0
-//                                                          relativeDuration:0.25
-//                                                                animations:^{
-//                                                                    // 何もせず止めておく
-//                                                                }];
                                   [UIView addKeyframeWithRelativeStartTime:0.0
                                                           relativeDuration:0.9
                                                                 animations:^{

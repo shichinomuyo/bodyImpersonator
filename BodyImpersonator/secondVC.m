@@ -323,6 +323,8 @@
         NSString *imageName = [NSString stringWithFormat:@"%@.png",[NSString stringWithFormat:@"%d",(int)imageCount]];
         hundler.imageName = imageName; // 先頭に"/"も含まれてない ex)"1.png"　何に使うデータかは未定だけど取り敢えずとっておく。
         hundler.rollSoundOn = NO;
+        hundler.snareSoundOn = NO;
+        hundler.timpaniSoundOn = NO;
         hundler.originalMusicOn = YES;
         hundler.iPodLibMusicOn = NO;
         NSData *data = [NSKeyedArchiver archivedDataWithRootObject:hundler];

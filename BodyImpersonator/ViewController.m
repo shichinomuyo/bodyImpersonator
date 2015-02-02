@@ -161,16 +161,18 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
     self.screenName = @"BI_MainVC";
     
     // ハンドラーがないとき(v1.2より前から使ってる場合)一度だけ初期化 v1.2以降から使用を開始した場合はsecondVCでその都度追加していく。
-    NSMutableArray *hundlers = [[NSUserDefaults standardUserDefaults] objectForKey:@"KEY_MusicHundlersByImageName"];
+    NSArray *array = [[NSUserDefaults standardUserDefaults] objectForKey:@"KEY_MusicHundlersByImageName"];
+    NSMutableArray *hundlers = [array mutableCopy];
     NSData *data = [hundlers safeObjectAtIndex:0];
 
 
     if (!data) {
         NSLog(@"hundlerがない");
             NSMutableArray *imageNames = [[NSUserDefaults standardUserDefaults] objectForKey:@"KEY_imageNames"]; // for文の終了条件に配列のカウントを使うので
-            hundlers = [NSMutableArray array];
+//            hundlers = [NSMutableArray array];
         int i;
         for (i = 0; i < [imageNames count]; i++) {
+              NSLog(@"%d番目",i);
                 kBIMusicHundlerByImageName *defaultHundler = [kBIMusicHundlerByImageName alloc];
                 defaultHundler.imageName = imageNames[i];
                 defaultHundler.rollSoundOn = NO;
@@ -181,7 +183,7 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
                 NSData *defaultData = [NSKeyedArchiver archivedDataWithRootObject:defaultHundler];
                 [hundlers addObject:defaultData];
         }
-        NSArray *array = [hundlers copy];
+        array = [hundlers copy];
         [[NSUserDefaults standardUserDefaults] setObject:array forKey:@"KEY_MusicHundlersByImageName"];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }else{ // hundlerがあってhundler.snareSoundOnとhundler.timpaniSoundOnがないとき v1.4以前から使っててアップデートしたときに必要
@@ -191,15 +193,16 @@ static const NSInteger kMAX_ITEM_NUMBER = 18;
             NSLog(@"%d番目",i);
             data = hundlers[i];
             kBIMusicHundlerByImageName *hundler = [NSKeyedUnarchiver unarchiveObjectWithData:data] ;
-            if (hundler.rollSoundOn && !hundler.snareSoundOn && !hundler.timpaniSoundOn) {
+            if (hundler.rollSoundOn && !hundler.snareSoundOn && !hundler.timpaniSoundOn) { // v1.2以降からv1.4へのバージョンアップを想定
                 NSLog(@"%d番目でrollSoundOnかつsnareSoundOnもtimpaniSoundOnもNO",i);
                     hundler.snareSoundOn = YES;
                     hundler.timpaniSoundOn = NO;
                     NSData *defaultdata = [NSKeyedArchiver archivedDataWithRootObject:hundler];
                     [hundlers replaceObjectAtIndex:i withObject:defaultdata];
             }
+            
         }
-        NSArray *array = [hundlers copy];
+        array = [hundlers copy];
         [[NSUserDefaults standardUserDefaults] setObject:array forKey:@"KEY_MusicHundlersByImageName"];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
